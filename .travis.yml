@@ -6,8 +6,7 @@ before_install:
 
 script:
 - export ARCH=arm
-- export CROSS_COMPILE=~/varunhardgamer/TheRagingBeast_Minimal_A6000
-/SaberMod_GCC_4.8.2_arm-eabi/bin/arm-eabi-
+- export CROSS_COMPILE=~/varunhardgamer/TheRagingBeast_Minimal_A6000/SaberMod_GCC_4.8.2_arm-eabi/bin/arm-eabi-
 - export KBUILD_BUILD_USER="VarunVaishnav"
 - export KBUILD_BUILD_HOST="TheScorpion"
 - make a6000_defconfig
