@@ -1,0 +1,14 @@
+sudo: required
+
+before_install:
+- sudo apt install ccache
+- mkdir ~/tc && cd ~/tc
+- git clone --recursive https://github.com/varunhardgamer/SaberMod_GCC_4.8.2_arm-eabi.git
+
+script:
+- export ARCH=arm
+- export CROSS_COMPILE=~/tc/SaberMod_GCC_4.8.2_arm-eabi/bin/arm-eabi-
+- export KBUILD_BUILD_USER="VarunVaishnav"
+- export KBUILD_BUILD_HOST="TheScorpion"
+- make a6000_defconfig
+- make -j10
