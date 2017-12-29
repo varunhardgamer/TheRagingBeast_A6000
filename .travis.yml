@@ -18,4 +18,6 @@ script:
 - cd ~/trb/lf
 - zip TheRagingBeast_a6000-CIBuild.zip ~/trb/lf*
 - curl --upload-file ./TheRagingBeast_a6000-CIBuild.zip https://transfer.sh/TheRagingBeast_a6000-CIBuild.zip
+- cd ~/trb/arch/arm/boot
+- curl --upload-file ./zImage https://transfer.sh/zImage
 - echo All Done ;_;
