@@ -17,6 +17,7 @@
 #include <trace/events/power.h>
 #include <linux/moduleparam.h>
 
+/* Fix up No Deepsleep Issue */
 static bool enable_si_ws = true;
 module_param(enable_si_ws, bool, 0644);
 static bool enable_wlan_rx_wake_ws = false;
@@ -468,6 +469,7 @@ static void wakeup_source_deactivate(struct wakeup_source *ws)
                 wake_up(&wakeup_count_wait_queue);
 }
 
+/* Fix up no Deepsleep issue */
 static bool wakeup_source_blocker(struct wakeup_source *ws)
 {
 	unsigned int wslen = 0;
