@@ -4,8 +4,8 @@ before_install:
 - sudo apt-get install zip
 - sudo apt install ccache
 - git clone --recursive https://github.com/varunhardgamer/TheRagingBeast_Minimal_A6000 -b master ~/trb
-- git clone https://github.com/varunhardgamer/SaberMod_GCC_4.8.2_arm-eabi ~/trb/tc
-- git clone https://github.com/varunhardgamer/LazyFlasher ~/trb/lf
+- git clone --recursive https://github.com/varunhardgamer/SaberMod_GCC_4.8.2_arm-eabi ~/trb/tc
+- git clone --recursive https://github.com/varunhardgamer/LazyFlasher ~/trb/lf
 script:
 - cd ~/trb
 - chmod a+x ~/trb/tc
