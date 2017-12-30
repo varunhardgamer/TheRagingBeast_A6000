@@ -50,6 +50,8 @@ static bool enable_bam_dmux_wakelock_ws = false;
 module_param(enable_bam_dmux_wakelock_ws, bool, 0644);
 static bool enable_PowerManagerServiceDisplay_ws = false;
 module_param(enable_PowerManagerServiceDisplay_ws, bool, 0644);
+static bool enable_PowerManagerServiceWakelocks_ws = false;
+module_param(enable_PowerManagerServiceWakelocks_ws, bool, 0644);
 
 #include "power.h"
 
@@ -506,6 +508,8 @@ static bool wakeup_source_blocker(struct wakeup_source *ws)
                                 !strncmp(ws->name, "bam_dmux_wakelock", wslen)) ||
                         (!enable_PowerManagerServiceDisplay_ws &&
                                 !strncmp(ws->name, "PowerManagerService.Display", wslen)) ||
+		        (!enable_PowerManagerServiceWakelocks_ws &&
+			        !strncmp(ws->name, "PowerManagerService.Wakelocks", wslen)) ||
 			(!enable_timerfd_ws &&
 				!strncmp(ws->name, "[timerfd]", wslen)) ||
 			(!enable_netlink_ws &&
