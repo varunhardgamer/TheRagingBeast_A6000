@@ -46,6 +46,10 @@ static bool enable_ps_wakelock_ws = false;
 module_param(enable_ps_wakelock_ws, bool, 0644);
 static bool enable_ps_ws = false;
 module_param(enable_ps_ws, bool, 0644);
+static bool enable_bam_dmux_wakelock_ws = false;
+module_param(enable_bam_dmux_wakelock_ws, bool, 0644);
+static bool enable_PowerManagerService.Display_ws = false;
+module_param(enable_PowerManagerService.Display_ws, bool, 0644);
 
 #include "power.h"
 
@@ -469,7 +473,7 @@ static void wakeup_source_deactivate(struct wakeup_source *ws)
                 wake_up(&wakeup_count_wait_queue);
 }
 
-/* Fix up no Deepsleep issue */
+/* Fix up No Deepsleep Issue */
 static bool wakeup_source_blocker(struct wakeup_source *ws)
 {
 	unsigned int wslen = 0;
@@ -498,6 +502,10 @@ static bool wakeup_source_blocker(struct wakeup_source *ws)
                                 !strncmp(ws->name, "ps_wakelock", wslen)) ||
                         (!enable_ps_ws &&
                                 !strncmp(ws->name, "ps", wslen)) ||
+                        (!enable_bam_dmux_wakelock_ws &&
+                                !strncmp(ws->name, "bam_dmux_wakelock", wslen)) ||
+                        (!enable_PowerManagerService.Display_ws &&
+                                !strncmp(ws->name, "PowerManagerService.Display", wslen)) ||
 			(!enable_timerfd_ws &&
 				!strncmp(ws->name, "[timerfd]", wslen)) ||
 			(!enable_netlink_ws &&
