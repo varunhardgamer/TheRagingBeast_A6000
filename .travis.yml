@@ -13,6 +13,7 @@ script:
 - chmod a+x ~/trb/tc
 - chmod a+x ~/trb/tc/bin
 - sudo chmod -R 755 ~/trb
+- make clean && make mrproper
 - export ARCH=arm
 - export CROSS_COMPILE=~/trb/tc/linaro/bin/aarch64-linux-gnu-
 - export KBUILD_BUILD_USER="VarunVaishnav"
