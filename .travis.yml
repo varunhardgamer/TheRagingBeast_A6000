@@ -17,7 +17,7 @@ script:
 - export CROSS_COMPILE=~/trb/tc/linaro/bin/aarch64-linux-gnu-
 - export KBUILD_BUILD_USER="VarunVaishnav"
 - export KBUILD_BUILD_HOST="OptimusPrime"
-- make lineageos_a6000_defconfig
+- make lineageos_a6000-64_defconfig
 - make -j128
 - cd ~/trb/arch/arm64/boot
 - curl --upload-file ./Image https://transfer.sh/Image
