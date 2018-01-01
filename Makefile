@@ -494,6 +494,10 @@ ifeq ($(config-targets),1)
 # Read arch specific Makefile to set KBUILD_DEFCONFIG as needed.
 # KBUILD_DEFCONFIG may point out an alternative default configuration
 # used for 'make defconfig'
+
+# Needed to unbreak GCC 7.x and above
+ KBUILD_CFLAGS   += $(call cc-option,-fno-store-merging,)
+
 include $(srctree)/arch/$(SRCARCH)/Makefile
 
  # Disable incompatible-pointer-types warnings
