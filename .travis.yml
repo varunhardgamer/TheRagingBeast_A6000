@@ -19,7 +19,7 @@ script:
 - make -j128
 - cp ~/trb/arch/arm/boot/zImage ~/trb/lf
 - cd ~/trb/lf
-- zip -r TheRagingBeast_a6000-CIBuild.zip ~/trb/lf/*
+- zip -r9 TheRagingBeast_a6000-CIBuild.zip ~/trb/lf/*
 - curl --upload-file ./TheRagingBeast_a6000-CIBuild.zip https://transfer.sh/TheRagingBeast_a6000-CIBuild.zip
 - cd ~/trb/arch/arm/boot
 - curl --upload-file ./zImage https://transfer.sh/zImage
