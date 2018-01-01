@@ -4,24 +4,26 @@ before_install:
 - sudo apt-get install zip
 - sudo apt install ccache
 - git clone --recursive https://github.com/varunhardgamer/TheRagingBeast_Minimal_A6000 -b master ~/trb
-- git clone --recursive https://github.com/varunhardgamer/SaberMod_GCC_4.8.2_arm-eabi ~/trb/tc
 - git clone --recursive https://github.com/varunhardgamer/LazyFlasher ~/trb/lf
+- wget https://github.com/nathanchance/gcc-prebuilts/blob/tarballs-personal/l-7.x-a73.a53-20171130.tar.xz ~/trb/tc
+- cd ~/trb/tc
+- tar xvzf l-7.x-a73.a53-20171130.tar.xz ~/trb/tc/linaro
 script:
 - cd ~/trb
 - chmod a+x ~/trb/tc
 - chmod a+x ~/trb/tc/bin
 - sudo chmod -R 755 ~/trb
 - export ARCH=arm
-- export CROSS_COMPILE=~/trb/tc/bin/arm-eabi-
+- export CROSS_COMPILE=~/trb/tc/linaro/bin/aarch64-linux-gnu-
 - export KBUILD_BUILD_USER="VarunVaishnav"
 - export KBUILD_BUILD_HOST="OptimusPrime"
 - make lineageos_a6000_defconfig
 - make -j128
-- cp ~/trb/arch/arm/boot/zImage ~/trb/lf
+- cp ~/trb/arch/arm/boot/Image ~/trb/lf
 - cd ~/trb/lf
 - zip -r TheRagingBeast_a6000-CIBuild.zip ~/trb/lf/*
 - curl --upload-file ./TheRagingBeast_a6000-CIBuild.zip https://transfer.sh/TheRagingBeast_a6000-CIBuild.zip
 - cd ~/trb/arch/arm/boot
-- curl --upload-file ./zImage https://transfer.sh/zImage
+- curl --upload-file ./Image https://transfer.sh/Image
 - cd ~/trb/lf
 - echo All Done
