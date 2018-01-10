@@ -2682,11 +2682,6 @@ static void qib_get_6120_faststats(unsigned long opaque)
 	spin_lock_irqsave(&dd->eep_st_lock, flags);
 	traffic_wds -= dd->traffic_wds;
 	dd->traffic_wds += traffic_wds;
-<<<<<<< HEAD
-=======
-	if (traffic_wds  >= QIB_TRAFFIC_ACTIVE_THRESHOLD)
-		atomic_add(5, &dd->active_time); /* S/B #define */
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	spin_unlock_irqrestore(&dd->eep_st_lock, flags);
 
 	qib_chk_6120_errormask(dd);

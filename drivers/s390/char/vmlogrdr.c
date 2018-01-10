@@ -873,11 +873,7 @@ static int __init vmlogrdr_init(void)
 		goto cleanup;
 
 	for (i=0; i < MAXMINOR; ++i ) {
-<<<<<<< HEAD
 		sys_ser[i].buffer = (char *) get_zeroed_page(GFP_KERNEL | GFP_DMA);
-=======
-		sys_ser[i].buffer = (char *) get_zeroed_page(GFP_KERNEL);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		if (!sys_ser[i].buffer) {
 			rc = -ENOMEM;
 			break;

@@ -79,10 +79,7 @@ obj-$(CONFIG_SENSORS_BMA2X2)	+= bstclass.o
 
 obj-$(CONFIG_SENSORS_BMA2X2)	+= bma2x2.o
 obj-$(CONFIG_SENSORS_LTR553)	+= ltr553.o
-<<<<<<< HEAD
 obj-$(CONFIG_SENSORS_ELAN_EPL2182)      += elan_epl2182.o
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 ifeq ($(CONFIG_SENSORS_BMA2X2_ENABLE_INT1),y)
 	EXTRA_CFLAGS += -DBMA2X2_ENABLE_INT1

@@ -49,12 +49,8 @@ next_inode(int *i, struct jffs2_inode_cache *ic, struct jffs2_sb_info *c)
 
 
 static void jffs2_build_inode_pass1(struct jffs2_sb_info *c,
-<<<<<<< HEAD
 				    struct jffs2_inode_cache *ic,
 				    int *dir_hardlinks)
-=======
-				    struct jffs2_inode_cache *ic)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	struct jffs2_full_dirent *fd;
 
@@ -73,7 +69,6 @@ static void jffs2_build_inode_pass1(struct jffs2_sb_info *c,
 			dbg_fsbuild("child \"%s\" (ino #%u) of dir ino #%u doesn't exist!\n",
 				  fd->name, fd->ino, ic->ino);
 			jffs2_mark_node_obsolete(c, fd->raw);
-<<<<<<< HEAD
 			/* Clear the ic/raw union so it doesn't cause problems later. */
 			fd->ic = NULL;
 			continue;
@@ -89,21 +84,6 @@ static void jffs2_build_inode_pass1(struct jffs2_sb_info *c,
 			if (child_ic->pino_nlink > 1)
 				*dir_hardlinks = 1;
 		}
-=======
-			continue;
-		}
-
-		if (fd->type == DT_DIR) {
-			if (child_ic->pino_nlink) {
-				JFFS2_ERROR("child dir \"%s\" (ino #%u) of dir ino #%u appears to be a hard link\n",
-					    fd->name, fd->ino, ic->ino);
-				/* TODO: What do we do about it? */
-			} else {
-				child_ic->pino_nlink = ic->ino;
-			}
-		} else
-			child_ic->pino_nlink++;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 		dbg_fsbuild("increased nlink for child \"%s\" (ino #%u)\n", fd->name, fd->ino);
 		/* Can't free scan_dents so far. We might need them in pass 2 */
@@ -117,12 +97,7 @@ static void jffs2_build_inode_pass1(struct jffs2_sb_info *c,
 */
 static int jffs2_build_filesystem(struct jffs2_sb_info *c)
 {
-<<<<<<< HEAD
 	int ret, i, dir_hardlinks = 0;
-=======
-	int ret;
-	int i;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	struct jffs2_inode_cache *ic;
 	struct jffs2_full_dirent *fd;
 	struct jffs2_full_dirent *dead_fds = NULL;
@@ -146,11 +121,7 @@ static int jffs2_build_filesystem(struct jffs2_sb_info *c)
 	/* Now scan the directory tree, increasing nlink according to every dirent found. */
 	for_each_inode(i, c, ic) {
 		if (ic->scan_dents) {
-<<<<<<< HEAD
 			jffs2_build_inode_pass1(c, ic, &dir_hardlinks);
-=======
-			jffs2_build_inode_pass1(c, ic);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			cond_resched();
 		}
 	}
@@ -186,7 +157,6 @@ static int jffs2_build_filesystem(struct jffs2_sb_info *c)
 	}
 
 	dbg_fsbuild("pass 2a complete\n");
-<<<<<<< HEAD
 
 	if (dir_hardlinks) {
 		/* If we detected directory hardlinks earlier, *hopefully*
@@ -201,8 +171,6 @@ static int jffs2_build_filesystem(struct jffs2_sb_info *c)
 				ic->pino_nlink = 0;
 		}
 	}
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	dbg_fsbuild("freeing temporary data structures\n");
 
 	/* Finally, we can scan again and free the dirent structs */
@@ -210,7 +178,6 @@ static int jffs2_build_filesystem(struct jffs2_sb_info *c)
 		while(ic->scan_dents) {
 			fd = ic->scan_dents;
 			ic->scan_dents = fd->next;
-<<<<<<< HEAD
 			/* We do use the pino_nlink field to count nlink of
 			 * directories during fs build, so set it to the
 			 * parent ino# now. Now that there's hopefully only
@@ -238,8 +205,6 @@ static int jffs2_build_filesystem(struct jffs2_sb_info *c)
 				/* For directories, ic->pino_nlink holds that parent inode # */
 				fd->ic->pino_nlink = ic->ino;
 			}
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			jffs2_free_full_dirent(fd);
 		}
 		ic->scan_dents = NULL;
@@ -318,15 +283,7 @@ static void jffs2_build_remove_unlinked_inode(struct jffs2_sb_info *c,
 
 			/* Reduce nlink of the child. If it's now zero, stick it on the
 			   dead_fds list to be cleaned up later. Else just free the fd */
-<<<<<<< HEAD
 			child_ic->pino_nlink--;
-=======
-
-			if (fd->type == DT_DIR)
-				child_ic->pino_nlink = 0;
-			else
-				child_ic->pino_nlink--;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 			if (!child_ic->pino_nlink) {
 				dbg_fsbuild("inode #%u (\"%s\") now has no links; adding to dead_fds list.\n",

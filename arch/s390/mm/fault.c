@@ -244,15 +244,12 @@ static noinline void do_fault_error(struct pt_regs *regs, int fault)
 				do_no_context(regs);
 			else
 				pagefault_out_of_memory();
-<<<<<<< HEAD
 		} else if (fault & VM_FAULT_SIGSEGV) {
 			/* Kernel mode? Handle exceptions or die */
 			if (!user_mode(regs))
 				do_no_context(regs);
 			else
 				do_sigsegv(regs, SEGV_MAPERR);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		} else if (fault & VM_FAULT_SIGBUS) {
 			/* Kernel mode? Handle exceptions or die */
 			if (!user_mode(regs))

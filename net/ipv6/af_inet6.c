@@ -131,12 +131,9 @@ static int inet6_create(struct net *net, struct socket *sock, int protocol,
 	    !inet_ehash_secret)
 		build_ehash_secret();
 
-<<<<<<< HEAD
 	if (protocol < 0 || protocol >= IPPROTO_MAX)
 		return -EINVAL;
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/* Look for the requested type/protocol pair. */
 lookup_protocol:
 	err = -ESOCKTNOSUPPORT;
@@ -702,11 +699,7 @@ int inet6_sk_rebuild_header(struct sock *sk)
 		fl6.flowi6_mark = sk->sk_mark;
 		fl6.fl6_dport = inet->inet_dport;
 		fl6.fl6_sport = inet->inet_sport;
-<<<<<<< HEAD
 		fl6.flowi6_uid = sk->sk_uid;
-=======
-		fl6.flowi6_uid = sock_i_uid(sk);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		security_sk_classify_flow(sk, flowi6_to_flowi(&fl6));
 
 		rcu_read_lock();
@@ -950,12 +943,9 @@ static int __init inet6_init(void)
 	err = ip6_route_init();
 	if (err)
 		goto ip6_route_fail;
-<<<<<<< HEAD
 	err = ndisc_late_init();
 	if (err)
 		goto ndisc_late_fail;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	err = ip6_flowlabel_init();
 	if (err)
 		goto ip6_flowlabel_fail;
@@ -1022,11 +1012,8 @@ ipv6_exthdrs_fail:
 addrconf_fail:
 	ip6_flowlabel_cleanup();
 ip6_flowlabel_fail:
-<<<<<<< HEAD
 	ndisc_late_cleanup();
 ndisc_late_fail:
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	ip6_route_cleanup();
 ip6_route_fail:
 #ifdef CONFIG_PROC_FS
@@ -1089,10 +1076,7 @@ static void __exit inet6_exit(void)
 	ipv6_exthdrs_exit();
 	addrconf_cleanup();
 	ip6_flowlabel_cleanup();
-<<<<<<< HEAD
 	ndisc_late_cleanup();
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	ip6_route_cleanup();
 #ifdef CONFIG_PROC_FS
 

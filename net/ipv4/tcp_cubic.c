@@ -153,7 +153,6 @@ static void bictcp_init(struct sock *sk)
 		tcp_sk(sk)->snd_ssthresh = initial_ssthresh;
 }
 
-<<<<<<< HEAD
 static void bictcp_cwnd_event(struct sock *sk, enum tcp_ca_event event)
 {
 	if (event == CA_EVENT_TX_START) {
@@ -175,8 +174,6 @@ static void bictcp_cwnd_event(struct sock *sk, enum tcp_ca_event event)
 	}
 }
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /* calculate the cubic root of x using a table lookup followed by one
  * Newton-Raphson iteration.
  * Avg err ~= 0.195%
@@ -239,7 +236,6 @@ static inline void bictcp_update(struct bictcp *ca, u32 cwnd)
 	    (s32)(tcp_time_stamp - ca->last_time) <= HZ / 32)
 		return;
 
-<<<<<<< HEAD
 	/* The CUBIC function can update ca->cnt at most once per jiffy.
 	 * On all cwnd reduction events, ca->epoch_start is set to 0,
 	 * which will force a recalculation of ca->cnt.
@@ -247,8 +243,6 @@ static inline void bictcp_update(struct bictcp *ca, u32 cwnd)
 	if (ca->epoch_start && tcp_time_stamp == ca->last_time)
 		goto tcp_friendliness;
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	ca->last_cwnd = cwnd;
 	ca->last_time = tcp_time_stamp;
 
@@ -316,10 +310,7 @@ static inline void bictcp_update(struct bictcp *ca, u32 cwnd)
 	if (ca->last_max_cwnd == 0 && ca->cnt > 20)
 		ca->cnt = 20;	/* increase cwnd 5% per RTT */
 
-<<<<<<< HEAD
 tcp_friendliness:
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/* TCP Friendly */
 	if (tcp_friendliness) {
 		u32 scale = beta_scale;
@@ -477,10 +468,7 @@ static struct tcp_congestion_ops cubictcp __read_mostly = {
 	.cong_avoid	= bictcp_cong_avoid,
 	.set_state	= bictcp_state,
 	.undo_cwnd	= bictcp_undo_cwnd,
-<<<<<<< HEAD
 	.cwnd_event	= bictcp_cwnd_event,
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	.pkts_acked     = bictcp_acked,
 	.owner		= THIS_MODULE,
 	.name		= "cubic",

@@ -541,11 +541,7 @@ static void cpufreq_interactive_timer(unsigned long data)
 	spin_lock_irqsave(&speedchange_cpumask_lock, flags);
 	cpumask_set_cpu(data, &speedchange_cpumask);
 	spin_unlock_irqrestore(&speedchange_cpumask_lock, flags);
-<<<<<<< HEAD
 	wake_up_process_no_notif(speedchange_task);
-=======
-	wake_up_process(speedchange_task);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 rearm_if_notmax:
 	/*
@@ -746,11 +742,7 @@ static void cpufreq_interactive_boost(void)
 	spin_unlock_irqrestore(&speedchange_cpumask_lock, flags[0]);
 
 	if (anyboost)
-<<<<<<< HEAD
 		wake_up_process_no_notif(speedchange_task);
-=======
-		wake_up_process(speedchange_task);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static int load_change_callback(struct notifier_block *nb, unsigned long val,
@@ -1788,11 +1780,7 @@ static int __init cpufreq_interactive_init(void)
 	get_task_struct(speedchange_task);
 
 	/* NB: wake up so the thread does not look hung to the freezer */
-<<<<<<< HEAD
 	wake_up_process_no_notif(speedchange_task);
-=======
-	wake_up_process(speedchange_task);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	return cpufreq_register_governor(&cpufreq_gov_interactive);
 }

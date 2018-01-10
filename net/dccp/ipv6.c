@@ -83,11 +83,7 @@ static void dccp_v6_err(struct sk_buff *skb, struct inet6_skb_parm *opt,
 			u8 type, u8 code, int offset, __be32 info)
 {
 	const struct ipv6hdr *hdr = (const struct ipv6hdr *)skb->data;
-<<<<<<< HEAD
 	const struct dccp_hdr *dh;
-=======
-	const struct dccp_hdr *dh = (struct dccp_hdr *)(skb->data + offset);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	struct dccp_sock *dp;
 	struct ipv6_pinfo *np;
 	struct sock *sk;
@@ -95,7 +91,6 @@ static void dccp_v6_err(struct sk_buff *skb, struct inet6_skb_parm *opt,
 	__u64 seq;
 	struct net *net = dev_net(skb->dev);
 
-<<<<<<< HEAD
 	/* Only need dccph_dport & dccph_sport which are the first
 	 * 4 bytes in dccp header.
 	 * Our caller (icmpv6_notify()) already pulled 8 bytes for us.
@@ -103,14 +98,6 @@ static void dccp_v6_err(struct sk_buff *skb, struct inet6_skb_parm *opt,
 	BUILD_BUG_ON(offsetofend(struct dccp_hdr, dccph_sport) > 8);
 	BUILD_BUG_ON(offsetofend(struct dccp_hdr, dccph_dport) > 8);
 	dh = (struct dccp_hdr *)(skb->data + offset);
-=======
-	if (skb->len < offset + sizeof(*dh) ||
-	    skb->len < offset + __dccp_basic_hdr_len(dh)) {
-		ICMP6_INC_STATS_BH(net, __in6_dev_get(skb->dev),
-				   ICMP6_MIB_INERRORS);
-		return;
-	}
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	sk = inet6_lookup(net, &dccp_hashinfo,
 			&hdr->daddr, dh->dccph_dport,
@@ -145,19 +132,12 @@ static void dccp_v6_err(struct sk_buff *skb, struct inet6_skb_parm *opt,
 	np = inet6_sk(sk);
 
 	if (type == NDISC_REDIRECT) {
-<<<<<<< HEAD
 		if (!sock_owned_by_user(sk)) {
 			struct dst_entry *dst = __sk_dst_check(sk, np->dst_cookie);
 
 			if (dst)
 				dst->ops->redirect(dst, sk, skb);
 		}
-=======
-		struct dst_entry *dst = __sk_dst_check(sk, np->dst_cookie);
-
-		if (dst)
-			dst->ops->redirect(dst, sk, skb);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		goto out;
 	}
 
@@ -584,10 +564,7 @@ static struct sock *dccp_v6_request_recv_sock(struct sock *sk,
 	/* Clone RX bits */
 	newnp->rxopt.all = np->rxopt.all;
 
-<<<<<<< HEAD
 	/* Clone pktoptions received with SYN */
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	newnp->ipv6_mc_list = NULL;
 	newnp->ipv6_ac_list = NULL;
 	newnp->ipv6_fl_list = NULL;
@@ -1054,10 +1031,7 @@ static const struct inet_connection_sock_af_ops dccp_ipv6_mapped = {
 	.getsockopt	   = ipv6_getsockopt,
 	.addr2sockaddr	   = inet6_csk_addr2sockaddr,
 	.sockaddr_len	   = sizeof(struct sockaddr_in6),
-<<<<<<< HEAD
 	.bind_conflict	   = inet6_csk_bind_conflict,
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #ifdef CONFIG_COMPAT
 	.compat_setsockopt = compat_ipv6_setsockopt,
 	.compat_getsockopt = compat_ipv6_getsockopt,

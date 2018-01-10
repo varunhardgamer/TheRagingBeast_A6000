@@ -160,19 +160,10 @@ obj-$(CONFIG_VME_BUS)		+= vme/
 obj-$(CONFIG_IPACK_BUS)		+= ipack/
 obj-$(CONFIG_NTB)		+= ntb/
 
-<<<<<<< HEAD
-=======
-#MobiCore
-obj-$(CONFIG_MOBICORE_SUPPORT)  += gud/
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 obj-$(CONFIG_CORESIGHT)		+= coresight/
 obj-$(CONFIG_ESOC)		+= esoc/
 
 obj-$(CONFIG_BIF)		+= bif/
 obj-$(CONFIG_SENSORS)		+= sensors/
 obj-$(CONFIG_SENSORS_SSC)	+= sensors/
-<<<<<<< HEAD
 obj-$(CONFIG_CPUQUIET_FRAMEWORK) += cpuquiet/
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c

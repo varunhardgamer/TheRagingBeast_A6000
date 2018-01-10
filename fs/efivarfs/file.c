@@ -10,10 +10,7 @@
 #include <linux/efi.h>
 #include <linux/fs.h>
 #include <linux/slab.h>
-<<<<<<< HEAD
 #include <linux/mount.h>
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #include "internal.h"
 
@@ -112,7 +109,6 @@ out_free:
 	return size;
 }
 
-<<<<<<< HEAD
 static int
 efivarfs_ioc_getxflags(struct file *file, void __user *arg)
 {
@@ -182,15 +178,10 @@ efivarfs_file_ioctl(struct file *file, unsigned int cmd, unsigned long p)
 	return -ENOTTY;
 }
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 const struct file_operations efivarfs_file_operations = {
 	.open	= simple_open,
 	.read	= efivarfs_file_read,
 	.write	= efivarfs_file_write,
 	.llseek	= no_llseek,
-<<<<<<< HEAD
 	.unlocked_ioctl = efivarfs_file_ioctl,
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };

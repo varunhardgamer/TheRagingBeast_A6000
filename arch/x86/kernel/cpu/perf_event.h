@@ -665,11 +665,8 @@ void intel_pmu_lbr_init_atom(void);
 
 void intel_pmu_lbr_init_snb(void);
 
-<<<<<<< HEAD
 void intel_pmu_pebs_data_source_nhm(void);
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 int intel_pmu_setup_lbr_filter(struct perf_event *event);
 
 int p4_pmu_init(void);

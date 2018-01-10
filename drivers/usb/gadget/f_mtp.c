@@ -26,11 +26,8 @@
 #include <linux/err.h>
 #include <linux/interrupt.h>
 
-<<<<<<< HEAD
 #include <linux/seq_file.h>
 #include <linux/debugfs.h>
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #include <linux/types.h>
 #include <linux/file.h>
 #include <linux/device.h>
@@ -72,11 +69,8 @@
 #define MTP_RESPONSE_OK             0x2001
 #define MTP_RESPONSE_DEVICE_BUSY    0x2019
 
-<<<<<<< HEAD
 #define MAX_ITERATION		100
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 unsigned int mtp_rx_req_len = MTP_BULK_BUFFER_SIZE;
 module_param(mtp_rx_req_len, uint, S_IRUGO | S_IWUSR);
 
@@ -126,7 +120,6 @@ struct mtp_dev {
 	uint16_t xfer_command;
 	uint32_t xfer_transaction_id;
 	int xfer_result;
-<<<<<<< HEAD
 	struct {
 		unsigned long vfs_rbytes;
 		unsigned long vfs_wbytes;
@@ -136,8 +129,6 @@ struct mtp_dev {
 	unsigned dbg_read_index;
 	unsigned dbg_write_index;
 	bool is_ptp;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 
 static struct usb_interface_descriptor mtp_interface_desc = {
@@ -344,19 +335,12 @@ struct mtp_ext_config_desc_function {
 };
 
 /* MTP Extended Configuration Descriptor */
-<<<<<<< HEAD
 struct ext_mtp_desc {
 	struct mtp_ext_config_desc_header	header;
 	struct mtp_ext_config_desc_function    function;
 };
 
 struct ext_mtp_desc  mtp_ext_config_desc = {
-=======
-struct {
-	struct mtp_ext_config_desc_header	header;
-	struct mtp_ext_config_desc_function    function;
-} mtp_ext_config_desc = {
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	.header = {
 		.dwLength = __constant_cpu_to_le32(sizeof(mtp_ext_config_desc)),
 		.bcdVersion = __constant_cpu_to_le16(0x0100),
@@ -370,7 +354,6 @@ struct {
 	},
 };
 
-<<<<<<< HEAD
 struct ext_mtp_desc ptp_ext_config_desc = {
 	.header = {
 		.dwLength = cpu_to_le32(sizeof(mtp_ext_config_desc)),
@@ -385,8 +368,6 @@ struct ext_mtp_desc ptp_ext_config_desc = {
 	},
 };
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 struct mtp_device_status {
 	__le16	wLength;
 	__le16	wCode;
@@ -624,14 +605,6 @@ static ssize_t mtp_read(struct file *fp, char __user *buf,
 
 	DBG(cdev, "mtp_read(%zu)\n", count);
 
-<<<<<<< HEAD
-=======
-	len = ALIGN(count, dev->ep_out->maxpacket);
-
-	if (len > mtp_rx_req_len)
-		return -EINVAL;
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/* we will block until we're online */
 	DBG(cdev, "mtp_read: waiting for online state\n");
 	ret = wait_event_interruptible(dev->read_wq,
@@ -640,14 +613,11 @@ static ssize_t mtp_read(struct file *fp, char __user *buf,
 		r = ret;
 		goto done;
 	}
-<<<<<<< HEAD
 	len = ALIGN(count, dev->ep_out->maxpacket);
 
 	if (len > mtp_rx_req_len)
 		return -EINVAL;
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	spin_lock_irq(&dev->lock);
 	if (dev->state == STATE_CANCELED) {
 		/* report cancelation to userspace */
@@ -819,10 +789,7 @@ static void send_file_work(struct work_struct *data)
 	int xfer, ret, hdr_size;
 	int r = 0;
 	int sendZLP = 0;
-<<<<<<< HEAD
 	ktime_t start_time;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	/* read our parameters */
 	smp_rmb();
@@ -878,27 +845,19 @@ static void send_file_work(struct work_struct *data)
 			header->transaction_id =
 					__cpu_to_le32(dev->xfer_transaction_id);
 		}
-<<<<<<< HEAD
 		start_time = ktime_get();
-=======
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		ret = vfs_read(filp, req->buf + hdr_size, xfer - hdr_size,
 								&offset);
 		if (ret < 0) {
 			r = ret;
 			break;
 		}
-<<<<<<< HEAD
 
 		xfer = ret + hdr_size;
 		dev->perf[dev->dbg_read_index].vfs_rtime =
 			ktime_to_us(ktime_sub(ktime_get(), start_time));
 		dev->perf[dev->dbg_read_index].vfs_rbytes = xfer;
 		dev->dbg_read_index = (dev->dbg_read_index + 1) % MAX_ITERATION;
-=======
-		xfer = ret + hdr_size;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		hdr_size = 0;
 
 		req->length = xfer;
@@ -938,10 +897,7 @@ static void receive_file_work(struct work_struct *data)
 	int64_t count;
 	int ret, cur_buf = 0;
 	int r = 0;
-<<<<<<< HEAD
 	ktime_t start_time;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	/* read our parameters */
 	smp_rmb();
@@ -975,10 +931,7 @@ static void receive_file_work(struct work_struct *data)
 
 		if (write_req) {
 			DBG(cdev, "rx %pK %d\n", write_req, write_req->actual);
-<<<<<<< HEAD
 			start_time = ktime_get();
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			ret = vfs_write(filp, write_req->buf, write_req->actual,
 				&offset);
 			DBG(cdev, "vfs_write %d\n", ret);
@@ -988,14 +941,11 @@ static void receive_file_work(struct work_struct *data)
 					dev->state = STATE_ERROR;
 				break;
 			}
-<<<<<<< HEAD
 			dev->perf[dev->dbg_write_index].vfs_wtime =
 				ktime_to_us(ktime_sub(ktime_get(), start_time));
 			dev->perf[dev->dbg_write_index].vfs_wbytes = ret;
 			dev->dbg_write_index =
 				(dev->dbg_write_index + 1) % MAX_ITERATION;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			write_req = NULL;
 		}
 
@@ -1330,7 +1280,6 @@ static int mtp_ctrlrequest(struct usb_composite_dev *cdev,
 		if (ctrl->bRequest == 1
 				&& (ctrl->bRequestType & USB_DIR_IN)
 				&& (w_index == 4 || w_index == 5)) {
-<<<<<<< HEAD
 			if (!dev->is_ptp) {
 				value = (w_length <
 						sizeof(mtp_ext_config_desc) ?
@@ -1346,11 +1295,6 @@ static int mtp_ctrlrequest(struct usb_composite_dev *cdev,
 				memcpy(cdev->req->buf, &ptp_ext_config_desc,
 									value);
 			}
-=======
-			value = (w_length < sizeof(mtp_ext_config_desc) ?
-					w_length : sizeof(mtp_ext_config_desc));
-			memcpy(cdev->req->buf, &mtp_ext_config_desc, value);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		}
 	} else if ((ctrl->bRequestType & USB_TYPE_MASK) == USB_TYPE_CLASS) {
 		DBG(cdev, "class request: %d index: %d value: %d length: %d\n",
@@ -1466,10 +1410,7 @@ mtp_function_unbind(struct usb_configuration *c, struct usb_function *f)
 	while ((req = mtp_req_get(dev, &dev->intr_idle)))
 		mtp_request_free(req, dev->ep_intr);
 	dev->state = STATE_OFFLINE;
-<<<<<<< HEAD
 	dev->is_ptp = false;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static int mtp_function_set_alt(struct usb_function *f,
@@ -1576,7 +1517,6 @@ static int mtp_bind_config(struct usb_configuration *c, bool ptp_config)
 	dev->function.set_alt = mtp_function_set_alt;
 	dev->function.disable = mtp_function_disable;
 
-<<<<<<< HEAD
 	dev->is_ptp = ptp_config;
 	return usb_add_function(c, &dev->function);
 }
@@ -1694,11 +1634,6 @@ static void mtp_debugfs_remove(void)
 	debugfs_remove_recursive(dent_mtp);
 }
 
-=======
-	return usb_add_function(c, &dev->function);
-}
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static int mtp_setup(void)
 {
 	struct mtp_dev *dev;
@@ -1731,10 +1666,7 @@ static int mtp_setup(void)
 	if (ret)
 		goto err2;
 
-<<<<<<< HEAD
 	mtp_debugfs_init();
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return 0;
 
 err2:
@@ -1753,10 +1685,7 @@ static void mtp_cleanup(void)
 	if (!dev)
 		return;
 
-<<<<<<< HEAD
 	mtp_debugfs_remove();
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	misc_deregister(&mtp_device);
 	destroy_workqueue(dev->wq);
 	_mtp_dev = NULL;

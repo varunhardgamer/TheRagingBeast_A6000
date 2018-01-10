@@ -34,7 +34,6 @@
 #include <asm/processor-flags.h>
 #include <asm/asm-offsets.h>
 
-<<<<<<< HEAD
 /*
  * Locally defined symbols should be marked hidden:
  */
@@ -43,8 +42,6 @@
 	.hidden _got
 	.hidden _egot
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	__HEAD
 	.code32
 ENTRY(startup_32)

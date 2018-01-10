@@ -3459,12 +3459,9 @@ int r600_init(struct radeon_device *rdev)
 		rdev->accel_working = false;
 	}
 
-<<<<<<< HEAD
 	/* posting read */
 	RREG32(R_000E50_SRBM_STATUS);
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return 0;
 }
 

@@ -136,18 +136,11 @@ extern int			rt6_route_rcv(struct net_device *dev,
 					      const struct in6_addr *gwaddr);
 
 extern void ip6_update_pmtu(struct sk_buff *skb, struct net *net, __be32 mtu,
-<<<<<<< HEAD
 			    int oif, u32 mark, kuid_t uid);
 extern void ip6_sk_update_pmtu(struct sk_buff *skb, struct sock *sk,
 			       __be32 mtu);
 extern void ip6_redirect(struct sk_buff *skb, struct net *net, int oif, u32 mark,
 			 kuid_t uid);
-=======
-			    int oif, u32 mark);
-extern void ip6_sk_update_pmtu(struct sk_buff *skb, struct sock *sk,
-			       __be32 mtu);
-extern void ip6_redirect(struct sk_buff *skb, struct net *net, int oif, u32 mark);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 extern void ip6_sk_redirect(struct sk_buff *skb, struct sock *sk);
 
 struct netlink_callback;

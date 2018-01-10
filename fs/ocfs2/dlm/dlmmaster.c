@@ -653,18 +653,9 @@ void dlm_lockres_clear_refmap_bit(struct dlm_ctxt *dlm,
 	clear_bit(bit, res->refmap);
 }
 
-<<<<<<< HEAD
 static void __dlm_lockres_grab_inflight_ref(struct dlm_ctxt *dlm,
 				   struct dlm_lock_resource *res)
 {
-=======
-
-void dlm_lockres_grab_inflight_ref(struct dlm_ctxt *dlm,
-				   struct dlm_lock_resource *res)
-{
-	assert_spin_locked(&res->spinlock);
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	res->inflight_locks++;
 
 	mlog(0, "%s: res %.*s, inflight++: now %u, %ps()\n", dlm->name,
@@ -672,7 +663,6 @@ void dlm_lockres_grab_inflight_ref(struct dlm_ctxt *dlm,
 	     __builtin_return_address(0));
 }
 
-<<<<<<< HEAD
 void dlm_lockres_grab_inflight_ref(struct dlm_ctxt *dlm,
 				   struct dlm_lock_resource *res)
 {
@@ -680,8 +670,6 @@ void dlm_lockres_grab_inflight_ref(struct dlm_ctxt *dlm,
 	__dlm_lockres_grab_inflight_ref(dlm, res);
 }
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 void dlm_lockres_drop_inflight_ref(struct dlm_ctxt *dlm,
 				   struct dlm_lock_resource *res)
 {
@@ -741,7 +729,6 @@ lookup:
 	if (tmpres) {
 		spin_unlock(&dlm->spinlock);
 		spin_lock(&tmpres->spinlock);
-<<<<<<< HEAD
 
 		/*
 		 * Right after dlm spinlock was released, dlm_thread could have
@@ -755,8 +742,6 @@ lookup:
 			goto lookup;
 		}
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		/* Wait on the thread that is mastering the resource */
 		if (tmpres->owner == DLM_LOCK_RES_OWNER_UNKNOWN) {
 			__dlm_wait_on_lockres(tmpres);
@@ -887,15 +872,8 @@ lookup:
 	/* finally add the lockres to its hash bucket */
 	__dlm_insert_lockres(dlm, res);
 
-<<<<<<< HEAD
 	/* since this lockres is new it doesn't not require the spinlock */
 	__dlm_lockres_grab_inflight_ref(dlm, res);
-=======
-	/* Grab inflight ref to pin the resource */
-	spin_lock(&res->spinlock);
-	dlm_lockres_grab_inflight_ref(dlm, res);
-	spin_unlock(&res->spinlock);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	/* get an extra ref on the mle in case this is a BLOCK
 	 * if so, the creator of the BLOCK may try to put the last
@@ -2478,14 +2456,11 @@ static int dlm_migrate_lockres(struct dlm_ctxt *dlm,
 	spin_lock(&dlm->master_lock);
 	ret = dlm_add_migration_mle(dlm, res, mle, &oldmle, name,
 				    namelen, target, dlm->node_num);
-<<<<<<< HEAD
 	/* get an extra reference on the mle.
 	 * otherwise the assert_master from the new
 	 * master will destroy this.
 	 */
 	dlm_get_mle_inuse(mle);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	spin_unlock(&dlm->master_lock);
 	spin_unlock(&dlm->spinlock);
 
@@ -2521,10 +2496,7 @@ fail:
 		if (mle_added) {
 			dlm_mle_detach_hb_events(dlm, mle);
 			dlm_put_mle(mle);
-<<<<<<< HEAD
 			dlm_put_mle_inuse(mle);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		} else if (mle) {
 			kmem_cache_free(dlm_mle_cache, mle);
 			mle = NULL;
@@ -2542,20 +2514,6 @@ fail:
 	 * ensure that all assert_master work is flushed. */
 	flush_workqueue(dlm->dlm_worker);
 
-<<<<<<< HEAD
-=======
-	/* get an extra reference on the mle.
-	 * otherwise the assert_master from the new
-	 * master will destroy this.
-	 * also, make sure that all callers of dlm_get_mle
-	 * take both dlm->spinlock and dlm->master_lock */
-	spin_lock(&dlm->spinlock);
-	spin_lock(&dlm->master_lock);
-	dlm_get_mle_inuse(mle);
-	spin_unlock(&dlm->master_lock);
-	spin_unlock(&dlm->spinlock);
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/* notify new node and send all lock state */
 	/* call send_one_lockres with migration flag.
 	 * this serves as notice to the target node that a
@@ -3283,7 +3241,6 @@ top:
 			    mle->new_master != dead_node)
 				continue;
 
-<<<<<<< HEAD
 			if (mle->new_master == dead_node && mle->inuse) {
 				mlog(ML_NOTICE, "%s: target %u died during "
 						"migration from %u, the MLE is "
@@ -3293,8 +3250,6 @@ top:
 				continue;
 			}
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			/* If we have reached this point, this mle needs to be
 			 * removed from the list and freed. */
 			dlm_clean_migration_mle(dlm, mle);

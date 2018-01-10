@@ -1836,11 +1836,7 @@ int mlx4_multi_func_init(struct mlx4_dev *dev)
 			spin_lock_init(&s_state->lock);
 		}
 
-<<<<<<< HEAD
 		memset(&priv->mfunc.master.cmd_eqe, 0, sizeof(struct mlx4_eqe));
-=======
-		memset(&priv->mfunc.master.cmd_eqe, 0, dev->caps.eqe_size);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		priv->mfunc.master.cmd_eqe.type = MLX4_EVENT_TYPE_CMD;
 		INIT_WORK(&priv->mfunc.master.comm_work,
 			  mlx4_master_comm_channel);

@@ -71,9 +71,6 @@ static inline bool xen_x2apic_para_available(void)
 }
 #endif
 
-<<<<<<< HEAD
 extern void xen_set_iopl_mask(unsigned mask);
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #endif /* _ASM_X86_XEN_HYPERVISOR_H */

@@ -280,10 +280,7 @@ static struct request *get_req(struct scsi_device *sdev, int cmd,
 		return NULL;
 	}
 
-<<<<<<< HEAD
 	blk_rq_set_block_pc(rq);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	rq->cmd_len = COMMAND_SIZE(cmd);
 	rq->cmd[0] = cmd;
 
@@ -308,10 +305,6 @@ static struct request *get_req(struct scsi_device *sdev, int cmd,
 		break;
 	}
 
-<<<<<<< HEAD
-=======
-	rq->cmd_type = REQ_TYPE_BLOCK_PC;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	rq->cmd_flags |= REQ_FAILFAST_DEV | REQ_FAILFAST_TRANSPORT |
 			 REQ_FAILFAST_DRIVER;
 	rq->timeout = CLARIION_TIMEOUT;
@@ -471,11 +464,7 @@ static int clariion_prep_fn(struct scsi_device *sdev, struct request *req)
 static int clariion_std_inquiry(struct scsi_device *sdev,
 				struct clariion_dh_data *csdev)
 {
-<<<<<<< HEAD
 	int err = SCSI_DH_OK;
-=======
-	int err;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	char *sp_model;
 
 	err = send_inquiry_cmd(sdev, 0, csdev);

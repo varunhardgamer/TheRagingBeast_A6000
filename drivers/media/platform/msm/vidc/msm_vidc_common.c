@@ -51,7 +51,6 @@
 #define IS_SYS_CMD_VALID(cmd) (((cmd) >= SYS_MSG_START) && \
 		((cmd) <= SYS_MSG_END))
 
-<<<<<<< HEAD
 const char *const mpeg_video_vidc_extradata[] = {
 	"Extradata none",
 	"Extradata MB Quantization",
@@ -85,8 +84,6 @@ const char *const mpeg_video_vidc_extradata[] = {
 	"Extradata vpx color space",
 };
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 struct getprop_buf {
 	struct list_head list;
 	void *data;
@@ -118,10 +115,6 @@ static inline bool is_non_realtime_session(struct msm_vidc_inst *inst)
 	rc = v4l2_g_ctrl(&inst->ctrl_handler, &ctrl);
 	return (!rc && ctrl.value);
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 enum multi_stream msm_comm_get_stream_output_mode(struct msm_vidc_inst *inst)
 {
 	if (inst->session_type == MSM_VIDC_DECODER) {
@@ -4323,7 +4316,6 @@ enum hal_extradata_id msm_comm_get_hal_extradata_index(
 	case V4L2_MPEG_VIDC_EXTRADATA_METADATA_MBI:
 		ret = HAL_EXTRADATA_METADATA_MBI;
 		break;
-<<<<<<< HEAD
 	case V4L2_MPEG_VIDC_EXTRADATA_DISPLAY_COLOUR_SEI:
 		ret = HAL_EXTRADATA_MASTERING_DISPLAY_COLOUR_SEI;
 		break;
@@ -4336,8 +4328,6 @@ enum hal_extradata_id msm_comm_get_hal_extradata_index(
 	case V4L2_MPEG_VIDC_EXTRADATA_VPX_COLORSPACE:
 		ret = HAL_EXTRADATA_VPX_COLORSPACE;
 		break;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	default:
 		dprintk(VIDC_WARN, "Extradata not found: %d\n", index);
 		break;

@@ -832,11 +832,7 @@ inode_has_hashed_dentries(struct inode *inode)
 	struct dentry *dentry;
 
 	spin_lock(&inode->i_lock);
-<<<<<<< HEAD
 	hlist_for_each_entry(dentry, &inode->i_dentry, d_u.d_alias) {
-=======
-	hlist_for_each_entry(dentry, &inode->i_dentry, d_alias) {
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		if (!d_unhashed(dentry) || IS_ROOT(dentry)) {
 			spin_unlock(&inode->i_lock);
 			return true;
@@ -899,7 +895,6 @@ struct inode *cifs_root_iget(struct super_block *sb)
 	struct inode *inode = NULL;
 	long rc;
 	struct cifs_tcon *tcon = cifs_sb_master_tcon(cifs_sb);
-<<<<<<< HEAD
 	char *path = NULL;
 	int len;
 
@@ -923,14 +918,6 @@ struct inode *cifs_root_iget(struct super_block *sb)
 		rc = cifs_get_inode_info_unix(&inode, path, sb, xid);
 	else
 		rc = cifs_get_inode_info(&inode, path, NULL, sb, xid, NULL);
-=======
-
-	xid = get_xid();
-	if (tcon->unix_ext)
-		rc = cifs_get_inode_info_unix(&inode, "", sb, xid);
-	else
-		rc = cifs_get_inode_info(&inode, "", NULL, sb, xid, NULL);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (!inode) {
 		inode = ERR_PTR(rc);
@@ -958,10 +945,7 @@ struct inode *cifs_root_iget(struct super_block *sb)
 	}
 
 out:
-<<<<<<< HEAD
 	kfree(path);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/* can not call macro free_xid here since in a void func
 	 * TODO: This is no longer true
 	 */
@@ -1674,29 +1658,22 @@ cifs_rename(struct inode *source_dir, struct dentry *source_dentry,
 unlink_target:
 	/* Try unlinking the target dentry if it's not negative */
 	if (target_dentry->d_inode && (rc == -EACCES || rc == -EEXIST)) {
-<<<<<<< HEAD
 		if (S_ISDIR(target_dentry->d_inode->i_mode))
 			tmprc = cifs_rmdir(target_dir, target_dentry);
 		else
 			tmprc = cifs_unlink(target_dir, target_dentry);
-=======
-		tmprc = cifs_unlink(target_dir, target_dentry);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		if (tmprc)
 			goto cifs_rename_exit;
 		rc = cifs_do_rename(xid, source_dentry, from_name,
 				    target_dentry, to_name);
 	}
 
-<<<<<<< HEAD
 	/* force revalidate to go get info when needed */
 	CIFS_I(source_dir)->time = CIFS_I(target_dir)->time = 0;
 
 	source_dir->i_ctime = source_dir->i_mtime = target_dir->i_ctime =
 		target_dir->i_mtime = current_fs_time(source_dir->i_sb);
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 cifs_rename_exit:
 	kfree(info_buf_source);
 	kfree(from_name);

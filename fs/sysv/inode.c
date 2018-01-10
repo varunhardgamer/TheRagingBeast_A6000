@@ -161,19 +161,8 @@ void sysv_set_inode(struct inode *inode, dev_t rdev)
 		inode->i_fop = &sysv_dir_operations;
 		inode->i_mapping->a_ops = &sysv_aops;
 	} else if (S_ISLNK(inode->i_mode)) {
-<<<<<<< HEAD
 		inode->i_op = &sysv_symlink_inode_operations;
 		inode->i_mapping->a_ops = &sysv_aops;
-=======
-		if (inode->i_blocks) {
-			inode->i_op = &sysv_symlink_inode_operations;
-			inode->i_mapping->a_ops = &sysv_aops;
-		} else {
-			inode->i_op = &sysv_fast_symlink_inode_operations;
-			nd_terminate_link(SYSV_I(inode)->i_data, inode->i_size,
-				sizeof(SYSV_I(inode)->i_data) - 1);
-		}
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	} else
 		init_special_inode(inode, inode->i_mode, rdev);
 }

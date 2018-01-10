@@ -1379,7 +1379,6 @@ static int media_not_present(struct scsi_disk *sdkp,
  **/
 static unsigned int sd_check_events(struct gendisk *disk, unsigned int clearing)
 {
-<<<<<<< HEAD
 	struct scsi_disk *sdkp = scsi_disk_get(disk);
 	struct scsi_device *sdp;
 	struct scsi_sense_hdr *sshdr = NULL;
@@ -1389,13 +1388,6 @@ static unsigned int sd_check_events(struct gendisk *disk, unsigned int clearing)
 		return 0;
 
 	sdp = sdkp->device;
-=======
-	struct scsi_disk *sdkp = scsi_disk(disk);
-	struct scsi_device *sdp = sdkp->device;
-	struct scsi_sense_hdr *sshdr = NULL;
-	int retval;
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	SCSI_LOG_HLQUEUE(3, sd_printk(KERN_INFO, sdkp, "sd_check_events\n"));
 
 	/*
@@ -1452,10 +1444,7 @@ out:
 	kfree(sshdr);
 	retval = sdp->changed ? DISK_EVENT_MEDIA_CHANGE : 0;
 	sdp->changed = 0;
-<<<<<<< HEAD
 	scsi_disk_put(sdkp);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return retval;
 }
 
@@ -1960,7 +1949,6 @@ static void read_capacity_error(struct scsi_disk *sdkp, struct scsi_device *sdp,
 
 #define READ_CAPACITY_RETRIES_ON_RESET	10
 
-<<<<<<< HEAD
 /*
  * Ensure that we don't overflow sector_t when CONFIG_LBDAF is not set
  * and the reported logical block size is bigger than 512 bytes. Note
@@ -1977,8 +1965,6 @@ static bool sd_addressable_capacity(u64 lba, unsigned int sector_size)
 	return true;
 }
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static int read_capacity_16(struct scsi_disk *sdkp, struct scsi_device *sdp,
 						unsigned char *buffer)
 {
@@ -2044,11 +2030,7 @@ static int read_capacity_16(struct scsi_disk *sdkp, struct scsi_device *sdp,
 		return -ENODEV;
 	}
 
-<<<<<<< HEAD
 	if (!sd_addressable_capacity(lba, sector_size)) {
-=======
-	if ((sizeof(sdkp->capacity) == 4) && (lba >= 0xffffffffULL)) {
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		sd_printk(KERN_ERR, sdkp, "Too big for this kernel. Use a "
 			"kernel compiled with support for large block "
 			"devices.\n");
@@ -2134,11 +2116,7 @@ static int read_capacity_10(struct scsi_disk *sdkp, struct scsi_device *sdp,
 		return sector_size;
 	}
 
-<<<<<<< HEAD
 	if (!sd_addressable_capacity(lba, sector_size)) {
-=======
-	if ((sizeof(sdkp->capacity) == 4) && (lba == 0xffffffff)) {
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		sd_printk(KERN_ERR, sdkp, "Too big for this kernel. Use a "
 			"kernel compiled with support for large block "
 			"devices.\n");
@@ -3165,13 +3143,8 @@ static int sd_suspend(struct device *dev)
 	struct scsi_disk *sdkp = scsi_disk_get_from_dev(dev);
 	int ret = 0;
 
-<<<<<<< HEAD
 	if (!sdkp)	/* E.g.: runtime suspend following sd_remove() */
 		return 0;
-=======
-	if (!sdkp)
-		return 0;	/* this can happen */
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (sdkp->WCE) {
 		sd_printk(KERN_NOTICE, sdkp, "Synchronizing SCSI cache\n");
@@ -3195,12 +3168,9 @@ static int sd_resume(struct device *dev)
 	struct scsi_disk *sdkp = scsi_disk_get_from_dev(dev);
 	int ret = 0;
 
-<<<<<<< HEAD
 	if (!sdkp)	/* E.g.: runtime resume at the start of sd_probe() */
 		return 0;
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (!sdkp->device->manage_start_stop)
 		goto done;
 

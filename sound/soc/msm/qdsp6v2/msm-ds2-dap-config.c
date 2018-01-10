@@ -1710,15 +1710,11 @@ end:
 
 int msm_ds2_dap_set_security_control(u32 cmd, void *arg)
 {
-<<<<<<< HEAD
 	int ret = 0;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	struct dolby_param_license *dolby_license =
 				 ((struct dolby_param_license *)arg);
 	pr_err("%s: dmid %d license key %d\n", __func__,
 		dolby_license->dmid, dolby_license->license_key);
-<<<<<<< HEAD
 
 	ret = core_set_dolby_manufacturer_id(dolby_license->dmid);
 	if (ret < 0) {
@@ -1732,11 +1728,6 @@ int msm_ds2_dap_set_security_control(u32 cmd, void *arg)
 		return ret;
 	}
 	return ret;
-=======
-	core_set_dolby_manufacturer_id(dolby_license->dmid);
-	core_set_license(dolby_license->license_key, DOLBY_DS1_LICENSE_ID);
-	return 0;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 int msm_ds2_dap_update_port_parameters(struct snd_hwdep *hw,  struct file *file,

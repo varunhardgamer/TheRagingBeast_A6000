@@ -551,12 +551,8 @@ iwe_stream_add_point(struct iw_request_info *info, char *stream, char *ends,
 		memcpy(stream + lcp_len,
 		       ((char *) &iwe->u) + IW_EV_POINT_OFF,
 		       IW_EV_POINT_PK_LEN - IW_EV_LCP_PK_LEN);
-<<<<<<< HEAD
 		if (iwe->u.data.length && extra)
 			memcpy(stream + point_len, extra, iwe->u.data.length);
-=======
-		memcpy(stream + point_len, extra, iwe->u.data.length);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		stream += event_len;
 	}
 	return stream;

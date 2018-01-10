@@ -137,13 +137,6 @@ lockd(void *vrqstp)
 
 	dprintk("NFS locking service started (ver " LOCKD_VERSION ").\n");
 
-<<<<<<< HEAD
-=======
-	if (!nlm_timeout)
-		nlm_timeout = LOCKD_DFLT_TIMEO;
-	nlmsvc_timeout = nlm_timeout * HZ;
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/*
 	 * The main request loop. We don't terminate until the last
 	 * NFS mount or NFS daemon has gone away.
@@ -256,20 +249,11 @@ static int lockd_up_net(struct svc_serv *serv, struct net *net)
 
 	error = make_socks(serv, net);
 	if (error < 0)
-<<<<<<< HEAD
 		goto err_bind;
-=======
-		goto err_socks;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	set_grace_period(net);
 	dprintk("lockd_up_net: per-net data created; net=%p\n", net);
 	return 0;
 
-<<<<<<< HEAD
-=======
-err_socks:
-	svc_rpcb_cleanup(serv, net);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 err_bind:
 	ln->nlmsvc_users--;
 	return error;
@@ -358,13 +342,10 @@ static struct svc_serv *lockd_create_svc(void)
 		printk(KERN_WARNING
 			"lockd_up: no pid, %d users??\n", nlmsvc_users);
 
-<<<<<<< HEAD
 	if (!nlm_timeout)
 		nlm_timeout = LOCKD_DFLT_TIMEO;
 	nlmsvc_timeout = nlm_timeout * HZ;
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	serv = svc_create(&nlmsvc_program, LOCKD_BUFSIZE, NULL);
 	if (!serv) {
 		printk(KERN_WARNING "lockd_up: create service failed\n");
@@ -602,10 +583,7 @@ static int lockd_init_net(struct net *net)
 	INIT_DELAYED_WORK(&ln->grace_period_end, grace_ender);
 	INIT_LIST_HEAD(&ln->grace_list);
 	spin_lock_init(&ln->nsm_clnt_lock);
-<<<<<<< HEAD
 	INIT_LIST_HEAD(&ln->nsm_handles);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return 0;
 }
 

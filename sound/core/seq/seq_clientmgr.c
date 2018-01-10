@@ -678,12 +678,9 @@ static int deliver_to_subscribers(struct snd_seq_client *client,
 	else
 		down_read(&grp->list_mutex);
 	list_for_each_entry(subs, &grp->list_head, src_list) {
-<<<<<<< HEAD
 		/* both ports ready? */
 		if (atomic_read(&subs->ref_count) != 2)
 			continue;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		event->dest = subs->info.dest;
 		if (subs->info.flags & SNDRV_SEQ_PORT_SUBS_TIMESTAMP)
 			/* convert time according to flag with subscription */
@@ -1251,10 +1248,7 @@ static int snd_seq_ioctl_create_port(struct snd_seq_client *client,
 	struct snd_seq_client_port *port;
 	struct snd_seq_port_info info;
 	struct snd_seq_port_callback *callback;
-<<<<<<< HEAD
 	int port_idx;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (copy_from_user(&info, arg, sizeof(info)))
 		return -EFAULT;
@@ -1268,13 +1262,9 @@ static int snd_seq_ioctl_create_port(struct snd_seq_client *client,
 		return -ENOMEM;
 
 	if (client->type == USER_CLIENT && info.kernel) {
-<<<<<<< HEAD
 		port_idx = port->addr.port;
 		snd_seq_port_unlock(port);
 		snd_seq_delete_port(client, port_idx);
-=======
-		snd_seq_delete_port(client, port->addr.port);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		return -EINVAL;
 	}
 	if (client->type == KERNEL_CLIENT) {
@@ -1296,10 +1286,7 @@ static int snd_seq_ioctl_create_port(struct snd_seq_client *client,
 
 	snd_seq_set_port_info(port, &info);
 	snd_seq_system_client_ev_port_start(port->addr.client, port->addr.port);
-<<<<<<< HEAD
 	snd_seq_port_unlock(port);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (copy_to_user(arg, &info, sizeof(info)))
 		return -EFAULT;
@@ -1926,10 +1913,7 @@ static int snd_seq_ioctl_set_client_pool(struct snd_seq_client *client,
 	     info.output_pool != client->pool->size)) {
 		if (snd_seq_write_pool_allocated(client)) {
 			/* remove all existing cells */
-<<<<<<< HEAD
 			snd_seq_pool_mark_closing(client->pool);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			snd_seq_queue_client_leave_cells(client->number);
 			snd_seq_pool_done(client->pool);
 		}
@@ -1974,11 +1958,7 @@ static int snd_seq_ioctl_remove_events(struct snd_seq_client *client,
 		 * No restrictions so for a user client we can clear
 		 * the whole fifo
 		 */
-<<<<<<< HEAD
 		if (client->type == USER_CLIENT && client->data.user.fifo)
-=======
-		if (client->type == USER_CLIENT)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			snd_seq_fifo_clear(client->data.user.fifo);
 	}
 

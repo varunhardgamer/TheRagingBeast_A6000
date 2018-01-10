@@ -1685,7 +1685,6 @@ void bio_check_pages_dirty(struct bio *bio)
 	}
 }
 
-<<<<<<< HEAD
 void generic_start_io_acct(int rw, unsigned long sectors,
 			   struct hd_struct *part)
 {
@@ -1714,8 +1713,6 @@ void generic_end_io_acct(int rw, struct hd_struct *part,
 }
 EXPORT_SYMBOL(generic_end_io_acct);
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #if ARCH_IMPLEMENTS_FLUSH_DCACHE_PAGE
 void bio_flush_dcache_pages(struct bio *bi)
 {

@@ -433,10 +433,7 @@ static struct crypto_alg algs[] = { {
 		.blkcipher = {
 			.min_keysize	= AES_MIN_KEY_SIZE,
 			.max_keysize	= AES_MAX_KEY_SIZE,
-<<<<<<< HEAD
 			.ivsize		= AES_BLOCK_SIZE,
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			.setkey		= aes_set_key,
 			.encrypt	= cbc_encrypt,
 			.decrypt	= cbc_decrypt,
@@ -456,10 +453,7 @@ static struct crypto_alg algs[] = { {
 		.blkcipher = {
 			.min_keysize	= AES_MIN_KEY_SIZE,
 			.max_keysize	= AES_MAX_KEY_SIZE,
-<<<<<<< HEAD
 			.ivsize		= AES_BLOCK_SIZE,
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			.setkey		= aes_set_key,
 			.encrypt	= ctr_crypt,
 			.decrypt	= ctr_crypt,
@@ -507,10 +501,6 @@ module_exit(aes_sparc64_mod_fini);
 MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION("AES Secure Hash Algorithm, sparc64 aes opcode accelerated");
 
-<<<<<<< HEAD
 MODULE_ALIAS_CRYPTO("aes");
-=======
-MODULE_ALIAS("aes");
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #include "crop_devid.c"

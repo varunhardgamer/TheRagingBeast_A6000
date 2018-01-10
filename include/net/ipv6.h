@@ -505,10 +505,7 @@ struct ip6_create_arg {
 	u32 user;
 	const struct in6_addr *src;
 	const struct in6_addr *dst;
-<<<<<<< HEAD
 	int iif;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	u8 ecn;
 };
 
@@ -561,27 +558,19 @@ static inline u32 ipv6_addr_hash(const struct in6_addr *a)
 }
 
 /* more secured version of ipv6_addr_hash() */
-<<<<<<< HEAD
 static inline u32 __ipv6_addr_jhash(const struct in6_addr *a, const u32 initval)
-=======
-static inline u32 ipv6_addr_jhash(const struct in6_addr *a)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	u32 v = (__force u32)a->s6_addr32[0] ^ (__force u32)a->s6_addr32[1];
 
 	return jhash_3words(v,
 			    (__force u32)a->s6_addr32[2],
 			    (__force u32)a->s6_addr32[3],
-<<<<<<< HEAD
 			    initval);
 }
 
 static inline u32 ipv6_addr_jhash(const struct in6_addr *a)
 {
 	return __ipv6_addr_jhash(a, ipv6_hash_secret);
-=======
-			    ipv6_hash_secret);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static inline bool ipv6_addr_loopback(const struct in6_addr *a)
@@ -693,11 +682,6 @@ static inline int ipv6_addr_diff(const struct in6_addr *a1, const struct in6_add
 	return __ipv6_addr_diff(a1, a2, sizeof(struct in6_addr));
 }
 
-<<<<<<< HEAD
-=======
-extern void ipv6_select_ident(struct frag_hdr *fhdr, struct rt6_info *rt);
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /*
  *	Header manipulation
  */
@@ -865,10 +849,7 @@ extern int inet6_hash_connect(struct inet_timewait_death_row *death_row,
  */
 extern const struct proto_ops inet6_stream_ops;
 extern const struct proto_ops inet6_dgram_ops;
-<<<<<<< HEAD
 extern const struct proto_ops inet6_sockraw_ops;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 struct group_source_req;
 struct group_filter;

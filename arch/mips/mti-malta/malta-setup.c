@@ -36,12 +36,9 @@
 #include <linux/console.h>
 #endif
 
-<<<<<<< HEAD
 #define ROCIT_CONFIG_GEN0		0x1f403000
 #define  ROCIT_CONFIG_GEN0_PCI_IOCU	BIT(7)
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 extern void malta_be_init(void);
 extern int malta_be_handler(struct pt_regs *regs, int is_fixup);
 
@@ -114,11 +111,8 @@ static void __init fd_activate(void)
 static int __init plat_enable_iocoherency(void)
 {
 	int supported = 0;
-<<<<<<< HEAD
 	u32 cfg;
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (mips_revision_sconid == MIPS_REVISION_SCON_BONITO) {
 		if (BONITO_PCICACHECTRL & BONITO_PCICACHECTRL_CPUCOH_PRES) {
 			BONITO_PCICACHECTRL |= BONITO_PCICACHECTRL_CPUCOH_EN;
@@ -141,12 +135,8 @@ static int __init plat_enable_iocoherency(void)
 	} else if (gcmp_niocu() != 0) {
 		/* Nothing special needs to be done to enable coherency */
 		pr_info("CMP IOCU detected\n");
-<<<<<<< HEAD
 		cfg = __raw_readl((u32 *)CKSEG1ADDR(ROCIT_CONFIG_GEN0));
 		if (!(cfg & ROCIT_CONFIG_GEN0_PCI_IOCU)) {
-=======
-		if ((*(unsigned int *)0xbf403000 & 0x81) != 0x81) {
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			pr_crit("IOCU OPERATION DISABLED BY SWITCH - DEFAULTING TO SW IO COHERENCY\n");
 			return 0;
 		}

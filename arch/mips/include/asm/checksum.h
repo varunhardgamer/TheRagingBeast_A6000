@@ -155,13 +155,9 @@ static inline __wsum csum_tcpudp_nofold(__be32 saddr,
 	"	daddu	%0, %4		\n"
 	"	dsll32	$1, %0, 0	\n"
 	"	daddu	%0, $1		\n"
-<<<<<<< HEAD
 	"	sltu	$1, %0, $1	\n"
 	"	dsra32	%0, %0, 0	\n"
 	"	addu	%0, $1		\n"
-=======
-	"	dsra32	%0, %0, 0	\n"
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #endif
 	"	.set	pop"
 	: "=r" (sum)

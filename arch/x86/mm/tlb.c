@@ -149,13 +149,9 @@ void flush_tlb_current_task(void)
 
 	preempt_disable();
 
-<<<<<<< HEAD
 	/* This is an implicit full barrier that synchronizes with switch_mm. */
 	local_flush_tlb();
 
-=======
-	local_flush_tlb();
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (cpumask_any_but(mm_cpumask(mm), smp_processor_id()) < nr_cpu_ids)
 		flush_tlb_others(mm_cpumask(mm), mm, 0UL, TLB_FLUSH_ALL);
 	preempt_enable();
@@ -194,7 +190,6 @@ void flush_tlb_mm_range(struct mm_struct *mm, unsigned long start,
 	unsigned act_entries, tlb_entries = 0;
 
 	preempt_disable();
-<<<<<<< HEAD
 	if (current->active_mm != mm) {
 		/* Synchronize with switch_mm. */
 		smp_mb();
@@ -208,13 +203,6 @@ void flush_tlb_mm_range(struct mm_struct *mm, unsigned long start,
 		/* Synchronize with switch_mm. */
 		smp_mb();
 
-=======
-	if (current->active_mm != mm)
-		goto flush_all;
-
-	if (!current->mm) {
-		leave_mm(smp_processor_id());
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		goto flush_all;
 	}
 
@@ -264,7 +252,6 @@ void flush_tlb_page(struct vm_area_struct *vma, unsigned long start)
 	preempt_disable();
 
 	if (current->active_mm == mm) {
-<<<<<<< HEAD
 		if (current->mm) {
 			/*
 			 * Implicit full barrier (INVLPG) that synchronizes
@@ -277,12 +264,6 @@ void flush_tlb_page(struct vm_area_struct *vma, unsigned long start)
 			/* Synchronize with switch_mm. */
 			smp_mb();
 		}
-=======
-		if (current->mm)
-			__flush_tlb_one(start);
-		else
-			leave_mm(smp_processor_id());
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 
 	if (cpumask_any_but(mm_cpumask(mm), smp_processor_id()) < nr_cpu_ids)

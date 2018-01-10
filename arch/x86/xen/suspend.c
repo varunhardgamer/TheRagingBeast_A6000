@@ -30,12 +30,8 @@ void xen_arch_hvm_post_suspend(int suspend_cancelled)
 {
 #ifdef CONFIG_XEN_PVHVM
 	int cpu;
-<<<<<<< HEAD
 	if (!suspend_cancelled)
 	    xen_hvm_init_shared_info();
-=======
-	xen_hvm_init_shared_info();
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	xen_callback_vector();
 	xen_unplug_emulated_devices();
 	if (xen_feature(XENFEAT_hvm_safe_pvclock)) {

@@ -604,22 +604,14 @@ static int mc13783_probe(struct snd_soc_codec *codec)
 				AUDIO_SSI_SEL, 0);
 	else
 		mc13xxx_reg_rmw(priv->mc13xxx, MC13783_AUDIO_CODEC,
-<<<<<<< HEAD
 				AUDIO_SSI_SEL, AUDIO_SSI_SEL);
-=======
-				0, AUDIO_SSI_SEL);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (priv->dac_ssi_port == MC13783_SSI1_PORT)
 		mc13xxx_reg_rmw(priv->mc13xxx, MC13783_AUDIO_DAC,
 				AUDIO_SSI_SEL, 0);
 	else
 		mc13xxx_reg_rmw(priv->mc13xxx, MC13783_AUDIO_DAC,
-<<<<<<< HEAD
 				AUDIO_SSI_SEL, AUDIO_SSI_SEL);
-=======
-				0, AUDIO_SSI_SEL);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	mc13xxx_unlock(priv->mc13xxx);
 

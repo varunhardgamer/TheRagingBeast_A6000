@@ -490,20 +490,12 @@ static ssize_t spmi_dfs_reg_write(struct file *file, const char __user *buf,
 	struct spmi_trans *trans = file->private_data;
 
 	mutex_lock(&trans->spmi_dfs_lock);
-<<<<<<< HEAD
 
-=======
-	trans = file->private_data;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	offset = trans->offset;
 
 	/* Make a copy of the user data */
 	kbuf = kmalloc(count + 1, GFP_KERNEL);
-<<<<<<< HEAD
 	if (!kbuf) {
-=======
-	if (!kbuf){
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		ret = -ENOMEM;
 		goto unlock_mutex;
 	}
@@ -591,10 +583,7 @@ static ssize_t spmi_dfs_reg_read(struct file *file, char __user *buf,
 
 	*ppos += len;
 	log->rpos += len;
-<<<<<<< HEAD
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 unlock_mutex:
 	mutex_unlock(&trans->spmi_dfs_lock);
 	return len;

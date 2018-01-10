@@ -1528,10 +1528,7 @@ static int accept(struct socket *sock, struct socket *new_sock, int flags)
 	res = tipc_create(sock_net(sock->sk), new_sock, 0, 0);
 	if (res)
 		goto exit;
-<<<<<<< HEAD
 	security_sk_clone(sock->sk, new_sock->sk);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	new_sk = new_sock->sk;
 	new_tsock = tipc_sk(new_sk);

@@ -562,11 +562,7 @@ static void cpc925_mc_check(struct mem_ctl_info *mci)
 
 	if (apiexcp & UECC_EXCP_DETECTED) {
 		cpc925_mc_printk(mci, KERN_INFO, "DRAM UECC Fault\n");
-<<<<<<< HEAD
 		edac_mc_handle_error(HW_EVENT_ERR_UNCORRECTED, mci, 1,
-=======
-		edac_mc_handle_error(HW_EVENT_ERR_CORRECTED, mci, 1,
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 				     pfn, offset, 0,
 				     csrow, -1, -1,
 				     mci->ctl_name, "");

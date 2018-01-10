@@ -1,14 +1,8 @@
 menu "Android"
 
-<<<<<<< HEAD
 
 config ANDROID
 	bool "Android Drivers"
-=======
-config ANDROID
-	bool "Android Drivers"
-	default N
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	---help---
 	  Enable support for various drivers needed on the Android platform
 
@@ -16,10 +10,7 @@ if ANDROID
 
 config ANDROID_BINDER_IPC
 	bool "Android Binder IPC Driver"
-<<<<<<< HEAD
 	depends on MMU
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	default n
 	---help---
 	  Binder is used in Android for both communication between processes,
@@ -29,7 +20,6 @@ config ANDROID_BINDER_IPC
 	  Android process, using Binder to identify, invoke and pass arguments
 	  between said processes.
 
-<<<<<<< HEAD
 config ANDROID_BINDER_DEVICES
 	string "Android Binder devices"
 	depends on ANDROID_BINDER_IPC
@@ -54,14 +44,6 @@ config ANDROID_BINDER_IPC_32BIT
 	  earlier).
 
 	  Note that enabling this will break newer Android user-space.
-=======
-config ANDROID_BINDER_IPC_32BIT
-	bool "Use old 32-bit binder api"
-	default y if !64BIT
-	---help---
-	  Enable to support an old 32-bit Android user-space. Breaks the new
-	  Android user-space.
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 config ASHMEM
 	bool "Enable the Anonymous Shared Memory Subsystem"

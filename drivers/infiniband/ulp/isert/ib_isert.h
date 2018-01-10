@@ -21,10 +21,7 @@ enum iser_ib_op_code {
 enum iser_conn_state {
 	ISER_CONN_INIT,
 	ISER_CONN_UP,
-<<<<<<< HEAD
 	ISER_CONN_FULL_FEATURE,
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	ISER_CONN_TERMINATING,
 	ISER_CONN_DOWN,
 };
@@ -91,10 +88,7 @@ struct isert_conn {
 	char			*login_req_buf;
 	char			*login_rsp_buf;
 	u64			login_req_dma;
-<<<<<<< HEAD
 	int			login_req_len;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	u64			login_rsp_dma;
 	unsigned int		conn_rx_desc_head;
 	struct iser_rx_desc	*conn_rx_descs;
@@ -102,29 +96,18 @@ struct isert_conn {
 	struct iscsi_conn	*conn;
 	struct list_head	conn_accept_node;
 	struct completion	conn_login_comp;
-<<<<<<< HEAD
 	struct completion	login_req_comp;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	struct iser_tx_desc	conn_login_tx_desc;
 	struct rdma_cm_id	*conn_cm_id;
 	struct ib_pd		*conn_pd;
 	struct ib_mr		*conn_mr;
 	struct ib_qp		*conn_qp;
 	struct isert_device	*conn_device;
-<<<<<<< HEAD
-=======
-	struct work_struct	conn_logout_work;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	struct mutex		conn_mutex;
 	struct completion	conn_wait;
 	struct completion	conn_wait_comp_err;
 	struct kref		conn_kref;
-<<<<<<< HEAD
 	struct work_struct	release_work;
-=======
-	bool			disconnect;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 
 #define ISERT_MAX_CQ 64
@@ -150,10 +133,7 @@ struct isert_device {
 };
 
 struct isert_np {
-<<<<<<< HEAD
 	struct iscsi_np         *np;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	struct semaphore	np_sem;
 	struct rdma_cm_id	*np_cm_id;
 	struct mutex		np_accept_mutex;

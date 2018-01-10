@@ -549,10 +549,7 @@ config VIDEO_S5K6AA
 config VIDEO_S5K4ECGX
         tristate "Samsung S5K4ECGX sensor support"
         depends on I2C && VIDEO_V4L2 && VIDEO_V4L2_SUBDEV_API
-<<<<<<< HEAD
 	select CRC32
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
         ---help---
           This is a V4L2 sensor-level driver for Samsung S5K4ECGX 5M
           camera sensor with an embedded SoC image signal processor.

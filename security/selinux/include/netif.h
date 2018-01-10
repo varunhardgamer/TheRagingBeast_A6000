@@ -17,17 +17,11 @@
 #ifndef _SELINUX_NETIF_H_
 #define _SELINUX_NETIF_H_
 
-<<<<<<< HEAD
 #include <net/net_namespace.h>
 
 void sel_netif_flush(void);
 
 int sel_netif_sid(struct net *ns, int ifindex, u32 *sid);
-=======
-void sel_netif_flush(void);
-
-int sel_netif_sid(int ifindex, u32 *sid);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #endif	/* _SELINUX_NETIF_H_ */
 

@@ -236,12 +236,6 @@ static int compute_signal(int tt)
 void sleeping_thread_to_gdb_regs(unsigned long *gdb_regs, struct task_struct *p)
 {
 	int reg;
-<<<<<<< HEAD
-=======
-	struct thread_info *ti = task_thread_info(p);
-	unsigned long ksp = (unsigned long)ti + THREAD_SIZE - 32;
-	struct pt_regs *regs = (struct pt_regs *)ksp - 1;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #if (KGDB_GDB_REG_SIZE == 32)
 	u32 *ptr = (u32 *)gdb_regs;
 #else
@@ -249,7 +243,6 @@ void sleeping_thread_to_gdb_regs(unsigned long *gdb_regs, struct task_struct *p)
 #endif
 
 	for (reg = 0; reg < 16; reg++)
-<<<<<<< HEAD
 		*(ptr++) = 0;
 
 	/* S0 - S7 */
@@ -261,19 +254,11 @@ void sleeping_thread_to_gdb_regs(unsigned long *gdb_regs, struct task_struct *p)
 	*(ptr++) = p->thread.reg21;
 	*(ptr++) = p->thread.reg22;
 	*(ptr++) = p->thread.reg23;
-=======
-		*(ptr++) = regs->regs[reg];
-
-	/* S0 - S7 */
-	for (reg = 16; reg < 24; reg++)
-		*(ptr++) = regs->regs[reg];
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	for (reg = 24; reg < 28; reg++)
 		*(ptr++) = 0;
 
 	/* GP, SP, FP, RA */
-<<<<<<< HEAD
 	*(ptr++) = (long)p;
 	*(ptr++) = p->thread.reg29;
 	*(ptr++) = p->thread.reg30;
@@ -298,17 +283,6 @@ void sleeping_thread_to_gdb_regs(unsigned long *gdb_regs, struct task_struct *p)
 	 * use return address (RA), i.e. the moment after return from resume()
 	 */
 	*(ptr++) = p->thread.reg31;
-=======
-	for (reg = 28; reg < 32; reg++)
-		*(ptr++) = regs->regs[reg];
-
-	*(ptr++) = regs->cp0_status;
-	*(ptr++) = regs->lo;
-	*(ptr++) = regs->hi;
-	*(ptr++) = regs->cp0_badvaddr;
-	*(ptr++) = regs->cp0_cause;
-	*(ptr++) = regs->cp0_epc;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 void kgdb_arch_set_pc(struct pt_regs *regs, unsigned long pc)

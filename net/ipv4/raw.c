@@ -387,11 +387,7 @@ static int raw_send_hdrinc(struct sock *sk, struct flowi4 *fl4,
 		iph->check   = 0;
 		iph->tot_len = htons(length);
 		if (!iph->id)
-<<<<<<< HEAD
 			ip_select_ident(skb, NULL);
-=======
-			ip_select_ident(skb, &rt->dst, NULL);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 		iph->check = ip_fast_csum((unsigned char *)iph, iph->ihl);
 	}
@@ -577,12 +573,7 @@ static int raw_sendmsg(struct kiocb *iocb, struct sock *sk, struct msghdr *msg,
 			   inet->hdrincl ? IPPROTO_RAW : sk->sk_protocol,
 			   inet_sk_flowi_flags(sk) | FLOWI_FLAG_CAN_SLEEP |
 			    (inet->hdrincl ? FLOWI_FLAG_KNOWN_NH : 0),
-<<<<<<< HEAD
 			   daddr, saddr, 0, 0, sk->sk_uid);
-=======
-			   daddr, saddr, 0, 0,
-			   sock_i_uid(sk));
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (!inet->hdrincl) {
 		err = raw_probe_proto_opt(&fl4, msg);

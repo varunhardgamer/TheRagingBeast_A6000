@@ -283,11 +283,7 @@ struct kgdb_io {
 
 extern struct kgdb_arch		arch_kgdb_ops;
 
-<<<<<<< HEAD
 extern unsigned long kgdb_arch_pc(int exception, struct pt_regs *regs);
-=======
-extern unsigned long __weak kgdb_arch_pc(int exception, struct pt_regs *regs);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #ifdef CONFIG_SERIAL_KGDB_NMI
 extern int kgdb_register_nmi_console(void);

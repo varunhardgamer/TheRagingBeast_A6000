@@ -219,10 +219,7 @@ struct MPT3SAS_TARGET {
  * @eedp_enable: eedp support enable bit
  * @eedp_type: 0(type_1), 1(type_2), 2(type_3)
  * @eedp_block_length: block size
-<<<<<<< HEAD
  * @ata_command_pending: SATL passthrough outstanding for device
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  */
 struct MPT3SAS_DEVICE {
 	struct MPT3SAS_TARGET *sas_target;
@@ -231,7 +228,6 @@ struct MPT3SAS_DEVICE {
 	u8	configured_lun;
 	u8	block;
 	u8	tlr_snoop_check;
-<<<<<<< HEAD
 	/*
 	 * Bug workaround for SATL handling: the mpt2/3sas firmware
 	 * doesn't return BUSY or TASK_SET_FULL for subsequent
@@ -243,8 +239,6 @@ struct MPT3SAS_DEVICE {
 	 * thing while a SATL command is pending.
 	 */
 	unsigned long ata_command_pending;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 
 #define MPT3_CMD_NOT_USED	0x8000	/* free */

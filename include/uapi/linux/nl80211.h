@@ -688,29 +688,6 @@
  *	QoS mapping is relevant for IP packets, it is only valid during an
  *	association. This is cleared on disassociation and AP restart.
  *
-<<<<<<< HEAD
-=======
- * @NL80211_CMD_AUTHORIZATION_EVENT: Indicates that the device offloaded
- *	the establishment of temporal keys for an RSN connection.  This is
- *	used as part of key managment offload, where a device operating as a
- *	station is capable of doing the exchange necessary to establish
- *	temporal keys during initial RSN connection or after roaming.  This
- *	event might also be sent after the device handles a PTK rekeying
- *	operation.  The supplicant should expect to do the exchange itself,
- *	by preparing to process the EAPOL-Key frames, until
- *	NL80211_CMD_AUTHORIZATION_EVENT is sent with success status.  The
- *	NL80211_ATTR_AUTHORIZATION_STATUS attribute provides the status of
- *	the offload and NL80211_KEY_REPLAY_CTR provides the Key Replay
- *	Counter value last used in a valid EAPOL-Key frame.
- *
- * @NL80211_CMD_KEY_MGMT_SET_PMK: Used to pass the PMK to the device for
- *	key management offload.  This will be used in the case of key
- *	management offload on an already established PMKSA.  The PMK is passed
- *	in NL80211_ATTR_PMK once it is known by the supplicant.  If connection
- *	is FT (802.11r) enabled with 802.1X, then the second 256 bits of the
- *	MSK is passed instead of the PMK.
- *
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  * @NL80211_CMD_MAX: highest used command number
  * @__NL80211_CMD_AFTER_LAST: internal use
  */
@@ -882,12 +859,6 @@ enum nl80211_commands {
 
 	NL80211_CMD_SET_QOS_MAP,
 
-<<<<<<< HEAD
-=======
-	NL80211_CMD_AUTHORIZATION_EVENT,
-	NL80211_CMD_KEY_MGMT_SET_PMK,
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/* add new commands above here */
 
 	/* used to define NL80211_CMD_MAX below */
@@ -1568,25 +1539,6 @@ enum nl80211_commands {
  * @NL80211_ATTR_TDLS_PEER_CAPABILITY: flags for TDLS peer capabilities, u32.
  *	As specified in the &enum nl80211_tdls_peer_capability.
  *
-<<<<<<< HEAD
-=======
- * @NL80211_ATTR_AUTHORIZATION_STATUS: Status of key management offload.
- * @NL80211_ATTR_KEY_REPLAY_CTR: Key Replay Counter value last used in a
- *	valid EAPOL-Key frame.
- * @NL80211_ATTR_PSK: The Preshared Key to be used for the connection.
- * @NL80211_ATTR_OFFLOAD_KEY_MGMT: Requests that device handle establishment
- *	of temporal keys if possible.
- * @NL80211_ATTR_KEY_MGMT_OFFLOAD_SUPPORT: Supported types of device key
- *	management offload.
- * @NL80211_ATTR_KEY_DERIVE_OFFLOAD_SUPPORT: Supported types of device key
- *	derivation used as part of key management offload.
- * @NL80211_ATTR_PMK: The Pairwise Master Key to be used for the
- *	connection.
- * @NL80211_ATTR_PMK_LEN: The length of the PMK.
- * @NL80211_ATTR_PTK_KCK: Pairwise Transient Key, Key Confirmation Key.
- * @NL80211_ATTR_PTK_KEK: Pairwise Transient Key, Key Encryption Key.
- *
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  * @NL80211_ATTR_MAX: highest attribute number currently defined
  * @__NL80211_ATTR_AFTER_LAST: internal use
  */
@@ -1923,20 +1875,6 @@ enum nl80211_attrs {
 
 	NL80211_ATTR_TDLS_PEER_CAPABILITY,
 
-<<<<<<< HEAD
-=======
-	NL80211_ATTR_AUTHORIZATION_STATUS,
-	NL80211_ATTR_KEY_REPLAY_CTR,
-	NL80211_ATTR_PSK,
-	NL80211_ATTR_OFFLOAD_KEY_MGMT,
-	NL80211_ATTR_KEY_MGMT_OFFLOAD_SUPPORT,
-	NL80211_ATTR_KEY_DERIVE_OFFLOAD_SUPPORT,
-	NL80211_ATTR_PMK,
-	NL80211_ATTR_PMK_LEN,
-	NL80211_ATTR_PTK_KCK,
-	NL80211_ATTR_PTK_KEK,
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/* add attributes here, update the policy in nl80211.c */
 
 	__NL80211_ATTR_AFTER_LAST,
@@ -2353,7 +2291,6 @@ enum nl80211_band_attr {
  * @NL80211_FREQUENCY_ATTR_NO_160MHZ: any 160 MHz (but not 80+80) channel
  *	using this channel as the primary or any of the secondary channels
  *	isn't possible
-<<<<<<< HEAD
  * @NL80211_FREQUENCY_ATTR_DFS_CAC_TIME: DFS CAC time in milliseconds.
  * @NL80211_FREQUENCY_ATTR_INDOOR_ONLY: Only indoor use is permitted on this
  *	channel. A channel that has the INDOOR_ONLY attribute can only be
@@ -2380,11 +2317,6 @@ enum nl80211_band_attr {
  * for more information on the FCC description of the relaxations allowed
  * by NL80211_FREQUENCY_ATTR_INDOOR_ONLY and
  * NL80211_FREQUENCY_ATTR_GO_CONCURRENT.
-=======
- * @NL80211_FREQUENCY_ATTR_MAX: highest frequency attribute number
- *	currently defined
- * @__NL80211_FREQUENCY_ATTR_AFTER_LAST: internal use
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  */
 enum nl80211_frequency_attr {
 	__NL80211_FREQUENCY_ATTR_INVALID,
@@ -2400,12 +2332,9 @@ enum nl80211_frequency_attr {
 	NL80211_FREQUENCY_ATTR_NO_HT40_PLUS,
 	NL80211_FREQUENCY_ATTR_NO_80MHZ,
 	NL80211_FREQUENCY_ATTR_NO_160MHZ,
-<<<<<<< HEAD
 	NL80211_FREQUENCY_ATTR_DFS_CAC_TIME,
 	NL80211_FREQUENCY_ATTR_INDOOR_ONLY,
 	NL80211_FREQUENCY_ATTR_GO_CONCURRENT,
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	/* keep last */
 	__NL80211_FREQUENCY_ATTR_AFTER_LAST,
@@ -4055,75 +3984,4 @@ enum nl80211_tdls_peer_capability {
 	NL80211_TDLS_PEER_WMM = 1<<2,
 };
 
-<<<<<<< HEAD
-=======
-#define NL80211_KEY_LEN_PSK		32
-#define NL80211_KEY_LEN_PMK		32
-#define NL80211_KEY_REPLAY_CTR_LEN	8
-#define NL80211_KEY_LEN_PTK_KCK		16
-#define NL80211_KEY_LEN_PTK_KEK		16
-
-/**
- * enum nl80211_key_mgmt_offload_support - key management offload types
- *
- * Supported types of device key management offload.  Allows device
- * to advertise types of connections where it can offload establishment
- * of temporal keys during initial RSN connection or after roaming.
- *
- * @NL80211_KEY_MGMT_OFFLOAD_SUPPORT_PSK: WPA/WPA2 PSK key management.
- *	The NL80211_ATTR_PSK attribute is passed in NL80211_CMD_CONNECT.
- * @NL80211_KEY_MGMT_OFFLOAD_SUPPORT_FT_PSK: 802.11r (FT) PSK key
- *	management.  The NL80211_ATTR_PSK attribute is passed in
- *	NL80211_CMD_CONNECT.
- * @NL80211_KEY_MGMT_OFFLOAD_SUPPORT_PMKSA: Key management on already
- *	established PMKSA.  The PMK will be passed using
- *	NL80211_CMD_KEY_MGMT_SET_PMK once it is known.
- * @NL80211_KEY_MGMT_OFFLOAD_SUPPORT_FT_802_1X: 802.11r (FT) with
- *	802.1X.  The second 256 bits of the MSK is passed using
- *	NL80211_CMD_KEY_MGMT_SET_PMK once it is known.
- */
-enum nl80211_key_mgmt_offload_support {
-	NL80211_KEY_MGMT_OFFLOAD_SUPPORT_PSK		= 1 << 0,
-	NL80211_KEY_MGMT_OFFLOAD_SUPPORT_FT_PSK		= 1 << 1,
-	NL80211_KEY_MGMT_OFFLOAD_SUPPORT_PMKSA		= 1 << 2,
-	NL80211_KEY_MGMT_OFFLOAD_SUPPORT_FT_802_1X	= 1 << 3,
-};
-
-/**
- * enum nl80211_key_derive_offload_support - key derivation offload types
- *
- * Supported types of device key derivation used as part of key
- * management offload.  Assumes that GTK key derivation is supported
- * by default for all supported key management offload types.
- *
- * @NL80211_KEY_DERIVE_OFFLOAD_SUPPORT_IGTK: IGTK key derivation.
- * @NL80211_KEY_DERIVE_OFFLOAD_SUPPORT_SHA256: SHA-256 key derivation.
- */
-enum nl80211_key_derive_offload_support {
-	NL80211_KEY_DERIVE_OFFLOAD_SUPPORT_IGTK		= 1 << 0,
-	NL80211_KEY_DERIVE_OFFLOAD_SUPPORT_SHA256	= 1 << 1,
-};
-
-/**
- * enum nl80211_authorization_status - key management offload status
- *
- * Status of key management offload.  Provided as part of
- * NL80211_CMD_AUTHORIZATION_EVENT.
- *
- * @NL80211_CONNECTED: Device did not successfully offload key
- *	management.  Supplicant should expect to do the security
- *	exchange necessary to establish the temporal keys for the
- *	connection.
- * @NL80211_AUTHORIZED: Device successfully offloaded key
- *	management and established temporal keys for the connection,
- *	signfiying that the initial connection, roaming, or PTK
- *	rekeying is complete.  Supplicant should enter the
- *	authorized state for the port.
- */
-enum nl80211_authorization_status {
-	NL80211_CONNECTED,
-	NL80211_AUTHORIZED,
-};
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #endif /* __LINUX_NL80211_H */

@@ -198,10 +198,7 @@ EXPORT_SYMBOL_GPL(btree_init);
 
 void btree_destroy(struct btree_head *head)
 {
-<<<<<<< HEAD
 	mempool_free(head->node, head->mempool);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	mempool_destroy(head->mempool);
 	head->mempool = NULL;
 }

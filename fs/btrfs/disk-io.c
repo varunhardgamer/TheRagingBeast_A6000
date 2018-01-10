@@ -2437,10 +2437,7 @@ int open_ctree(struct super_block *sb,
 		       "unsupported option features (%Lx).\n",
 		       (unsigned long long)features);
 		err = -EINVAL;
-<<<<<<< HEAD
 		brelse(bh);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		goto fail_alloc;
 	}
 
@@ -3861,15 +3858,6 @@ again:
 		if (ret)
 			break;
 
-<<<<<<< HEAD
-=======
-		/* opt_discard */
-		if (btrfs_test_opt(root, DISCARD))
-			ret = btrfs_error_discard_extent(root, start,
-							 end + 1 - start,
-							 NULL);
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		clear_extent_dirty(unpin, start, end, GFP_NOFS);
 		btrfs_error_unpin_extent_range(root, start, end);
 		cond_resched();

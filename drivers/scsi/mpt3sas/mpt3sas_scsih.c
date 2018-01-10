@@ -3390,7 +3390,6 @@ _scsih_check_volume_delete_events(struct MPT3SAS_ADAPTER *ioc,
 		    le16_to_cpu(event_data->VolDevHandle));
 }
 
-<<<<<<< HEAD
 static int _scsih_set_satl_pending(struct scsi_cmnd *scmd, bool pending)
 {
 	struct MPT3SAS_DEVICE *priv = scmd->device->hostdata;
@@ -3405,8 +3404,6 @@ static int _scsih_set_satl_pending(struct scsi_cmnd *scmd, bool pending)
 	return 0;
 }
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /**
  * _scsih_flush_running_cmds - completing outstanding commands.
  * @ioc: per adapter object
@@ -3428,10 +3425,7 @@ _scsih_flush_running_cmds(struct MPT3SAS_ADAPTER *ioc)
 		if (!scmd)
 			continue;
 		count++;
-<<<<<<< HEAD
 		_scsih_set_satl_pending(scmd, false);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		mpt3sas_base_free_smid(ioc, smid);
 		scsi_dma_unmap(scmd);
 		if (ioc->pci_error_recovery)
@@ -3536,10 +3530,6 @@ _scsih_eedp_error_handling(struct scsi_cmnd *scmd, u16 ioc_status)
 	    SAM_STAT_CHECK_CONDITION;
 }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /**
  * _scsih_qcmd_lck - main scsi request entry point
  * @scmd: pointer to scsi command object
@@ -3581,7 +3571,6 @@ _scsih_qcmd_lck(struct scsi_cmnd *scmd, void (*done)(struct scsi_cmnd *))
 		return 0;
 	}
 
-<<<<<<< HEAD
 	/*
 	 * Bug work around for firmware SATL handling.  The loop
 	 * is based on atomic operations and ensures consistency
@@ -3595,8 +3584,6 @@ _scsih_qcmd_lck(struct scsi_cmnd *scmd, void (*done)(struct scsi_cmnd *))
 		}
 	} while (_scsih_set_satl_pending(scmd, true));
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	sas_target_priv_data = sas_device_priv_data->sas_target;
 
 	/* invalid device handle */
@@ -4086,11 +4073,8 @@ _scsih_io_done(struct MPT3SAS_ADAPTER *ioc, u16 smid, u8 msix_index, u32 reply)
 	if (scmd == NULL)
 		return 1;
 
-<<<<<<< HEAD
 	_scsih_set_satl_pending(scmd, false);
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	mpi_request = mpt3sas_base_get_msg_frame(ioc, smid);
 
 	if (mpi_reply == NULL) {

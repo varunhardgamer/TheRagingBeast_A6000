@@ -80,10 +80,6 @@ static int xfrm4_fill_dst(struct xfrm_dst *xdst, struct net_device *dev,
 	const struct flowi4 *fl4 = &fl->u.ip4;
 
 	xdst->u.rt.rt_iif = fl4->flowi4_iif;
-<<<<<<< HEAD
-=======
-	xdst->u.rt.rt_uid = fl4->flowi4_uid;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	xdst->u.dst.dev = dev;
 	dev_hold(dev);
@@ -239,11 +235,7 @@ static struct dst_ops xfrm4_dst_ops = {
 	.destroy =		xfrm4_dst_destroy,
 	.ifdown =		xfrm4_dst_ifdown,
 	.local_out =		__ip_local_out,
-<<<<<<< HEAD
 	.gc_thresh =		32768,
-=======
-	.gc_thresh =		1024,
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 
 static struct xfrm_policy_afinfo xfrm4_policy_afinfo = {

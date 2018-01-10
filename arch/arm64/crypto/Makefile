@@ -34,12 +34,9 @@ AFLAGS_aes-neon.o	:= -DINTERLEAVE=4
 
 CFLAGS_aes-glue-ce.o	:= -DUSE_V8_CRYPTO_EXTENSIONS
 
-<<<<<<< HEAD
 obj-$(CONFIG_CRYPTO_CRC32_ARM64) += crc32-arm64.o
 
 CFLAGS_crc32-arm64.o	:= -mcpu=generic+crc
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 $(obj)/aes-glue-%.o: $(src)/aes-glue.c FORCE
 	$(call if_changed_rule,cc_o_c)

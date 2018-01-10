@@ -162,11 +162,7 @@ void __init x86_64_start_kernel(char * real_mode_data)
 	clear_bss();
 
 	for (i = 0; i < NUM_EXCEPTION_VECTORS; i++)
-<<<<<<< HEAD
 		set_intr_gate(i, &early_idt_handler_array[i]);
-=======
-		set_intr_gate(i, &early_idt_handlers[i]);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	load_idt((const struct desc_ptr *)&idt_descr);
 
 	copy_bootdata(__va(real_mode_data));

@@ -69,13 +69,8 @@ static const unsigned freqs[] = { 400000, 300000, 200000, 100000 };
  * performance cost, and for other reasons may not always be desired.
  * So we allow it it to be disabled.
  */
-<<<<<<< HEAD
 bool use_spi_crc = 0;
 module_param(use_spi_crc, bool, 0755);
-=======
-bool use_spi_crc = 1;
-module_param(use_spi_crc, bool, 0);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 /*
  * We normally treat cards as removed during suspend if they are not
@@ -545,13 +540,8 @@ static void mmc_wait_data_done(struct mmc_request *mrq)
 	struct mmc_context_info *context_info = &mrq->host->context_info;
 
 	spin_lock_irqsave(&context_info->lock, flags);
-<<<<<<< HEAD
 	context_info->is_done_rcv = true;
 	wake_up_interruptible(&context_info->wait);
-=======
-	mrq->host->context_info.is_done_rcv = true;
-	wake_up_interruptible(&mrq->host->context_info.wait);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	spin_unlock_irqrestore(&context_info->lock, flags);
 }
 
@@ -1370,19 +1360,11 @@ void mmc_set_data_timeout(struct mmc_data *data, const struct mmc_card *card)
 	/*
 	 * Some cards require longer data read timeout than indicated in CSD.
 	 * Address this by setting the read timeout to a "reasonably high"
-<<<<<<< HEAD
 	 * value. For the cards tested, 600ms has proven enough. If necessary,
 	 * this value can be increased if other problematic cards require this.
 	 */
 	if (mmc_card_long_read_time(card) && data->flags & MMC_DATA_READ) {
 		data->timeout_ns = 600000000;
-=======
-	 * value. For the cards tested, 300ms has proven enough. If necessary,
-	 * this value can be increased if other problematic cards require this.
-	 */
-	if (mmc_card_long_read_time(card) && data->flags & MMC_DATA_READ) {
-		data->timeout_ns = 300000000;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		data->timeout_clks = 0;
 	}
 
@@ -2217,11 +2199,7 @@ int mmc_resume_bus(struct mmc_host *host)
 	if (!mmc_bus_needs_resume(host))
 		return -EINVAL;
 
-<<<<<<< HEAD
 	pr_debug("%s: Starting deferred resume\n", mmc_hostname(host));
-=======
-	printk("%s: Starting deferred resume\n", mmc_hostname(host));
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	spin_lock_irqsave(&host->lock, flags);
 	host->bus_resume_flags &= ~MMC_BUSRESUME_NEEDS_RESUME;
 	host->rescan_disable = 0;
@@ -2235,11 +2213,7 @@ int mmc_resume_bus(struct mmc_host *host)
 	}
 
 	mmc_bus_put(host);
-<<<<<<< HEAD
 	pr_debug("%s: Deferred resume completed\n", mmc_hostname(host));
-=======
-	printk("%s: Deferred resume completed\n", mmc_hostname(host));
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return 0;
 }
 
@@ -2684,18 +2658,12 @@ EXPORT_SYMBOL(mmc_can_discard);
 
 int mmc_can_sanitize(struct mmc_card *card)
 {
-<<<<<<< HEAD
 #ifndef CONFIG_MACH_WT86518
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (!mmc_can_trim(card) && !mmc_can_erase(card))
 		return 0;
 	if (card->ext_csd.sec_feature_support & EXT_CSD_SEC_SANITIZE)
 		return 1;
-<<<<<<< HEAD
 #endif
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return 0;
 }
 EXPORT_SYMBOL(mmc_can_sanitize);

@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 /* Copyright (c) 2012-2016, The Linux Foundation. All rights reserved.
-=======
-/* Copyright (c) 2012-2014, The Linux Foundation. All rights reserved.
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -118,13 +114,10 @@ enum hal_extradata_id {
 	HAL_EXTRADATA_DIGITAL_ZOOM,
 	HAL_EXTRADATA_LTR_INFO,
 	HAL_EXTRADATA_METADATA_MBI,
-<<<<<<< HEAD
 	HAL_EXTRADATA_MASTERING_DISPLAY_COLOUR_SEI,
 	HAL_EXTRADATA_CONTENT_LIGHT_LEVEL_SEI,
 	HAL_EXTRADATA_VUI_DISPLAY_INFO,
 	HAL_EXTRADATA_VPX_COLORSPACE,
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 
 enum hal_property {
@@ -227,11 +220,8 @@ enum hal_property {
 	HAL_PARAM_VENC_HIER_B_MAX_ENH_LAYERS,
 	HAL_PARAM_VDEC_NON_SECURE_OUTPUT2,
 	HAL_PARAM_VENC_HIER_P_HYBRID_MODE,
-<<<<<<< HEAD
 	HAL_PARAM_VENC_VIDEO_SIGNAL_INFO,
 	HAL_PARAM_VENC_CONSTRAINED_INTRA_PRED,
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 
 enum hal_domain {
@@ -962,7 +952,6 @@ struct hal_vpe_color_space_conversion {
 	u32 csc_limit[HAL_MAX_LIMIT_COEFFS];
 };
 
-<<<<<<< HEAD
 struct hal_video_signal_info {
 	u32 color_space;
 	u32 transfer_chars;
@@ -970,8 +959,6 @@ struct hal_video_signal_info {
 	bool full_range;
 };
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 enum vidc_resource_id {
 	VIDC_RESOURCE_OCMEM = 0x00000001,
 	VIDC_UNUSED_RESORUCE = 0x10000000,

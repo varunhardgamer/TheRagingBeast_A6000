@@ -219,11 +219,7 @@ static unsigned int sas_ata_qc_issue(struct ata_queued_cmd *qc)
 		task->num_scatter = qc->n_elem;
 	} else {
 		for_each_sg(qc->sg, sg, qc->n_elem, si)
-<<<<<<< HEAD
 			xfer += sg_dma_len(sg);
-=======
-			xfer += sg->length;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 		task->total_xfer_len = xfer;
 		task->num_scatter = si;

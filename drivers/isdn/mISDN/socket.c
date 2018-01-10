@@ -717,12 +717,9 @@ base_sock_bind(struct socket *sock, struct sockaddr *addr, int addr_len)
 	if (!maddr || maddr->family != AF_ISDN)
 		return -EINVAL;
 
-<<<<<<< HEAD
 	if (addr_len < sizeof(struct sockaddr_mISDN))
 		return -EINVAL;
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	lock_sock(sk);
 
 	if (_pms(sk)->dev) {

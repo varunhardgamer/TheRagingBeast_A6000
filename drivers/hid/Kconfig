@@ -224,7 +224,6 @@ config HID_EZKEY
 	---help---
 	Support for Ezkey BTC 8193 keyboard.
 
-<<<<<<< HEAD
 config HID_FIIO
 	tristate "FiiO USB DAC Amp"
 	depends on HID
@@ -233,8 +232,6 @@ config HID_FIIO
 	you are using a FiiO device and it is causing problems for your user
 	space.
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 config HID_HOLTEK
 	tristate "Holtek HID devices"
 	depends on USB_HID

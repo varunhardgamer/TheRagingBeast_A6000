@@ -541,7 +541,6 @@ static void ip6_copy_metadata(struct sk_buff *to, struct sk_buff *from)
 	skb_copy_secmark(to, from);
 }
 
-<<<<<<< HEAD
 static void ipv6_select_ident(struct frag_hdr *fhdr, struct rt6_info *rt)
 {
 	static u32 ip6_idents_hashrnd __read_mostly;
@@ -559,8 +558,6 @@ static void ipv6_select_ident(struct frag_hdr *fhdr, struct rt6_info *rt)
 	fhdr->identification = htonl(id);
 }
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 int ip6_fragment(struct sk_buff *skb, int (*output)(struct sk_buff *))
 {
 	struct sk_buff *frag;
@@ -576,13 +573,10 @@ int ip6_fragment(struct sk_buff *skb, int (*output)(struct sk_buff *))
 	struct net *net = dev_net(skb_dst(skb)->dev);
 
 	hlen = ip6_find_1stfragopt(skb, &prevhdr);
-<<<<<<< HEAD
 	if (hlen < 0) {
 		err = hlen;
 		goto fail;
 	}
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	nexthdr = *prevhdr;
 
 	mtu = ip6_skb_dst_mtu(skb);
@@ -751,10 +745,6 @@ slow_path:
 	 *	Fragment the datagram.
 	 */
 
-<<<<<<< HEAD
-=======
-	*prevhdr = NEXTHDR_FRAGMENT;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	hroom = LL_RESERVED_SPACE(rt->dst.dev);
 	troom = rt->dst.dev->needed_tailroom;
 
@@ -762,11 +752,8 @@ slow_path:
 	 *	Keep copying data until we run out.
 	 */
 	while(left > 0)	{
-<<<<<<< HEAD
 		u8 *fragnexthdr_offset;
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		len = left;
 		/* IF: it doesn't fit, use 'mtu' - the data space left */
 		if (len > mtu)
@@ -813,13 +800,10 @@ slow_path:
 		 */
 		skb_copy_from_linear_data(skb, skb_network_header(frag), hlen);
 
-<<<<<<< HEAD
 		fragnexthdr_offset = skb_network_header(frag);
 		fragnexthdr_offset += prevhdr - skb_network_header(skb);
 		*fragnexthdr_offset = NEXTHDR_FRAGMENT;
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		/*
 		 *	Build fragment header.
 		 */
@@ -1309,19 +1293,12 @@ int ip6_append_data(struct sock *sk, int getfrag(void *from, char *to,
 
 	skb = skb_peek_tail(&sk->sk_write_queue);
 	cork->length += length;
-<<<<<<< HEAD
 	if ((skb && skb_has_frags(skb)) ||
 	    (((length + fragheaderlen) > mtu) &&
 	    (skb_queue_len(&sk->sk_write_queue) <= 1) &&
 	    (sk->sk_protocol == IPPROTO_UDP) &&
 	    (rt->dst.dev->features & NETIF_F_UFO) &&
 	    (sk->sk_type == SOCK_DGRAM))) {
-=======
-	if (((length > mtu) ||
-	     (skb && skb_has_frags(skb))) &&
-	    (sk->sk_protocol == IPPROTO_UDP) &&
-	    (rt->dst.dev->features & NETIF_F_UFO)) {
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		err = ip6_ufo_append_data(sk, getfrag, from, length,
 					  hh_len, fragheaderlen,
 					  transhdrlen, mtu, flags, rt);
@@ -1393,14 +1370,11 @@ alloc_new_skb:
 			 */
 			alloclen += sizeof(struct frag_hdr);
 
-<<<<<<< HEAD
 			copy = datalen - transhdrlen - fraggap;
 			if (copy < 0) {
 				err = -EINVAL;
 				goto error;
 			}
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			if (transhdrlen) {
 				skb = sock_alloc_send_skb(sk,
 						alloclen + hh_len,
@@ -1452,19 +1426,9 @@ alloc_new_skb:
 				data += fraggap;
 				pskb_trim_unique(skb_prev, maxfraglen);
 			}
-<<<<<<< HEAD
 			if (copy > 0 &&
 			    getfrag(from, data + transhdrlen, offset,
 				    copy, fraggap, skb) < 0) {
-=======
-			copy = datalen - transhdrlen - fraggap;
-
-			if (copy < 0) {
-				err = -EINVAL;
-				kfree_skb(skb);
-				goto error;
-			} else if (copy > 0 && getfrag(from, data + transhdrlen, offset, copy, fraggap, skb) < 0) {
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 				err = -EFAULT;
 				kfree_skb(skb);
 				goto error;

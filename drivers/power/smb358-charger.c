@@ -1290,11 +1290,6 @@ static int chg_uv(struct smb358_charger *chip, u8 status)
 		chip->chg_present = true;
 		dev_dbg(chip->dev, "%s updating usb_psy present=%d",
 				__func__, chip->chg_present);
-<<<<<<< HEAD
-=======
-		power_supply_set_supply_type(chip->usb_psy,
-						POWER_SUPPLY_TYPE_USB);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		power_supply_set_present(chip->usb_psy, chip->chg_present);
 
 		if (chip->bms_controlled_charging) {

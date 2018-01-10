@@ -532,12 +532,8 @@ static int ipaq_open(struct tty_struct *tty,
 	 * through. Since this has a reasonably high failure rate, we retry
 	 * several times.
 	 */
-<<<<<<< HEAD
 	while (retries) {
 		retries--;
-=======
-	while (retries--) {
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		result = usb_control_msg(serial->dev,
 				usb_sndctrlpipe(serial->dev, 0), 0x22, 0x21,
 				0x1, 0, NULL, 0, 100);

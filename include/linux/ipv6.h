@@ -19,11 +19,8 @@ struct ipv6_devconf {
 	__s32		rtr_solicit_interval;
 	__s32		rtr_solicit_delay;
 	__s32		force_mld_version;
-<<<<<<< HEAD
 	__s32		mldv1_unsolicited_report_interval;
 	__s32		mldv2_unsolicited_report_interval;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #ifdef CONFIG_IPV6_PRIVACY
 	__s32		use_tempaddr;
 	__s32		temp_valid_lft;
@@ -46,10 +43,7 @@ struct ipv6_devconf {
 	__s32		accept_source_route;
 #ifdef CONFIG_IPV6_OPTIMISTIC_DAD
 	__s32		optimistic_dad;
-<<<<<<< HEAD
 	__s32		use_optimistic;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #endif
 #ifdef CONFIG_IPV6_MROUTE
 	__s32		mc_forwarding;
@@ -60,10 +54,7 @@ struct ipv6_devconf {
 	__s32           ndisc_notify;
 	__s32		accept_ra_prefix_route;
 	__s32		accept_ra_mtu;
-<<<<<<< HEAD
 	__s32		use_oif_addrs_only;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	void		*sysctl;
 };
 
@@ -286,15 +277,9 @@ static inline struct inet6_timewait_sock *inet6_twsk(const struct sock *sk)
 }
 
 #if IS_ENABLED(CONFIG_IPV6)
-<<<<<<< HEAD
 static inline struct ipv6_pinfo *inet6_sk(const struct sock *__sk)
 {
 	return sk_fullsock(__sk) ? inet_sk(__sk)->pinet6 : NULL;
-=======
-static inline struct ipv6_pinfo * inet6_sk(const struct sock *__sk)
-{
-	return inet_sk(__sk)->pinet6;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static inline struct inet6_request_sock *

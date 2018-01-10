@@ -23,17 +23,11 @@ config ARM
 	select HARDIRQS_SW_RESEND
 	select HAVE_ARCH_JUMP_LABEL if !XIP_KERNEL
 	select HAVE_ARCH_KGDB
-<<<<<<< HEAD
 	select HAVE_ARCH_MMAP_RND_BITS if MMU
 	select HAVE_ARCH_SECCOMP_FILTER
 	select HAVE_ARCH_TRACEHOOK
 	select HAVE_BPF_JIT
         select HAVE_EFFICIENT_UNALIGNED_ACCESS
-=======
-	select HAVE_ARCH_SECCOMP_FILTER
-	select HAVE_ARCH_TRACEHOOK
-	select HAVE_BPF_JIT
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	select HAVE_C_RECORDMCOUNT
 	select HAVE_CC_STACKPROTECTOR
 	select HAVE_DEBUG_KMEMLEAK
@@ -309,7 +303,6 @@ config MMU
 	  Select if you want MMU-based virtualised addressing space
 	  support by paged memory management. If unsure, say 'Y'.
 
-<<<<<<< HEAD
 config ARCH_MMAP_RND_BITS_MIN
 	default 8
 
@@ -318,8 +311,6 @@ config ARCH_MMAP_RND_BITS_MAX
 	default 15 if PAGE_OFFSET=0x80000000
 	default 16
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #
 # The "ARM system type" choice list is ordered alphabetically by option
 # text.  Please add new entries in the option alphabetic order.
@@ -1656,17 +1647,12 @@ config ARCH_NR_GPIO
 
 source kernel/Kconfig.preempt
 
-<<<<<<< HEAD
 config HZ_FIXED
-=======
-config HZ
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	int
 	default 200 if ARCH_EBSA110 || ARCH_S3C24XX || ARCH_S5P64X0 || \
 		ARCH_S5PV210 || ARCH_EXYNOS4
 	default AT91_TIMER_HZ if ARCH_AT91
 	default SHMOBILE_TIMER_HZ if ARCH_SHMOBILE
-<<<<<<< HEAD
 	default 0
 
 choice
@@ -1705,9 +1691,6 @@ config HZ
 
 config SCHED_HRTICK
 	def_bool HIGH_RES_TIMERS
-=======
-	default 100
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 config SCHED_HRTICK
 	def_bool HIGH_RES_TIMERS
@@ -1792,7 +1775,6 @@ config OABI_COMPAT
 	  UNPREDICTABLE (in fact it can be predicted that it won't work
 	  at all). If in doubt say Y.
 
-<<<<<<< HEAD
 config 4KSTACKS
 	bool "Use 4K kernel stacks instead of 8K"
 	default n
@@ -1806,8 +1788,6 @@ config 4KSTACKS
 	  usage patterns will not overflow 4K, you should leave this set
 	  to N.
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 config ARCH_HAS_HOLES_MEMORYMODEL
 	bool
 
@@ -2255,7 +2235,6 @@ config ATAGS_PROC
 	  Should the atags used to boot the kernel be exported in an "atags"
 	  file in procfs. Useful with kexec.
 
-<<<<<<< HEAD
 config KEXEC_HARDBOOT
 	bool "Support hard booting to a kexec kernel"
 	depends on KEXEC
@@ -2282,8 +2261,6 @@ config KEXEC_HARDBOOT
 	  kernel capable of performing a hardboot kexec.  It is _not_ required by a
           kexec'd kernel.
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 config CRASH_DUMP
 	bool "Build kdump crash kernel (EXPERIMENTAL)"
 	help

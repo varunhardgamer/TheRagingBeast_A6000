@@ -45,11 +45,7 @@ static int mmc_prep_request(struct request_queue *q, struct request *req)
 		return BLKPREP_KILL;
 	}
 
-<<<<<<< HEAD
 	if (mq && (mmc_card_removed(mq->card) || mmc_access_rpmb(mq)))
-=======
-	if (mq && mmc_card_removed(mq->card))
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		return BLKPREP_KILL;
 
 	req->cmd_flags |= REQ_DONTPREP;

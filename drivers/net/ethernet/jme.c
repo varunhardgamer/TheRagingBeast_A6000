@@ -3290,21 +3290,14 @@ jme_resume(struct device *dev)
 		jme_reset_phy_processor(jme);
 	jme_phy_calibration(jme);
 	jme_phy_setEA(jme);
-<<<<<<< HEAD
-=======
-	jme_start_irq(jme);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	netif_device_attach(netdev);
 
 	atomic_inc(&jme->link_changing);
 
 	jme_reset_link(jme);
 
-<<<<<<< HEAD
 	jme_start_irq(jme);
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return 0;
 }
 

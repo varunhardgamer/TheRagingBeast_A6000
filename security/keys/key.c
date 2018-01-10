@@ -299,11 +299,8 @@ struct key *key_alloc(struct key_type *type, const char *desc,
 
 	if (!(flags & KEY_ALLOC_NOT_IN_QUOTA))
 		key->flags |= 1 << KEY_FLAG_IN_QUOTA;
-<<<<<<< HEAD
 	if (flags & KEY_ALLOC_UID_KEYRING)
 		key->flags |= 1 << KEY_FLAG_UID_KEYRING;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	memset(&key->type_data, 0, sizeof(key->type_data));
 
@@ -585,11 +582,7 @@ int key_reject_and_link(struct key *key,
 
 	mutex_unlock(&key_construction_mutex);
 
-<<<<<<< HEAD
 	if (keyring && link_ret == 0)
-=======
-	if (keyring)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		__key_link_end(keyring, key->type, prealloc);
 
 	/* wake up anyone waiting for a key to be constructed */
@@ -906,7 +899,6 @@ error:
 	 */
 	__key_link_end(keyring, ktype, prealloc);
 
-<<<<<<< HEAD
 	key = key_ref_to_ptr(key_ref);
 	if (test_bit(KEY_FLAG_USER_CONSTRUCT, &key->flags)) {
 		ret = wait_for_key_construction(key, true);
@@ -917,8 +909,6 @@ error:
 		}
 	}
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	key_ref = __key_update(key_ref, &prep);
 	goto error_free_prep;
 }

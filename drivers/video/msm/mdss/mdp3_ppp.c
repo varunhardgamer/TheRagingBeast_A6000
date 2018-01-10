@@ -590,16 +590,12 @@ int mdp3_calc_ppp_res(struct msm_fb_data_type *mfd,  struct blit_req_list *lreq)
 			else
 				fps = panel_info->mipi.frame_rate;
 		}
-<<<<<<< HEAD
 		if (!(check_if_rgb(req->src.format))) {
 			/* Set max fps if video is not full screen */
 			if((req->dst_rect.w < panel_info->xres) ||
 				( req->dst_rect.h < panel_info->yres))
 				fps = panel_info->mipi.frame_rate;
 		}
-=======
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		mdp3_get_bpp_info(req->src.format, &bpp);
 		if (lreq->req_list[i].flags & MDP_SMART_BLIT) {
 			/*

@@ -228,14 +228,9 @@ int misaligned_fixup(unsigned long address, struct pt_regs *regs,
 	if (state.fault)
 		goto fault;
 
-<<<<<<< HEAD
 	/* clear any remanants of delay slot */
 	if (delay_mode(regs)) {
 		regs->ret = regs->bta & ~1U;
-=======
-	if (delay_mode(regs)) {
-		regs->ret = regs->bta;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		regs->status32 &= ~STATUS_DE_MASK;
 	} else {
 		regs->ret += state.instr_len;

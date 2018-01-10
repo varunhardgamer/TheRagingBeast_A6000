@@ -509,11 +509,8 @@ static int ast_crtc_do_set_base(struct drm_crtc *crtc,
 		ret = ttm_bo_kmap(&bo->bo, 0, bo->bo.num_pages, &bo->kmap);
 		if (ret)
 			DRM_ERROR("failed to kmap fbcon\n");
-<<<<<<< HEAD
 		else
 			ast_fbdev_set_base(ast, gpu_addr);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 	ast_bo_unreserve(bo);
 
@@ -1017,13 +1014,8 @@ static u32 copy_cursor_image(u8 *src, u8 *dst, int width, int height)
 			srcdata32[1].ul = *((u32 *)(srcxor + 4)) & 0xf0f0f0f0;
 			data32.b[0] = srcdata32[0].b[1] | (srcdata32[0].b[0] >> 4);
 			data32.b[1] = srcdata32[0].b[3] | (srcdata32[0].b[2] >> 4);
-<<<<<<< HEAD
 			data32.b[2] = srcdata32[1].b[1] | (srcdata32[1].b[0] >> 4);
 			data32.b[3] = srcdata32[1].b[3] | (srcdata32[1].b[2] >> 4);
-=======
-			data32.b[2] = srcdata32[0].b[1] | (srcdata32[1].b[0] >> 4);
-			data32.b[3] = srcdata32[0].b[3] | (srcdata32[1].b[2] >> 4);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 			writel(data32.ul, dstxor);
 			csum += data32.ul;

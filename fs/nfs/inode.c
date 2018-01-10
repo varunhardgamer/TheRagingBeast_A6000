@@ -519,11 +519,7 @@ int nfs_getattr(struct vfsmount *mnt, struct dentry *dentry, struct kstat *stat)
 {
 	struct inode *inode = dentry->d_inode;
 	int need_atime = NFS_I(inode)->cache_validity & NFS_INO_INVALID_ATIME;
-<<<<<<< HEAD
 	int err = 0;
-=======
-	int err;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	/* Flush out writes to the server in order to update c/mtime.  */
 	if (S_ISREG(inode->i_mode)) {
@@ -1507,15 +1503,11 @@ static int nfs_update_inode(struct inode *inode, struct nfs_fattr *fattr)
 			nfsi->attrtimeo_timestamp = now;
 		}
 	}
-<<<<<<< HEAD
 
 	/* Don't declare attrcache up to date if there were no attrs! */
 	if (fattr->valid != 0)
 		invalid &= ~NFS_INO_INVALID_ATTR;
 
-=======
-	invalid &= ~NFS_INO_INVALID_ATTR;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/* Don't invalidate the data if we were to blame */
 	if (!(S_ISREG(inode->i_mode) || S_ISDIR(inode->i_mode)
 				|| S_ISLNK(inode->i_mode)))

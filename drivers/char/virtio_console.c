@@ -1129,11 +1129,8 @@ static int put_chars(u32 vtermno, const char *buf, int count)
 {
 	struct port *port;
 	struct scatterlist sg[1];
-<<<<<<< HEAD
 	void *data;
 	int ret;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (unlikely(early_put_chars))
 		return early_put_chars(vtermno, buf, count);
@@ -1142,7 +1139,6 @@ static int put_chars(u32 vtermno, const char *buf, int count)
 	if (!port)
 		return -EPIPE;
 
-<<<<<<< HEAD
 	data = kmemdup(buf, count, GFP_ATOMIC);
 	if (!data)
 		return -ENOMEM;
@@ -1151,10 +1147,6 @@ static int put_chars(u32 vtermno, const char *buf, int count)
 	ret = __send_to_port(port, sg, 1, count, data, false);
 	kfree(data);
 	return ret;
-=======
-	sg_init_one(sg, buf, count);
-	return __send_to_port(port, sg, 1, count, (void *)buf, false);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 /*
@@ -2039,20 +2031,13 @@ static int virtcons_probe(struct virtio_device *vdev)
 	spin_lock_init(&portdev->ports_lock);
 	INIT_LIST_HEAD(&portdev->ports);
 
-<<<<<<< HEAD
 	INIT_WORK(&portdev->control_work, &control_work_handler);
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (multiport) {
 		unsigned int nr_added_bufs;
 
 		spin_lock_init(&portdev->c_ivq_lock);
 		spin_lock_init(&portdev->c_ovq_lock);
-<<<<<<< HEAD
-=======
-		INIT_WORK(&portdev->control_work, &control_work_handler);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 		nr_added_bufs = fill_queue(portdev->c_ivq,
 					   &portdev->c_ivq_lock);

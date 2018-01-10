@@ -26,30 +26,18 @@ TRACE_EVENT(kvm_exit,
 	    TP_PROTO(struct kvm_vcpu *vcpu, unsigned int reason),
 	    TP_ARGS(vcpu, reason),
 	    TP_STRUCT__entry(
-<<<<<<< HEAD
 			__field(unsigned long, pc)
-=======
-			__field(struct kvm_vcpu *, vcpu)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			__field(unsigned int, reason)
 	    ),
 
 	    TP_fast_assign(
-<<<<<<< HEAD
 			__entry->pc = vcpu->arch.pc;
-=======
-			__entry->vcpu = vcpu;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			__entry->reason = reason;
 	    ),
 
 	    TP_printk("[%s]PC: 0x%08lx",
 		      kvm_mips_exit_types_str[__entry->reason],
-<<<<<<< HEAD
 		      __entry->pc)
-=======
-		      __entry->vcpu->arch.pc)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 );
 
 #endif /* _TRACE_KVM_H */

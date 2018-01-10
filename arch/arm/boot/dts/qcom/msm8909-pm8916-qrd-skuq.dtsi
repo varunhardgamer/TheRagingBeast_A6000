@@ -35,48 +35,14 @@
 
 };
 
-<<<<<<< HEAD
 &pm8916_chg {
-=======
-/{
-	qrd_batterydata: qcom,battery-data {
-		qcom,rpull-up-kohm = <0>;
-		qcom,vref-batt-therm = <1800000>;
-
-		#include "batterydata-qrd-skuq-4v35-2500mah.dtsi"
-	};
-};
-
-&pm8916_chg {
-	qcom,vddmax-mv = <4350>;
-	qcom,vddsafe-mv = <4380>;
-	qcom,vinmin-mv = <4470>;
-	qcom,tchg-mins = <360>;
-	qcom,disable-vbatdet-based-recharge;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	status = "ok";
 };
 
 &pm8916_bms {
-<<<<<<< HEAD
 	status = "ok";
 };
 
-=======
-	qcom,battery-data = <&qrd_batterydata>;
-	qcom,resume-soc = <95>;
-	qcom,use-reported-soc;
-	qcom,force-bms-active-on-charger;
-	status = "ok";
-};
-
-&pm8916_vadc {
-	chan@30 {
-		qcom,scale-function = <12>;
-	};
-};
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 &soc {
 	sound {
 		compatible = "qcom,msm8x16-audio-codec";
@@ -183,11 +149,7 @@
 			interrupts = <96 0x2002>;
 			vdd-supply = <&pm8916_l17>;
 			vio-supply = <&pm8916_l6>;
-<<<<<<< HEAD
 			bosch,place = <5>;
-=======
-			bosch,place = <7>;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			bosch,gpio-int1 = <&msm_gpio 96 0x2002>;
 		};
 
@@ -196,11 +158,7 @@
 			reg = <0x30>;
 			vdd-supply = <&pm8916_l17>;
 			vio-supply = <&pm8916_l6>;
-<<<<<<< HEAD
 			memsic,dir = "obverse-x-axis-forward";
-=======
-			memsic,dir = "reverse-x-axis-forward";
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			memsic,auto-report;
 		};
 
@@ -223,26 +181,6 @@
 			stk,use-fir;
 		};
 	};
-<<<<<<< HEAD
-=======
-
-	i2c@78b9000 {
-		status = "ok";
-		himax-ts@48 {
-			compatible = "himax,852xes";
-			reg  = <0x48>;
-			interrupt-parent = <&msm_gpio>;
-			interrupts = <13 0x2>;
-			vdd_ana-supply = <&pm8916_l17>;
-			vcc_i2c-supply = <&pm8916_l6>;
-			himax,panel-coords = <0 720 0 1280>;
-			himax,display-coords = <0 720 0 1280>;
-			himax,irq-gpio  = <&msm_gpio 13 0x00>;
-			himax,rst-gpio  = <&msm_gpio 12 0x00>;
-			report_type = <1>;
-		};
-	};
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 
 &pm8916_mpps {

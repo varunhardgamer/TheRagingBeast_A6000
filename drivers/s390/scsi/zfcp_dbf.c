@@ -3,11 +3,7 @@
  *
  * Debug traces for zfcp.
  *
-<<<<<<< HEAD
  * Copyright IBM Corp. 2002, 2016
-=======
- * Copyright IBM Corp. 2002, 2010
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  */
 
 #define KMSG_COMPONENT "zfcp"
@@ -62,11 +58,7 @@ void zfcp_dbf_pl_write(struct zfcp_dbf *dbf, void *data, u16 length, char *area,
  * @tag: tag indicating which kind of unsolicited status has been received
  * @req: request for which a response was received
  */
-<<<<<<< HEAD
 void zfcp_dbf_hba_fsf_res(char *tag, int level, struct zfcp_fsf_req *req)
-=======
-void zfcp_dbf_hba_fsf_res(char *tag, struct zfcp_fsf_req *req)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	struct zfcp_dbf *dbf = req->adapter->dbf;
 	struct fsf_qtcb_prefix *q_pref = &req->qtcb->prefix;
@@ -86,11 +78,8 @@ void zfcp_dbf_hba_fsf_res(char *tag, struct zfcp_fsf_req *req)
 	rec->u.res.req_issued = req->issued;
 	rec->u.res.prot_status = q_pref->prot_status;
 	rec->u.res.fsf_status = q_head->fsf_status;
-<<<<<<< HEAD
 	rec->u.res.port_handle = q_head->port_handle;
 	rec->u.res.lun_handle = q_head->lun_handle;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	memcpy(rec->u.res.prot_status_qual, &q_pref->prot_status_qual,
 	       FSF_PROT_STATUS_QUAL_SIZE);
@@ -103,11 +92,7 @@ void zfcp_dbf_hba_fsf_res(char *tag, struct zfcp_fsf_req *req)
 				  rec->pl_len, "fsf_res", req->req_id);
 	}
 
-<<<<<<< HEAD
 	debug_event(dbf->hba, level, rec, sizeof(*rec));
-=======
-	debug_event(dbf->hba, 1, rec, sizeof(*rec));
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	spin_unlock_irqrestore(&dbf->hba_lock, flags);
 }
 
@@ -251,12 +236,8 @@ static void zfcp_dbf_set_common(struct zfcp_dbf_rec *rec,
 	if (sdev) {
 		rec->lun_status = atomic_read(&sdev_to_zfcp(sdev)->status);
 		rec->lun = zfcp_scsi_dev_lun(sdev);
-<<<<<<< HEAD
 	} else
 		rec->lun = ZFCP_DBF_INVALID_LUN;
-=======
-	}
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 /**
@@ -301,20 +282,12 @@ void zfcp_dbf_rec_trig(char *tag, struct zfcp_adapter *adapter,
 
 
 /**
-<<<<<<< HEAD
  * zfcp_dbf_rec_run_lvl - trace event related to running recovery
  * @level: trace level to be used for event
  * @tag: identifier for event
  * @erp: erp_action running
  */
 void zfcp_dbf_rec_run_lvl(int level, char *tag, struct zfcp_erp_action *erp)
-=======
- * zfcp_dbf_rec_run - trace event related to running recovery
- * @tag: identifier for event
- * @erp: erp_action running
- */
-void zfcp_dbf_rec_run(char *tag, struct zfcp_erp_action *erp)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	struct zfcp_dbf *dbf = erp->adapter->dbf;
 	struct zfcp_dbf_rec *rec = &dbf->rec_buf;
@@ -340,7 +313,6 @@ void zfcp_dbf_rec_run(char *tag, struct zfcp_erp_action *erp)
 	else
 		rec->u.run.rec_count = atomic_read(&erp->adapter->erp_counter);
 
-<<<<<<< HEAD
 	debug_event(dbf->rec, level, rec, sizeof(*rec));
 	spin_unlock_irqrestore(&dbf->rec_lock, flags);
 }
@@ -383,30 +355,20 @@ void zfcp_dbf_rec_run_wka(char *tag, struct zfcp_fc_wka_port *wka_port,
 	rec->u.run.rec_action = ~0;
 	rec->u.run.rec_count = ~0;
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	debug_event(dbf->rec, 1, rec, sizeof(*rec));
 	spin_unlock_irqrestore(&dbf->rec_lock, flags);
 }
 
 static inline
-<<<<<<< HEAD
 void zfcp_dbf_san(char *tag, struct zfcp_dbf *dbf,
 		  char *paytag, struct scatterlist *sg, u8 id, u16 len,
 		  u64 req_id, u32 d_id, u16 cap_len)
-=======
-void zfcp_dbf_san(char *tag, struct zfcp_dbf *dbf, void *data, u8 id, u16 len,
-		  u64 req_id, u32 d_id)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	struct zfcp_dbf_san *rec = &dbf->san_buf;
 	u16 rec_len;
 	unsigned long flags;
-<<<<<<< HEAD
 	struct zfcp_dbf_pay *payload = &dbf->pay_buf;
 	u16 pay_sum = 0;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	spin_lock_irqsave(&dbf->san_lock, flags);
 	memset(rec, 0, sizeof(*rec));
@@ -414,7 +376,6 @@ void zfcp_dbf_san(char *tag, struct zfcp_dbf *dbf, void *data, u8 id, u16 len,
 	rec->id = id;
 	rec->fsf_req_id = req_id;
 	rec->d_id = d_id;
-<<<<<<< HEAD
 	memcpy(rec->tag, tag, ZFCP_DBF_TAG_LEN);
 	rec->pl_len = len; /* full length even if we cap pay below */
 	if (!sg)
@@ -450,12 +411,6 @@ void zfcp_dbf_san(char *tag, struct zfcp_dbf *dbf, void *data, u8 id, u16 len,
 	spin_unlock(&dbf->pay_lock);
 
 out:
-=======
-	rec_len = min(len, (u16)ZFCP_DBF_SAN_MAX_PAYLOAD);
-	memcpy(rec->payload, data, rec_len);
-	memcpy(rec->tag, tag, ZFCP_DBF_TAG_LEN);
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	debug_event(dbf->san, 1, rec, sizeof(*rec));
 	spin_unlock_irqrestore(&dbf->san_lock, flags);
 }
@@ -472,7 +427,6 @@ void zfcp_dbf_san_req(char *tag, struct zfcp_fsf_req *fsf, u32 d_id)
 	struct zfcp_fsf_ct_els *ct_els = fsf->data;
 	u16 length;
 
-<<<<<<< HEAD
 	length = (u16)zfcp_qdio_real_bytes(ct_els->req);
 	zfcp_dbf_san(tag, dbf, "san_req", ct_els->req, ZFCP_DBF_SAN_REQ,
 		     length, fsf->req_id, d_id, length);
@@ -529,11 +483,6 @@ static u16 zfcp_dbf_san_res_cap_len_if_gpn_ft(char *tag,
 	}
 	len = min(len, (u16)(x * sizeof(struct fc_gpn_ft_resp)));
 	return len; /* cap after last entry */
-=======
-	length = (u16)(ct_els->req->length + FC_CT_HDR_LEN);
-	zfcp_dbf_san(tag, dbf, sg_virt(ct_els->req), ZFCP_DBF_SAN_REQ, length,
-		     fsf->req_id, d_id);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 /**
@@ -547,16 +496,10 @@ void zfcp_dbf_san_res(char *tag, struct zfcp_fsf_req *fsf)
 	struct zfcp_fsf_ct_els *ct_els = fsf->data;
 	u16 length;
 
-<<<<<<< HEAD
 	length = (u16)zfcp_qdio_real_bytes(ct_els->resp);
 	zfcp_dbf_san(tag, dbf, "san_res", ct_els->resp, ZFCP_DBF_SAN_RES,
 		     length, fsf->req_id, ct_els->d_id,
 		     zfcp_dbf_san_res_cap_len_if_gpn_ft(tag, fsf, length));
-=======
-	length = (u16)(ct_els->resp->length + FC_CT_HDR_LEN);
-	zfcp_dbf_san(tag, dbf, sg_virt(ct_els->resp), ZFCP_DBF_SAN_RES, length,
-		     fsf->req_id, 0);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 /**
@@ -570,7 +513,6 @@ void zfcp_dbf_san_in_els(char *tag, struct zfcp_fsf_req *fsf)
 	struct fsf_status_read_buffer *srb =
 		(struct fsf_status_read_buffer *) fsf->data;
 	u16 length;
-<<<<<<< HEAD
 	struct scatterlist sg;
 
 	length = (u16)(srb->length -
@@ -578,13 +520,6 @@ void zfcp_dbf_san_in_els(char *tag, struct zfcp_fsf_req *fsf)
 	sg_init_one(&sg, srb->payload.data, length);
 	zfcp_dbf_san(tag, dbf, "san_els", &sg, ZFCP_DBF_SAN_ELS, length,
 		     fsf->req_id, ntoh24(srb->d_id), length);
-=======
-
-	length = (u16)(srb->length -
-			offsetof(struct fsf_status_read_buffer, payload));
-	zfcp_dbf_san(tag, dbf, srb->payload.data, ZFCP_DBF_SAN_ELS, length,
-		     fsf->req_id, ntoh24(srb->d_id));
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 /**
@@ -593,12 +528,8 @@ void zfcp_dbf_san_in_els(char *tag, struct zfcp_fsf_req *fsf)
  * @sc: pointer to struct scsi_cmnd
  * @fsf: pointer to struct zfcp_fsf_req
  */
-<<<<<<< HEAD
 void zfcp_dbf_scsi(char *tag, int level, struct scsi_cmnd *sc,
 		   struct zfcp_fsf_req *fsf)
-=======
-void zfcp_dbf_scsi(char *tag, struct scsi_cmnd *sc, struct zfcp_fsf_req *fsf)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	struct zfcp_adapter *adapter =
 		(struct zfcp_adapter *) sc->device->host->hostdata[0];
@@ -625,20 +556,14 @@ void zfcp_dbf_scsi(char *tag, struct scsi_cmnd *sc, struct zfcp_fsf_req *fsf)
 
 	if (fsf) {
 		rec->fsf_req_id = fsf->req_id;
-<<<<<<< HEAD
 		rec->pl_len = FCP_RESP_WITH_EXT;
 		fcp_rsp = (struct fcp_resp_with_ext *)
 				&(fsf->qtcb->bottom.io.fcp_rsp);
 		/* mandatory parts of FCP_RSP IU in this SCSI record */
-=======
-		fcp_rsp = (struct fcp_resp_with_ext *)
-				&(fsf->qtcb->bottom.io.fcp_rsp);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		memcpy(&rec->fcp_rsp, fcp_rsp, FCP_RESP_WITH_EXT);
 		if (fcp_rsp->resp.fr_flags & FCP_RSP_LEN_VAL) {
 			fcp_rsp_info = (struct fcp_resp_rsp_info *) &fcp_rsp[1];
 			rec->fcp_rsp_info = fcp_rsp_info->rsp_code;
-<<<<<<< HEAD
 			rec->pl_len += be32_to_cpu(fcp_rsp->ext.fr_rsp_len);
 		}
 		if (fcp_rsp->resp.fr_flags & FCP_SNS_LEN_VAL) {
@@ -660,18 +585,6 @@ void zfcp_dbf_scsi(char *tag, struct scsi_cmnd *sc, struct zfcp_fsf_req *fsf)
 	}
 
 	debug_event(dbf->scsi, level, rec, sizeof(*rec));
-=======
-		}
-		if (fcp_rsp->resp.fr_flags & FCP_SNS_LEN_VAL) {
-			rec->pl_len = min((u16)SCSI_SENSE_BUFFERSIZE,
-					  (u16)ZFCP_DBF_PAY_MAX_REC);
-			zfcp_dbf_pl_write(dbf, sc->sense_buffer, rec->pl_len,
-					  "fcp_sns", fsf->req_id);
-		}
-	}
-
-	debug_event(dbf->scsi, 1, rec, sizeof(*rec));
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	spin_unlock_irqrestore(&dbf->scsi_lock, flags);
 }
 

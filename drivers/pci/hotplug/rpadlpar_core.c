@@ -259,7 +259,6 @@ static int dlpar_add_phb(char *drc_name, struct device_node *dn)
 
 static int dlpar_add_vio_slot(char *drc_name, struct device_node *dn)
 {
-<<<<<<< HEAD
 	struct vio_dev *vio_dev;
 
 	vio_dev = vio_find_node(dn);
@@ -267,10 +266,6 @@ static int dlpar_add_vio_slot(char *drc_name, struct device_node *dn)
 		put_device(&vio_dev->dev);
 		return -EINVAL;
 	}
-=======
-	if (vio_find_node(dn))
-		return -EINVAL;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (!vio_register_device_node(dn)) {
 		printk(KERN_ERR
@@ -346,12 +341,9 @@ static int dlpar_remove_vio_slot(char *drc_name, struct device_node *dn)
 		return -EINVAL;
 
 	vio_unregister_device(vio_dev);
-<<<<<<< HEAD
 
 	put_device(&vio_dev->dev);
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return 0;
 }
 

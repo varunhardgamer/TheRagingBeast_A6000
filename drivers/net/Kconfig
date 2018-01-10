@@ -139,10 +139,7 @@ config MACVLAN
 config MACVTAP
 	tristate "MAC-VLAN based tap driver"
 	depends on MACVLAN
-<<<<<<< HEAD
 	depends on INET
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	help
 	  This adds a specialized tap character device driver that is based
 	  on the MAC-VLAN network interface, called macvtap. A macvtap device
@@ -213,10 +210,7 @@ config RIONET_RX_SIZE
 
 config TUN
 	tristate "Universal TUN/TAP device driver support"
-<<<<<<< HEAD
 	depends on INET
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	select CRC32
 	---help---
 	  TUN/TAP provides packet reception and transmission for user space

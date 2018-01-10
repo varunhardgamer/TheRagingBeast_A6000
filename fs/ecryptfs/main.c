@@ -494,10 +494,7 @@ static struct dentry *ecryptfs_mount(struct file_system_type *fs_type, int flags
 {
 	struct super_block *s;
 	struct ecryptfs_sb_info *sbi;
-<<<<<<< HEAD
 	struct ecryptfs_mount_crypt_stat *mount_crypt_stat;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	struct ecryptfs_dentry_info *root_info;
 	const char *err = "Getting sb failed";
 	struct inode *inode;
@@ -516,10 +513,7 @@ static struct dentry *ecryptfs_mount(struct file_system_type *fs_type, int flags
 		err = "Error parsing options";
 		goto out;
 	}
-<<<<<<< HEAD
 	mount_crypt_stat = &sbi->mount_crypt_stat;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	s = sget(fs_type, NULL, set_anon_super, flags, NULL);
 	if (IS_ERR(s)) {
@@ -566,7 +560,6 @@ static struct dentry *ecryptfs_mount(struct file_system_type *fs_type, int flags
 
 	/**
 	 * Set the POSIX ACL flag based on whether they're enabled in the lower
-<<<<<<< HEAD
 	 * mount.
 	 */
 	s->s_flags = flags & ~MS_POSIXACL;
@@ -580,18 +573,10 @@ static struct dentry *ecryptfs_mount(struct file_system_type *fs_type, int flags
 	if (path.dentry->d_sb->s_flags & MS_RDONLY ||
 	    mount_crypt_stat->flags & ECRYPTFS_ENCRYPTED_VIEW_ENABLED)
 		s->s_flags |= MS_RDONLY;
-=======
-	 * mount. Force a read-only eCryptfs mount if the lower mount is ro.
-	 * Allow a ro eCryptfs mount even when the lower mount is rw.
-	 */
-	s->s_flags = flags & ~MS_POSIXACL;
-	s->s_flags |= path.dentry->d_sb->s_flags & (MS_RDONLY | MS_POSIXACL);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	s->s_maxbytes = path.dentry->d_sb->s_maxbytes;
 	s->s_blocksize = path.dentry->d_sb->s_blocksize;
 	s->s_magic = ECRYPTFS_SUPER_MAGIC;
-<<<<<<< HEAD
 	s->s_stack_depth = path.dentry->d_sb->s_stack_depth + 1;
 
 	rc = -EINVAL;
@@ -599,8 +584,6 @@ static struct dentry *ecryptfs_mount(struct file_system_type *fs_type, int flags
 		pr_err("eCryptfs: maximum fs stacking depth exceeded\n");
 		goto out_free;
 	}
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	inode = ecryptfs_get_inode(path.dentry->d_inode, s);
 	rc = PTR_ERR(inode);

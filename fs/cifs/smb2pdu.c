@@ -254,11 +254,7 @@ out:
 	case SMB2_CHANGE_NOTIFY:
 	case SMB2_QUERY_INFO:
 	case SMB2_SET_INFO:
-<<<<<<< HEAD
 		rc = -EAGAIN;
-=======
-		return -EAGAIN;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 	unload_nls(nls_codepage);
 	return rc;
@@ -724,12 +720,6 @@ SMB2_tcon(const unsigned int xid, struct cifs_ses *ses, const char *tree,
 	else
 		return -EIO;
 
-<<<<<<< HEAD
-=======
-	if (tcon && tcon->bad_network_name)
-		return -ENOENT;
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	unc_path = kmalloc(MAX_SHARENAME_LENGTH * 2, GFP_KERNEL);
 	if (unc_path == NULL)
 		return -ENOMEM;
@@ -741,13 +731,10 @@ SMB2_tcon(const unsigned int xid, struct cifs_ses *ses, const char *tree,
 		return -EINVAL;
 	}
 
-<<<<<<< HEAD
 	/* SMB2 TREE_CONNECT request must be called with TreeId == 0 */
 	if (tcon)
 		tcon->tid = 0;
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	rc = small_smb2_init(SMB2_TREE_CONNECT, tcon, (void **) &req);
 	if (rc) {
 		kfree(unc_path);
@@ -823,10 +810,6 @@ tcon_exit:
 tcon_error_exit:
 	if (rsp->hdr.Status == STATUS_BAD_NETWORK_NAME) {
 		cifs_dbg(VFS, "BAD_NETWORK_NAME: %s\n", tree);
-<<<<<<< HEAD
-=======
-		tcon->bad_network_name = true;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 	goto tcon_exit;
 }
@@ -1220,11 +1203,7 @@ SMB2_query_info(const unsigned int xid, struct cifs_tcon *tcon,
 {
 	return query_info(xid, tcon, persistent_fid, volatile_fid,
 			  FILE_ALL_INFORMATION,
-<<<<<<< HEAD
 			  sizeof(struct smb2_file_all_info) + PATH_MAX * 2,
-=======
-			  sizeof(struct smb2_file_all_info) + MAX_NAME * 2,
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			  sizeof(struct smb2_file_all_info), data);
 }
 
@@ -1259,7 +1238,6 @@ smb2_echo_callback(struct mid_q_entry *mid)
 	add_credits(server, credits_received, CIFS_ECHO_OP);
 }
 
-<<<<<<< HEAD
 void smb2_reconnect_server(struct work_struct *work)
 {
 	struct TCP_Server_Info *server = container_of(work,
@@ -1308,8 +1286,6 @@ void smb2_reconnect_server(struct work_struct *work)
 		cifs_put_tcp_session(server, 1);
 }
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 int
 SMB2_echo(struct TCP_Server_Info *server)
 {
@@ -1321,15 +1297,12 @@ SMB2_echo(struct TCP_Server_Info *server)
 
 	cifs_dbg(FYI, "In echo request\n");
 
-<<<<<<< HEAD
 	if (server->tcpStatus == CifsNeedNegotiate) {
 		/* No need to send echo on newly established connections */
 		queue_delayed_work(cifsiod_wq, &server->reconnect, 0);
 		return rc;
 	}
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	rc = small_smb2_init(SMB2_ECHO, NULL, (void **)&req);
 	if (rc)
 		return rc;
@@ -1880,13 +1853,10 @@ SMB2_query_directory(const unsigned int xid, struct cifs_tcon *tcon,
 	rsp = (struct smb2_query_directory_rsp *)iov[0].iov_base;
 
 	if (rc) {
-<<<<<<< HEAD
 		if (rc == -ENODATA && rsp->hdr.Status == STATUS_NO_MORE_FILES) {
 			srch_inf->endOfSearch = true;
 			rc = 0;
 		}
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		cifs_stats_fail_inc(tcon, SMB2_QUERY_DIRECTORY_HE);
 		goto qdir_exit;
 	}
@@ -1924,14 +1894,6 @@ SMB2_query_directory(const unsigned int xid, struct cifs_tcon *tcon,
 	else
 		cifs_dbg(VFS, "illegal search buffer type\n");
 
-<<<<<<< HEAD
-=======
-	if (rsp->hdr.Status == STATUS_NO_MORE_FILES)
-		srch_inf->endOfSearch = 1;
-	else
-		srch_inf->endOfSearch = 0;
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return rc;
 
 qdir_exit:

@@ -49,7 +49,6 @@ struct reg_default {
 	unsigned int def;
 };
 
-<<<<<<< HEAD
 /**
  * Register/value pairs for sequences of writes with an optional delay in
  * microseconds to be applied after each write.
@@ -64,8 +63,6 @@ struct reg_sequence {
 	unsigned int delay_us;
 };
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #ifdef CONFIG_REGMAP
 
 enum regmap_endian {
@@ -402,17 +399,10 @@ int regmap_raw_write(struct regmap *map, unsigned int reg,
 		     const void *val, size_t val_len);
 int regmap_bulk_write(struct regmap *map, unsigned int reg, const void *val,
 			size_t val_count);
-<<<<<<< HEAD
 int regmap_multi_reg_write(struct regmap *map, const struct reg_sequence *regs,
 			int num_regs);
 int regmap_multi_reg_write_bypassed(struct regmap *map,
 				    const struct reg_sequence *regs,
-=======
-int regmap_multi_reg_write(struct regmap *map, const struct reg_default *regs,
-			int num_regs);
-int regmap_multi_reg_write_bypassed(struct regmap *map,
-				    const struct reg_default *regs,
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 				    int num_regs);
 int regmap_raw_write_async(struct regmap *map, unsigned int reg,
 			   const void *val, size_t val_len);
@@ -437,11 +427,7 @@ void regcache_cache_only(struct regmap *map, bool enable);
 void regcache_cache_bypass(struct regmap *map, bool enable);
 void regcache_mark_dirty(struct regmap *map);
 
-<<<<<<< HEAD
 int regmap_register_patch(struct regmap *map, const struct reg_sequence *regs,
-=======
-int regmap_register_patch(struct regmap *map, const struct reg_default *regs,
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			  int num_regs);
 
 static inline bool regmap_reg_in_range(unsigned int reg,

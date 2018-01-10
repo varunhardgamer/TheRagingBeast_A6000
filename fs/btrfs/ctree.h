@@ -586,10 +586,7 @@ struct btrfs_path {
 	unsigned int skip_locking:1;
 	unsigned int leave_spinning:1;
 	unsigned int search_commit_root:1;
-<<<<<<< HEAD
 	unsigned int skip_release_on_error:1;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 
 /*
@@ -3410,13 +3407,10 @@ struct btrfs_dir_item *btrfs_lookup_xattr(struct btrfs_trans_handle *trans,
 int verify_dir_item(struct btrfs_root *root,
 		    struct extent_buffer *leaf,
 		    struct btrfs_dir_item *dir_item);
-<<<<<<< HEAD
 struct btrfs_dir_item *btrfs_match_dir_item_name(struct btrfs_root *root,
 						 struct btrfs_path *path,
 						 const char *name,
 						 int name_len);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 /* orphan.c */
 int btrfs_insert_orphan_item(struct btrfs_trans_handle *trans,

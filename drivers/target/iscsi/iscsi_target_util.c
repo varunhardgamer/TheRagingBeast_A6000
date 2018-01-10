@@ -722,37 +722,23 @@ void iscsit_free_cmd(struct iscsi_cmd *cmd, bool shutdown)
 {
 	struct se_cmd *se_cmd = NULL;
 	int rc;
-<<<<<<< HEAD
 	bool op_scsi = false;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/*
 	 * Determine if a struct se_cmd is associated with
 	 * this struct iscsi_cmd.
 	 */
 	switch (cmd->iscsi_opcode) {
 	case ISCSI_OP_SCSI_CMD:
-<<<<<<< HEAD
 		op_scsi = true;
-=======
-		se_cmd = &cmd->se_cmd;
-		__iscsit_free_cmd(cmd, true, shutdown);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		/*
 		 * Fallthrough
 		 */
 	case ISCSI_OP_SCSI_TMFUNC:
-<<<<<<< HEAD
 		se_cmd = &cmd->se_cmd;
 		__iscsit_free_cmd(cmd, op_scsi, shutdown);
 		rc = transport_generic_free_cmd(se_cmd, shutdown);
 		if (!rc && shutdown && se_cmd->se_sess) {
 			__iscsit_free_cmd(cmd, op_scsi, shutdown);
-=======
-		rc = transport_generic_free_cmd(&cmd->se_cmd, shutdown);
-		if (!rc && shutdown && se_cmd && se_cmd->se_sess) {
-			__iscsit_free_cmd(cmd, true, shutdown);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			target_put_sess_cmd(se_cmd->se_sess, se_cmd);
 		}
 		break;
@@ -1365,24 +1351,15 @@ static int iscsit_do_tx_data(
 	struct iscsi_conn *conn,
 	struct iscsi_data_count *count)
 {
-<<<<<<< HEAD
 	int ret, iov_len;
-=======
-	int data = count->data_length, total_tx = 0, tx_loop = 0, iov_len;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	struct kvec *iov_p;
 	struct msghdr msg;
 
 	if (!conn || !conn->sock || !conn->conn_ops)
 		return -1;
 
-<<<<<<< HEAD
 	if (count->data_length <= 0) {
 		pr_err("Data length is: %d\n", count->data_length);
-=======
-	if (data <= 0) {
-		pr_err("Data length is: %d\n", data);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		return -1;
 	}
 
@@ -1391,7 +1368,6 @@ static int iscsit_do_tx_data(
 	iov_p = count->iov;
 	iov_len = count->iov_count;
 
-<<<<<<< HEAD
 	ret = kernel_sendmsg(conn->sock, &msg, iov_p, iov_len,
 			     count->data_length);
 	if (ret != count->data_length) {
@@ -1402,22 +1378,6 @@ static int iscsit_do_tx_data(
 	pr_debug("ret: %d, sent data: %d\n", ret, count->data_length);
 
 	return ret;
-=======
-	while (total_tx < data) {
-		tx_loop = kernel_sendmsg(conn->sock, &msg, iov_p, iov_len,
-					(data - total_tx));
-		if (tx_loop <= 0) {
-			pr_debug("tx_loop: %d total_tx %d\n",
-				tx_loop, total_tx);
-			return tx_loop;
-		}
-		total_tx += tx_loop;
-		pr_debug("tx_loop: %d, total_tx: %d, data: %d\n",
-					tx_loop, total_tx, data);
-	}
-
-	return total_tx;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 int rx_data(

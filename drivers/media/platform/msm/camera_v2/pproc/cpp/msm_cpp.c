@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 /* Copyright (c) 2013-2016, The Linux Foundation. All rights reserved.
-=======
-/* Copyright (c) 2013-2015, The Linux Foundation. All rights reserved.
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -310,11 +306,7 @@ static uint32_t msm_cpp_read(void __iomem *cpp_base)
 	uint32_t tmp, retry = 0;
 	do {
 		tmp = msm_camera_io_r(cpp_base + MSM_CPP_MICRO_FIFO_TX_STAT);
-<<<<<<< HEAD
 	} while (((tmp & 0x2) == 0x0) && (retry++ < 10));
-=======
-	} while (((tmp & 0x2) == 0x0) && (retry++ < 10)) ;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (retry < 10) {
 		tmp = msm_camera_io_r(cpp_base + MSM_CPP_MICRO_FIFO_TX_DATA);
 		CPP_DBG("Read data: 0%x\n", tmp);
@@ -1068,11 +1060,7 @@ static void cpp_load_fw(struct cpp_device *cpp_dev, char *fw_name_bin)
 		rc = request_firmware(&fw, fw_name_bin, dev);
 		if (rc) {
 			dev_err(dev,
-<<<<<<< HEAD
 				"Fail to loc blob %s from dev %pK, Error: %d\n",
-=======
-				"Fail to loc blob %s from dev %p, Error: %d\n",
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 				fw_name_bin, dev, rc);
 		}
 		if (NULL != fw)
@@ -1149,21 +1137,13 @@ static int cpp_open_node(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
 	CPP_DBG("E\n");
 
 	if (!sd || !fh) {
-<<<<<<< HEAD
 		pr_err("Wrong input parameters sd %pK fh %pK!",
-=======
-		pr_err("Wrong input parameters sd %p fh %p!",
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			sd, fh);
 		return -EINVAL;
 	}
 	cpp_dev = v4l2_get_subdevdata(sd);
 	if (!cpp_dev) {
-<<<<<<< HEAD
 		pr_err("failed: cpp_dev %pK\n", cpp_dev);
-=======
-		pr_err("failed: cpp_dev %p\n", cpp_dev);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		return -EINVAL;
 	}
 	mutex_lock(&cpp_dev->mutex);
@@ -1186,11 +1166,7 @@ static int cpp_open_node(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
 		return -ENODEV;
 	}
 
-<<<<<<< HEAD
 	CPP_DBG("open %d %pK\n", i, &fh->vfh);
-=======
-	CPP_DBG("open %d %p\n", i, &fh->vfh);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	cpp_dev->cpp_open_cnt++;
 	if (cpp_dev->cpp_open_cnt == 1) {
 		rc = cpp_init_hardware(cpp_dev);
@@ -1223,11 +1199,7 @@ static int cpp_close_node(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
 	cpp_dev =  v4l2_get_subdevdata(sd);
 
 	if (!cpp_dev) {
-<<<<<<< HEAD
 		pr_err("failed: cpp_dev %pK\n", cpp_dev);
-=======
-		pr_err("failed: cpp_dev %p\n", cpp_dev);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		return -EINVAL;
 	}
 
@@ -1445,11 +1417,7 @@ static void msm_cpp_do_timeout_work(struct work_struct *work)
 	pr_info("cpp_timer_callback called. (jiffies=%lu)\n",
 		jiffies);
 	if (!work || cpp_timer.data.cpp_dev->state != CPP_STATE_ACTIVE) {
-<<<<<<< HEAD
 		pr_err("Invalid work:%pK or state:%d\n", work,
-=======
-		pr_err("Invalid work:%p or state:%d\n", work,
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			cpp_timer.data.cpp_dev->state);
 		return;
 	}
@@ -1612,11 +1580,7 @@ static int msm_cpp_cfg_frame(struct cpp_device *cpp_dev,
 	unsigned long tnr_scratch_buffer0, tnr_scratch_buffer1;
 	uint16_t num_stripes = 0;
 	struct msm_buf_mngr_info buff_mgr_info, dup_buff_mgr_info;
-<<<<<<< HEAD
 	uint32_t stripe_base = 0;
-=======
-	int32_t stripe_base = 0;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	int32_t in_fd;
 	int32_t i = 0;
 
@@ -1638,7 +1602,6 @@ static int msm_cpp_cfg_frame(struct cpp_device *cpp_dev,
 		return -EINVAL;
 	}
 
-<<<<<<< HEAD
 	if (stripe_base == UINT_MAX || new_frame->num_strips >
 		(UINT_MAX - 1 - stripe_base) / 27) {
 		pr_err("Invalid frame message,num_strips %d is large\n",
@@ -1646,8 +1609,6 @@ static int msm_cpp_cfg_frame(struct cpp_device *cpp_dev,
 		return -EINVAL;
 	}
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	in_phyaddr = msm_cpp_fetch_buffer_info(cpp_dev,
 		&new_frame->input_buffer_info,
 		((new_frame->input_buffer_info.identity >> 16) & 0xFFFF),
@@ -1851,18 +1812,11 @@ static int msm_cpp_cfg(struct cpp_device *cpp_dev,
 	struct msm_cpp_frame_info_t *frame = NULL;
 	struct msm_cpp_frame_info_t k_frame_info;
 	int32_t rc = 0;
-<<<<<<< HEAD
 
 	if (copy_from_user(&k_frame_info,
 		(void __user *)ioctl_ptr->ioctl_ptr,
 		sizeof(k_frame_info)))
 		return -EFAULT;
-=======
-	if (copy_from_user(&k_frame_info,
-			(void __user *)ioctl_ptr->ioctl_ptr,
-			sizeof(k_frame_info)))
-			return -EFAULT;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	frame = msm_cpp_get_frame(ioctl_ptr);
 	if (!frame) {
@@ -1907,11 +1861,7 @@ static int msm_cpp_copy_from_ioctl_ptr(void *dst_ptr,
 {
 	int ret;
 	if ((ioctl_ptr->ioctl_ptr == NULL) || (ioctl_ptr->len == 0)) {
-<<<<<<< HEAD
 		pr_err("%s: Wrong ioctl_ptr %pK / len %zu\n", __func__,
-=======
-		pr_err("%s: Wrong ioctl_ptr %p / len %zu\n", __func__,
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			ioctl_ptr, ioctl_ptr->len);
 		return -EINVAL;
 	}
@@ -1948,10 +1898,6 @@ static int msm_cpp_copy_from_ioctl_ptr(void *dst_ptr,
 }
 #endif
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static int msm_cpp_validate_ioctl_input(unsigned int cmd, void *arg,
 	struct msm_camera_v4l2_ioctl_t **ioctl_ptr)
 {
@@ -1961,11 +1907,7 @@ static int msm_cpp_validate_ioctl_input(unsigned int cmd, void *arg,
 	case VIDIOC_MSM_CPP_IOMMU_ATTACH:
 	case VIDIOC_MSM_CPP_IOMMU_DETACH:
 		break;
-<<<<<<< HEAD
 	default:
-=======
-	default: {
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		if (ioctl_ptr == NULL) {
 			pr_err("Wrong ioctl_ptr for cmd %u\n", cmd);
 			return -EINVAL;
@@ -1980,10 +1922,6 @@ static int msm_cpp_validate_ioctl_input(unsigned int cmd, void *arg,
 		}
 		break;
 	}
-<<<<<<< HEAD
-=======
-	}
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return 0;
 }
 
@@ -1998,29 +1936,17 @@ long msm_cpp_subdev_ioctl(struct v4l2_subdev *sd,
 		pr_err("sd %pK\n", sd);
 		return -EINVAL;
 	}
-<<<<<<< HEAD
 	rc = msm_cpp_validate_ioctl_input(cmd, arg, &ioctl_ptr);
 	if (rc != 0) {
 		pr_err("input validation failed\n");
 		return rc;
 	}
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (_IOC_DIR(cmd) == _IOC_NONE) {
 		pr_err("Invalid ioctl/subdev cmd %u", cmd);
 		return -EINVAL;
 	}
 
-<<<<<<< HEAD
-=======
-	rc = msm_cpp_validate_ioctl_input(cmd, arg, &ioctl_ptr);
-	if (rc != 0) {
-		pr_err("input validation failed\n");
-		return rc;
-	}
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	cpp_dev = v4l2_get_subdevdata(sd);
 	if (cpp_dev == NULL) {
 		pr_err("cpp_dev is null\n");
@@ -2445,11 +2371,7 @@ long msm_cpp_subdev_ioctl(struct v4l2_subdev *sd,
 				cpp_dev->iommu_ctx);
 			cpp_dev->iommu_state = CPP_IOMMU_STATE_DETACHED;
 		} else {
-<<<<<<< HEAD
 			pr_err("%s:%d IOMMMU detach triggered in invalid state\n",
-=======
-			pr_err("%s:%d IOMMMU attach triggered in invalid state\n",
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 				__func__, __LINE__);
 			rc = -EINVAL;
 		}
@@ -2493,22 +2415,14 @@ static long msm_cpp_subdev_do_ioctl(
 	struct v4l2_fh *vfh = NULL;
 
 	if ((arg == NULL) || (file == NULL)) {
-<<<<<<< HEAD
 		pr_err("Invalid input parameters arg %pK, file %pK\n", arg, file);
-=======
-		pr_err("Invalid input parameters arg %p, file %p\n", arg, file);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		return -EINVAL;
 	}
 	vdev = video_devdata(file);
 	sd = vdev_to_v4l2_subdev(vdev);
 
 	if (sd == NULL) {
-<<<<<<< HEAD
 		pr_err("Invalid input parameter sd %pK\n", sd);
-=======
-		pr_err("Invalid input parameter sd %p\n", sd);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		return -EINVAL;
 	}
 	vfh = file->private_data;
@@ -2723,11 +2637,7 @@ static long msm_cpp_subdev_fops_compat_ioctl(struct file *file,
 	}
 	cpp_dev = v4l2_get_subdevdata(sd);
 	if (!vdev || !cpp_dev) {
-<<<<<<< HEAD
 		pr_err("Invalid vdev %pK or cpp_dev %pK structures!",
-=======
-		pr_err("Invalid vdev %p or cpp_dev %p structures!",
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			vdev, cpp_dev);
 		return -EINVAL;
 	}

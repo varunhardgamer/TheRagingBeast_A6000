@@ -570,7 +570,6 @@ vcpu	.req	r0		@ vcpu pointer always in r0
 .endm
 
 /* Configures the HCPTR (Hyp Coprocessor Trap Register) on entry/return
-<<<<<<< HEAD
  * (hardware reset value is 0). Keep previous value in r2.
  * An ISB is emited on vmexit/vmtrap, but executed on vmexit only if
  * VFP wasn't already enabled (always executed on vmtrap).
@@ -578,10 +577,6 @@ vcpu	.req	r0		@ vcpu pointer always in r0
  * enabled.
  */
 .macro set_hcptr operation, mask, label = none
-=======
- * (hardware reset value is 0). Keep previous value in r2. */
-.macro set_hcptr operation, mask
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	mrc	p15, 4, r2, c1, c1, 2
 	ldr	r3, =\mask
 	.if \operation == vmentry
@@ -590,7 +585,6 @@ vcpu	.req	r0		@ vcpu pointer always in r0
 	bic	r3, r2, r3		@ Don't trap defined coproc-accesses
 	.endif
 	mcr	p15, 4, r3, c1, c1, 2
-<<<<<<< HEAD
 	.if \operation != vmentry
 	.if \operation == vmexit
 	tst	r2, #(HCPTR_TCP(10) | HCPTR_TCP(11))
@@ -602,8 +596,6 @@ vcpu	.req	r0		@ vcpu pointer always in r0
 	.endif
 1:
 	.endif
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 .endm
 
 /* Configures the HDCR (Hyp Debug Configuration Register) on entry/return

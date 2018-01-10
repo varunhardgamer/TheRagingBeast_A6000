@@ -314,11 +314,6 @@ static int __init gpio_vbus_probe(struct platform_device *pdev)
 		goto err_irq;
 	}
 
-<<<<<<< HEAD
-=======
-	ATOMIC_INIT_NOTIFIER_HEAD(&gpio_vbus->phy.notifier);
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	INIT_DELAYED_WORK(&gpio_vbus->work, gpio_vbus_work);
 
 	gpio_vbus->vbus_draw = regulator_get(&pdev->dev, "vbus_draw");

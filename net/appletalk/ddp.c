@@ -1489,11 +1489,6 @@ static int atalk_rcv(struct sk_buff *skb, struct net_device *dev,
 		goto drop;
 
 	/* Queue packet (standard) */
-<<<<<<< HEAD
-=======
-	skb->sk = sock;
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (sock_queue_rcv_skb(sock, skb) < 0)
 		goto drop;
 
@@ -1647,10 +1642,6 @@ static int atalk_sendmsg(struct kiocb *iocb, struct socket *sock, struct msghdr 
 	if (!skb)
 		goto out;
 
-<<<<<<< HEAD
-=======
-	skb->sk = sk;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	skb_reserve(skb, ddp_dl->header_length);
 	skb_reserve(skb, dev->hard_header_len);
 	skb->dev = dev;

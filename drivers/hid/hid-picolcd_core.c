@@ -350,15 +350,12 @@ static int picolcd_raw_event(struct hid_device *hdev,
 	if (!data)
 		return 1;
 
-<<<<<<< HEAD
 	if (size > 64) {
 		hid_warn(hdev, "invalid size value (%d) for picolcd raw event\n",
 				size);
 		return 0;
 	}
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (report->id == REPORT_KEY_STATE) {
 		if (data->input_keys)
 			ret = picolcd_raw_keypad(data, report, raw_data+1, size-1);

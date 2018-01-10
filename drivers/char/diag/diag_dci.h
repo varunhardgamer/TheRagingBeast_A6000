@@ -130,10 +130,6 @@ struct diag_dci_buf_peripheral_t {
 };
 
 struct diag_dci_client_tbl {
-<<<<<<< HEAD
-=======
-	int tgid;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	struct diag_dci_reg_tbl_t client_info;
 	struct task_struct *client;
 	unsigned char *dci_log_mask;

@@ -17,18 +17,12 @@
 #include "drmP.h"
 #include "drm.h"
 
-<<<<<<< HEAD
 #include <linux/kernel.h>
 #include <linux/module.h>
 #include <linux/msm_ion.h>
 #ifdef CONFIG_GENLOCK
 #include <linux/genlock.h>
 #endif
-=======
-#include <linux/msm_ion.h>
-#include <linux/genlock.h>
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #include "kgsl.h"
 #include "kgsl_device.h"
 #include "kgsl_drm.h"
@@ -76,18 +70,14 @@
 #define IS_MEM_UNCACHED(_t) \
 	(((_t & DRM_KGSL_GEM_TYPE_MEM_MASK) == DRM_KGSL_GEM_TYPE_KMEM_NOCACHE))
 
-<<<<<<< HEAD
 extern u32 mdp_drm_intr_status;
 extern u32 mdp_drm_intr_mask;
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /* Returns true if memory type is secure */
 
 #define TYPE_IS_SECURE(_t) \
 	((_t & DRM_KGSL_GEM_TYPE_MEM_MASK) == DRM_KGSL_GEM_TYPE_MEM_SECURE)
 
-<<<<<<< HEAD
 enum MDSS_MDP_REG {
 	MDSS_MDP_REG_INTR_EN,
 	MDSS_MDP_REG_INTR_STATUS,
@@ -108,8 +98,6 @@ struct drm_kgsl_private {
 	struct mutex fake_vbl_lock;
 };
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 struct drm_kgsl_gem_object {
 	struct drm_gem_object *obj;
 	uint32_t type;
@@ -127,14 +115,9 @@ struct drm_kgsl_gem_object {
 		uint32_t gpuaddr;
 	} bufs[DRM_KGSL_GEM_MAX_BUFFERS];
 
-<<<<<<< HEAD
 #ifdef CONFIG_GENLOCK
 	struct genlock_handle *glock_handle[DRM_KGSL_GEM_MAX_BUFFERS];
 #endif
-=======
-	struct genlock_handle *glock_handle[DRM_KGSL_GEM_MAX_BUFFERS];
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	int bound;
 	int lockpid;
 
@@ -147,13 +130,10 @@ struct drm_kgsl_gem_object {
 
 };
 
-<<<<<<< HEAD
 struct drm_kgsl_file_private {
 	pid_t tgid;
 };
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static struct ion_client *kgsl_drm_ion_client;
 
 static int kgsl_drm_inited = DRM_KGSL_NOT_INITED;
@@ -166,14 +146,11 @@ struct kgsl_drm_device_priv {
 	struct kgsl_device_private *devpriv[KGSL_DEVICE_MAX];
 };
 
-<<<<<<< HEAD
 struct kgsl_drm_gem_info_data {
 	struct drm_file *filp;
 	struct seq_file *m;
 };
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static int
 kgsl_gem_memory_allocated(struct drm_gem_object *obj)
 {
@@ -373,14 +350,9 @@ static void
 kgsl_gem_free_memory(struct drm_gem_object *obj)
 {
 	struct drm_kgsl_gem_object *priv = obj->driver_private;
-<<<<<<< HEAD
 #ifdef CONFIG_GENLOCK
 	int index;
 #endif
-=======
-	int index;
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (!kgsl_gem_memory_allocated(obj) || TYPE_IS_FD(priv->type))
 		return;
 
@@ -400,18 +372,12 @@ kgsl_gem_free_memory(struct drm_gem_object *obj)
 
 	memset(&priv->memdesc, 0, sizeof(priv->memdesc));
 
-<<<<<<< HEAD
 #ifdef CONFIG_GENLOCK
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	for (index = 0; index < priv->bufcount; index++) {
 		if (priv->glock_handle[index])
 			genlock_put_handle(priv->glock_handle[index]);
 	}
-<<<<<<< HEAD
 #endif
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	kgsl_mmu_putpagetable(priv->pagetable);
 	priv->pagetable = NULL;
@@ -994,10 +960,7 @@ out:
 	return ret;
 }
 
-<<<<<<< HEAD
 #ifdef CONFIG_GENLOCK
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /* Get the genlock handles base off the GEM handle
  */
 
@@ -1059,7 +1022,6 @@ kgsl_gem_set_glock_handles_ioctl(struct drm_device *dev, void *data,
 
 	return 0;
 }
-<<<<<<< HEAD
 #else
 int
 kgsl_gem_get_glock_handles_ioctl(struct drm_device *dev, void *data,
@@ -1075,8 +1037,6 @@ kgsl_gem_set_glock_handles_ioctl(struct drm_device *dev, void *data,
 	return -EINVAL;
 }
 #endif
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 int
 kgsl_gem_set_bufcount_ioctl(struct drm_device *dev, void *data,
@@ -1353,7 +1313,6 @@ int kgsl_gem_phys_fault(struct vm_area_struct *vma, struct vm_fault *vmf)
 	}
 }
 
-<<<<<<< HEAD
 static u32
 kgsl_drm_get_vblank_counter(struct drm_device *dev, int crtc)
 {
@@ -1944,8 +1903,6 @@ static void kgsl_drm_postclose(struct drm_device *dev, struct drm_file *file)
 	file->driver_priv = NULL;
 }
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 struct drm_ioctl_desc kgsl_drm_ioctls[] = {
 	DRM_IOCTL_DEF_DRV(KGSL_GEM_CREATE, kgsl_gem_create_ioctl, 0),
 	DRM_IOCTL_DEF_DRV(KGSL_GEM_PREP, kgsl_gem_prep_ioctl, 0),
@@ -1982,15 +1939,11 @@ static const struct file_operations kgsl_drm_driver_fops = {
 	.unlocked_ioctl = drm_ioctl,
 	.mmap = drm_gem_mmap,
 	.poll = drm_poll,
-<<<<<<< HEAD
 	.read = drm_read,
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	.fasync = drm_fasync,
 };
 
 static struct drm_driver driver = {
-<<<<<<< HEAD
 	.driver_features = DRIVER_GEM | DRIVER_PRIME |
 		DRIVER_HAVE_IRQ | DRIVER_IRQ_SHARED,
 	.load = kgsl_drm_load,
@@ -2008,11 +1961,6 @@ static struct drm_driver driver = {
 	.irq_uninstall = kgsl_drm_irq_uninstall,
 	.prime_handle_to_fd = kgsl_gem_prime_handle_to_fd,
 	.prime_fd_to_handle = kgsl_gem_prime_fd_to_handle,
-=======
-	.driver_features = DRIVER_GEM,
-	.gem_init_object = kgsl_gem_init_object,
-	.gem_free_object = kgsl_gem_free_object,
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	.ioctls = kgsl_drm_ioctls,
 	.fops = &kgsl_drm_driver_fops,
 	.name = DRIVER_NAME,
@@ -2023,11 +1971,7 @@ static struct drm_driver driver = {
 	.patchlevel = DRIVER_PATCHLEVEL,
 };
 
-<<<<<<< HEAD
 static int kgsl_drm_probe(struct platform_device *pdev)
-=======
-int kgsl_drm_init(struct platform_device *dev)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	/* Only initialize once */
 	if (kgsl_drm_inited == DRM_KGSL_INITED)
@@ -2036,10 +1980,7 @@ int kgsl_drm_init(struct platform_device *dev)
 	kgsl_drm_inited = DRM_KGSL_INITED;
 
 	driver.num_ioctls = DRM_ARRAY_SIZE(kgsl_drm_ioctls);
-<<<<<<< HEAD
 	driver.kdriver.platform_device = pdev;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	INIT_LIST_HEAD(&kgsl_mem_list);
 
@@ -2050,17 +1991,10 @@ int kgsl_drm_init(struct platform_device *dev)
 		return -ENOMEM;
 	}
 
-<<<<<<< HEAD
 	return drm_platform_init(&driver, pdev);
 }
 
 static int kgsl_drm_remove(struct platform_device *pdev)
-=======
-	return drm_platform_init(&driver, dev);
-}
-
-void kgsl_drm_exit(void)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	kgsl_drm_inited = DRM_KGSL_NOT_INITED;
 
@@ -2069,7 +2003,6 @@ void kgsl_drm_exit(void)
 	kgsl_drm_ion_client = NULL;
 
 	drm_platform_exit(&driver, driver.kdriver.platform_device);
-<<<<<<< HEAD
 
 	return 0;
 }
@@ -2120,6 +2053,3 @@ static void __exit kgsl_drm_exit(void)
 
 module_init(kgsl_drm_init);
 module_exit(kgsl_drm_exit);
-=======
-}
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c

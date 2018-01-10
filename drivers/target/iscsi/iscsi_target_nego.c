@@ -19,10 +19,7 @@
  ******************************************************************************/
 
 #include <linux/ctype.h>
-<<<<<<< HEAD
 #include <linux/kthread.h>
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #include <scsi/iscsi_proto.h>
 #include <target/target_core_base.h>
 #include <target/target_core_fabric.h>
@@ -356,7 +353,6 @@ static int iscsi_target_do_tx_login_io(struct iscsi_conn *conn, struct iscsi_log
 		ntohl(login_rsp->statsn), login->rsp_length);
 
 	padding = ((-login->rsp_length) & 3);
-<<<<<<< HEAD
 	/*
 	 * Before sending the last login response containing the transition
 	 * bit for full-feature-phase, go ahead and start up TX/RX threads
@@ -375,12 +371,6 @@ static int iscsi_target_do_tx_login_io(struct iscsi_conn *conn, struct iscsi_log
 	if (conn->conn_transport->iscsit_put_login_tx(conn, login,
 					login->rsp_length + padding) < 0)
 		goto err;
-=======
-
-	if (conn->conn_transport->iscsit_put_login_tx(conn, login,
-					login->rsp_length + padding) < 0)
-		return -1;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	login->rsp_length		= 0;
 	mutex_lock(&sess->cmdsn_mutex);
@@ -389,7 +379,6 @@ static int iscsi_target_do_tx_login_io(struct iscsi_conn *conn, struct iscsi_log
 	mutex_unlock(&sess->cmdsn_mutex);
 
 	return 0;
-<<<<<<< HEAD
 
 err:
 	if (login->login_complete) {
@@ -408,8 +397,6 @@ err:
 		spin_unlock(&iscsit_global->ts_bitmap_lock);
 	}
 	return -1;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static int iscsi_target_do_login_io(struct iscsi_conn *conn, struct iscsi_login *login)

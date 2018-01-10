@@ -29,10 +29,7 @@ struct tpacket_kbdq_core {
 	char		*pkblk_start;
 	char		*pkblk_end;
 	int		kblk_size;
-<<<<<<< HEAD
 	unsigned int	max_frame_len;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	unsigned int	knum_blocks;
 	uint64_t	knxt_seq_num;
 	char		*prev;

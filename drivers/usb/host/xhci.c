@@ -147,13 +147,9 @@ int xhci_start(struct xhci_hcd *xhci)
 				"waited %u microseconds.\n",
 				XHCI_MAX_HALT_USEC);
 	if (!ret)
-<<<<<<< HEAD
 		/* clear state flags. Including dying, halted or removing */
 		xhci->xhc_state = 0;
 
-=======
-		xhci->xhc_state &= ~XHCI_STATE_HALTED;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return ret;
 }
 
@@ -1327,14 +1323,11 @@ int xhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flags)
 
 	if (usb_endpoint_xfer_isoc(&urb->ep->desc))
 		size = urb->number_of_packets;
-<<<<<<< HEAD
 	else if (usb_endpoint_is_bulk_out(&urb->ep->desc) &&
 	    urb->transfer_buffer_length > 0 &&
 	    urb->transfer_flags & URB_ZERO_PACKET &&
 	    !(urb->transfer_buffer_length % usb_endpoint_maxp(&urb->ep->desc)))
 		size = 2;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	else
 		size = 1;
 
@@ -1532,13 +1525,9 @@ int xhci_urb_dequeue(struct usb_hcd *hcd, struct urb *urb, int status)
 	if (temp == 0xffffffff || (xhci->xhc_state & XHCI_STATE_HALTED)) {
 		xhci_dbg(xhci, "HW died, freeing TD.\n");
 		urb_priv = urb->hcpriv;
-<<<<<<< HEAD
 		for (i = urb_priv->td_cnt;
 		     i < urb_priv->length && xhci->devs[urb->dev->slot_id];
 		     i++) {
-=======
-		for (i = urb_priv->td_cnt; i < urb_priv->length; i++) {
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			td = urb_priv->td[i];
 			if (!list_empty(&td->td_list))
 				list_del_init(&td->td_list);
@@ -2727,12 +2716,8 @@ int xhci_check_bandwidth(struct usb_hcd *hcd, struct usb_device *udev)
 	if (ret <= 0)
 		return ret;
 	xhci = hcd_to_xhci(hcd);
-<<<<<<< HEAD
 	if ((xhci->xhc_state & XHCI_STATE_DYING) ||
 		(xhci->xhc_state & XHCI_STATE_REMOVING))
-=======
-	if (xhci->xhc_state & XHCI_STATE_DYING)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		return -ENODEV;
 
 	xhci_dbg(xhci, "%s called for udev %pK\n", __func__, udev);
@@ -3403,12 +3388,9 @@ int xhci_discover_or_reset_device(struct usb_hcd *hcd, struct usb_device *udev)
 			return -EINVAL;
 	}
 
-<<<<<<< HEAD
 	if (virt_dev->tt_info)
 		old_active_eps = virt_dev->tt_info->active_eps;
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (virt_dev->udev != udev) {
 		/* If the virt_dev and the udev does not match, this virt_dev
 		 * may belong to another udev.
@@ -4476,7 +4458,6 @@ static int xhci_change_max_exit_latency(struct xhci_hcd *xhci,
 	int ret;
 
 	spin_lock_irqsave(&xhci->lock, flags);
-<<<<<<< HEAD
 
 	virt_dev = xhci->devs[udev->slot_id];
 
@@ -4487,18 +4468,11 @@ static int xhci_change_max_exit_latency(struct xhci_hcd *xhci,
 	 */
 
 	if (!virt_dev || max_exit_latency == virt_dev->current_mel) {
-=======
-	if (max_exit_latency == xhci->devs[udev->slot_id]->current_mel) {
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		spin_unlock_irqrestore(&xhci->lock, flags);
 		return 0;
 	}
 
 	/* Attempt to issue an Evaluate Context command to change the MEL. */
-<<<<<<< HEAD
-=======
-	virt_dev = xhci->devs[udev->slot_id];
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	command = xhci->lpm_command;
 	xhci_slot_copy(xhci, command->in_ctx, virt_dev->out_ctx);
 	spin_unlock_irqrestore(&xhci->lock, flags);
@@ -4683,7 +4657,6 @@ int xhci_update_hub_device(struct usb_hcd *hcd, struct usb_device *hdev,
 	ctrl_ctx->add_flags |= cpu_to_le32(SLOT_FLAG);
 	slot_ctx = xhci_get_slot_ctx(xhci, config_cmd->in_ctx);
 	slot_ctx->dev_info |= cpu_to_le32(DEV_HUB);
-<<<<<<< HEAD
 	/*
 	 * refer to section 6.2.2: MTT should be 0 for full speed hub,
 	 * but it may be already set to 1 when setup an xHCI virtual
@@ -4694,10 +4667,6 @@ int xhci_update_hub_device(struct usb_hcd *hcd, struct usb_device *hdev,
 	else if (hdev->speed == USB_SPEED_FULL)
 		slot_ctx->dev_info &= cpu_to_le32(~DEV_MTT);
 
-=======
-	if (tt->multi)
-		slot_ctx->dev_info |= cpu_to_le32(DEV_MTT);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (xhci->hci_version > 0x95) {
 		xhci_dbg(xhci, "xHCI version %x needs hub "
 				"TT think time and number of ports\n",
@@ -4858,12 +4827,9 @@ static int __init xhci_hcd_init(void)
 {
 	int retval;
 
-<<<<<<< HEAD
 	if (usb_disabled())
 		return -ENODEV;
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	retval = xhci_register_pci();
 	if (retval < 0) {
 		printk(KERN_DEBUG "Problem registering PCI driver.");
@@ -4891,10 +4857,7 @@ static int __init xhci_hcd_init(void)
 	BUILD_BUG_ON(sizeof(struct xhci_intr_reg) != 8*32/8);
 	/* xhci_run_regs has eight fields and embeds 128 xhci_intr_regs */
 	BUILD_BUG_ON(sizeof(struct xhci_run_regs) != (8+8*128)*32/8);
-<<<<<<< HEAD
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return 0;
 unreg_pci:
 	xhci_unregister_pci();

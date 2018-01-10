@@ -32,13 +32,10 @@
 #include <soc/qcom/restart.h>
 #include <soc/qcom/watchdog.h>
 
-<<<<<<< HEAD
 #ifdef CONFIG_KEXEC_HARDBOOT
 #include <asm/kexec.h>
 #endif
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #define EMERGENCY_DLOAD_MAGIC1    0x322A4F99
 #define EMERGENCY_DLOAD_MAGIC2    0xC67E4350
 #define EMERGENCY_DLOAD_MAGIC3    0x77777777
@@ -70,15 +67,11 @@ static void *emergency_dload_mode_addr;
 static bool scm_dload_supported;
 
 static int dload_set(const char *val, struct kernel_param *kp);
-<<<<<<< HEAD
 #ifdef CONFIG_MACH_WT86518
 static int download_mode = 0;
 #else
 static int download_mode = 1;
 #endif
-=======
-static int download_mode = 1;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 module_param_call(download_mode, dload_set, param_get_int,
 			&download_mode, 0644);
 static int panic_prep_restart(struct notifier_block *this,
@@ -257,13 +250,10 @@ static void msm_restart_prepare(const char *cmd)
 				(cmd != NULL && cmd[0] != '\0'));
 	}
 
-<<<<<<< HEAD
 #ifdef CONFIG_MSM_PRESERVE_MEM
 	need_warm_reset = true;
 #endif
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/* Hard reset the PMIC unless memory contents must be maintained. */
 	if (need_warm_reset) {
 		qpnp_pon_system_pwr_off(PON_POWER_OFF_WARM_RESET);
@@ -296,13 +286,10 @@ static void msm_restart_prepare(const char *cmd)
                         qpnp_pon_set_restart_reason(
                                 PON_RESTART_REASON_KEYS_CLEAR);
                         __raw_writel(0x7766550a, restart_reason);
-<<<<<<< HEAD
 #ifdef CONFIG_MACH_WT86518
     } else if (!strncmp(cmd, "fastmmi", 7)){	
 			       __raw_writel(0x77665505, restart_reason);	
 #endif
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		} else if (!strncmp(cmd, "oem-", 4)) {
 			unsigned long code;
 			int ret;
@@ -313,10 +300,7 @@ static void msm_restart_prepare(const char *cmd)
 		} else if (!strncmp(cmd, "edl", 3)) {
 			enable_emergency_dload_mode();
 		} else {
-<<<<<<< HEAD
 			qpnp_pon_set_restart_reason(PON_RESTART_REASON_UNKNOWN);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			__raw_writel(0x77665501, restart_reason);
 		}
 	}
@@ -513,7 +497,6 @@ static struct platform_driver msm_restart_driver = {
 	},
 };
 
-<<<<<<< HEAD
 #ifdef CONFIG_KEXEC_HARDBOOT
 static void msm_kexec_hardboot_hook(void)
 {
@@ -541,10 +524,5 @@ static int __init msm_restart_init(void)
 	kexec_hardboot_hook = msm_kexec_hardboot_hook;
 #endif
 	return 0;
-=======
-static int __init msm_restart_init(void)
-{
-	return platform_driver_register(&msm_restart_driver);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 device_initcall(msm_restart_init);

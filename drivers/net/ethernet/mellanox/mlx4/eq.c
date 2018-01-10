@@ -183,11 +183,7 @@ static void slave_event(struct mlx4_dev *dev, u8 slave, struct mlx4_eqe *eqe)
 		return;
 	}
 
-<<<<<<< HEAD
 	memcpy(s_eqe, eqe, sizeof(struct mlx4_eqe) - 1);
-=======
-	memcpy(s_eqe, eqe, dev->caps.eqe_size - 1);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	s_eqe->slave_id = slave;
 	/* ensure all information is written before setting the ownersip bit */
 	wmb();

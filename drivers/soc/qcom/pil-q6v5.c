@@ -37,11 +37,7 @@
 #define AXI_HALTACK			0x4
 #define AXI_IDLE			0x8
 
-<<<<<<< HEAD
 #define HALT_ACK_TIMEOUT_US		25000
-=======
-#define HALT_ACK_TIMEOUT_US		100000
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 /* QDSP6SS_RESET */
 #define Q6SS_STOP_CORE			BIT(0)

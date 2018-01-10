@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 /* Copyright (c) 2010-2012, 2014-2015, 2017 The Linux Foundation. All rights
-=======
-/* Copyright (c) 2010-2012, 2014-2017, The Linux Foundation. All rights
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  * reserved.
  *
  * This program is free software; you can redistribute it and/or modify

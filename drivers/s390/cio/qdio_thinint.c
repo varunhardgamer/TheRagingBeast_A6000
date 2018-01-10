@@ -142,19 +142,11 @@ static inline void tiqdio_call_inq_handlers(struct qdio_irq *irq)
 	struct qdio_q *q;
 	int i;
 
-<<<<<<< HEAD
 	if (!references_shared_dsci(irq) &&
 	    has_multiple_inq_on_dsci(irq))
 		xchg(irq->dsci, 0);
 
 	for_each_input_queue(irq, q, i) {
-=======
-	for_each_input_queue(irq, q, i) {
-		if (!references_shared_dsci(irq) &&
-		    has_multiple_inq_on_dsci(irq))
-			xchg(q->irq_ptr->dsci, 0);
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		if (q->u.in.queue_start_poll) {
 			/* skip if polling is enabled or already in work */
 			if (test_and_set_bit(QDIO_QUEUE_IRQS_DISABLED,

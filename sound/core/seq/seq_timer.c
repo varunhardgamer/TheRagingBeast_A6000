@@ -92,12 +92,9 @@ void snd_seq_timer_delete(struct snd_seq_timer **tmr)
 
 void snd_seq_timer_defaults(struct snd_seq_timer * tmr)
 {
-<<<<<<< HEAD
 	unsigned long flags;
 
 	spin_lock_irqsave(&tmr->lock, flags);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/* setup defaults */
 	tmr->ppq = 96;		/* 96 PPQ */
 	tmr->tempo = 500000;	/* 120 BPM */
@@ -113,29 +110,17 @@ void snd_seq_timer_defaults(struct snd_seq_timer * tmr)
 	tmr->preferred_resolution = seq_default_timer_resolution;
 
 	tmr->skew = tmr->skew_base = SKEW_BASE;
-<<<<<<< HEAD
 	spin_unlock_irqrestore(&tmr->lock, flags);
 }
 
 static void seq_timer_reset(struct snd_seq_timer *tmr)
 {
-=======
-}
-
-void snd_seq_timer_reset(struct snd_seq_timer * tmr)
-{
-	unsigned long flags;
-
-	spin_lock_irqsave(&tmr->lock, flags);
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/* reset time & songposition */
 	tmr->cur_time.tv_sec = 0;
 	tmr->cur_time.tv_nsec = 0;
 
 	tmr->tick.cur_tick = 0;
 	tmr->tick.fraction = 0;
-<<<<<<< HEAD
 }
 
 void snd_seq_timer_reset(struct snd_seq_timer *tmr)
@@ -144,9 +129,6 @@ void snd_seq_timer_reset(struct snd_seq_timer *tmr)
 
 	spin_lock_irqsave(&tmr->lock, flags);
 	seq_timer_reset(tmr);
-=======
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	spin_unlock_irqrestore(&tmr->lock, flags);
 }
 
@@ -165,16 +147,11 @@ static void snd_seq_timer_interrupt(struct snd_timer_instance *timeri,
 	tmr = q->timer;
 	if (tmr == NULL)
 		return;
-<<<<<<< HEAD
 	spin_lock_irqsave(&tmr->lock, flags);
 	if (!tmr->running) {
 		spin_unlock_irqrestore(&tmr->lock, flags);
 		return;
 	}
-=======
-	if (!tmr->running)
-		return;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	resolution *= ticks;
 	if (tmr->skew != tmr->skew_base) {
@@ -183,11 +160,6 @@ static void snd_seq_timer_interrupt(struct snd_timer_instance *timeri,
 			(((resolution & 0xffff) * tmr->skew) >> 16);
 	}
 
-<<<<<<< HEAD
-=======
-	spin_lock_irqsave(&tmr->lock, flags);
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/* update timer */
 	snd_seq_inc_time_nsec(&tmr->cur_time, resolution);
 
@@ -334,28 +306,20 @@ int snd_seq_timer_open(struct snd_seq_queue *q)
 	t->callback = snd_seq_timer_interrupt;
 	t->callback_data = q;
 	t->flags |= SNDRV_TIMER_IFLG_AUTO;
-<<<<<<< HEAD
 	spin_lock_irq(&tmr->lock);
 	tmr->timeri = t;
 	spin_unlock_irq(&tmr->lock);
-=======
-	tmr->timeri = t;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return 0;
 }
 
 int snd_seq_timer_close(struct snd_seq_queue *q)
 {
 	struct snd_seq_timer *tmr;
-<<<<<<< HEAD
 	struct snd_timer_instance *t;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	
 	tmr = q->timer;
 	if (snd_BUG_ON(!tmr))
 		return -EINVAL;
-<<<<<<< HEAD
 	spin_lock_irq(&tmr->lock);
 	t = tmr->timeri;
 	tmr->timeri = NULL;
@@ -366,17 +330,6 @@ int snd_seq_timer_close(struct snd_seq_queue *q)
 }
 
 static int seq_timer_stop(struct snd_seq_timer *tmr)
-=======
-	if (tmr->timeri) {
-		snd_timer_stop(tmr->timeri);
-		snd_timer_close(tmr->timeri);
-		tmr->timeri = NULL;
-	}
-	return 0;
-}
-
-int snd_seq_timer_stop(struct snd_seq_timer * tmr)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	if (! tmr->timeri)
 		return -EINVAL;
@@ -387,7 +340,6 @@ int snd_seq_timer_stop(struct snd_seq_timer * tmr)
 	return 0;
 }
 
-<<<<<<< HEAD
 int snd_seq_timer_stop(struct snd_seq_timer *tmr)
 {
 	unsigned long flags;
@@ -399,8 +351,6 @@ int snd_seq_timer_stop(struct snd_seq_timer *tmr)
 	return err;
 }
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static int initialize_timer(struct snd_seq_timer *tmr)
 {
 	struct snd_timer *t;
@@ -433,22 +383,13 @@ static int initialize_timer(struct snd_seq_timer *tmr)
 	return 0;
 }
 
-<<<<<<< HEAD
 static int seq_timer_start(struct snd_seq_timer *tmr)
-=======
-int snd_seq_timer_start(struct snd_seq_timer * tmr)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	if (! tmr->timeri)
 		return -EINVAL;
 	if (tmr->running)
-<<<<<<< HEAD
 		seq_timer_stop(tmr);
 	seq_timer_reset(tmr);
-=======
-		snd_seq_timer_stop(tmr);
-	snd_seq_timer_reset(tmr);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (initialize_timer(tmr) < 0)
 		return -EINVAL;
 	snd_timer_start(tmr->timeri, tmr->ticks);
@@ -457,7 +398,6 @@ int snd_seq_timer_start(struct snd_seq_timer * tmr)
 	return 0;
 }
 
-<<<<<<< HEAD
 int snd_seq_timer_start(struct snd_seq_timer *tmr)
 {
 	unsigned long flags;
@@ -470,20 +410,13 @@ int snd_seq_timer_start(struct snd_seq_timer *tmr)
 }
 
 static int seq_timer_continue(struct snd_seq_timer *tmr)
-=======
-int snd_seq_timer_continue(struct snd_seq_timer * tmr)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	if (! tmr->timeri)
 		return -EINVAL;
 	if (tmr->running)
 		return -EBUSY;
 	if (! tmr->initialized) {
-<<<<<<< HEAD
 		seq_timer_reset(tmr);
-=======
-		snd_seq_timer_reset(tmr);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		if (initialize_timer(tmr) < 0)
 			return -EINVAL;
 	}
@@ -493,7 +426,6 @@ int snd_seq_timer_continue(struct snd_seq_timer * tmr)
 	return 0;
 }
 
-<<<<<<< HEAD
 int snd_seq_timer_continue(struct snd_seq_timer *tmr)
 {
 	unsigned long flags;
@@ -505,19 +437,13 @@ int snd_seq_timer_continue(struct snd_seq_timer *tmr)
 	return err;
 }
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /* return current 'real' time. use timeofday() to get better granularity. */
 snd_seq_real_time_t snd_seq_timer_get_cur_time(struct snd_seq_timer *tmr)
 {
 	snd_seq_real_time_t cur_time;
-<<<<<<< HEAD
 	unsigned long flags;
 
 	spin_lock_irqsave(&tmr->lock, flags);
-=======
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	cur_time = tmr->cur_time;
 	if (tmr->running) { 
 		struct timeval tm;
@@ -533,11 +459,7 @@ snd_seq_real_time_t snd_seq_timer_get_cur_time(struct snd_seq_timer *tmr)
 		}
 		snd_seq_sanity_real_time(&cur_time);
 	}
-<<<<<<< HEAD
 	spin_unlock_irqrestore(&tmr->lock, flags);
-=======
-                
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return cur_time;	
 }
 

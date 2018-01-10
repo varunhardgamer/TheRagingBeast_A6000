@@ -51,10 +51,7 @@
 #define CYBERJACK_PRODUCT_ID	0x0100
 
 /* Function prototypes */
-<<<<<<< HEAD
 static int cyberjack_attach(struct usb_serial *serial);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static int cyberjack_port_probe(struct usb_serial_port *port);
 static int cyberjack_port_remove(struct usb_serial_port *port);
 static int  cyberjack_open(struct tty_struct *tty,
@@ -82,10 +79,7 @@ static struct usb_serial_driver cyberjack_device = {
 	.description =		"Reiner SCT Cyberjack USB card reader",
 	.id_table =		id_table,
 	.num_ports =		1,
-<<<<<<< HEAD
 	.attach =		cyberjack_attach,
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	.port_probe =		cyberjack_port_probe,
 	.port_remove =		cyberjack_port_remove,
 	.open =			cyberjack_open,
@@ -109,7 +103,6 @@ struct cyberjack_private {
 	short		wrsent;		/* Data already sent */
 };
 
-<<<<<<< HEAD
 static int cyberjack_attach(struct usb_serial *serial)
 {
 	if (serial->num_bulk_out < serial->num_ports)
@@ -118,8 +111,6 @@ static int cyberjack_attach(struct usb_serial *serial)
 	return 0;
 }
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static int cyberjack_port_probe(struct usb_serial_port *port)
 {
 	struct cyberjack_private *priv;

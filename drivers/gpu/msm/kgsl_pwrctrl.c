@@ -46,11 +46,7 @@
 #define MAX_UDELAY		2000
 
 /* Number of jiffies for a full thermal cycle */
-<<<<<<< HEAD
 #define TH_HZ			(HZ/5)
-=======
-#define TH_HZ			20
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #define KGSL_MAX_BUSLEVELS	20
 
@@ -367,13 +363,8 @@ static ssize_t kgsl_pwrctrl_thermal_pwrlevel_store(struct device *dev,
 
 	mutex_lock(&device->mutex);
 
-<<<<<<< HEAD
 	if (level > pwr->num_pwrlevels - 1)
 		level = pwr->num_pwrlevels - 1;
-=======
-	if (level > pwr->num_pwrlevels - 2)
-		level = pwr->num_pwrlevels - 2;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	pwr->thermal_pwrlevel = level;
 
@@ -461,13 +452,8 @@ static ssize_t kgsl_pwrctrl_min_pwrlevel_store(struct device *dev,
 		return ret;
 
 	mutex_lock(&device->mutex);
-<<<<<<< HEAD
 	if (level > pwr->num_pwrlevels - 1)
 		level = pwr->num_pwrlevels - 1;
-=======
-	if (level > pwr->num_pwrlevels - 2)
-		level = pwr->num_pwrlevels - 2;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	/* You can't set a minimum power level lower than the maximum */
 	if (level < pwr->max_pwrlevel)
@@ -928,11 +914,7 @@ static ssize_t kgsl_pwrctrl_default_pwrlevel_store(struct device *dev,
 	if (ret)
 		return ret;
 
-<<<<<<< HEAD
 	if (level > pwr->num_pwrlevels - 1)
-=======
-	if (level > pwr->num_pwrlevels - 2)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		goto done;
 
 	mutex_lock(&device->mutex);
@@ -1343,11 +1325,7 @@ int kgsl_pwrctrl_init(struct kgsl_device *device)
 
 	pwr->power_flags = 0;
 
-<<<<<<< HEAD
 	pwr->interval_timeout = msecs_to_jiffies(pdata->idle_timeout);
-=======
-	pwr->interval_timeout = pdata->idle_timeout;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	pwr->strtstp_sleepwake = pdata->strtstp_sleepwake;
 
 	if (kgsl_property_read_u32(device, "qcom,pm-qos-active-latency",
@@ -2087,11 +2065,7 @@ static int _check_active_count(struct kgsl_device *device, int count)
 int kgsl_active_count_wait(struct kgsl_device *device, int count)
 {
 	int result = 0;
-<<<<<<< HEAD
 	long wait_jiffies = msecs_to_jiffies(1000);
-=======
-	long wait_jiffies = HZ;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	BUG_ON(!mutex_is_locked(&device->mutex));
 

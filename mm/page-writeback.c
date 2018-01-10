@@ -583,7 +583,6 @@ unsigned long bdi_dirty_limit(struct backing_dev_info *bdi, unsigned long dirty)
 }
 
 /*
-<<<<<<< HEAD
  *                           setpoint - dirty 3
  *        f(dirty) := 1.0 + (----------------)
  *                           limit - setpoint
@@ -615,8 +614,6 @@ static inline long long pos_ratio_polynom(unsigned long setpoint,
 }
 
 /*
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  * Dirty position control.
  *
  * (o) global/bdi setpoints
@@ -714,7 +711,6 @@ static unsigned long bdi_position_ratio(struct backing_dev_info *bdi,
 	/*
 	 * global setpoint
 	 *
-<<<<<<< HEAD
 	 * See comment for pos_ratio_polynom().
 	 */
 	setpoint = (freerun + limit) / 2;
@@ -789,28 +785,6 @@ static unsigned long bdi_position_ratio(struct backing_dev_info *bdi,
 		 */
 		return min(pos_ratio, bdi_pos_ratio);
 	}
-=======
-	 *                           setpoint - dirty 3
-	 *        f(dirty) := 1.0 + (----------------)
-	 *                           limit - setpoint
-	 *
-	 * it's a 3rd order polynomial that subjects to
-	 *
-	 * (1) f(freerun)  = 2.0 => rampup dirty_ratelimit reasonably fast
-	 * (2) f(setpoint) = 1.0 => the balance point
-	 * (3) f(limit)    = 0   => the hard limit
-	 * (4) df/dx      <= 0	 => negative feedback control
-	 * (5) the closer to setpoint, the smaller |df/dx| (and the reverse)
-	 *     => fast response on large errors; small oscillation near setpoint
-	 */
-	setpoint = (freerun + limit) / 2;
-	x = div_s64(((s64)setpoint - (s64)dirty) << RATELIMIT_CALC_SHIFT,
-		    limit - setpoint + 1);
-	pos_ratio = x;
-	pos_ratio = pos_ratio * x >> RATELIMIT_CALC_SHIFT;
-	pos_ratio = pos_ratio * x >> RATELIMIT_CALC_SHIFT;
-	pos_ratio += 1 << RATELIMIT_CALC_SHIFT;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	/*
 	 * We have computed basic pos_ratio above based on global situation. If
@@ -907,16 +881,11 @@ static void bdi_update_write_bandwidth(struct backing_dev_info *bdi,
 	 *                   bw * elapsed + write_bandwidth * (period - elapsed)
 	 * write_bandwidth = ---------------------------------------------------
 	 *                                          period
-<<<<<<< HEAD
 	 *
 	 * @written may have decreased due to account_page_redirty().
 	 * Avoid underflowing @bw calculation.
 	 */
 	bw = written - min(written, bdi->written_stamp);
-=======
-	 */
-	bw = written - bdi->written_stamp;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	bw *= HZ;
 	if (unlikely(elapsed > period)) {
 		do_div(bw, elapsed);
@@ -980,11 +949,7 @@ static void global_update_bandwidth(unsigned long thresh,
 				    unsigned long now)
 {
 	static DEFINE_SPINLOCK(dirty_lock);
-<<<<<<< HEAD
 	static unsigned long update_time = INITIAL_JIFFIES;
-=======
-	static unsigned long update_time;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	/*
 	 * check locklessly first to optimize away locking for the most time
@@ -1115,7 +1080,6 @@ static void bdi_update_dirty_ratelimit(struct backing_dev_info *bdi,
 	 * keep that period small to reduce time lags).
 	 */
 	step = 0;
-<<<<<<< HEAD
 
 	/*
 	 * For strictlimit case, calculations above were based on bdi counters
@@ -1137,8 +1101,6 @@ static void bdi_update_dirty_ratelimit(struct backing_dev_info *bdi,
 				    bdi_dirty_limit(bdi, bg_thresh)) / 2;
 	}
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (dirty < setpoint) {
 		x = min(bdi->balanced_dirty_ratelimit,
 			 min(balanced_dirty_ratelimit, task_ratelimit));
@@ -1343,7 +1305,6 @@ static long bdi_min_pause(struct backing_dev_info *bdi,
 	return pages >= DIRTY_POLL_THRESH ? 1 + t / 2 : t;
 }
 
-<<<<<<< HEAD
 static inline void bdi_dirty_limits(struct backing_dev_info *bdi,
 				    unsigned long dirty_thresh,
 				    unsigned long background_thresh,
@@ -1394,8 +1355,6 @@ static inline void bdi_dirty_limits(struct backing_dev_info *bdi,
 	}
 }
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /*
  * balance_dirty_pages() must be called by processes which are generating dirty
  * data.  It looks at the number of dirty pages in the machine and will force
@@ -1407,19 +1366,9 @@ static void balance_dirty_pages(struct address_space *mapping,
 				unsigned long pages_dirtied)
 {
 	unsigned long nr_reclaimable;	/* = file_dirty + unstable_nfs */
-<<<<<<< HEAD
 	unsigned long nr_dirty;  /* = file_dirty + writeback + unstable_nfs */
 	unsigned long background_thresh;
 	unsigned long dirty_thresh;
-=======
-	unsigned long bdi_reclaimable;
-	unsigned long nr_dirty;  /* = file_dirty + writeback + unstable_nfs */
-	unsigned long bdi_dirty;
-	unsigned long freerun;
-	unsigned long background_thresh;
-	unsigned long dirty_thresh;
-	unsigned long bdi_thresh;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	long period;
 	long pause;
 	long max_pause;
@@ -1430,22 +1379,16 @@ static void balance_dirty_pages(struct address_space *mapping,
 	unsigned long dirty_ratelimit;
 	unsigned long pos_ratio;
 	struct backing_dev_info *bdi = mapping->backing_dev_info;
-<<<<<<< HEAD
 	bool strictlimit = bdi->capabilities & BDI_CAP_STRICTLIMIT;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	unsigned long start_time = jiffies;
 
 	for (;;) {
 		unsigned long now = jiffies;
-<<<<<<< HEAD
 		unsigned long uninitialized_var(bdi_thresh);
 		unsigned long thresh;
 		unsigned long uninitialized_var(bdi_dirty);
 		unsigned long dirty;
 		unsigned long bg_thresh;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 		/*
 		 * Unstable writes are a feature of certain networked
@@ -1459,7 +1402,6 @@ static void balance_dirty_pages(struct address_space *mapping,
 
 		global_dirty_limits(&background_thresh, &dirty_thresh);
 
-<<<<<<< HEAD
 		if (unlikely(strictlimit)) {
 			bdi_dirty_limits(bdi, dirty_thresh, background_thresh,
 					 &bdi_dirty, &bdi_thresh, &bg_thresh);
@@ -1486,72 +1428,18 @@ static void balance_dirty_pages(struct address_space *mapping,
 			current->nr_dirtied = 0;
 			current->nr_dirtied_pause =
 				dirty_poll_interval(dirty, thresh);
-=======
-		/*
-		 * Throttle it only when the background writeback cannot
-		 * catch-up. This avoids (excessively) small writeouts
-		 * when the bdi limits are ramping up.
-		 */
-		freerun = dirty_freerun_ceiling(dirty_thresh,
-						background_thresh);
-		if (nr_dirty <= freerun) {
-			current->dirty_paused_when = now;
-			current->nr_dirtied = 0;
-			current->nr_dirtied_pause =
-				dirty_poll_interval(nr_dirty, dirty_thresh);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			break;
 		}
 
 		if (unlikely(!writeback_in_progress(bdi)))
 			bdi_start_background_writeback(bdi);
 
-<<<<<<< HEAD
 		if (!strictlimit)
 			bdi_dirty_limits(bdi, dirty_thresh, background_thresh,
 					 &bdi_dirty, &bdi_thresh, NULL);
 
 		dirty_exceeded = (bdi_dirty > bdi_thresh) &&
 				 ((nr_dirty > dirty_thresh) || strictlimit);
-=======
-		/*
-		 * bdi_thresh is not treated as some limiting factor as
-		 * dirty_thresh, due to reasons
-		 * - in JBOD setup, bdi_thresh can fluctuate a lot
-		 * - in a system with HDD and USB key, the USB key may somehow
-		 *   go into state (bdi_dirty >> bdi_thresh) either because
-		 *   bdi_dirty starts high, or because bdi_thresh drops low.
-		 *   In this case we don't want to hard throttle the USB key
-		 *   dirtiers for 100 seconds until bdi_dirty drops under
-		 *   bdi_thresh. Instead the auxiliary bdi control line in
-		 *   bdi_position_ratio() will let the dirtier task progress
-		 *   at some rate <= (write_bw / 2) for bringing down bdi_dirty.
-		 */
-		bdi_thresh = bdi_dirty_limit(bdi, dirty_thresh);
-
-		/*
-		 * In order to avoid the stacked BDI deadlock we need
-		 * to ensure we accurately count the 'dirty' pages when
-		 * the threshold is low.
-		 *
-		 * Otherwise it would be possible to get thresh+n pages
-		 * reported dirty, even though there are thresh-m pages
-		 * actually dirty; with m+n sitting in the percpu
-		 * deltas.
-		 */
-		if (bdi_thresh < 2 * bdi_stat_error(bdi)) {
-			bdi_reclaimable = bdi_stat_sum(bdi, BDI_RECLAIMABLE);
-			bdi_dirty = bdi_reclaimable +
-				    bdi_stat_sum(bdi, BDI_WRITEBACK);
-		} else {
-			bdi_reclaimable = bdi_stat(bdi, BDI_RECLAIMABLE);
-			bdi_dirty = bdi_reclaimable +
-				    bdi_stat(bdi, BDI_WRITEBACK);
-		}
-
-		dirty_exceeded = (bdi_dirty > bdi_thresh) &&
-				  (nr_dirty > dirty_thresh);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		if (dirty_exceeded && !bdi->dirty_exceeded)
 			bdi->dirty_exceeded = 1;
 

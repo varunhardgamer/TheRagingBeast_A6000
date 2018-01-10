@@ -470,11 +470,7 @@ static struct ion_handle *pass_to_user(struct ion_handle *handle)
 /* Must hold the client lock */
 static int user_ion_handle_put_nolock(struct ion_handle *handle)
 {
-<<<<<<< HEAD
 	int ret = 0;
-=======
-	int ret;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (--handle->user_ref_count == 0)
 		ret = ion_handle_put_nolock(handle);

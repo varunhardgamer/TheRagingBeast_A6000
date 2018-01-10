@@ -558,10 +558,5 @@ module_exit(fini);
 
 MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION("Serpent Cipher Algorithm, AVX2 optimized");
-<<<<<<< HEAD
 MODULE_ALIAS_CRYPTO("serpent");
 MODULE_ALIAS_CRYPTO("serpent-asm");
-=======
-MODULE_ALIAS("serpent");
-MODULE_ALIAS("serpent-asm");
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c

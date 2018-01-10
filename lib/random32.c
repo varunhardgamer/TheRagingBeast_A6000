@@ -38,10 +38,7 @@
 #include <linux/export.h>
 #include <linux/jiffies.h>
 #include <linux/random.h>
-<<<<<<< HEAD
 #include <linux/timer.h>
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 static DEFINE_PER_CPU(struct rnd_state, net_rand_state);
 
@@ -146,10 +143,7 @@ void prandom_seed(u32 entropy)
 	for_each_possible_cpu (i) {
 		struct rnd_state *state = &per_cpu(net_rand_state, i);
 		state->s1 = __seed(state->s1 ^ entropy, 2);
-<<<<<<< HEAD
 		prandom_u32_state(state);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 }
 EXPORT_SYMBOL(prandom_seed);
@@ -182,7 +176,6 @@ static int __init prandom_init(void)
 }
 core_initcall(prandom_init);
 
-<<<<<<< HEAD
 static void __prandom_timer(unsigned long dontcare);
 static DEFINE_TIMER(seed_timer, __prandom_timer, 0, 0);
 
@@ -204,13 +197,10 @@ static void prandom_start_seed_timer(void)
 	add_timer(&seed_timer);
 }
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /*
  *	Generate better values after random number generator
  *	is fully initialized.
  */
-<<<<<<< HEAD
 static void __prandom_reseed(bool late)
 {
 	int i;
@@ -223,11 +213,6 @@ static void __prandom_reseed(bool late)
 	if (latch && !late)
 		goto out;
 	latch = true;
-=======
-static int __init prandom_reseed(void)
-{
-	int i;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	for_each_possible_cpu(i) {
 		struct rnd_state *state = &per_cpu(net_rand_state,i);
@@ -241,7 +226,6 @@ static int __init prandom_reseed(void)
 		/* mix it in */
 		prandom_u32_state(state);
 	}
-<<<<<<< HEAD
 out:
 	spin_unlock_irqrestore(&lock, flags);
 }
@@ -255,8 +239,6 @@ static int __init prandom_reseed(void)
 {
 	__prandom_reseed(false);
 	prandom_start_seed_timer();
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return 0;
 }
 late_initcall(prandom_reseed);

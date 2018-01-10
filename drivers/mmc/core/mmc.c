@@ -25,12 +25,9 @@
 #include "bus.h"
 #include "mmc_ops.h"
 #include "sd_ops.h"
-<<<<<<< HEAD
 #ifdef CONFIG_MACH_WT86518
 #include <linux/hardware_info.h>
 #endif
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 static const unsigned int tran_exp[] = {
 	10000,		100000,		1000000,	10000000,
@@ -77,11 +74,8 @@ static const struct mmc_fixup mmc_fixups[] = {
 	MMC_FIXUP_EXT_CSD_REV("MMC16G", CID_MANFID_KINGSTON, CID_OEMID_ANY,
 			add_quirk, MMC_QUIRK_BROKEN_HPI, 5),
 
-<<<<<<< HEAD
 	MMC_FIXUP_EXT_CSD_REV("V10008", CID_MANFID_KINGSTON, CID_OEMID_ANY,
 			add_quirk, MMC_QUIRK_BROKEN_HPI, 7),
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/*
 	 * Some Hynix cards exhibit data corruption over reboots if cache is
 	 * enabled. Disable cache for all versions until a class of cards that
@@ -93,11 +87,8 @@ static const struct mmc_fixup mmc_fixups[] = {
 		add_quirk_mmc, MMC_QUIRK_CACHE_DISABLE),
 	MMC_FIXUP("MMC16G", CID_MANFID_KINGSTON, CID_OEMID_ANY, add_quirk_mmc,
 		  MMC_QUIRK_CACHE_DISABLE),
-<<<<<<< HEAD
 	MMC_FIXUP("V10008", CID_MANFID_KINGSTON, CID_OEMID_ANY, add_quirk_mmc,
 		  MMC_QUIRK_CACHE_DISABLE),
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	END_FIXUP
 };
@@ -153,13 +144,9 @@ static int mmc_decode_cid(struct mmc_card *card)
 			mmc_hostname(card->host), card->csd.mmca_vsn);
 		return -EINVAL;
 	}
-<<<<<<< HEAD
 #ifdef CONFIG_MACH_WT86518
 	hardwareinfo_set_prop(HARDWARE_FLASH,card->cid.prod_name);
 #endif
-=======
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return 0;
 }
 
@@ -324,12 +311,9 @@ static void mmc_select_card_type(struct mmc_card *card)
 	card->ext_csd.card_type = card_type;
 }
 
-<<<<<<< HEAD
 /* Minimum partition switch timeout in milliseconds */
 #define MMC_MIN_PART_SWITCH_TIME	300
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /*
  * Decode extended CSD.
  */
@@ -398,13 +382,10 @@ static int mmc_read_ext_csd(struct mmc_card *card, u8 *ext_csd)
 
 		/* EXT_CSD value is in units of 10ms, but we store in ms */
 		card->ext_csd.part_time = 10 * ext_csd[EXT_CSD_PART_SWITCH_TIME];
-<<<<<<< HEAD
 		/* Some eMMC set the value too low so set a minimum */
 		if (card->ext_csd.part_time &&
 		    card->ext_csd.part_time < MMC_MIN_PART_SWITCH_TIME)
 			card->ext_csd.part_time = MMC_MIN_PART_SWITCH_TIME;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 		/* Sleep / awake timeout in 100ns units */
 		if (sa_shift > 0 && sa_shift <= 0x17)
@@ -1305,18 +1286,10 @@ static int mmc_change_bus_speed(struct mmc_host *host, unsigned long *freq)
 
 	if (mmc_card_hs400(card)) {
 		err = mmc_set_clock_bus_speed(card, *freq);
-<<<<<<< HEAD
 		goto out;
 	}
        
         mmc_set_clock(host, (unsigned int) (*freq));
-=======
-		if (err)
-			goto out;
-	} else {
-		mmc_set_clock(host, (unsigned int) (*freq));
-	}
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (mmc_card_hs200(card) && card->host->ops->execute_tuning) {
 		/*
@@ -1330,11 +1303,7 @@ static int mmc_change_bus_speed(struct mmc_host *host, unsigned long *freq)
 		mmc_host_clk_release(card->host);
 
 		if (err) {
-<<<<<<< HEAD
 			pr_warn("%s: %s: HS200 tuning execution failed %d. Restoring to previous clock %lu\n",
-=======
-			pr_warn("%s: %s: tuning execution failed %d. Restoring to previous clock %lu\n",
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 				   mmc_hostname(card->host), __func__, err,
 				   host->clk_scaling.curr_freq);
 			mmc_set_clock(host, host->clk_scaling.curr_freq);

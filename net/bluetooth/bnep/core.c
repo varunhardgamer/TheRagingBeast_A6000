@@ -32,10 +32,7 @@
 #include <asm/unaligned.h>
 
 #include <net/bluetooth/bluetooth.h>
-<<<<<<< HEAD
 #include <net/bluetooth/l2cap.h>
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #include <net/bluetooth/hci_core.h>
 
 #include "bnep.h"
@@ -543,12 +540,9 @@ int bnep_add_connection(struct bnep_connadd_req *req, struct socket *sock)
 
 	BT_DBG("");
 
-<<<<<<< HEAD
 	if (!l2cap_is_socket(sock))
 		return -EBADFD;
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	baswap((void *) dst, &bt_sk(sock->sk)->dst);
 	baswap((void *) src, &bt_sk(sock->sk)->src);
 

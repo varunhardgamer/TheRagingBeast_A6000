@@ -479,11 +479,7 @@ static int cluster_configure(struct lpm_cluster *cluster, int idx,
 	}
 	if (level->notify_rpm) {
 		struct cpumask nextcpu;
-<<<<<<< HEAD
 		uint64_t us;
-=======
-		uint32_t us;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 		us = get_cluster_sleep_time(cluster, &nextcpu, from_idle);
 
@@ -494,11 +490,7 @@ static int cluster_configure(struct lpm_cluster *cluster, int idx,
 		}
 
 		do_div(us, USEC_PER_SEC/SCLK_HZ);
-<<<<<<< HEAD
 		msm_mpm_enter_sleep(us, from_idle, &nextcpu);
-=======
-		msm_mpm_enter_sleep((uint32_t)us, from_idle, &nextcpu);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 	cluster->last_level = idx;
 	spin_unlock(&cluster->sync_lock);
@@ -923,18 +915,10 @@ static int lpm_probe(struct platform_device *pdev)
 	int size;
 	struct kobject *module_kobj = NULL;
 
-<<<<<<< HEAD
-=======
-	get_online_cpus();
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	lpm_root_node = lpm_of_parse_cluster(pdev);
 
 	if (IS_ERR_OR_NULL(lpm_root_node)) {
 		pr_err("%s(): Failed to probe low power modes\n", __func__);
-<<<<<<< HEAD
-=======
-		put_online_cpus();
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		return PTR_ERR(lpm_root_node);
 	}
 
@@ -947,10 +931,7 @@ static int lpm_probe(struct platform_device *pdev)
 	 * core.  BUG in existing code but no known issues possibly because of
 	 * how late lpm_levels gets initialized.
 	 */
-<<<<<<< HEAD
 	register_hotcpu_notifier(&lpm_cpu_nblk);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	get_cpu();
 	on_each_cpu(setup_broadcast_timer, (void *)true, 1);
 	put_cpu();
@@ -961,10 +942,6 @@ static int lpm_probe(struct platform_device *pdev)
 	if (ret) {
 		pr_err("%s: Failed initializing scm_handoff_lock (%d)\n",
 			__func__, ret);
-<<<<<<< HEAD
-=======
-		put_online_cpus();
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		return ret;
 	}
 
@@ -974,20 +951,12 @@ static int lpm_probe(struct platform_device *pdev)
 	register_cluster_lpm_stats(lpm_root_node, NULL);
 
 	ret = cluster_cpuidle_register(lpm_root_node);
-<<<<<<< HEAD
-=======
-	put_online_cpus();
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (ret) {
 		pr_err("%s()Failed to register with cpuidle framework\n",
 				__func__);
 		goto failed;
 	}
-<<<<<<< HEAD
 
-=======
-	register_hotcpu_notifier(&lpm_cpu_nblk);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	module_kobj = kset_find_obj(module_kset, KBUILD_MODNAME);
 	if (!module_kobj) {
 		pr_err("%s: cannot find kobject for module %s\n",

@@ -158,9 +158,6 @@ struct can_filter {
 };
 
 #define CAN_INV_FILTER 0x20000000U /* to be set in can_filter.can_id */
-<<<<<<< HEAD
 #define CAN_RAW_FILTER_MAX 512 /* maximum number of can_filter set via setsockopt() */
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #endif /* CAN_H */

@@ -7,7 +7,6 @@
 #define L1_CACHE_SHIFT		CONFIG_ARM_L1_CACHE_SHIFT
 #define L1_CACHE_BYTES		(1 << L1_CACHE_SHIFT)
 
-<<<<<<< HEAD
  /*
  * Set the prefetch distance in units of L1_CACHE_BYTES based on the
  * cache line size. The prefetch distance is used by the memcpy,
@@ -31,8 +30,6 @@
 #define PREFETCH_DISTANCE 3
 #endif
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /*
  * Memory returned by kmalloc() may be used for DMA, so we must make
  * sure that all such allocations are cache aligned. Otherwise,

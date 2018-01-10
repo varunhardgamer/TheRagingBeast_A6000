@@ -945,17 +945,11 @@ static void __unqueue_futex(struct futex_q *q)
 
 /*
  * The hash bucket lock must be held when this is called.
-<<<<<<< HEAD
  * Afterwards, the futex_q must not be accessed. Callers
  * must ensure to later call wake_up_q() for the actual
  * wakeups to occur.
  */
 static void mark_wake_futex(struct wake_q_head *wake_q, struct futex_q *q)
-=======
- * Afterwards, the futex_q must not be accessed.
- */
-static void wake_futex(struct futex_q *q)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	struct task_struct *p = q->task;
 
@@ -963,21 +957,10 @@ static void wake_futex(struct futex_q *q)
 		return;
 
 	/*
-<<<<<<< HEAD
 	 * Queue the task for later wakeup for after we've released
 	 * the hb->lock. wake_q_add() grabs reference to p.
 	 */
 	wake_q_add(wake_q, p);
-=======
-	 * We set q->lock_ptr = NULL _before_ we wake up the task. If
-	 * a non-futex wake up happens on another CPU then the task
-	 * might exit and p would dereference a non-existing task
-	 * struct. Prevent this by holding a reference on p across the
-	 * wake up.
-	 */
-	get_task_struct(p);
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	__unqueue_futex(q);
 	/*
 	 * The waiting task can free the futex_q as soon as
@@ -987,28 +970,16 @@ static void wake_futex(struct futex_q *q)
 	 */
 	smp_wmb();
 	q->lock_ptr = NULL;
-<<<<<<< HEAD
 }
 
 static int wake_futex_pi(u32 __user *uaddr, u32 uval, struct futex_q *this,
 			 struct futex_hash_bucket *hb)
-=======
-
-	wake_up_state(p, TASK_NORMAL);
-	put_task_struct(p);
-}
-
-static int wake_futex_pi(u32 __user *uaddr, u32 uval, struct futex_q *this)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	struct task_struct *new_owner;
 	struct futex_pi_state *pi_state = this->pi_state;
 	u32 uninitialized_var(curval), newval;
-<<<<<<< HEAD
 	WAKE_Q(wake_q);
 	bool deboost;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	int ret = 0;
 
 	if (!pi_state)
@@ -1060,7 +1031,6 @@ static int wake_futex_pi(u32 __user *uaddr, u32 uval, struct futex_q *this)
 	raw_spin_unlock_irq(&new_owner->pi_lock);
 
 	raw_spin_unlock(&pi_state->pi_mutex.wait_lock);
-<<<<<<< HEAD
 
 	deboost = rt_mutex_futex_unlock(&pi_state->pi_mutex, &wake_q);
 
@@ -1074,9 +1044,6 @@ static int wake_futex_pi(u32 __user *uaddr, u32 uval, struct futex_q *this)
 	wake_up_q(&wake_q);
 	if (deboost)
 		rt_mutex_adjust_prio(current);
-=======
-	rt_mutex_unlock(&pi_state->pi_mutex);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	return 0;
 }
@@ -1132,10 +1099,7 @@ futex_wake(u32 __user *uaddr, unsigned int flags, int nr_wake, u32 bitset)
 	struct plist_head *head;
 	union futex_key key = FUTEX_KEY_INIT;
 	int ret;
-<<<<<<< HEAD
 	WAKE_Q(wake_q);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (!bitset)
 		return -EINVAL;
@@ -1159,21 +1123,14 @@ futex_wake(u32 __user *uaddr, unsigned int flags, int nr_wake, u32 bitset)
 			if (!(this->bitset & bitset))
 				continue;
 
-<<<<<<< HEAD
 			mark_wake_futex(&wake_q, this);
-=======
-			wake_futex(this);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			if (++ret >= nr_wake)
 				break;
 		}
 	}
 
 	spin_unlock(&hb->lock);
-<<<<<<< HEAD
 	wake_up_q(&wake_q);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	put_futex_key(&key);
 out:
 	return ret;
@@ -1192,10 +1149,7 @@ futex_wake_op(u32 __user *uaddr1, unsigned int flags, u32 __user *uaddr2,
 	struct plist_head *head;
 	struct futex_q *this, *next;
 	int ret, op_ret;
-<<<<<<< HEAD
 	WAKE_Q(wake_q);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 retry:
 	ret = get_futex_key(uaddr1, flags & FLAGS_SHARED, &key1, VERIFY_READ);
@@ -1249,11 +1203,7 @@ retry_private:
 				ret = -EINVAL;
 				goto out_unlock;
 			}
-<<<<<<< HEAD
 			mark_wake_futex(&wake_q, this);
-=======
-			wake_futex(this);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			if (++ret >= nr_wake)
 				break;
 		}
@@ -1269,11 +1219,7 @@ retry_private:
 					ret = -EINVAL;
 					goto out_unlock;
 				}
-<<<<<<< HEAD
 				mark_wake_futex(&wake_q, this);
-=======
-				wake_futex(this);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 				if (++op_ret >= nr_wake2)
 					break;
 			}
@@ -1283,10 +1229,7 @@ retry_private:
 
 out_unlock:
 	double_unlock_hb(hb1, hb2);
-<<<<<<< HEAD
 	wake_up_q(&wake_q);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 out_put_keys:
 	put_futex_key(&key2);
 out_put_key1:
@@ -1445,10 +1388,7 @@ static int futex_requeue(u32 __user *uaddr1, unsigned int flags,
 	struct futex_hash_bucket *hb1, *hb2;
 	struct plist_head *head1;
 	struct futex_q *this, *next;
-<<<<<<< HEAD
 	WAKE_Q(wake_q);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (requeue_pi) {
 		/*
@@ -1622,11 +1562,7 @@ retry_private:
 		 * woken by futex_unlock_pi().
 		 */
 		if (++task_count <= nr_wake && !requeue_pi) {
-<<<<<<< HEAD
 			mark_wake_futex(&wake_q, this);
-=======
-			wake_futex(this);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			continue;
 		}
 
@@ -1646,11 +1582,7 @@ retry_private:
 			this->pi_state = pi_state;
 			ret = rt_mutex_start_proxy_lock(&pi_state->pi_mutex,
 							this->rt_waiter,
-<<<<<<< HEAD
 							this->task);
-=======
-							this->task, 1);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			if (ret == 1) {
 				/* We got the lock. */
 				requeue_pi_wake_futex(this, &key2, hb2);
@@ -1669,10 +1601,7 @@ retry_private:
 
 out_unlock:
 	double_unlock_hb(hb1, hb2);
-<<<<<<< HEAD
 	wake_up_q(&wake_q);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	/*
 	 * drop_futex_key_refs() must be called outside the spinlocks. During
@@ -2260,15 +2189,9 @@ retry_private:
 	/*
 	 * Block on the PI mutex:
 	 */
-<<<<<<< HEAD
 	if (!trylock) {
 		ret = rt_mutex_timed_futex_lock(&q.pi_state->pi_mutex, to);
 	} else {
-=======
-	if (!trylock)
-		ret = rt_mutex_timed_lock(&q.pi_state->pi_mutex, to, 1);
-	else {
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		ret = rt_mutex_trylock(&q.pi_state->pi_mutex);
 		/* Fixup the trylock return value: */
 		ret = ret ? 0 : -EWOULDBLOCK;
@@ -2378,7 +2301,6 @@ retry:
 	plist_for_each_entry_safe(this, next, head, list) {
 		if (!match_futex (&this->key, &key))
 			continue;
-<<<<<<< HEAD
 		ret = wake_futex_pi(uaddr, uval, this, hb);
 		/*
 		 * In case of success wake_futex_pi dropped the hash
@@ -2386,9 +2308,6 @@ retry:
 		 */
 		if (!ret)
 			goto out_putkey;
-=======
-		ret = wake_futex_pi(uaddr, uval, this);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		/*
 		 * The atomic access to the futex value
 		 * generated a pagefault, so retry the
@@ -2396,13 +2315,10 @@ retry:
 		 */
 		if (ret == -EFAULT)
 			goto pi_faulted;
-<<<<<<< HEAD
 		/*
 		 * wake_futex_pi has detected invalid state. Tell user
 		 * space.
 		 */
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		goto out_unlock;
 	}
 	/*
@@ -2414,10 +2330,7 @@ retry:
 
 out_unlock:
 	spin_unlock(&hb->lock);
-<<<<<<< HEAD
 out_putkey:
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	put_futex_key(&key);
 
 out:
@@ -2528,10 +2441,6 @@ static int futex_wait_requeue_pi(u32 __user *uaddr, unsigned int flags,
 {
 	struct hrtimer_sleeper timeout, *to = NULL;
 	struct rt_mutex_waiter rt_waiter;
-<<<<<<< HEAD
-=======
-	struct rt_mutex *pi_mutex = NULL;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	struct futex_hash_bucket *hb;
 	union futex_key key2 = FUTEX_KEY_INIT;
 	struct futex_q q = futex_q_init;
@@ -2612,7 +2521,6 @@ static int futex_wait_requeue_pi(u32 __user *uaddr, unsigned int flags,
 		if (q.pi_state && (q.pi_state->owner != current)) {
 			spin_lock(q.lock_ptr);
 			ret = fixup_pi_state_owner(uaddr2, &q, current);
-<<<<<<< HEAD
 			if (ret && rt_mutex_owner(&q.pi_state->pi_mutex) == current)
 				rt_mutex_unlock(&q.pi_state->pi_mutex);
 			/*
@@ -2625,11 +2533,6 @@ static int futex_wait_requeue_pi(u32 __user *uaddr, unsigned int flags,
 	} else {
 		struct rt_mutex *pi_mutex;
 
-=======
-			spin_unlock(q.lock_ptr);
-		}
-	} else {
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		/*
 		 * We have been woken up by futex_unlock_pi(), a timeout, or a
 		 * signal.  futex_unlock_pi() will not destroy the lock_ptr nor
@@ -2637,11 +2540,7 @@ static int futex_wait_requeue_pi(u32 __user *uaddr, unsigned int flags,
 		 */
 		WARN_ON(!q.pi_state);
 		pi_mutex = &q.pi_state->pi_mutex;
-<<<<<<< HEAD
 		ret = rt_mutex_finish_proxy_lock(pi_mutex, to, &rt_waiter);
-=======
-		ret = rt_mutex_finish_proxy_lock(pi_mutex, to, &rt_waiter, 1);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		debug_rt_mutex_free_waiter(&rt_waiter);
 
 		spin_lock(q.lock_ptr);
@@ -2657,7 +2556,6 @@ static int futex_wait_requeue_pi(u32 __user *uaddr, unsigned int flags,
 		if (res)
 			ret = (res < 0) ? res : 0;
 
-<<<<<<< HEAD
 		/*
 		 * If fixup_pi_state_owner() faulted and was unable to handle
 		 * the fault, unlock the rt_mutex and return the fault to
@@ -2666,24 +2564,11 @@ static int futex_wait_requeue_pi(u32 __user *uaddr, unsigned int flags,
 		if (ret && rt_mutex_owner(pi_mutex) == current)
 			rt_mutex_unlock(pi_mutex);
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		/* Unqueue and drop the lock. */
 		unqueue_me_pi(&q);
 	}
 
-<<<<<<< HEAD
 	if (ret == -EINTR) {
-=======
-	/*
-	 * If fixup_pi_state_owner() faulted and was unable to handle the
-	 * fault, unlock the rt_mutex and return the fault to userspace.
-	 */
-	if (ret == -EFAULT) {
-		if (pi_mutex && rt_mutex_owner(pi_mutex) == current)
-			rt_mutex_unlock(pi_mutex);
-	} else if (ret == -EINTR) {
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		/*
 		 * We've already been requeued, but cannot restart by calling
 		 * futex_lock_pi() directly. We could restart this syscall, but
@@ -2772,11 +2657,7 @@ SYSCALL_DEFINE3(get_robust_list, int, pid,
 	}
 
 	ret = -EPERM;
-<<<<<<< HEAD
 	if (!ptrace_may_access(p, PTRACE_MODE_READ_REALCREDS))
-=======
-	if (!ptrace_may_access(p, PTRACE_MODE_READ))
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		goto err_unlock;
 
 	head = p->robust_list;
@@ -3053,8 +2934,4 @@ static int __init futex_init(void)
 
 	return 0;
 }
-<<<<<<< HEAD
 core_initcall(futex_init);
-=======
-__initcall(futex_init);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c

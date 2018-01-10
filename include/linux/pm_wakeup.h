@@ -46,10 +46,7 @@
 struct wakeup_source {
 	const char 		*name;
 	struct list_head	entry;
-<<<<<<< HEAD
 	struct rcu_head		rcu;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	spinlock_t		lock;
 	struct timer_list	timer;
 	unsigned long		timer_expires;

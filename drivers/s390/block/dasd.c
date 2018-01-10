@@ -1615,7 +1615,6 @@ void dasd_int_handler(struct ccw_device *cdev, unsigned long intparm,
 	unsigned long long now;
 	int expires;
 
-<<<<<<< HEAD
 	cqr = (struct dasd_ccw_req *) intparm;
 	if (IS_ERR(irb)) {
 		switch (PTR_ERR(irb)) {
@@ -1628,11 +1627,6 @@ void dasd_int_handler(struct ccw_device *cdev, unsigned long intparm,
 				dasd_schedule_device_bh(device);
 				return;
 			}
-=======
-	if (IS_ERR(irb)) {
-		switch (PTR_ERR(irb)) {
-		case -EIO:
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			break;
 		case -ETIMEDOUT:
 			DBF_EVENT_DEVID(DBF_WARNING, cdev, "%s: "
@@ -1648,10 +1642,6 @@ void dasd_int_handler(struct ccw_device *cdev, unsigned long intparm,
 	}
 
 	now = get_tod_clock();
-<<<<<<< HEAD
-=======
-	cqr = (struct dasd_ccw_req *) intparm;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/* check for conditions that should be handled immediately */
 	if (!cqr ||
 	    !(scsw_dstat(&irb->scsw) == (DEV_STAT_CHN_END | DEV_STAT_DEV_END) &&

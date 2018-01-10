@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 /* Copyright (c) 2012-2017, The Linux Foundation. All rights reserved.
-=======
-/* Copyright (c) 2012-2015, The Linux Foundation. All rights reserved.
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -822,39 +818,25 @@ static int msm_pcm_playback_copy(struct snd_pcm_substream *substream, int a,
 			if (prtd->mode == MODE_PCM) {
 				ret = copy_from_user(&buf_node->frame.voc_pkt,
 							buf, count);
-<<<<<<< HEAD
 				if (ret) {
 					pr_err("%s: copy from user failed %d\n",
 					       __func__, ret);
 					return -EFAULT;
 				}
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 				buf_node->frame.pktlen = count;
 			} else {
 				ret = copy_from_user(&buf_node->frame,
 							buf, count);
-<<<<<<< HEAD
 				if (ret) {
 					pr_err("%s: copy from user failed %d\n",
 					       __func__, ret);
 					return -EFAULT;
 				}
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 				if (buf_node->frame.pktlen >= count)
 					buf_node->frame.pktlen = count -
 					(sizeof(buf_node->frame.frm_hdr) +
 					 sizeof(buf_node->frame.pktlen));
 			}
-<<<<<<< HEAD
-=======
-			if (ret) {
-				pr_err("%s: copy from user failed %d\n",
-				       __func__, ret);
-				return -EFAULT;
-			}
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			spin_lock_irqsave(&prtd->dsp_lock, dsp_flags);
 			list_add_tail(&buf_node->list, &prtd->in_queue);
 			spin_unlock_irqrestore(&prtd->dsp_lock, dsp_flags);

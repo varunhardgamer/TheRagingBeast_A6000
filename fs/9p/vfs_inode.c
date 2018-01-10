@@ -537,12 +537,7 @@ static struct inode *v9fs_qid_iget(struct super_block *sb,
 	unlock_new_inode(inode);
 	return inode;
 error:
-<<<<<<< HEAD
 	iget_failed(inode);
-=======
-	unlock_new_inode(inode);
-	iput(inode);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return ERR_PTR(retval);
 
 }

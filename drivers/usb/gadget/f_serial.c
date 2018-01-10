@@ -642,12 +642,9 @@ static void gser_disable(struct usb_function *f)
 	struct f_gser	*gser = func_to_gser(f);
 	struct usb_composite_dev *cdev = f->config->cdev;
 
-<<<<<<< HEAD
 	if (!gser->online)
 		return;
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	DBG(cdev, "generic ttyGS%d deactivated\n", gser->port_num);
 
 	gport_disconnect(gser);

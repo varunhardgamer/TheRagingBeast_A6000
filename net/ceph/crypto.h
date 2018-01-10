@@ -43,11 +43,8 @@ extern int ceph_encrypt2(struct ceph_crypto_key *secret,
 			 void *dst, size_t *dst_len,
 			 const void *src1, size_t src1_len,
 			 const void *src2, size_t src2_len);
-<<<<<<< HEAD
 int ceph_crypt(const struct ceph_crypto_key *key, bool encrypt,
 	       void *buf, int buf_len, int in_len, int *pout_len);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 extern int ceph_crypto_init(void);
 extern void ceph_crypto_shutdown(void);
 

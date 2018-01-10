@@ -262,10 +262,6 @@ static struct aer_rpc *aer_alloc_rpc(struct pcie_device *dev)
 	rpc->rpd = dev;
 	INIT_WORK(&rpc->dpc_handler, aer_isr);
 	mutex_init(&rpc->rpc_mutex);
-<<<<<<< HEAD
-=======
-	init_waitqueue_head(&rpc->wait_release);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	/* Use PCIe bus function to store rpc into PCIe device */
 	set_service_data(dev, rpc);
@@ -288,12 +284,7 @@ static void aer_remove(struct pcie_device *dev)
 		if (rpc->isr)
 			free_irq(dev->irq, dev);
 
-<<<<<<< HEAD
 		flush_work(&rpc->dpc_handler);
-=======
-		wait_event(rpc->wait_release, rpc->prod_idx == rpc->cons_idx);
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		aer_disable_rootport(rpc);
 		kfree(rpc);
 		set_service_data(dev, NULL);

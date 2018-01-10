@@ -984,11 +984,6 @@ rescan:
 	}
 
 	qh->exception = 1;
-<<<<<<< HEAD
-=======
-	if (ehci->rh_state < EHCI_RH_RUNNING)
-		qh->qh_state = QH_STATE_IDLE;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	switch (qh->qh_state) {
 	case QH_STATE_LINKED:
 	case QH_STATE_COMPLETING:

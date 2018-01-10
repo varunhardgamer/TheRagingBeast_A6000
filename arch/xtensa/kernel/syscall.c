@@ -86,11 +86,7 @@ unsigned long arch_get_unmapped_area(struct file *filp, unsigned long addr,
 		/* At this point:  (!vmm || addr < vmm->vm_end). */
 		if (TASK_SIZE - len < addr)
 			return -ENOMEM;
-<<<<<<< HEAD
 		if (!vmm || addr + len <= vm_start_gap(vmm))
-=======
-		if (!vmm || addr + len <= vmm->vm_start)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			return addr;
 		addr = vmm->vm_end;
 		if (flags & MAP_SHARED)

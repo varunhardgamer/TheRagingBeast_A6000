@@ -101,31 +101,19 @@ static struct ip_tunnel *ipip6_tunnel_lookup(struct net *net,
 	for_each_ip_tunnel_rcu(t, sitn->tunnels_r_l[h0 ^ h1]) {
 		if (local == t->parms.iph.saddr &&
 		    remote == t->parms.iph.daddr &&
-<<<<<<< HEAD
 		    (!dev || !t->parms.link || dev->ifindex == t->parms.link) &&
-=======
-		    (!dev || !t->parms.link || dev->iflink == t->parms.link) &&
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		    (t->dev->flags & IFF_UP))
 			return t;
 	}
 	for_each_ip_tunnel_rcu(t, sitn->tunnels_r[h0]) {
 		if (remote == t->parms.iph.daddr &&
-<<<<<<< HEAD
 		    (!dev || !t->parms.link || dev->ifindex == t->parms.link) &&
-=======
-		    (!dev || !t->parms.link || dev->iflink == t->parms.link) &&
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		    (t->dev->flags & IFF_UP))
 			return t;
 	}
 	for_each_ip_tunnel_rcu(t, sitn->tunnels_l[h1]) {
 		if (local == t->parms.iph.saddr &&
-<<<<<<< HEAD
 		    (!dev || !t->parms.link || dev->ifindex == t->parms.link) &&
-=======
-		    (!dev || !t->parms.link || dev->iflink == t->parms.link) &&
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		    (t->dev->flags & IFF_UP))
 			return t;
 	}
@@ -542,21 +530,13 @@ static int ipip6_err(struct sk_buff *skb, u32 info)
 
 	if (type == ICMP_DEST_UNREACH && code == ICMP_FRAG_NEEDED) {
 		ipv4_update_pmtu(skb, dev_net(skb->dev), info,
-<<<<<<< HEAD
 				 t->parms.link, 0, iph->protocol, 0);
-=======
-				 t->parms.link, 0, IPPROTO_IPV6, 0);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		err = 0;
 		goto out;
 	}
 	if (type == ICMP_REDIRECT) {
 		ipv4_redirect(skb, dev_net(skb->dev), t->parms.link, 0,
-<<<<<<< HEAD
 			      iph->protocol, 0);
-=======
-			      IPPROTO_IPV6, 0);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		err = 0;
 		goto out;
 	}
@@ -939,11 +919,7 @@ static netdev_tx_t ipip6_tunnel_xmit(struct sk_buff *skb,
 		iph->ttl	=	iph6->hop_limit;
 
 	skb->ip_summed = CHECKSUM_NONE;
-<<<<<<< HEAD
 	ip_select_ident(skb, NULL);
-=======
-	ip_select_ident(skb, skb_dst(skb), NULL);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	iptunnel_xmit(skb, dev);
 	return NETDEV_TX_OK;
 

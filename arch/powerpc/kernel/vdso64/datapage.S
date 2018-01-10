@@ -57,11 +57,7 @@ V_FUNCTION_BEGIN(__kernel_get_syscall_map)
 	bl	V_LOCAL_FUNC(__get_datapage)
 	mtlr	r12
 	addi	r3,r3,CFG_SYSCALL_MAP64
-<<<<<<< HEAD
 	cmpldi	cr0,r4,0
-=======
-	cmpli	cr0,r4,0
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	crclr	cr0*4+so
 	beqlr
 	li	r0,__NR_syscalls

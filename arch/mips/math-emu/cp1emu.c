@@ -684,17 +684,11 @@ static int isBranchInstr(struct pt_regs *regs, struct mm_decoded_insn dec_insn,
 	case spec_op:
 		switch (insn.r_format.func) {
 		case jalr_op:
-<<<<<<< HEAD
 			if (insn.r_format.rd != 0) {
 				regs->regs[insn.r_format.rd] =
 					regs->cp0_epc + dec_insn.pc_inc +
 					dec_insn.next_pc_inc;
 			}
-=======
-			regs->regs[insn.r_format.rd] =
-				regs->cp0_epc + dec_insn.pc_inc +
-				dec_insn.next_pc_inc;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			/* Fall through */
 		case jr_op:
 			*contpc = regs->regs[insn.r_format.rs];
@@ -2008,7 +2002,6 @@ static int fpu_emu(struct pt_regs *xcp, struct mips_fpu_struct *ctx,
 	return 0;
 }
 
-<<<<<<< HEAD
 /*
  * Emulate FPU instructions.
  *
@@ -2038,8 +2031,6 @@ static int fpu_emu(struct pt_regs *xcp, struct mips_fpu_struct *ctx,
  * instruction that should cause an Address Error exception instead.
  * For simplicity we always terminate upon an ISA mode switch.
  */
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 int fpu_emulator_cop1Handler(struct pt_regs *xcp, struct mips_fpu_struct *ctx,
 	int has_fpu, void *__user *fault_addr)
 {
@@ -2131,7 +2122,6 @@ int fpu_emulator_cop1Handler(struct pt_regs *xcp, struct mips_fpu_struct *ctx,
 			break;
 		if (sig)
 			break;
-<<<<<<< HEAD
 		/*
 		 * We have to check for the ISA bit explicitly here,
 		 * because `get_isa16_mode' may return 0 if support
@@ -2141,8 +2131,6 @@ int fpu_emulator_cop1Handler(struct pt_regs *xcp, struct mips_fpu_struct *ctx,
 		 */
 		if ((xcp->cp0_epc ^ prevepc) & 0x1)
 			break;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 		cond_resched();
 	} while (xcp->cp0_epc > prevepc);

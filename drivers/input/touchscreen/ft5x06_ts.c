@@ -3,11 +3,7 @@
  * FocalTech ft5x06 TouchScreen driver.
  *
  * Copyright (c) 2010  Focal tech Ltd.
-<<<<<<< HEAD
  * Copyright (c) 2012-2016, The Linux Foundation. All rights reserved.
-=======
- * Copyright (c) 2012-2015, The Linux Foundation. All rights reserved.
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  *
  * This software is licensed under the terms of the GNU General Public
  * License version 2, as published by the Free Software Foundation, and
@@ -46,13 +42,10 @@
 #define FT_SUSPEND_LEVEL 1
 #endif
 
-<<<<<<< HEAD
 #ifdef CONFIG_WAKE_GESTURES
 #include <linux/wake_gestures.h>
 #endif
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #define FT_DRIVER_VERSION	0x02
 
 #define FT_META_REGS		3
@@ -269,10 +262,7 @@ struct ft5x06_ts_data {
 	u8 fw_ver[3];
 	u8 fw_vendor_id;
 #if defined(CONFIG_FB)
-<<<<<<< HEAD
 	struct work_struct fb_notify_work;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	struct notifier_block fb_notif;
 #elif defined(CONFIG_HAS_EARLYSUSPEND)
 	struct early_suspend early_suspend;
@@ -283,7 +273,6 @@ struct ft5x06_ts_data {
 	struct pinctrl_state *pinctrl_state_release;
 };
 
-<<<<<<< HEAD
 #ifdef CONFIG_WAKE_GESTURES
 struct ft5x06_ts_data *ft5x06_ts = NULL;
 
@@ -292,8 +281,6 @@ bool scr_suspended_ft(void) {
 }
 #endif
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static int ft5x06_ts_start(struct device *dev);
 static int ft5x06_ts_stop(struct device *dev);
 
@@ -788,14 +775,11 @@ static irqreturn_t ft5x06_ts_interrupt(int irq, void *dev_id)
 		if (!num_touches && !status && !id)
 			break;
 
-<<<<<<< HEAD
 #ifdef CONFIG_WAKE_GESTURES
 		if (data->suspended)
 			x += 5000;
 #endif
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		input_mt_slot(ip_dev, id);
 		if (status == FT_TOUCH_DOWN || status == FT_TOUCH_CONTACT) {
 			input_mt_report_slot_state(ip_dev, MT_TOOL_FINGER, 1);
@@ -1215,7 +1199,6 @@ static int ft5x06_ts_suspend(struct device *dev)
 		return 0;
 	}
 
-<<<<<<< HEAD
 #ifdef CONFIG_WAKE_GESTURES
 	if (device_may_wakeup(dev) && (s2w_switch || dt2w_switch)) {
 		ft5x0x_write_reg(data->client, 0xD0, 1);
@@ -1229,8 +1212,6 @@ static int ft5x06_ts_suspend(struct device *dev)
 	}
 #endif
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (ft5x06_psensor_support_enabled() && data->pdata->psensor_support &&
 		device_may_wakeup(dev) &&
 		data->psensor_pdata->tp_psensor_opened) {
@@ -1264,18 +1245,14 @@ static int ft5x06_ts_resume(struct device *dev)
 	struct ft5x06_ts_data *data = dev_get_drvdata(dev);
 	int err;
 
-<<<<<<< HEAD
 #ifdef CONFIG_WAKE_GESTURES
 	int i;
 #endif
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (!data->suspended) {
 		dev_dbg(dev, "Already in awake state\n");
 		return 0;
 	}
 
-<<<<<<< HEAD
 #ifdef CONFIG_WAKE_GESTURES
 	if (device_may_wakeup(dev) && (s2w_switch || dt2w_switch)) {
 		ft5x0x_write_reg(data->client, 0xD0, 0);
@@ -1306,8 +1283,6 @@ static int ft5x06_ts_resume(struct device *dev)
 	}
 #endif
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (ft5x06_psensor_support_enabled() && data->pdata->psensor_support &&
 		device_may_wakeup(dev) &&
 		data->psensor_pdata->tp_psensor_opened) {
@@ -1375,7 +1350,6 @@ static int ft5x06_ts_resume(struct device *dev)
 #endif
 
 #if defined(CONFIG_FB)
-<<<<<<< HEAD
 static bool unblanked_once = false;
 static void fb_notify_resume_work(struct work_struct *work)
 {
@@ -1384,8 +1358,6 @@ static void fb_notify_resume_work(struct work_struct *work)
 	ft5x06_ts_resume(&ft5x06_data->client->dev);
 }
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static int fb_notifier_callback(struct notifier_block *self,
 				 unsigned long event, void *data)
 {
@@ -1394,7 +1366,6 @@ static int fb_notifier_callback(struct notifier_block *self,
 	struct ft5x06_ts_data *ft5x06_data =
 		container_of(self, struct ft5x06_ts_data, fb_notif);
 
-<<<<<<< HEAD
 	if (evdata && evdata->data && ft5x06_data && ft5x06_data->client) {
 		blank = evdata->data;
 		if (ft5x06_data->pdata->resume_in_workqueue) {
@@ -1419,15 +1390,6 @@ static int fb_notifier_callback(struct notifier_block *self,
 				}
 			}
 		}
-=======
-	if (evdata && evdata->data && event == FB_EVENT_BLANK &&
-			ft5x06_data && ft5x06_data->client) {
-		blank = evdata->data;
-		if (*blank == FB_BLANK_UNBLANK)
-			ft5x06_ts_resume(&ft5x06_data->client->dev);
-		else if (*blank == FB_BLANK_POWERDOWN)
-			ft5x06_ts_suspend(&ft5x06_data->client->dev);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 
 	return 0;
@@ -2177,12 +2139,9 @@ static int ft5x06_parse_dt(struct device *dev,
 	pdata->gesture_support = of_property_read_bool(np,
 						"focaltech,gesture-support");
 
-<<<<<<< HEAD
 	pdata->resume_in_workqueue = of_property_read_bool(np,
 					"focaltech,resume-in-workqueue");
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	rc = of_property_read_u32(np, "focaltech,family-id", &temp_val);
 	if (!rc)
 		pdata->family_id = temp_val;
@@ -2491,14 +2450,11 @@ static int ft5x06_ts_probe(struct i2c_client *client,
 		}
 	}
 
-<<<<<<< HEAD
 #ifdef CONFIG_WAKE_GESTURES
 	ft5x06_ts = data;
 	device_init_wakeup(&client->dev, 1);
 #endif
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	err = device_create_file(&client->dev, &dev_attr_fw_name);
 	if (err) {
 		dev_err(&client->dev, "sys file creation failed\n");
@@ -2588,10 +2544,7 @@ static int ft5x06_ts_probe(struct i2c_client *client,
 			data->fw_ver[1], data->fw_ver[2]);
 
 #if defined(CONFIG_FB)
-<<<<<<< HEAD
 	INIT_WORK(&data->fb_notify_work, fb_notify_resume_work);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	data->fb_notif.notifier_call = fb_notifier_callback;
 
 	err = fb_register_client(&data->fb_notif);

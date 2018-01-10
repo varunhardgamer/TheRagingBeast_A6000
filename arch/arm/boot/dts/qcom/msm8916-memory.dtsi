@@ -41,7 +41,6 @@
 			label = "peripheral_mem";
 		};
 
-<<<<<<< HEAD
 		hardboot_mem: hardboot_region@0 {
 			linux,reserve-contiguous-region;
 			linux,reserve-region;
@@ -50,8 +49,6 @@
 			label = "hardboot_mem";
 		};
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		mba_mem: mba_region@0 {
 			linux,reserve-contiguous-region;
 			reg = <0 0 0 0x0200000>;
@@ -62,13 +59,8 @@
 			linux,reserve-contiguous-region;
 			reg = <0 0 0 0x6D00000>;
 			label = "secure_mem";
-<<<<<<< HEAD
 };
 	
-=======
-		};
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		venus_qseecom_mem: venus_qseecom_region@0 {
 			linux,reserve-contiguous-region;
 			linux,memory-limit = <0x90000000>;

@@ -1232,11 +1232,7 @@ static ssize_t sm501_dbg_regs(struct device *dev,
 }
 
 
-<<<<<<< HEAD
 static DEVICE_ATTR(dbg_regs, 0444, sm501_dbg_regs, NULL);
-=======
-static DEVICE_ATTR(dbg_regs, 0666, sm501_dbg_regs, NULL);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 /* sm501_init_reg
  *

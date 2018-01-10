@@ -1435,10 +1435,7 @@ int nfs_atomic_open(struct inode *dir, struct dentry *dentry,
 		switch (err) {
 		case -ENOENT:
 			d_add(dentry, NULL);
-<<<<<<< HEAD
 			nfs_set_verifier(dentry, nfs_save_change_attribute(dir));
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			break;
 		case -EISDIR:
 		case -ENOTDIR:

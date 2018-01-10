@@ -198,7 +198,6 @@ typedef int INT32;
 typedef s32 acpi_native_int;
 
 typedef u32 acpi_size;
-<<<<<<< HEAD
 
 #ifdef ACPI_32BIT_PHYSICAL_ADDRESS
 
@@ -222,11 +221,6 @@ typedef u64 acpi_physical_address;
 
 #endif				/* ACPI_32BIT_PHYSICAL_ADDRESS */
 
-=======
-typedef u32 acpi_io_address;
-typedef u32 acpi_physical_address;
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #define ACPI_MAX_PTR                    ACPI_UINT32_MAX
 #define ACPI_SIZE_MAX                   ACPI_UINT32_MAX
 
@@ -517,10 +511,7 @@ typedef u64 acpi_integer;
 #define ACPI_NO_ACPI_ENABLE             0x10
 #define ACPI_NO_DEVICE_INIT             0x20
 #define ACPI_NO_OBJECT_INIT             0x40
-<<<<<<< HEAD
 #define ACPI_NO_FACS_INIT               0x80
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 /*
  * Initialization state

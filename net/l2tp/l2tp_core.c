@@ -280,12 +280,8 @@ struct l2tp_session *l2tp_session_find(struct net *net, struct l2tp_tunnel *tunn
 }
 EXPORT_SYMBOL_GPL(l2tp_session_find);
 
-<<<<<<< HEAD
 struct l2tp_session *l2tp_session_get_nth(struct l2tp_tunnel *tunnel, int nth,
 					  bool do_ref)
-=======
-struct l2tp_session *l2tp_session_find_nth(struct l2tp_tunnel *tunnel, int nth)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	int hash;
 	struct l2tp_session *session;
@@ -295,12 +291,9 @@ struct l2tp_session *l2tp_session_find_nth(struct l2tp_tunnel *tunnel, int nth)
 	for (hash = 0; hash < L2TP_HASH_SIZE; hash++) {
 		hlist_for_each_entry(session, &tunnel->session_hlist[hash], hlist) {
 			if (++count > nth) {
-<<<<<<< HEAD
 				l2tp_session_inc_refcount(session);
 				if (do_ref && session->ref)
 					session->ref(session);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 				read_unlock_bh(&tunnel->hlist_lock);
 				return session;
 			}
@@ -311,11 +304,7 @@ struct l2tp_session *l2tp_session_find_nth(struct l2tp_tunnel *tunnel, int nth)
 
 	return NULL;
 }
-<<<<<<< HEAD
 EXPORT_SYMBOL_GPL(l2tp_session_get_nth);
-=======
-EXPORT_SYMBOL_GPL(l2tp_session_find_nth);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 /* Lookup a session by interface name.
  * This is very inefficient but is only used by management interfaces.
@@ -1396,11 +1385,7 @@ static void l2tp_tunnel_del_work(struct work_struct *work)
 	tunnel = container_of(work, struct l2tp_tunnel, del_work);
 	sk = l2tp_tunnel_sock_lookup(tunnel);
 	if (!sk)
-<<<<<<< HEAD
 		goto out;
-=======
-		return;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	sock = sk->sk_socket;
 
@@ -1421,11 +1406,8 @@ static void l2tp_tunnel_del_work(struct work_struct *work)
 	}
 
 	l2tp_tunnel_sock_put(sk);
-<<<<<<< HEAD
 out:
 	l2tp_tunnel_dec_refcount(tunnel);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 /* Create a socket for the tunnel, if one isn't set up by
@@ -1755,7 +1737,6 @@ EXPORT_SYMBOL_GPL(l2tp_tunnel_create);
  */
 int l2tp_tunnel_delete(struct l2tp_tunnel *tunnel)
 {
-<<<<<<< HEAD
 	l2tp_tunnel_inc_refcount(tunnel);
 	l2tp_tunnel_closeall(tunnel);
 	if (false == queue_work(l2tp_wq, &tunnel->del_work)) {
@@ -1763,10 +1744,6 @@ int l2tp_tunnel_delete(struct l2tp_tunnel *tunnel)
 		return 1;
 	}
 	return 0;
-=======
-	l2tp_tunnel_closeall(tunnel);
-	return (false == queue_work(l2tp_wq, &tunnel->del_work));
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 EXPORT_SYMBOL_GPL(l2tp_tunnel_delete);
 

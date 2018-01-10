@@ -157,11 +157,6 @@ static int mxs_phy_probe(struct platform_device *pdev)
 	mxs_phy->phy.notify_disconnect	= mxs_phy_on_disconnect;
 	mxs_phy->phy.type		= USB_PHY_TYPE_USB2;
 
-<<<<<<< HEAD
-=======
-	ATOMIC_INIT_NOTIFIER_HEAD(&mxs_phy->phy.notifier);
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	mxs_phy->clk = clk;
 
 	platform_set_drvdata(pdev, &mxs_phy->phy);

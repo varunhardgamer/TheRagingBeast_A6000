@@ -260,15 +260,11 @@ int ipv6_find_hdr(const struct sk_buff *skb, unsigned int *offset,
 						return -EINVAL;
 					}
 				}
-<<<<<<< HEAD
 				if (!found)
 					return -ENOENT;
 				if (fragoff)
 					*fragoff = _frag_off;
 				break;
-=======
-				return -ENOENT;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			}
 			hdrlen = 8;
 		} else if (nexthdr == NEXTHDR_AUTH) {

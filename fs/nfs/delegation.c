@@ -108,11 +108,8 @@ again:
 			continue;
 		if (!test_bit(NFS_DELEGATED_STATE, &state->flags))
 			continue;
-<<<<<<< HEAD
 		if (!nfs4_valid_open_stateid(state))
 			continue;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		if (!nfs4_stateid_match(&state->stateid, stateid))
 			continue;
 		get_nfs_open_context(ctx);
@@ -180,15 +177,11 @@ static int nfs_do_return_delegation(struct inode *inode, struct nfs_delegation *
 {
 	int res = 0;
 
-<<<<<<< HEAD
 	if (!test_bit(NFS_DELEGATION_REVOKED, &delegation->flags))
 		res = nfs4_proc_delegreturn(inode,
 				delegation->cred,
 				&delegation->stateid,
 				issync);
-=======
-	res = nfs4_proc_delegreturn(inode, delegation->cred, &delegation->stateid, issync);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	nfs_free_delegation(delegation);
 	return res;
 }
@@ -374,20 +367,13 @@ static int nfs_end_delegation_return(struct inode *inode, struct nfs_delegation 
 {
 	struct nfs_client *clp = NFS_SERVER(inode)->nfs_client;
 	struct nfs_inode *nfsi = NFS_I(inode);
-<<<<<<< HEAD
 	int err = 0;
-=======
-	int err;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (delegation == NULL)
 		return 0;
 	do {
-<<<<<<< HEAD
 		if (test_bit(NFS_DELEGATION_REVOKED, &delegation->flags))
 			break;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		err = nfs_delegation_claim_opens(inode, &delegation->stateid);
 		if (!issync || err != -EAGAIN)
 			break;
@@ -608,7 +594,6 @@ static void nfs_client_mark_return_unused_delegation_types(struct nfs_client *cl
 	rcu_read_unlock();
 }
 
-<<<<<<< HEAD
 static void nfs_revoke_delegation(struct inode *inode)
 {
 	struct nfs_delegation *delegation;
@@ -621,16 +606,11 @@ static void nfs_revoke_delegation(struct inode *inode)
 	rcu_read_unlock();
 }
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 void nfs_remove_bad_delegation(struct inode *inode)
 {
 	struct nfs_delegation *delegation;
 
-<<<<<<< HEAD
 	nfs_revoke_delegation(inode);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	delegation = nfs_inode_detach_delegation(inode);
 	if (delegation) {
 		nfs_inode_find_state_and_recover(inode, &delegation->stateid);

@@ -60,11 +60,7 @@ int adis_probe_trigger(struct adis *adis, struct iio_dev *indio_dev)
 	iio_trigger_set_drvdata(adis->trig, adis);
 	ret = iio_trigger_register(adis->trig);
 
-<<<<<<< HEAD
 	indio_dev->trig = iio_trigger_get(adis->trig);
-=======
-	indio_dev->trig = adis->trig;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (ret)
 		goto error_free_irq;
 

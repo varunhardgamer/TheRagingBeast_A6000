@@ -158,7 +158,6 @@ static unsigned long vmpressure_calc_pressure(unsigned long scanned,
 						    unsigned long reclaimed)
 {
 	unsigned long scale = scanned + reclaimed;
-<<<<<<< HEAD
 	unsigned long pressure = 0;
 
 	/*
@@ -169,11 +168,6 @@ static unsigned long vmpressure_calc_pressure(unsigned long scanned,
 	if (reclaimed >= scanned)
 		goto out;
 	/*
-=======
-	unsigned long pressure;
-
-	/*
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	 * We calculate the ratio (in percents) of how many pages were
 	 * scanned vs. reclaimed in a given time frame (window). Note that
 	 * time is in VM reclaimer's "ticks", i.e. number of pages
@@ -183,10 +177,7 @@ static unsigned long vmpressure_calc_pressure(unsigned long scanned,
 	pressure = scale - (reclaimed * scale / scanned);
 	pressure = pressure * 100 / scale;
 
-<<<<<<< HEAD
 out:
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	pr_debug("%s: %3lu  (s: %lu  r: %lu)\n", __func__, pressure,
 		 scanned, reclaimed);
 

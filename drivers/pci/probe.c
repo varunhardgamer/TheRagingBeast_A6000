@@ -210,26 +210,17 @@ int __pci_read_base(struct pci_dev *dev, enum pci_bar_type type,
 		res->flags |= IORESOURCE_SIZEALIGN;
 		if (res->flags & IORESOURCE_IO) {
 			l &= PCI_BASE_ADDRESS_IO_MASK;
-<<<<<<< HEAD
 			sz &= PCI_BASE_ADDRESS_IO_MASK;
 			mask = PCI_BASE_ADDRESS_IO_MASK & (u32) IO_SPACE_LIMIT;
 		} else {
 			l &= PCI_BASE_ADDRESS_MEM_MASK;
 			sz &= PCI_BASE_ADDRESS_MEM_MASK;
-=======
-			mask = PCI_BASE_ADDRESS_IO_MASK & (u32) IO_SPACE_LIMIT;
-		} else {
-			l &= PCI_BASE_ADDRESS_MEM_MASK;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			mask = (u32)PCI_BASE_ADDRESS_MEM_MASK;
 		}
 	} else {
 		res->flags |= (l & IORESOURCE_ROM_ENABLE);
 		l &= PCI_ROM_ADDRESS_MASK;
-<<<<<<< HEAD
 		sz &= PCI_ROM_ADDRESS_MASK;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		mask = (u32)PCI_ROM_ADDRESS_MASK;
 	}
 
@@ -301,12 +292,9 @@ static void pci_read_bases(struct pci_dev *dev, unsigned int howmany, int rom)
 {
 	unsigned int pos, reg;
 
-<<<<<<< HEAD
 	if (dev->non_compliant_bars)
 		return;
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	for (pos = 0; pos < howmany; pos++) {
 		struct resource *res = &dev->resource[pos];
 		reg = PCI_BASE_ADDRESS_0 + (pos << 2);
@@ -996,10 +984,7 @@ void set_pcie_hotplug_bridge(struct pci_dev *pdev)
 int pci_setup_device(struct pci_dev *dev)
 {
 	u32 class;
-<<<<<<< HEAD
 	u16 cmd;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	u8 hdr_type;
 	struct pci_slot *slot;
 	int pos = 0;
@@ -1047,7 +1032,6 @@ int pci_setup_device(struct pci_dev *dev)
 	/* device class may be changed after fixup */
 	class = dev->class >> 8;
 
-<<<<<<< HEAD
 	if (dev->non_compliant_bars) {
 		pci_read_config_word(dev, PCI_COMMAND, &cmd);
 		if (cmd & (PCI_COMMAND_IO | PCI_COMMAND_MEMORY)) {
@@ -1058,8 +1042,6 @@ int pci_setup_device(struct pci_dev *dev)
 		}
 	}
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	switch (dev->hdr_type) {		    /* header type */
 	case PCI_HEADER_TYPE_NORMAL:		    /* standard header */
 		if (class == PCI_CLASS_BRIDGE_PCI)

@@ -33,7 +33,6 @@
 #include <string.h>
 #include <unistd.h>
 
-<<<<<<< HEAD
 /*
  * glibc synced up and added the metag number but didn't add the relocations.
  * Work around this in a crude manner for now.
@@ -45,22 +44,13 @@
 #define R_METAG_ADDR32                   2
 #endif
 #ifndef R_METAG_NONE
-=======
-#ifndef EM_METAG
-/* Remove this when these make it to the standard system elf.h. */
-#define EM_METAG      174
-#define R_METAG_ADDR32                   2
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #define R_METAG_NONE                     3
 #endif
 
 #ifndef EM_AARCH64
 #define EM_AARCH64	183
-<<<<<<< HEAD
 #endif
 #ifndef R_AARCH64_ABS64
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #define R_AARCH64_ABS64	257
 #endif
 
@@ -213,7 +203,6 @@ static void *mmap_file(char const *fname)
 		addr = umalloc(sb.st_size);
 		uread(fd_map, addr, sb.st_size);
 	}
-<<<<<<< HEAD
 	if (sb.st_nlink != 1) {
 		/* file is hard-linked, break the hard link */
 		close(fd_map);
@@ -228,8 +217,6 @@ static void *mmap_file(char const *fname)
 		}
 		uwrite(fd_map, addr, sb.st_size);
 	}
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return addr;
 }
 

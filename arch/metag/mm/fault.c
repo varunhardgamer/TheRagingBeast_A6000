@@ -141,11 +141,8 @@ good_area:
 	if (unlikely(fault & VM_FAULT_ERROR)) {
 		if (fault & VM_FAULT_OOM)
 			goto out_of_memory;
-<<<<<<< HEAD
 		else if (fault & VM_FAULT_SIGSEGV)
 			goto bad_area;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		else if (fault & VM_FAULT_SIGBUS)
 			goto do_sigbus;
 		BUG();
@@ -231,15 +228,10 @@ do_sigbus:
 	 */
 out_of_memory:
 	up_read(&mm->mmap_sem);
-<<<<<<< HEAD
 	if (user_mode(regs)) {
 		pagefault_out_of_memory();
 		return 1;
 	}
-=======
-	if (user_mode(regs))
-		do_group_exit(SIGKILL);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 no_context:
 	/* Are we prepared to handle this kernel fault?  */

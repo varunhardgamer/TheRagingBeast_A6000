@@ -31,24 +31,15 @@ static inline void prom_putchar_wait(void __iomem *reg, u32 mask, u32 val)
 	} while (1);
 }
 
-<<<<<<< HEAD
 #define BOTH_EMPTY (UART_LSR_TEMT | UART_LSR_THRE)
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static void prom_putchar_ar71xx(unsigned char ch)
 {
 	void __iomem *base = (void __iomem *)(KSEG1ADDR(AR71XX_UART_BASE));
 
-<<<<<<< HEAD
 	prom_putchar_wait(base + UART_LSR * 4, BOTH_EMPTY, BOTH_EMPTY);
 	__raw_writel(ch, base + UART_TX * 4);
 	prom_putchar_wait(base + UART_LSR * 4, BOTH_EMPTY, BOTH_EMPTY);
-=======
-	prom_putchar_wait(base + UART_LSR * 4, UART_LSR_THRE, UART_LSR_THRE);
-	__raw_writel(ch, base + UART_TX * 4);
-	prom_putchar_wait(base + UART_LSR * 4, UART_LSR_THRE, UART_LSR_THRE);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static void prom_putchar_ar933x(unsigned char ch)

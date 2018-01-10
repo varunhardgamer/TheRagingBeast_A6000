@@ -12,10 +12,7 @@ obj-$(CONFIG_DEVFREQ_GOV_MSM_CPUFREQ)	+= governor_msm_cpufreq.o
 obj-$(CONFIG_ARCH_MSM_KRAIT)		+= krait-l2pm.o
 obj-$(CONFIG_MSM_BIMC_BWMON)		+= bimc-bwmon.o
 obj-$(CONFIG_ARMBW_HWMON)		+= armbw-pm.o
-<<<<<<< HEAD
 obj-$(CONFIG_ADRENO_IDLER)	+= adreno_idler.o
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 obj-$(CONFIG_DEVFREQ_GOV_MSM_BW_HWMON)	+= governor_bw_hwmon.o
 obj-$(CONFIG_DEVFREQ_GOV_MSM_CACHE_HWMON)	+= governor_cache_hwmon.o
 obj-$(CONFIG_DEVFREQ_GOV_MSM_GPUBW_MON)	+= governor_gpubw_mon.o

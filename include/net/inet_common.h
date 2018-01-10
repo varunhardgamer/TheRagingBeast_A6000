@@ -40,12 +40,8 @@ extern int inet_ctl_sock_create(struct sock **sk, unsigned short family,
 
 static inline void inet_ctl_sock_destroy(struct sock *sk)
 {
-<<<<<<< HEAD
 	if (sk)
 		sk_release_kernel(sk);
-=======
-	sk_release_kernel(sk);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 #endif

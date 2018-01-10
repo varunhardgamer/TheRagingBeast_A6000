@@ -21,10 +21,7 @@
 #include <linux/module.h>
 #include <linux/net.h>
 #include <linux/rwsem.h>
-<<<<<<< HEAD
 #include <linux/security.h>
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 struct alg_type_list {
 	const struct af_alg_type *type;
@@ -79,11 +76,8 @@ int af_alg_register_type(const struct af_alg_type *type)
 		goto unlock;
 
 	type->ops->owner = THIS_MODULE;
-<<<<<<< HEAD
 	if (type->ops_nokey)
 		type->ops_nokey->owner = THIS_MODULE;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	node->type = type;
 	list_add(&node->list, &alg_types);
 	err = 0;
@@ -133,7 +127,6 @@ int af_alg_release(struct socket *sock)
 }
 EXPORT_SYMBOL_GPL(af_alg_release);
 
-<<<<<<< HEAD
 void af_alg_release_parent(struct sock *sk)
 {
 	struct alg_sock *ask = alg_sk(sk);
@@ -154,8 +147,6 @@ void af_alg_release_parent(struct sock *sk)
 }
 EXPORT_SYMBOL_GPL(af_alg_release_parent);
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static int alg_bind(struct socket *sock, struct sockaddr *uaddr, int addr_len)
 {
 	struct sock *sk = sock->sk;
@@ -163,10 +154,7 @@ static int alg_bind(struct socket *sock, struct sockaddr *uaddr, int addr_len)
 	struct sockaddr_alg *sa = (void *)uaddr;
 	const struct af_alg_type *type;
 	void *private;
-<<<<<<< HEAD
 	int err;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (sock->state == SS_CONNECTED)
 		return -EINVAL;
@@ -192,33 +180,22 @@ static int alg_bind(struct socket *sock, struct sockaddr *uaddr, int addr_len)
 		return PTR_ERR(private);
 	}
 
-<<<<<<< HEAD
 	err = -EBUSY;
 	lock_sock(sk);
 	if (ask->refcnt | ask->nokey_refcnt)
 		goto unlock;
-=======
-	lock_sock(sk);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	swap(ask->type, type);
 	swap(ask->private, private);
 
-<<<<<<< HEAD
 	err = 0;
 
 unlock:
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	release_sock(sk);
 
 	alg_do_release(type, private);
 
-<<<<<<< HEAD
 	return err;
-=======
-	return 0;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static int alg_setkey(struct sock *sk, char __user *ukey,
@@ -251,7 +228,6 @@ static int alg_setsockopt(struct socket *sock, int level, int optname,
 	struct sock *sk = sock->sk;
 	struct alg_sock *ask = alg_sk(sk);
 	const struct af_alg_type *type;
-<<<<<<< HEAD
 	int err = -EBUSY;
 
 	lock_sock(sk);
@@ -261,13 +237,6 @@ static int alg_setsockopt(struct socket *sock, int level, int optname,
 	type = ask->type;
 
 	err = -ENOPROTOOPT;
-=======
-	int err = -ENOPROTOOPT;
-
-	lock_sock(sk);
-	type = ask->type;
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (level != SOL_ALG || !type)
 		goto unlock;
 
@@ -292,10 +261,7 @@ int af_alg_accept(struct sock *sk, struct socket *newsock)
 	struct alg_sock *ask = alg_sk(sk);
 	const struct af_alg_type *type;
 	struct sock *sk2;
-<<<<<<< HEAD
 	unsigned int nokey;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	int err;
 
 	lock_sock(sk);
@@ -312,7 +278,6 @@ int af_alg_accept(struct sock *sk, struct socket *newsock)
 
 	sock_init_data(newsock, sk2);
 	sock_graft(sk2, newsock);
-<<<<<<< HEAD
 	security_sk_clone(sk, sk2);
 
 	err = type->accept(ask->private, sk2);
@@ -332,30 +297,13 @@ int af_alg_accept(struct sock *sk, struct socket *newsock)
 	alg_sk(sk2)->parent = sk;
 	alg_sk(sk2)->type = type;
 	alg_sk(sk2)->nokey_refcnt = nokey;
-=======
-
-	err = type->accept(ask->private, sk2);
-	if (err) {
-		sk_free(sk2);
-		goto unlock;
-	}
-
-	sk2->sk_family = PF_ALG;
-
-	sock_hold(sk);
-	alg_sk(sk2)->parent = sk;
-	alg_sk(sk2)->type = type;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	newsock->ops = type->ops;
 	newsock->state = SS_CONNECTED;
 
-<<<<<<< HEAD
 	if (nokey)
 		newsock->ops = type->ops_nokey;
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	err = 0;
 
 unlock:
@@ -544,12 +492,9 @@ void af_alg_complete(struct crypto_async_request *req, int err)
 {
 	struct af_alg_completion *completion = req->data;
 
-<<<<<<< HEAD
 	if (err == -EINPROGRESS)
 		return;
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	completion->err = err;
 	complete(&completion->completion);
 }

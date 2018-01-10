@@ -518,11 +518,7 @@ static struct iscsit_transport iscsi_target_transport = {
 
 static int __init iscsi_target_init_module(void)
 {
-<<<<<<< HEAD
 	int ret = 0, size;
-=======
-	int ret = 0;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	pr_debug("iSCSI-Target "ISCSIT_VERSION"\n");
 
@@ -531,10 +527,7 @@ static int __init iscsi_target_init_module(void)
 		pr_err("Unable to allocate memory for iscsit_global\n");
 		return -1;
 	}
-<<<<<<< HEAD
 	spin_lock_init(&iscsit_global->ts_bitmap_lock);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	mutex_init(&auth_id_lock);
 	spin_lock_init(&sess_idr_lock);
 	idr_init(&tiqn_idr);
@@ -544,23 +537,11 @@ static int __init iscsi_target_init_module(void)
 	if (ret < 0)
 		goto out;
 
-<<<<<<< HEAD
 	size = BITS_TO_LONGS(ISCSIT_BITMAP_BITS) * sizeof(long);
 	iscsit_global->ts_bitmap = vzalloc(size);
 	if (!iscsit_global->ts_bitmap) {
 		pr_err("Unable to allocate iscsit_global->ts_bitmap\n");
 		goto configfs_out;
-=======
-	ret = iscsi_thread_set_init();
-	if (ret < 0)
-		goto configfs_out;
-
-	if (iscsi_allocate_thread_sets(TARGET_THREAD_SET_COUNT) !=
-			TARGET_THREAD_SET_COUNT) {
-		pr_err("iscsi_allocate_thread_sets() returned"
-			" unexpected value!\n");
-		goto ts_out1;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 
 	lio_cmd_cache = kmem_cache_create("lio_cmd_cache",
@@ -569,11 +550,7 @@ static int __init iscsi_target_init_module(void)
 	if (!lio_cmd_cache) {
 		pr_err("Unable to kmem_cache_create() for"
 				" lio_cmd_cache\n");
-<<<<<<< HEAD
 		goto bitmap_out;
-=======
-		goto ts_out2;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 
 	lio_qr_cache = kmem_cache_create("lio_qr_cache",
@@ -628,15 +605,8 @@ qr_out:
 	kmem_cache_destroy(lio_qr_cache);
 cmd_out:
 	kmem_cache_destroy(lio_cmd_cache);
-<<<<<<< HEAD
 bitmap_out:
 	vfree(iscsit_global->ts_bitmap);
-=======
-ts_out2:
-	iscsi_deallocate_thread_sets();
-ts_out1:
-	iscsi_thread_set_free();
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 configfs_out:
 	iscsi_target_deregister_configfs();
 out:
@@ -646,11 +616,6 @@ out:
 
 static void __exit iscsi_target_cleanup_module(void)
 {
-<<<<<<< HEAD
-=======
-	iscsi_deallocate_thread_sets();
-	iscsi_thread_set_free();
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	iscsit_release_discovery_tpg();
 	iscsit_unregister_transport(&iscsi_target_transport);
 	kmem_cache_destroy(lio_cmd_cache);
@@ -661,10 +626,7 @@ static void __exit iscsi_target_cleanup_module(void)
 
 	iscsi_target_deregister_configfs();
 
-<<<<<<< HEAD
 	vfree(iscsit_global->ts_bitmap);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	kfree(iscsit_global);
 }
 
@@ -1211,11 +1173,7 @@ iscsit_handle_scsi_cmd(struct iscsi_conn *conn, struct iscsi_cmd *cmd,
 	 * traditional iSCSI block I/O.
 	 */
 	if (iscsit_allocate_iovecs(cmd) < 0) {
-<<<<<<< HEAD
 		return iscsit_reject_cmd(cmd,
-=======
-		return iscsit_add_reject_cmd(cmd,
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 				ISCSI_REASON_BOOKMARK_NO_RESOURCES, buf);
 	}
 	immed_data = cmd->immediate_data;
@@ -3626,7 +3584,6 @@ static int iscsit_send_reject(
 
 void iscsit_thread_get_cpumask(struct iscsi_conn *conn)
 {
-<<<<<<< HEAD
 	int ord, cpu;
 	/*
 	 * bitmap_id is assigned from iscsit_global->ts_bitmap from
@@ -3637,19 +3594,6 @@ void iscsit_thread_get_cpumask(struct iscsi_conn *conn)
 	 * execute upon.
 	 */
 	ord = conn->bitmap_id % cpumask_weight(cpu_online_mask);
-=======
-	struct iscsi_thread_set *ts = conn->thread_set;
-	int ord, cpu;
-	/*
-	 * thread_id is assigned from iscsit_global->ts_bitmap from
-	 * within iscsi_thread_set.c:iscsi_allocate_thread_sets()
-	 *
-	 * Here we use thread_id to determine which CPU that this
-	 * iSCSI connection's iscsi_thread_set will be scheduled to
-	 * execute upon.
-	 */
-	ord = ts->thread_id % cpumask_weight(cpu_online_mask);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	for_each_online_cpu(cpu) {
 		if (ord-- == 0) {
 			cpumask_set_cpu(cpu, conn->conn_cpumask);
@@ -3841,11 +3785,7 @@ check_rsp_state:
 	switch (state) {
 	case ISTATE_SEND_LOGOUTRSP:
 		if (!iscsit_logout_post_handler(cmd, conn))
-<<<<<<< HEAD
 			return -ECONNRESET;
-=======
-			goto restart;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		/* fall through */
 	case ISTATE_SEND_STATUS:
 	case ISTATE_SEND_ASYNCMSG:
@@ -3873,11 +3813,6 @@ check_rsp_state:
 
 err:
 	return -1;
-<<<<<<< HEAD
-=======
-restart:
-	return -EAGAIN;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static int iscsit_handle_response_queue(struct iscsi_conn *conn)
@@ -3904,28 +3839,13 @@ static int iscsit_handle_response_queue(struct iscsi_conn *conn)
 int iscsi_target_tx_thread(void *arg)
 {
 	int ret = 0;
-<<<<<<< HEAD
 	struct iscsi_conn *conn = arg;
-=======
-	struct iscsi_conn *conn;
-	struct iscsi_thread_set *ts = arg;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/*
 	 * Allow ourselves to be interrupted by SIGINT so that a
 	 * connection recovery / failure event can be triggered externally.
 	 */
 	allow_signal(SIGINT);
 
-<<<<<<< HEAD
-=======
-restart:
-	conn = iscsi_tx_thread_pre_handler(ts);
-	if (!conn)
-		goto out;
-
-	ret = 0;
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	while (!kthread_should_stop()) {
 		/*
 		 * Ensure that both TX and RX per connection kthreads
@@ -3934,17 +3854,9 @@ restart:
 		iscsit_thread_check_cpumask(conn, current, 1);
 
 		wait_event_interruptible(conn->queues_wq,
-<<<<<<< HEAD
 					 !iscsit_conn_all_queues_empty(conn));
 
 		if (signal_pending(current))
-=======
-					 !iscsit_conn_all_queues_empty(conn) ||
-					 ts->status == ISCSI_THREAD_SET_RESET);
-
-		if ((ts->status == ISCSI_THREAD_SET_RESET) ||
-		     signal_pending(current))
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			goto transport_err;
 
 get_immediate:
@@ -3955,19 +3867,13 @@ get_immediate:
 		ret = iscsit_handle_response_queue(conn);
 		if (ret == 1)
 			goto get_immediate;
-<<<<<<< HEAD
 		else if (ret == -ECONNRESET)
 			goto out;
-=======
-		else if (ret == -EAGAIN)
-			goto restart;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		else if (ret < 0)
 			goto transport_err;
 	}
 
 transport_err:
-<<<<<<< HEAD
 	/*
 	 * Avoid the normal connection failure code-path if this connection
 	 * is still within LOGIN mode, and iscsi_np process context is
@@ -3975,10 +3881,6 @@ transport_err:
 	 */
 	if (conn->conn_state != TARG_CONN_STATE_IN_LOGIN)
 		iscsit_take_action_for_connection_exit(conn);
-=======
-	iscsit_take_action_for_connection_exit(conn);
-	goto restart;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 out:
 	return 0;
 }
@@ -4058,7 +3960,6 @@ reject:
 	return iscsit_add_reject(conn, ISCSI_REASON_BOOKMARK_NO_RESOURCES, buf);
 }
 
-<<<<<<< HEAD
 static bool iscsi_target_check_conn_state(struct iscsi_conn *conn)
 {
 	bool ret;
@@ -4076,22 +3977,12 @@ int iscsi_target_rx_thread(void *arg)
 	u8 buffer[ISCSI_HDR_LEN], opcode;
 	u32 checksum = 0, digest = 0;
 	struct iscsi_conn *conn = arg;
-=======
-int iscsi_target_rx_thread(void *arg)
-{
-	int ret;
-	u8 buffer[ISCSI_HDR_LEN], opcode;
-	u32 checksum = 0, digest = 0;
-	struct iscsi_conn *conn = NULL;
-	struct iscsi_thread_set *ts = arg;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	struct kvec iov;
 	/*
 	 * Allow ourselves to be interrupted by SIGINT so that a
 	 * connection recovery / failure event can be triggered externally.
 	 */
 	allow_signal(SIGINT);
-<<<<<<< HEAD
 	/*
 	 * Wait for iscsi_post_login_handler() to complete before allowing
 	 * incoming iscsi/tcp socket I/O, and/or failing the connection.
@@ -4102,28 +3993,13 @@ int iscsi_target_rx_thread(void *arg)
 
 	if (conn->conn_transport->transport_type == ISCSI_INFINIBAND) {
 		struct completion comp;
-=======
-
-restart:
-	conn = iscsi_rx_thread_pre_handler(ts);
-	if (!conn)
-		goto out;
-
-	if (conn->conn_transport->transport_type == ISCSI_INFINIBAND) {
-		struct completion comp;
-		int rc;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 		init_completion(&comp);
 		rc = wait_for_completion_interruptible(&comp);
 		if (rc < 0)
 			goto transport_err;
 
-<<<<<<< HEAD
 		goto transport_err;
-=======
-		goto out;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 
 	while (!kthread_should_stop()) {
@@ -4206,11 +4082,6 @@ transport_err:
 	if (!signal_pending(current))
 		atomic_set(&conn->transport_failed, 1);
 	iscsit_take_action_for_connection_exit(conn);
-<<<<<<< HEAD
-=======
-	goto restart;
-out:
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return 0;
 }
 
@@ -4260,7 +4131,6 @@ int iscsit_close_connection(
 	pr_debug("Closing iSCSI connection CID %hu on SID:"
 		" %u\n", conn->cid, sess->sid);
 	/*
-<<<<<<< HEAD
 	 * Always up conn_logout_comp for the traditional TCP case just in case
 	 * the RX Thread in iscsi_target_rx_opcode() is sleeping and the logout
 	 * response never got sent because the connection failed.
@@ -4291,15 +4161,6 @@ int iscsit_close_connection(
 	bitmap_release_region(iscsit_global->ts_bitmap, conn->bitmap_id,
 			      get_order(1));
 	spin_unlock(&iscsit_global->ts_bitmap_lock);
-=======
-	 * Always up conn_logout_comp just in case the RX Thread is sleeping
-	 * and the logout response never got sent because the connection
-	 * failed.
-	 */
-	complete(&conn->conn_logout_comp);
-
-	iscsi_release_thread_set(conn);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	iscsit_stop_timers_for_cmds(conn);
 	iscsit_stop_nopin_response_timer(conn);
@@ -4578,7 +4439,6 @@ static void iscsit_logout_post_handler_closesession(
 	struct iscsi_conn *conn)
 {
 	struct iscsi_session *sess = conn->sess;
-<<<<<<< HEAD
 	int sleep = 1;
 	/*
 	 * Traditional iscsi/tcp will invoke this logic from TX thread
@@ -4591,21 +4451,12 @@ static void iscsit_logout_post_handler_closesession(
 	 */
 	if (conn->conn_transport->transport_type == ISCSI_TCP)
 		sleep = cmpxchg(&conn->tx_thread_active, true, false);
-=======
-
-	iscsi_set_thread_clear(conn, ISCSI_CLEAR_TX_THREAD);
-	iscsi_set_thread_set_signal(conn, ISCSI_SIGNAL_TX_THREAD);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	atomic_set(&conn->conn_logout_remove, 0);
 	complete(&conn->conn_logout_comp);
 
 	iscsit_dec_conn_usage_count(conn);
-<<<<<<< HEAD
 	iscsit_stop_session(sess, sleep, sleep);
-=======
-	iscsit_stop_session(sess, 1, 1);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	iscsit_dec_session_usage_count(sess);
 	target_put_session(sess->se_sess);
 }
@@ -4613,24 +4464,15 @@ static void iscsit_logout_post_handler_closesession(
 static void iscsit_logout_post_handler_samecid(
 	struct iscsi_conn *conn)
 {
-<<<<<<< HEAD
 	int sleep = 1;
 
 	if (conn->conn_transport->transport_type == ISCSI_TCP)
 		sleep = cmpxchg(&conn->tx_thread_active, true, false);
-=======
-	iscsi_set_thread_clear(conn, ISCSI_CLEAR_TX_THREAD);
-	iscsi_set_thread_set_signal(conn, ISCSI_SIGNAL_TX_THREAD);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	atomic_set(&conn->conn_logout_remove, 0);
 	complete(&conn->conn_logout_comp);
 
-<<<<<<< HEAD
 	iscsit_cause_connection_reinstatement(conn, sleep);
-=======
-	iscsit_cause_connection_reinstatement(conn, 1);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	iscsit_dec_conn_usage_count(conn);
 }
 
@@ -4640,10 +4482,7 @@ static void iscsit_logout_post_handler_diffcid(
 {
 	struct iscsi_conn *l_conn;
 	struct iscsi_session *sess = conn->sess;
-<<<<<<< HEAD
 	bool conn_found = false;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (!sess)
 		return;
@@ -4652,20 +4491,13 @@ static void iscsit_logout_post_handler_diffcid(
 	list_for_each_entry(l_conn, &sess->sess_conn_list, conn_list) {
 		if (l_conn->cid == cid) {
 			iscsit_inc_conn_usage_count(l_conn);
-<<<<<<< HEAD
 			conn_found = true;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			break;
 		}
 	}
 	spin_unlock_bh(&sess->conn_lock);
 
-<<<<<<< HEAD
 	if (!conn_found)
-=======
-	if (!l_conn)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		return;
 
 	if (l_conn->sock)
@@ -4854,10 +4686,7 @@ int iscsit_release_sessions_for_tpg(struct iscsi_portal_group *tpg, int force)
 	struct iscsi_session *sess;
 	struct se_portal_group *se_tpg = &tpg->tpg_se_tpg;
 	struct se_session *se_sess, *se_sess_tmp;
-<<<<<<< HEAD
 	LIST_HEAD(free_list);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	int session_count = 0;
 
 	spin_lock_bh(&se_tpg->session_lock);
@@ -4879,7 +4708,6 @@ int iscsit_release_sessions_for_tpg(struct iscsi_portal_group *tpg, int force)
 		}
 		atomic_set(&sess->session_reinstatement, 1);
 		spin_unlock(&sess->conn_lock);
-<<<<<<< HEAD
 
 		list_move_tail(&se_sess->sess_list, &free_list);
 	}
@@ -4891,16 +4719,6 @@ int iscsit_release_sessions_for_tpg(struct iscsi_portal_group *tpg, int force)
 		iscsit_free_session(sess);
 		session_count++;
 	}
-=======
-		spin_unlock_bh(&se_tpg->session_lock);
-
-		iscsit_free_session(sess);
-		spin_lock_bh(&se_tpg->session_lock);
-
-		session_count++;
-	}
-	spin_unlock_bh(&se_tpg->session_lock);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	pr_debug("Released %d iSCSI Session(s) from Target Portal"
 			" Group: %hu\n", session_count, tpg->tpgt);

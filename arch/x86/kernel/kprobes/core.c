@@ -908,7 +908,6 @@ int __kprobes kprobe_fault_handler(struct pt_regs *regs, int trapnr)
 		 * normal page fault.
 		 */
 		regs->ip = (unsigned long)cur->addr;
-<<<<<<< HEAD
 		/*
 		 * Trap flag (TF) has been set here because this fault
 		 * happened where the single stepping will be done.
@@ -922,9 +921,6 @@ int __kprobes kprobe_fault_handler(struct pt_regs *regs, int trapnr)
 		 */
 		regs->flags |= kcb->kprobe_old_flags;
 
-=======
-		regs->flags |= kcb->kprobe_old_flags;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		if (kcb->kprobe_status == KPROBE_REENTER)
 			restore_previous_kprobe(kcb);
 		else
@@ -1033,7 +1029,6 @@ int __kprobes setjmp_pre_handler(struct kprobe *p, struct pt_regs *regs)
 	regs->flags &= ~X86_EFLAGS_IF;
 	trace_hardirqs_off();
 	regs->ip = (unsigned long)(jp->entry);
-<<<<<<< HEAD
 
 	/*
 	 * jprobes use jprobe_return() which skips the normal return
@@ -1043,8 +1038,6 @@ int __kprobes setjmp_pre_handler(struct kprobe *p, struct pt_regs *regs)
 	 * Pause function graph tracing while performing the jprobe function.
 	 */
 	pause_graph_tracing();
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return 1;
 }
 
@@ -1070,7 +1063,6 @@ int __kprobes longjmp_break_handler(struct kprobe *p, struct pt_regs *regs)
 	struct kprobe_ctlblk *kcb = get_kprobe_ctlblk();
 	u8 *addr = (u8 *) (regs->ip - 1);
 	struct jprobe *jp = container_of(p, struct jprobe, kp);
-<<<<<<< HEAD
 	void *saved_sp = kcb->jprobe_saved_sp;
 
 	if ((addr > (u8 *) jprobe_return) &&
@@ -1080,33 +1072,16 @@ int __kprobes longjmp_break_handler(struct kprobe *p, struct pt_regs *regs)
 			printk(KERN_ERR
 			       "current sp %p does not match saved sp %p\n",
 			       stack_addr(regs), saved_sp);
-=======
-
-	if ((addr > (u8 *) jprobe_return) &&
-	    (addr < (u8 *) jprobe_return_end)) {
-		if (stack_addr(regs) != kcb->jprobe_saved_sp) {
-			struct pt_regs *saved_regs = &kcb->jprobe_saved_regs;
-			printk(KERN_ERR
-			       "current sp %p does not match saved sp %p\n",
-			       stack_addr(regs), kcb->jprobe_saved_sp);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			printk(KERN_ERR "Saved registers for jprobe %p\n", jp);
 			show_regs(saved_regs);
 			printk(KERN_ERR "Current registers\n");
 			show_regs(regs);
 			BUG();
 		}
-<<<<<<< HEAD
 		/* It's OK to start function graph tracing again */
 		unpause_graph_tracing();
 		*regs = kcb->jprobe_saved_regs;
 		memcpy(saved_sp, kcb->jprobes_stack, MIN_STACK_SIZE(saved_sp));
-=======
-		*regs = kcb->jprobe_saved_regs;
-		memcpy((kprobe_opcode_t *)(kcb->jprobe_saved_sp),
-		       kcb->jprobes_stack,
-		       MIN_STACK_SIZE(kcb->jprobe_saved_sp));
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		preempt_enable_no_resched();
 		return 1;
 	}

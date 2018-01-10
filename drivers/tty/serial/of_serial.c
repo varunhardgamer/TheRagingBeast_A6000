@@ -262,10 +262,6 @@ static struct of_device_id of_platform_serial_table[] = {
 	{ .compatible = "ibm,qpace-nwp-serial",
 		.data = (void *)PORT_NWPSERIAL, },
 #endif
-<<<<<<< HEAD
-=======
-	{ .type = "serial",         .data = (void *)PORT_UNKNOWN, },
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	{ /* end of list */ },
 };
 

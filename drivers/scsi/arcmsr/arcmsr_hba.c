@@ -1803,12 +1803,8 @@ static int arcmsr_iop_message_xfer(struct AdapterControlBlock *acb,
 
 	case ARCMSR_MESSAGE_WRITE_WQBUFFER: {
 		unsigned char *ver_addr;
-<<<<<<< HEAD
 		uint32_t user_len;
 		int32_t my_empty_len, wqbuf_firstindex, wqbuf_lastindex;
-=======
-		int32_t my_empty_len, user_len, wqbuf_firstindex, wqbuf_lastindex;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		uint8_t *pQbuffer, *ptmpuserbuffer;
 
 		ver_addr = kmalloc(1032, GFP_ATOMIC);
@@ -1825,14 +1821,11 @@ static int arcmsr_iop_message_xfer(struct AdapterControlBlock *acb,
 		}
 		ptmpuserbuffer = ver_addr;
 		user_len = pcmdmessagefld->cmdmessage.Length;
-<<<<<<< HEAD
 		if (user_len > 1032) {
 			retvalue = ARCMSR_MESSAGE_FAIL;
 			kfree(ver_addr);
 			goto message_out;
 		}
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		memcpy(ptmpuserbuffer, pcmdmessagefld->messagedatabuffer, user_len);
 		wqbuf_lastindex = acb->wqbuf_lastindex;
 		wqbuf_firstindex = acb->wqbuf_firstindex;
@@ -2076,24 +2069,9 @@ static int arcmsr_queue_command_lck(struct scsi_cmnd *cmd,
 	struct AdapterControlBlock *acb = (struct AdapterControlBlock *) host->hostdata;
 	struct CommandControlBlock *ccb;
 	int target = cmd->device->id;
-<<<<<<< HEAD
 	cmd->scsi_done = done;
 	cmd->host_scribble = NULL;
 	cmd->result = 0;
-=======
-	int lun = cmd->device->lun;
-	uint8_t scsicmd = cmd->cmnd[0];
-	cmd->scsi_done = done;
-	cmd->host_scribble = NULL;
-	cmd->result = 0;
-	if ((scsicmd == SYNCHRONIZE_CACHE) ||(scsicmd == SEND_DIAGNOSTIC)){
-		if(acb->devstate[target][lun] == ARECA_RAID_GONE) {
-    			cmd->result = (DID_NO_CONNECT << 16);
-		}
-		cmd->scsi_done(cmd);
-		return 0;
-	}
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (target == 16) {
 		/* virtual device for iop message transfer */
 		arcmsr_handle_virtual_command(acb, cmd);

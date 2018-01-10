@@ -4,16 +4,8 @@
 
 obj-$(CONFIG_MMC_BLOCK)		+= mmc_block.o
 mmc_block-objs			:= block.o queue.o
-<<<<<<< HEAD
 #obj-$(CONFIG_MMC_TEST)		+= mmc_test.o
 
 obj-$(CONFIG_SDIO_UART)		+= sdio_uart.o
 
 #obj-$(CONFIG_MMC_BLOCK_TEST)		+= mmc_block_test.o
-=======
-obj-$(CONFIG_MMC_TEST)		+= mmc_test.o
-
-obj-$(CONFIG_SDIO_UART)		+= sdio_uart.o
-
-obj-$(CONFIG_MMC_BLOCK_TEST)		+= mmc_block_test.o
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c

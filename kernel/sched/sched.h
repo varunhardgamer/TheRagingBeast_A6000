@@ -380,12 +380,9 @@ struct root_domain {
 	cpumask_var_t span;
 	cpumask_var_t online;
 
-<<<<<<< HEAD
        /* Indicate more than one runnable task for any CPU */
 	bool overload;
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/*
 	 * The "RT overload" flag: it gets set if a CPU has more than
 	 * one runnable RT task.
@@ -426,14 +423,11 @@ struct rq {
 #endif
 	int skip_clock_update;
 
-<<<<<<< HEAD
         /* time-based average load */
 	u64 nr_last_stamp;
 	u64 nr_running_integral;
 	seqcount_t ave_seqcnt;
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/* capture load from *all* tasks on this cpu: */
 	struct load_weight load;
 	unsigned long nr_load_updates;
@@ -592,7 +586,6 @@ DECLARE_PER_CPU(struct rq, runqueues);
 #define cpu_curr(cpu)		(cpu_rq(cpu)->curr)
 #define raw_rq()		(&__raw_get_cpu_var(runqueues))
 
-<<<<<<< HEAD
 struct nr_stats_s {
 	/* time-based average load */
 	u64 nr_last_stamp;
@@ -612,8 +605,6 @@ struct nr_stats_s {
 
 DECLARE_PER_CPU(struct nr_stats_s, runqueue_stats);
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #ifdef CONFIG_SMP
 
 #define rcu_dereference_check_sched_domain(p) \
@@ -766,10 +757,7 @@ extern void fixup_nr_big_small_task(int cpu);
 unsigned int max_task_load(void);
 extern void sched_account_irqtime(int cpu, struct task_struct *curr,
 				 u64 delta, u64 wallclock);
-<<<<<<< HEAD
 extern unsigned int nr_eligible_big_tasks(int cpu);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 /*
  * 'load' is in reference to "best cpu" at its best frequency.
@@ -836,14 +824,11 @@ static inline void sched_account_irqtime(int cpu, struct task_struct *curr,
 {
 }
 
-<<<<<<< HEAD
 static inline unsigned int nr_eligible_big_tasks(int cpu)
 {
 	return 0;
 }
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #endif	/* CONFIG_SCHED_HMP */
 
 #ifdef CONFIG_SCHED_FREQ_INPUT
@@ -1184,10 +1169,7 @@ static inline void finish_lock_switch(struct rq *rq, struct task_struct *prev)
 #define WF_SYNC		0x01		/* waker goes to sleep after wakeup */
 #define WF_FORK		0x02		/* child wakeup after fork */
 #define WF_MIGRATED	0x4		/* internal use, task got migrated */
-<<<<<<< HEAD
 #define WF_NO_NOTIFIER	0x08		/* do not notify governor */
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 static inline void update_load_add(struct load_weight *lw, unsigned long inc)
 {
@@ -1379,7 +1361,6 @@ static inline u64 steal_ticks(u64 steal)
 }
 #endif
 
-<<<<<<< HEAD
 /* 27 ~= 134217728ns = 134.2ms
  * 26 ~= 67108864ns = 67.1ms
  * 25 ~= 33554432ns = 33.5ms
@@ -1438,35 +1419,20 @@ static inline void inc_nr_running(struct rq *rq)
 #endif
 
 #ifdef CONFIG_NO_HZ_FULL
-=======
-static inline void inc_nr_running(struct rq *rq)
-{
-	sched_update_nr_prod(cpu_of(rq), rq->nr_running, true);
-	rq->nr_running++;
-
-#ifdef CONFIG_NO_HZ_FULL
-	if (rq->nr_running == 2) {
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		if (tick_nohz_full_cpu(rq->cpu)) {
 			/* Order rq->nr_running write against the IPI */
 			smp_wmb();
 			smp_send_reschedule(rq->cpu);
 		}
-<<<<<<< HEAD
 #endif
 
                 write_seqcount_end(&nr_stats->ave_seqcnt);        
 
        }
-=======
-       }
-#endif
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static inline void dec_nr_running(struct rq *rq)
 {
-<<<<<<< HEAD
 	sched_update_nr_prod(cpu_of(rq), 1, false);
 
         write_seqcount_begin(&rq->ave_seqcnt);
@@ -1474,10 +1440,6 @@ static inline void dec_nr_running(struct rq *rq)
 	rq->nr_last_stamp = rq->clock_task;
 	rq->nr_running--;
         write_seqcount_end(&rq->ave_seqcnt);
-=======
-	sched_update_nr_prod(cpu_of(rq), rq->nr_running, false);
-	rq->nr_running--;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static inline void rq_last_tick_reset(struct rq *rq)
@@ -1768,7 +1730,6 @@ static inline u64 irq_time_read(int cpu)
 }
 #endif /* CONFIG_64BIT */
 #endif /* CONFIG_IRQ_TIME_ACCOUNTING */
-<<<<<<< HEAD
 
 static inline void account_reset_rq(struct rq *rq)
 {
@@ -1782,5 +1743,3 @@ static inline void account_reset_rq(struct rq *rq)
 	rq->prev_steal_time_rq = 0;
 #endif
 }
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c

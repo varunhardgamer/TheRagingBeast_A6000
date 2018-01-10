@@ -2711,20 +2711,12 @@ EXPORT_SYMBOL(skb_append_datato_frags);
  */
 unsigned char *skb_pull_rcsum(struct sk_buff *skb, unsigned int len)
 {
-<<<<<<< HEAD
 	unsigned char *data = skb->data;
 
 	BUG_ON(len > skb->len);
 	__skb_pull(skb, len);
 	skb_postpull_rcsum(skb, data, len);
 	return skb->data;
-=======
-	BUG_ON(len > skb->len);
-	skb->len -= len;
-	BUG_ON(skb->len < skb->data_len);
-	skb_postpull_rcsum(skb, skb->data, len);
-	return skb->data += len;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 EXPORT_SYMBOL_GPL(skb_pull_rcsum);
 
@@ -2819,10 +2811,6 @@ struct sk_buff *skb_segment(struct sk_buff *skb, netdev_features_t features)
 		tail = nskb;
 
 		__copy_skb_header(nskb, skb);
-<<<<<<< HEAD
-=======
-		nskb->mac_len = skb->mac_len;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 		/* nskb and skb might have different headroom */
 		if (nskb->ip_summed == CHECKSUM_PARTIAL)
@@ -2832,10 +2820,7 @@ struct sk_buff *skb_segment(struct sk_buff *skb, netdev_features_t features)
 		skb_set_network_header(nskb, skb->mac_len);
 		nskb->transport_header = (nskb->network_header +
 					  skb_network_header_len(skb));
-<<<<<<< HEAD
 		skb_reset_mac_len(nskb);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 		skb_copy_from_linear_data_offset(skb, -tnl_hlen,
 						 nskb->data - tnl_hlen,

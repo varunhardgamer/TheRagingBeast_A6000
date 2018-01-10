@@ -39,12 +39,9 @@ static __u8 *cp_report_fixup(struct hid_device *hdev, __u8 *rdesc,
 	if (!(quirks & CP_RDESC_SWAPPED_MIN_MAX))
 		return rdesc;
 
-<<<<<<< HEAD
 	if (*rsize < 4)
 		return rdesc;
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	for (i = 0; i < *rsize - 4; i++)
 		if (rdesc[i] == 0x29 && rdesc[i + 2] == 0x19) {
 			__u8 tmp;

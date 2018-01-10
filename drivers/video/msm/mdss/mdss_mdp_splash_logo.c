@@ -558,11 +558,7 @@ static int mdss_mdp_splash_thread(void *data)
 	unlock_fb_info(mfd->fbi);
 
 	mutex_lock(&mfd->bl_lock);
-<<<<<<< HEAD
 	mfd->allow_bl_update = true;
-=======
-	mfd->bl_updated = true;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	mdss_fb_set_backlight(mfd, mfd->panel_info->bl_max >> 1);
 	mutex_unlock(&mfd->bl_lock);
 

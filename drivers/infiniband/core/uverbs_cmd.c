@@ -2106,15 +2106,12 @@ ssize_t ib_uverbs_post_send(struct ib_uverbs_file *file,
 		next->send_flags = user_wr->send_flags;
 
 		if (is_ud) {
-<<<<<<< HEAD
 			if (next->opcode != IB_WR_SEND &&
 			    next->opcode != IB_WR_SEND_WITH_IMM) {
 				ret = -EINVAL;
 				goto out_put;
 			}
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			next->wr.ud.ah = idr_read_ah(user_wr->wr.ud.ah,
 						     file->ucontext);
 			if (!next->wr.ud.ah) {
@@ -2151,17 +2148,11 @@ ssize_t ib_uverbs_post_send(struct ib_uverbs_file *file,
 					user_wr->wr.atomic.compare_add;
 				next->wr.atomic.swap = user_wr->wr.atomic.swap;
 				next->wr.atomic.rkey = user_wr->wr.atomic.rkey;
-<<<<<<< HEAD
 			case IB_WR_SEND:
 				break;
 			default:
 				ret = -EINVAL;
 				goto out_put;
-=======
-				break;
-			default:
-				break;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			}
 		}
 

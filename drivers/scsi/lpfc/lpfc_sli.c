@@ -263,7 +263,6 @@ lpfc_sli4_eq_get(struct lpfc_queue *q)
 		return NULL;
 
 	q->hba_index = idx;
-<<<<<<< HEAD
 
 	/*
 	 * insert barrier for instruction interlock : data from the hardware
@@ -274,8 +273,6 @@ lpfc_sli4_eq_get(struct lpfc_queue *q)
 	 * single 32-bit entity here (vs multi word structure for cq's).
 	 */
 	mb();
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return eqe;
 }
 
@@ -381,7 +378,6 @@ lpfc_sli4_cq_get(struct lpfc_queue *q)
 
 	cqe = q->qe[q->hba_index].cqe;
 	q->hba_index = idx;
-<<<<<<< HEAD
 
 	/*
 	 * insert barrier for instruction interlock : data from the hardware
@@ -393,8 +389,6 @@ lpfc_sli4_cq_get(struct lpfc_queue *q)
 	 * ensures the check is before any data is copied.
 	 */
 	mb();
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return cqe;
 }
 

@@ -1093,11 +1093,7 @@ static netdev_tx_t vxlan_xmit_one(struct sk_buff *skb, struct net_device *dev,
 	iph->daddr	= dst;
 	iph->saddr	= fl4.saddr;
 	iph->ttl	= ttl ? : ip4_dst_hoplimit(&rt->dst);
-<<<<<<< HEAD
 	__ip_select_ident(iph, skb_shinfo(skb)->gso_segs ?: 1);
-=======
-	__ip_select_ident(iph, &rt->dst, (skb_shinfo(skb)->gso_segs ?: 1) - 1);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	nf_reset(skb);
 
@@ -1390,11 +1386,7 @@ static int vxlan_validate(struct nlattr *tb[], struct nlattr *data[])
 
 	if (data[IFLA_VXLAN_ID]) {
 		__u32 id = nla_get_u32(data[IFLA_VXLAN_ID]);
-<<<<<<< HEAD
 		if (id >= VXLAN_N_VID)
-=======
-		if (id >= VXLAN_VID_MASK)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			return -ERANGE;
 	}
 

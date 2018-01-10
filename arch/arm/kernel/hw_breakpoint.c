@@ -1088,7 +1088,6 @@ static int __init arch_hw_breakpoint_init(void)
 		return 0;
 	}
 
-<<<<<<< HEAD
 	/*
 	 * Scorpion CPUs (at least those in APQ8060) seem to set DBGPRSR.SPD
 	 * whenever a WFI is issued, even if the core is not powered down, in
@@ -1105,8 +1104,6 @@ static int __init arch_hw_breakpoint_init(void)
 		return 0;
 	}
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	has_ossr = core_has_os_save_restore();
 
 	/* Determine how many BRPs/WRPs are available. */

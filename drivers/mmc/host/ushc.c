@@ -426,12 +426,9 @@ static int ushc_probe(struct usb_interface *intf, const struct usb_device_id *id
 	struct ushc_data *ushc;
 	int ret;
 
-<<<<<<< HEAD
 	if (intf->cur_altsetting->desc.bNumEndpoints < 1)
 		return -ENODEV;
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	mmc = mmc_alloc_host(sizeof(struct ushc_data), &intf->dev);
 	if (mmc == NULL)
 		return -ENOMEM;

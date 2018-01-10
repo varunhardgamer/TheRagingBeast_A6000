@@ -76,10 +76,7 @@
 #define ACPI_LARGE_NAMESPACE_NODE
 #define ACPI_DATA_TABLE_DISASSEMBLY
 #define ACPI_SINGLE_THREADED
-<<<<<<< HEAD
 #define ACPI_32BIT_PHYSICAL_ADDRESS
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #endif
 
 /* acpi_exec configuration. Multithreaded with full AML debugger */

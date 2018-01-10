@@ -2497,20 +2497,12 @@ static irqreturn_t oxu210_hcd_irq(struct usb_hcd *hcd)
 					|| oxu->reset_done[i] != 0)
 				continue;
 
-<<<<<<< HEAD
 			/* start USB_RESUME_TIMEOUT resume signaling from this
 			 * port, and make hub_wq collect PORT_STAT_C_SUSPEND to
 			 * stop that signaling.
 			 */
 			oxu->reset_done[i] = jiffies +
 				msecs_to_jiffies(USB_RESUME_TIMEOUT);
-=======
-			/* start 20 msec resume signaling from this port,
-			 * and make khubd collect PORT_STAT_C_SUSPEND to
-			 * stop that signaling.
-			 */
-			oxu->reset_done[i] = jiffies + msecs_to_jiffies(20);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			oxu_dbg(oxu, "port %d remote wakeup\n", i + 1);
 			mod_timer(&hcd->rh_timer, oxu->reset_done[i]);
 		}

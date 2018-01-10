@@ -21,10 +21,7 @@ struct scm_creds {
 struct scm_fp_list {
 	short			count;
 	short			max;
-<<<<<<< HEAD
 	struct user_struct	*user;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	struct file		*fp[SCM_MAX_FD];
 };
 

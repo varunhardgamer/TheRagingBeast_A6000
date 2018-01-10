@@ -1621,10 +1621,6 @@ static int msm_cpe_lsm_ioctl(struct snd_pcm_substream *substream,
 	switch (cmd) {
 	case SNDRV_LSM_REG_SND_MODEL_V2: {
 		struct snd_lsm_sound_model_v2 snd_model;
-<<<<<<< HEAD
-=======
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		if (copy_from_user(&snd_model, (void *)arg,
 				   sizeof(struct snd_lsm_sound_model_v2))) {
 			dev_err(rtd->dev,

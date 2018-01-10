@@ -282,14 +282,11 @@ extern struct bio *bio_copy_kern(struct request_queue *, void *, unsigned int,
 extern void bio_set_pages_dirty(struct bio *bio);
 extern void bio_check_pages_dirty(struct bio *bio);
 
-<<<<<<< HEAD
 void generic_start_io_acct(int rw, unsigned long sectors,
 			   struct hd_struct *part);
 void generic_end_io_acct(int rw, struct hd_struct *part,
 			 unsigned long start_time);
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #ifndef ARCH_IMPLEMENTS_FLUSH_DCACHE_PAGE
 # error	"You should define ARCH_IMPLEMENTS_FLUSH_DCACHE_PAGE for your platform"
 #endif

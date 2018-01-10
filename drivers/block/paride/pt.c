@@ -117,11 +117,7 @@
 
 */
 
-<<<<<<< HEAD
 static int verbose = 0;
-=======
-static bool verbose = 0;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static int major = PT_MAJOR;
 static char *name = PT_NAME;
 static int disable = 0;
@@ -156,11 +152,7 @@ static int (*drives[4])[6] = {&drive0, &drive1, &drive2, &drive3};
 
 #include <asm/uaccess.h>
 
-<<<<<<< HEAD
 module_param(verbose, int, 0);
-=======
-module_param(verbose, bool, 0);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 module_param(major, int, 0);
 module_param(name, charp, 0);
 module_param_array(drive0, int, NULL, 0);

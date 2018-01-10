@@ -255,10 +255,7 @@ extern void rtas_power_off(void);
 extern void rtas_halt(void);
 extern void rtas_os_term(char *str);
 extern int rtas_get_sensor(int sensor, int index, int *state);
-<<<<<<< HEAD
 extern int rtas_get_sensor_fast(int sensor, int index, int *state);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 extern int rtas_get_power_level(int powerdomain, int *level);
 extern int rtas_set_power_level(int powerdomain, int level, int *setlevel);
 extern bool rtas_indicator_present(int token, int *maxindex);

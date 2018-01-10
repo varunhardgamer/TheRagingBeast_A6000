@@ -475,11 +475,7 @@ struct request_queue {
 #define QUEUE_FLAG_DEFAULT	((1 << QUEUE_FLAG_IO_STAT) |		\
 				 (1 << QUEUE_FLAG_STACKABLE)	|	\
 				 (1 << QUEUE_FLAG_SAME_COMP)	|	\
-<<<<<<< HEAD
 				 (0 << QUEUE_FLAG_ADD_RANDOM))
-=======
-				 (1 << QUEUE_FLAG_ADD_RANDOM))
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 static inline void queue_lockdep_assert_held(struct request_queue *q)
 {
@@ -746,10 +742,7 @@ extern void __blk_put_request(struct request_queue *, struct request *);
 extern struct request *blk_get_request(struct request_queue *, int, gfp_t);
 extern struct request *blk_make_request(struct request_queue *, struct bio *,
 					gfp_t);
-<<<<<<< HEAD
 extern void blk_rq_set_block_pc(struct request *);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 extern void blk_requeue_request(struct request_queue *, struct request *);
 extern int blk_reinsert_request(struct request_queue *q, struct request *rq);
 extern bool blk_reinsert_req_sup(struct request_queue *q);
@@ -1203,16 +1196,9 @@ static inline int queue_alignment_offset(struct request_queue *q)
 static inline int queue_limit_alignment_offset(struct queue_limits *lim, sector_t sector)
 {
 	unsigned int granularity = max(lim->physical_block_size, lim->io_min);
-<<<<<<< HEAD
 	unsigned int alignment = sector_div(sector, granularity >> 9) << 9;
 
 	return (granularity + lim->alignment_offset - alignment) % granularity;
-=======
-	unsigned int alignment = (sector << 9) & (granularity - 1);
-
-	return (granularity + lim->alignment_offset - alignment)
-		& (granularity - 1);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static inline int bdev_alignment_offset(struct block_device *bdev)

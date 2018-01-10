@@ -362,7 +362,4 @@ module_exit(seqiv_module_exit);
 
 MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION("Sequence Number IV Generator");
-<<<<<<< HEAD
 MODULE_ALIAS_CRYPTO("seqiv");
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c

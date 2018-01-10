@@ -43,7 +43,6 @@ config IOSCHED_ROW
 	  according to queue priority.
 	  Most suitable for mobile devices.
 
-<<<<<<< HEAD
 config IOSCHED_SIO
 	tristate "Simple I/O scheduler"
 	default y
@@ -61,8 +60,6 @@ config IOSCHED_ZEN
 	FCFS, dispatches are back-inserted, deadlines ensure fairness.
         Should work best with devices where there is no travel delay.
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 config IOSCHED_CFQ
 	tristate "CFQ I/O scheduler"
 	default y
@@ -81,7 +78,6 @@ config CFQ_GROUP_IOSCHED
 	---help---
 	  Enable group IO scheduling in CFQ.
 
-<<<<<<< HEAD
 
 config IOSCHED_BFQ
 	tristate "BFQ I/O scheduler"
@@ -142,8 +138,6 @@ config IOSCHED_FIFO
 	  Fifo is similar to no-op I/O scheduler and it's a minimal scheduler that does basic merging
           and sorting.
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 choice
 	prompt "Default I/O scheduler"
 	default DEFAULT_CFQ
@@ -167,7 +161,6 @@ choice
 	config DEFAULT_CFQ
 		bool "CFQ" if IOSCHED_CFQ=y
 
-<<<<<<< HEAD
 	config DEFAULT_BFQ
 		bool "BFQ" if IOSCHED_BFQ=y
 		help
@@ -179,8 +172,6 @@ choice
 		  interactive and soft real-time applications.
 
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	config DEFAULT_NOOP
 		bool "No-op"
 
@@ -191,10 +182,7 @@ config DEFAULT_IOSCHED
 	default "deadline" if DEFAULT_DEADLINE
 	default "row" if DEFAULT_ROW
 	default "cfq" if DEFAULT_CFQ
-<<<<<<< HEAD
 	default "bfq" if DEFAULT_BFQ
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	default "noop" if DEFAULT_NOOP
 
 endmenu

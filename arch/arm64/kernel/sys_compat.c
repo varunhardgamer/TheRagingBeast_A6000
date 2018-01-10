@@ -79,15 +79,12 @@ long compat_arm_syscall(struct pt_regs *regs)
 
 	case __ARM_NR_compat_set_tls:
 		current->thread.tp_value = regs->regs[0];
-<<<<<<< HEAD
 
 		/*
 		 * Protect against register corruption from context switch.
 		 * See comment in tls_thread_flush.
 		 */
 		barrier();
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		asm ("msr tpidrro_el0, %0" : : "r" (regs->regs[0]));
 		return 0;
 

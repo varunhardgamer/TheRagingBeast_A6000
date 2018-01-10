@@ -23,12 +23,8 @@
 struct binder_buffer;
 struct binder_node;
 struct binder_proc;
-<<<<<<< HEAD
 struct binder_alloc;
 struct binder_ref_data;
-=======
-struct binder_ref;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 struct binder_thread;
 struct binder_transaction;
 
@@ -151,13 +147,8 @@ TRACE_EVENT(binder_transaction_received,
 
 TRACE_EVENT(binder_transaction_node_to_ref,
 	TP_PROTO(struct binder_transaction *t, struct binder_node *node,
-<<<<<<< HEAD
 		 struct binder_ref_data *rdata),
 	TP_ARGS(t, node, rdata),
-=======
-		 struct binder_ref *ref),
-	TP_ARGS(t, node, ref),
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	TP_STRUCT__entry(
 		__field(int, debug_id)
@@ -170,13 +161,8 @@ TRACE_EVENT(binder_transaction_node_to_ref,
 		__entry->debug_id = t->debug_id;
 		__entry->node_debug_id = node->debug_id;
 		__entry->node_ptr = node->ptr;
-<<<<<<< HEAD
 		__entry->ref_debug_id = rdata->debug_id;
 		__entry->ref_desc = rdata->desc;
-=======
-		__entry->ref_debug_id = ref->debug_id;
-		__entry->ref_desc = ref->desc;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	),
 	TP_printk("transaction=%d node=%d src_ptr=0x%016llx ==> dest_ref=%d dest_desc=%d",
 		  __entry->debug_id, __entry->node_debug_id,
@@ -185,14 +171,9 @@ TRACE_EVENT(binder_transaction_node_to_ref,
 );
 
 TRACE_EVENT(binder_transaction_ref_to_node,
-<<<<<<< HEAD
 	TP_PROTO(struct binder_transaction *t, struct binder_node *node,
 		 struct binder_ref_data *rdata),
 	TP_ARGS(t, node, rdata),
-=======
-	TP_PROTO(struct binder_transaction *t, struct binder_ref *ref),
-	TP_ARGS(t, ref),
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	TP_STRUCT__entry(
 		__field(int, debug_id)
@@ -203,17 +184,10 @@ TRACE_EVENT(binder_transaction_ref_to_node,
 	),
 	TP_fast_assign(
 		__entry->debug_id = t->debug_id;
-<<<<<<< HEAD
 		__entry->ref_debug_id = rdata->debug_id;
 		__entry->ref_desc = rdata->desc;
 		__entry->node_debug_id = node->debug_id;
 		__entry->node_ptr = node->ptr;
-=======
-		__entry->ref_debug_id = ref->debug_id;
-		__entry->ref_desc = ref->desc;
-		__entry->node_debug_id = ref->node->debug_id;
-		__entry->node_ptr = ref->node->ptr;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	),
 	TP_printk("transaction=%d node=%d src_ref=%d src_desc=%d ==> dest_ptr=0x%016llx",
 		  __entry->debug_id, __entry->node_debug_id,
@@ -222,16 +196,10 @@ TRACE_EVENT(binder_transaction_ref_to_node,
 );
 
 TRACE_EVENT(binder_transaction_ref_to_ref,
-<<<<<<< HEAD
 	TP_PROTO(struct binder_transaction *t, struct binder_node *node,
 		 struct binder_ref_data *src_ref,
 		 struct binder_ref_data *dest_ref),
 	TP_ARGS(t, node, src_ref, dest_ref),
-=======
-	TP_PROTO(struct binder_transaction *t, struct binder_ref *src_ref,
-		 struct binder_ref *dest_ref),
-	TP_ARGS(t, src_ref, dest_ref),
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	TP_STRUCT__entry(
 		__field(int, debug_id)
@@ -243,11 +211,7 @@ TRACE_EVENT(binder_transaction_ref_to_ref,
 	),
 	TP_fast_assign(
 		__entry->debug_id = t->debug_id;
-<<<<<<< HEAD
 		__entry->node_debug_id = node->debug_id;
-=======
-		__entry->node_debug_id = src_ref->node->debug_id;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		__entry->src_ref_debug_id = src_ref->debug_id;
 		__entry->src_ref_desc = src_ref->desc;
 		__entry->dest_ref_debug_id = dest_ref->debug_id;
@@ -307,15 +271,9 @@ DEFINE_EVENT(binder_buffer_class, binder_transaction_failed_buffer_release,
 	TP_ARGS(buffer));
 
 TRACE_EVENT(binder_update_page_range,
-<<<<<<< HEAD
 	TP_PROTO(struct binder_alloc *alloc, bool allocate,
 		 void *start, void *end),
 	TP_ARGS(alloc, allocate, start, end),
-=======
-	TP_PROTO(struct binder_proc *proc, bool allocate,
-		 void *start, void *end),
-	TP_ARGS(proc, allocate, start, end),
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	TP_STRUCT__entry(
 		__field(int, proc)
 		__field(bool, allocate)
@@ -323,15 +281,9 @@ TRACE_EVENT(binder_update_page_range,
 		__field(size_t, size)
 	),
 	TP_fast_assign(
-<<<<<<< HEAD
 		__entry->proc = alloc->pid;
 		__entry->allocate = allocate;
 		__entry->offset = start - alloc->buffer;
-=======
-		__entry->proc = proc->pid;
-		__entry->allocate = allocate;
-		__entry->offset = start - proc->buffer;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		__entry->size = end - start;
 	),
 	TP_printk("proc=%d allocate=%d offset=%zu size=%zu",

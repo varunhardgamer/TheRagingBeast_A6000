@@ -166,12 +166,8 @@ static int usbhsf_pkt_handler(struct usbhs_pipe *pipe, int type)
 		goto __usbhs_pkt_handler_end;
 	}
 
-<<<<<<< HEAD
 	if (likely(func))
 		ret = func(pkt, &is_done);
-=======
-	ret = func(pkt, &is_done);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (is_done)
 		__usbhsf_pkt_del(pkt);
@@ -265,7 +261,6 @@ static void usbhsf_fifo_clear(struct usbhs_pipe *pipe,
 			      struct usbhs_fifo *fifo)
 {
 	struct usbhs_priv *priv = usbhs_pipe_to_priv(pipe);
-<<<<<<< HEAD
 	int ret = 0;
 
 	if (!usbhs_pipe_is_dcp(pipe)) {
@@ -286,13 +281,6 @@ static void usbhsf_fifo_clear(struct usbhs_pipe *pipe,
 	 */
 	if (!ret)
 		usbhs_write(priv, fifo->ctr, BCLR);
-=======
-
-	if (!usbhs_pipe_is_dcp(pipe))
-		usbhsf_fifo_barrier(priv, fifo);
-
-	usbhs_write(priv, fifo->ctr, BCLR);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static int usbhsf_fifo_rcv_len(struct usbhs_priv *priv,
@@ -572,10 +560,7 @@ static int usbhsf_pio_try_push(struct usbhs_pkt *pkt, int *is_done)
 		usbhsf_send_terminator(pipe, fifo);
 
 	usbhsf_tx_irq_ctrl(pipe, !*is_done);
-<<<<<<< HEAD
 	usbhs_pipe_running(pipe, !*is_done);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	usbhs_pipe_enable(pipe);
 
 	dev_dbg(dev, "  send %d (%d/ %d/ %d/ %d)\n",
@@ -602,15 +587,11 @@ usbhs_fifo_write_busy:
 	 * retry in interrupt
 	 */
 	usbhsf_tx_irq_ctrl(pipe, 1);
-<<<<<<< HEAD
 	usbhs_pipe_running(pipe, 1);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	return ret;
 }
 
-<<<<<<< HEAD
 static int usbhsf_pio_prepare_push(struct usbhs_pkt *pkt, int *is_done)
 {
 	if (usbhs_pipe_is_running(pkt->pipe))
@@ -621,10 +602,6 @@ static int usbhsf_pio_prepare_push(struct usbhs_pkt *pkt, int *is_done)
 
 struct usbhs_pkt_handle usbhs_fifo_pio_push_handler = {
 	.prepare = usbhsf_pio_prepare_push,
-=======
-struct usbhs_pkt_handle usbhs_fifo_pio_push_handler = {
-	.prepare = usbhsf_pio_try_push,
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	.try_run = usbhsf_pio_try_push,
 };
 
@@ -638,12 +615,9 @@ static int usbhsf_prepare_pop(struct usbhs_pkt *pkt, int *is_done)
 	if (usbhs_pipe_is_busy(pipe))
 		return 0;
 
-<<<<<<< HEAD
 	if (usbhs_pipe_is_running(pipe))
 		return 0;
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/*
 	 * pipe enable to prepare packet receive
 	 */
@@ -652,10 +626,7 @@ static int usbhsf_prepare_pop(struct usbhs_pkt *pkt, int *is_done)
 
 	usbhs_pipe_set_trans_count_if_bulk(pipe, pkt->length);
 	usbhs_pipe_enable(pipe);
-<<<<<<< HEAD
 	usbhs_pipe_running(pipe, 1);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	usbhsf_rx_irq_ctrl(pipe, 1);
 
 	return 0;
@@ -701,10 +672,7 @@ static int usbhsf_pio_try_pop(struct usbhs_pkt *pkt, int *is_done)
 	    (total_len < maxp)) {		/* short packet */
 		*is_done = 1;
 		usbhsf_rx_irq_ctrl(pipe, 0);
-<<<<<<< HEAD
 		usbhs_pipe_running(pipe, 0);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		usbhs_pipe_disable(pipe);	/* disable pipe first */
 	}
 
@@ -860,18 +828,11 @@ static void xfer_work(struct work_struct *work)
 	dev_dbg(dev, "  %s %d (%d/ %d)\n",
 		fifo->name, usbhs_pipe_number(pipe), pkt->length, pkt->zero);
 
-<<<<<<< HEAD
 	usbhs_pipe_running(pipe, 1);
 	usbhs_pipe_set_trans_count_if_bulk(pipe, pkt->trans);
 	dma_async_issue_pending(chan);
 	usbhsf_dma_start(pipe, fifo);
 	usbhs_pipe_enable(pipe);
-=======
-	usbhs_pipe_set_trans_count_if_bulk(pipe, pkt->trans);
-	usbhs_pipe_enable(pipe);
-	usbhsf_dma_start(pipe, fifo);
-	dma_async_issue_pending(chan);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 /*
@@ -899,13 +860,10 @@ static int usbhsf_dma_prepare_push(struct usbhs_pkt *pkt, int *is_done)
 	if ((uintptr_t)(pkt->buf + pkt->actual) & 0x7) /* 8byte alignment */
 		goto usbhsf_pio_prepare_push;
 
-<<<<<<< HEAD
 	/* return at this time if the pipe is running */
 	if (usbhs_pipe_is_running(pipe))
 		return 0;
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/* get enable DMA fifo */
 	fifo = usbhsf_get_dma_fifo(priv, pkt);
 	if (!fifo)
@@ -943,10 +901,7 @@ static int usbhsf_dma_push_done(struct usbhs_pkt *pkt, int *is_done)
 	pkt->actual = pkt->trans;
 
 	*is_done = !pkt->zero;	/* send zero packet ? */
-<<<<<<< HEAD
 	usbhs_pipe_running(pipe, !*is_done);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	usbhsf_dma_stop(pipe, pipe->fifo);
 	usbhsf_dma_unmap(pkt);
@@ -1015,10 +970,7 @@ static int usbhsf_dma_try_pop(struct usbhs_pkt *pkt, int *is_done)
 
 	pkt->trans = len;
 
-<<<<<<< HEAD
 	usbhsf_tx_irq_ctrl(pipe, 0);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	INIT_WORK(&pkt->work, xfer_work);
 	schedule_work(&pkt->work);
 
@@ -1050,15 +1002,10 @@ static int usbhsf_dma_pop_done(struct usbhs_pkt *pkt, int *is_done)
 	if ((pkt->actual == pkt->length) ||	/* receive all data */
 	    (pkt->trans < maxp)) {		/* short packet */
 		*is_done = 1;
-<<<<<<< HEAD
 		usbhs_pipe_running(pipe, 0);
 	} else {
 		/* re-enable */
 		usbhs_pipe_running(pipe, 0);
-=======
-	} else {
-		/* re-enable */
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		usbhsf_prepare_pop(pkt, is_done);
 	}
 

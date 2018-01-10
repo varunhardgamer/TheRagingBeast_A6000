@@ -897,11 +897,7 @@ static bool wm2200_readable_register(struct device *dev, unsigned int reg)
 	}
 }
 
-<<<<<<< HEAD
 static const struct reg_sequence wm2200_reva_patch[] = {
-=======
-static const struct reg_default wm2200_reva_patch[] = {
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	{ 0x07, 0x0003 },
 	{ 0x102, 0x0200 },
 	{ 0x203, 0x0084 },
@@ -1569,11 +1565,7 @@ static int wm2200_probe(struct snd_soc_codec *codec)
 		return ret;
 	}
 
-<<<<<<< HEAD
 	ret = snd_soc_add_codec_controls(codec, wm_adsp_fw_controls, 2);
-=======
-	ret = snd_soc_add_codec_controls(codec, wm_adsp1_fw_controls, 2);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (ret != 0)
 		return ret;
 

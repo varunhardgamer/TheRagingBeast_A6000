@@ -147,11 +147,7 @@ struct thread_info {
 /* Only used for 64 bit */
 #define _TIF_DO_NOTIFY_MASK						\
 	(_TIF_SIGPENDING | _TIF_MCE_NOTIFY | _TIF_NOTIFY_RESUME |	\
-<<<<<<< HEAD
 	 _TIF_USER_RETURN_NOTIFY | _TIF_UPROBE)
-=======
-	 _TIF_USER_RETURN_NOTIFY)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 /* flags to check in __switch_to() */
 #define _TIF_WORK_CTXSW							\

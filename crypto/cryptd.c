@@ -565,7 +565,6 @@ static int cryptd_hash_export(struct ahash_request *req, void *out)
 
 static int cryptd_hash_import(struct ahash_request *req, const void *in)
 {
-<<<<<<< HEAD
 	struct crypto_ahash *tfm = crypto_ahash_reqtfm(req);
 	struct cryptd_hash_ctx *ctx = crypto_ahash_ctx(tfm);
 	struct shash_desc *desc = cryptd_shash_desc(req);
@@ -574,11 +573,6 @@ static int cryptd_hash_import(struct ahash_request *req, const void *in)
 	desc->flags = req->base.flags;
 
 	return crypto_shash_import(desc, in);
-=======
-	struct cryptd_hash_request_ctx *rctx = ahash_request_ctx(req);
-
-	return crypto_shash_import(&rctx->desc, in);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static int cryptd_create_hash(struct crypto_template *tmpl, struct rtattr **tb,
@@ -612,10 +606,7 @@ static int cryptd_create_hash(struct crypto_template *tmpl, struct rtattr **tb,
 	inst->alg.halg.base.cra_flags = CRYPTO_ALG_ASYNC;
 
 	inst->alg.halg.digestsize = salg->digestsize;
-<<<<<<< HEAD
 	inst->alg.halg.statesize = salg->statesize;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	inst->alg.halg.base.cra_ctxsize = sizeof(struct cryptd_hash_ctx);
 
 	inst->alg.halg.base.cra_init = cryptd_hash_init_tfm;
@@ -970,7 +961,4 @@ module_exit(cryptd_exit);
 
 MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION("Software async crypto daemon");
-<<<<<<< HEAD
 MODULE_ALIAS_CRYPTO("cryptd");
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c

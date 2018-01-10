@@ -65,11 +65,7 @@ struct gntdev_priv {
 	 * Only populated if populate_freeable_maps == 1 */
 	struct list_head freeable_maps;
 	/* lock protects maps and freeable_maps */
-<<<<<<< HEAD
 	struct mutex lock;
-=======
-	spinlock_t lock;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	struct mm_struct *mm;
 	struct mmu_notifier mn;
 };
@@ -218,15 +214,9 @@ static void gntdev_put_map(struct gntdev_priv *priv, struct grant_map *map)
 	}
 
 	if (populate_freeable_maps && priv) {
-<<<<<<< HEAD
 		mutex_lock(&priv->lock);
 		list_del(&map->next);
 		mutex_unlock(&priv->lock);
-=======
-		spin_lock(&priv->lock);
-		list_del(&map->next);
-		spin_unlock(&priv->lock);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 
 	if (map->pages && !use_ptemod)
@@ -402,15 +392,9 @@ static void gntdev_vma_close(struct vm_area_struct *vma)
 		 * not do any unmapping, since that has been done prior to
 		 * closing the vma, but it may still iterate the unmap_ops list.
 		 */
-<<<<<<< HEAD
 		mutex_lock(&priv->lock);
 		map->vma = NULL;
 		mutex_unlock(&priv->lock);
-=======
-		spin_lock(&priv->lock);
-		map->vma = NULL;
-		spin_unlock(&priv->lock);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 	vma->vm_private_data = NULL;
 	gntdev_put_map(priv, map);
@@ -454,22 +438,14 @@ static void mn_invl_range_start(struct mmu_notifier *mn,
 	struct gntdev_priv *priv = container_of(mn, struct gntdev_priv, mn);
 	struct grant_map *map;
 
-<<<<<<< HEAD
 	mutex_lock(&priv->lock);
-=======
-	spin_lock(&priv->lock);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	list_for_each_entry(map, &priv->maps, next) {
 		unmap_if_in_range(map, start, end);
 	}
 	list_for_each_entry(map, &priv->freeable_maps, next) {
 		unmap_if_in_range(map, start, end);
 	}
-<<<<<<< HEAD
 	mutex_unlock(&priv->lock);
-=======
-	spin_unlock(&priv->lock);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static void mn_invl_page(struct mmu_notifier *mn,
@@ -486,11 +462,7 @@ static void mn_release(struct mmu_notifier *mn,
 	struct grant_map *map;
 	int err;
 
-<<<<<<< HEAD
 	mutex_lock(&priv->lock);
-=======
-	spin_lock(&priv->lock);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	list_for_each_entry(map, &priv->maps, next) {
 		if (!map->vma)
 			continue;
@@ -509,11 +481,7 @@ static void mn_release(struct mmu_notifier *mn,
 		err = unmap_grant_pages(map, /* offset */ 0, map->count);
 		WARN_ON(err);
 	}
-<<<<<<< HEAD
 	mutex_unlock(&priv->lock);
-=======
-	spin_unlock(&priv->lock);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static struct mmu_notifier_ops gntdev_mmu_ops = {
@@ -535,11 +503,7 @@ static int gntdev_open(struct inode *inode, struct file *flip)
 
 	INIT_LIST_HEAD(&priv->maps);
 	INIT_LIST_HEAD(&priv->freeable_maps);
-<<<<<<< HEAD
 	mutex_init(&priv->lock);
-=======
-	spin_lock_init(&priv->lock);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (use_ptemod) {
 		priv->mm = get_task_mm(current);
@@ -570,20 +534,14 @@ static int gntdev_release(struct inode *inode, struct file *flip)
 
 	pr_debug("priv %p\n", priv);
 
-<<<<<<< HEAD
 	mutex_lock(&priv->lock);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	while (!list_empty(&priv->maps)) {
 		map = list_entry(priv->maps.next, struct grant_map, next);
 		list_del(&map->next);
 		gntdev_put_map(NULL /* already removed */, map);
 	}
 	WARN_ON(!list_empty(&priv->freeable_maps));
-<<<<<<< HEAD
 	mutex_unlock(&priv->lock);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (use_ptemod)
 		mmu_notifier_unregister(&priv->mn, priv->mm);
@@ -621,17 +579,10 @@ static long gntdev_ioctl_map_grant_ref(struct gntdev_priv *priv,
 		return -EFAULT;
 	}
 
-<<<<<<< HEAD
 	mutex_lock(&priv->lock);
 	gntdev_add_map(priv, map);
 	op.index = map->index << PAGE_SHIFT;
 	mutex_unlock(&priv->lock);
-=======
-	spin_lock(&priv->lock);
-	gntdev_add_map(priv, map);
-	op.index = map->index << PAGE_SHIFT;
-	spin_unlock(&priv->lock);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (copy_to_user(u, &op, sizeof(op)) != 0)
 		return -EFAULT;
@@ -650,11 +601,7 @@ static long gntdev_ioctl_unmap_grant_ref(struct gntdev_priv *priv,
 		return -EFAULT;
 	pr_debug("priv %p, del %d+%d\n", priv, (int)op.index, (int)op.count);
 
-<<<<<<< HEAD
 	mutex_lock(&priv->lock);
-=======
-	spin_lock(&priv->lock);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	map = gntdev_find_map_index(priv, op.index >> PAGE_SHIFT, op.count);
 	if (map) {
 		list_del(&map->next);
@@ -662,11 +609,7 @@ static long gntdev_ioctl_unmap_grant_ref(struct gntdev_priv *priv,
 			list_add_tail(&map->next, &priv->freeable_maps);
 		err = 0;
 	}
-<<<<<<< HEAD
 	mutex_unlock(&priv->lock);
-=======
-	spin_unlock(&priv->lock);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (map)
 		gntdev_put_map(priv, map);
 	return err;
@@ -734,11 +677,7 @@ static long gntdev_ioctl_notify(struct gntdev_priv *priv, void __user *u)
 	out_flags = op.action;
 	out_event = op.event_channel_port;
 
-<<<<<<< HEAD
 	mutex_lock(&priv->lock);
-=======
-	spin_lock(&priv->lock);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	list_for_each_entry(map, &priv->maps, next) {
 		uint64_t begin = map->index << PAGE_SHIFT;
@@ -766,11 +705,7 @@ static long gntdev_ioctl_notify(struct gntdev_priv *priv, void __user *u)
 	rc = 0;
 
  unlock_out:
-<<<<<<< HEAD
 	mutex_unlock(&priv->lock);
-=======
-	spin_unlock(&priv->lock);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	/* Drop the reference to the event channel we did not save in the map */
 	if (out_flags & UNMAP_NOTIFY_SEND_EVENT)
@@ -820,11 +755,7 @@ static int gntdev_mmap(struct file *flip, struct vm_area_struct *vma)
 	pr_debug("map %d+%d at %lx (pgoff %lx)\n",
 			index, count, vma->vm_start, vma->vm_pgoff);
 
-<<<<<<< HEAD
 	mutex_lock(&priv->lock);
-=======
-	spin_lock(&priv->lock);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	map = gntdev_find_map_index(priv, index, count);
 	if (!map)
 		goto unlock_out;
@@ -839,11 +770,7 @@ static int gntdev_mmap(struct file *flip, struct vm_area_struct *vma)
 
 	vma->vm_ops = &gntdev_vmops;
 
-<<<<<<< HEAD
 	vma->vm_flags |= VM_DONTEXPAND | VM_DONTDUMP | VM_IO;
-=======
-	vma->vm_flags |= VM_DONTEXPAND | VM_DONTDUMP;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (use_ptemod)
 		vma->vm_flags |= VM_DONTCOPY;
@@ -863,11 +790,7 @@ static int gntdev_mmap(struct file *flip, struct vm_area_struct *vma)
 			map->flags |= GNTMAP_readonly;
 	}
 
-<<<<<<< HEAD
 	mutex_unlock(&priv->lock);
-=======
-	spin_unlock(&priv->lock);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (use_ptemod) {
 		err = apply_to_page_range(vma->vm_mm, vma->vm_start,
@@ -895,19 +818,11 @@ static int gntdev_mmap(struct file *flip, struct vm_area_struct *vma)
 	return 0;
 
 unlock_out:
-<<<<<<< HEAD
 	mutex_unlock(&priv->lock);
 	return err;
 
 out_unlock_put:
 	mutex_unlock(&priv->lock);
-=======
-	spin_unlock(&priv->lock);
-	return err;
-
-out_unlock_put:
-	spin_unlock(&priv->lock);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 out_put_map:
 	if (use_ptemod)
 		map->vma = NULL;

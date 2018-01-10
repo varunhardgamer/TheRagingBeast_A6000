@@ -35,12 +35,9 @@ config MSMB_CAMERA_DEBUG
 
 if MSMB_CAMERA
 source "drivers/media/platform/msm/camera_v2/Kconfig"
-<<<<<<< HEAD
 if CONFIG_MACH_WT86518
 source "drivers/media/platform/msm/camera_wt86518_v2/Kconfig"
 endif
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 endif # MSMB_CAMERA
 
 source "drivers/media/platform/msm/vidc/Kconfig"

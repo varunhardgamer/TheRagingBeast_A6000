@@ -45,10 +45,7 @@ struct pscsi_dev_virt {
 	int	pdv_lun_id;
 	struct block_device *pdv_bd;
 	struct scsi_device *pdv_sd;
-<<<<<<< HEAD
 	struct Scsi_Host *pdv_lld_host;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 } ____cacheline_aligned;
 
 typedef enum phv_modes {

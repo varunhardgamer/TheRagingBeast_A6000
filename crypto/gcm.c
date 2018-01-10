@@ -109,11 +109,7 @@ static int crypto_gcm_setkey(struct crypto_aead *aead, const u8 *key,
 	struct crypto_ablkcipher *ctr = ctx->ctr;
 	struct {
 		be128 hash;
-<<<<<<< HEAD
 		u8 iv[16];
-=======
-		u8 iv[8];
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 		struct crypto_gcm_setkey_result result;
 
@@ -586,11 +582,7 @@ static int crypto_gcm_verify(struct aead_request *req,
 
 	crypto_xor(auth_tag, iauth_tag, 16);
 	scatterwalk_map_and_copy(iauth_tag, req->src, cryptlen, authsize, 0);
-<<<<<<< HEAD
 	return crypto_memneq(iauth_tag, auth_tag, authsize) ? -EBADMSG : 0;
-=======
-	return memcmp(iauth_tag, auth_tag, authsize) ? -EBADMSG : 0;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static void gcm_decrypt_done(struct crypto_async_request *areq, int err)
@@ -724,13 +716,9 @@ static struct crypto_instance *crypto_gcm_alloc_common(struct rtattr **tb,
 
 	ghash_alg = crypto_find_alg(ghash_name, &crypto_ahash_type,
 				    CRYPTO_ALG_TYPE_HASH,
-<<<<<<< HEAD
 				    CRYPTO_ALG_TYPE_AHASH_MASK |
 				    crypto_requires_sync(algt->type,
 							 algt->mask));
-=======
-				    CRYPTO_ALG_TYPE_AHASH_MASK);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (IS_ERR(ghash_alg))
 		return ERR_CAST(ghash_alg);
 
@@ -1187,12 +1175,9 @@ static struct aead_request *crypto_rfc4543_crypt(struct aead_request *req,
 	aead_request_set_tfm(subreq, ctx->child);
 	aead_request_set_callback(subreq, req->base.flags, crypto_rfc4543_done,
 				  req);
-<<<<<<< HEAD
 	if (!enc)
 		aead_request_set_callback(subreq, req->base.flags,
 					  req->base.complete, req->base.data);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	aead_request_set_crypt(subreq, cipher, cipher, enc ? 0 : authsize, iv);
 	aead_request_set_assoc(subreq, assoc, assoclen);
 
@@ -1461,13 +1446,7 @@ module_exit(crypto_gcm_module_exit);
 MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION("Galois/Counter Mode");
 MODULE_AUTHOR("Mikko Herranen <mh1@iki.fi>");
-<<<<<<< HEAD
 MODULE_ALIAS_CRYPTO("gcm_base");
 MODULE_ALIAS_CRYPTO("rfc4106");
 MODULE_ALIAS_CRYPTO("rfc4543");
 MODULE_ALIAS_CRYPTO("gcm");
-=======
-MODULE_ALIAS("gcm_base");
-MODULE_ALIAS("rfc4106");
-MODULE_ALIAS("rfc4543");
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c

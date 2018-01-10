@@ -290,14 +290,10 @@ static void llc_sap_rcv(struct llc_sap *sap, struct sk_buff *skb,
 
 	ev->type   = LLC_SAP_EV_TYPE_PDU;
 	ev->reason = 0;
-<<<<<<< HEAD
 	skb_orphan(skb);
 	sock_hold(sk);
 	skb->sk = sk;
 	skb->destructor = sock_efree;
-=======
-	skb->sk = sk;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	llc_sap_state_process(sap, skb);
 }
 

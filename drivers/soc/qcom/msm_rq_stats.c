@@ -32,12 +32,9 @@
 #include <asm/smp_plat.h>
 #include <linux/suspend.h>
 
-<<<<<<< HEAD
 /* only enable on demand if needed */
 static bool load_stats_enabled = true;
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #define MAX_LONG_SIZE 24
 #define DEFAULT_RQ_POLL_JIFFIES 1
 #define DEFAULT_DEF_TIMER_JIFFIES 5
@@ -59,7 +56,6 @@ struct cpu_load_data {
 
 static DEFINE_PER_CPU(struct cpu_load_data, cpuload);
 
-<<<<<<< HEAD
 unsigned int get_rq_info(void)
 {
 	unsigned long flags = 0;
@@ -76,8 +72,6 @@ unsigned int get_rq_info(void)
 }
 EXPORT_SYMBOL(get_rq_info);
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 static int update_average_load(unsigned int freq, unsigned int cpu)
 {
@@ -212,7 +206,6 @@ static int system_suspend_handler(struct notifier_block *nb,
 	return NOTIFY_OK;
 }
 
-<<<<<<< HEAD
 void enable_rq_load_calc(bool on)
 {
 	int cpu;
@@ -242,8 +235,6 @@ void enable_rq_load_calc(bool on)
 	}
 }
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 static ssize_t hotplug_disable_show(struct kobject *kobj,
 		struct kobj_attribute *attr, char *buf)
@@ -425,17 +416,11 @@ static int __init msm_rq_stats_init(void)
 	}
 	freq_transition.notifier_call = cpufreq_transition_handler;
 	cpu_hotplug.notifier_call = cpu_hotplug_handler;
-<<<<<<< HEAD
         if (load_stats_enabled){
 	cpufreq_register_notifier(&freq_transition,
 					CPUFREQ_TRANSITION_NOTIFIER);
 	register_hotcpu_notifier(&cpu_hotplug);
         }
-=======
-	cpufreq_register_notifier(&freq_transition,
-					CPUFREQ_TRANSITION_NOTIFIER);
-	register_hotcpu_notifier(&cpu_hotplug);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	return ret;
 }

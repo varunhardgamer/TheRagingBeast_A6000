@@ -66,7 +66,6 @@ static struct clk_lookup clock_tbl_a7[] = {
 	CLK_LOOKUP_OF("cpu3_clk",   a7ssmux, "8600664.qcom,pm"),
 };
 
-<<<<<<< HEAD
 #ifdef CONFIG_ARCH_MSM8916
 extern int cpr_regulator_get_corner_voltage(struct regulator *regulator,
 		int corner);
@@ -123,8 +122,6 @@ ssize_t cpu_clock_set_vdd(const char *buf, size_t count)
 }
 #endif
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static void print_opp_table(int a7_cpu)
 {
 	struct opp *oppfmax, *oppfmin;

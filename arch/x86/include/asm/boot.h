@@ -27,11 +27,7 @@
 #define BOOT_HEAP_SIZE             0x400000
 #else /* !CONFIG_KERNEL_BZIP2 */
 
-<<<<<<< HEAD
 #define BOOT_HEAP_SIZE	0x10000
-=======
-#define BOOT_HEAP_SIZE	0x8000
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #endif /* !CONFIG_KERNEL_BZIP2 */
 

@@ -100,11 +100,8 @@ struct cpufreq_policy {
 	 *     __cpufreq_governor(data, CPUFREQ_GOV_POLICY_EXIT);
 	 */
 	struct rw_semaphore	rwsem;
-<<<<<<< HEAD
 
         unsigned int util;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 
 /* Only for ACPI */
@@ -140,10 +137,7 @@ void cpufreq_sysfs_remove_file(const struct attribute *attr);
 unsigned int cpufreq_get(unsigned int cpu);
 unsigned int cpufreq_quick_get(unsigned int cpu);
 unsigned int cpufreq_quick_get_max(unsigned int cpu);
-<<<<<<< HEAD
 unsigned int cpufreq_quick_get_util(unsigned int cpu);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 void disable_cpufreq(void);
 
 u64 get_cpu_idle_time(unsigned int cpu, u64 *wall, int io_busy);
@@ -173,10 +167,7 @@ static inline void disable_cpufreq(void) { }
 
 #define CPUFREQ_RELATION_L 0  /* lowest frequency at or above target */
 #define CPUFREQ_RELATION_H 1  /* highest frequency below or at target */
-<<<<<<< HEAD
 #define CPUFREQ_RELATION_C 2  /* closest frequency to target */
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 struct freq_attr {
 	struct attribute attr;
@@ -235,11 +226,8 @@ struct cpufreq_driver {
 	/* optional */
 	int	(*bios_limit)	(int cpu, unsigned int *limit);
 
-<<<<<<< HEAD
         unsigned int (*getavg)	(struct cpufreq_policy *policy,
                             unsigned int cpu); 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	int	(*exit)		(struct cpufreq_policy *policy);
 	int	(*suspend)	(struct cpufreq_policy *policy);
 	int	(*resume)	(struct cpufreq_policy *policy);
@@ -276,13 +264,10 @@ int cpufreq_unregister_driver(struct cpufreq_driver *driver_data);
 
 const char *cpufreq_get_current_driver(void);
 
-<<<<<<< HEAD
 void cpufreq_notify_utilization(struct cpufreq_policy *policy,
 		unsigned int load);
 
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static inline void cpufreq_verify_within_limits(struct cpufreq_policy *policy,
 		unsigned int min, unsigned int max)
 {
@@ -429,11 +414,8 @@ int cpufreq_driver_target(struct cpufreq_policy *policy,
 int __cpufreq_driver_target(struct cpufreq_policy *policy,
 				   unsigned int target_freq,
 				   unsigned int relation);
-<<<<<<< HEAD
 extern int __cpufreq_driver_getavg(struct cpufreq_policy *policy,
                                    unsigned int cpu);	
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 int cpufreq_register_governor(struct cpufreq_governor *governor);
 void cpufreq_unregister_governor(struct cpufreq_governor *governor);
 

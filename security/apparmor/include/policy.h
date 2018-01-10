@@ -313,11 +313,8 @@ static inline int AUDIT_MODE(struct aa_profile *profile)
 	return profile->audit;
 }
 
-<<<<<<< HEAD
 bool policy_view_capable(void);
 bool policy_admin_capable(void);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 bool aa_may_manage_policy(int op);
 
 #endif /* __AA_POLICY_H */

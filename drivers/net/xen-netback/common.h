@@ -66,11 +66,8 @@ struct xenvif {
 	/* The shared rings and indexes. */
 	struct xen_netif_tx_back_ring tx;
 	struct xen_netif_rx_back_ring rx;
-<<<<<<< HEAD
 	atomic_t ring_refcnt;
 	wait_queue_head_t waiting_to_unmap;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	/* Frontend feature information. */
 	u8 can_sg:1;
@@ -125,11 +122,8 @@ void xenvif_free(struct xenvif *vif);
 
 void xenvif_get(struct xenvif *vif);
 void xenvif_put(struct xenvif *vif);
-<<<<<<< HEAD
 void xenvif_get_rings(struct xenvif *vif);
 void xenvif_put_rings(struct xenvif *vif);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 int xenvif_xenbus_init(void);
 

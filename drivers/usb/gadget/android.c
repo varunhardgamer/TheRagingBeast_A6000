@@ -2565,11 +2565,7 @@ static void mass_storage_function_enable(struct android_usb_function *f)
 
 	pr_debug("fsg.nluns:%d\n", config->fsg.nluns);
 	for (i = prev_nluns; i < config->fsg.nluns; i++) {
-<<<<<<< HEAD
 		snprintf(lun_name, sizeof(buf1), "lun%d", (i-prev_nluns));
-=======
-		snprintf(lun_name, sizeof(buf), "lun%d", (i-prev_nluns));
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		pr_debug("sysfs: LUN name:%s\n", lun_name);
 		err = sysfs_create_link(&f->dev->kobj,
 			&common->luns[i].dev.kobj, lun_name);

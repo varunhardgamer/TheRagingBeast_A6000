@@ -72,13 +72,10 @@ obj-$(CONFIG_IWMMXT)		+= iwmmxt.o
 obj-$(CONFIG_HW_PERF_EVENTS)	+= perf_event.o perf_event_cpu.o
 AFLAGS_iwmmxt.o			:= -Wa,-mcpu=iwmmxt
 obj-$(CONFIG_ARM_CPU_TOPOLOGY)  += topology.o
-<<<<<<< HEAD
 obj-y +=alucard_hotplug.o
 obj-y +=fastchg.o
 obj-y +=autosmp.o
 obj-y +=thunderplug_quad.o
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 ifneq ($(CONFIG_ARCH_EBSA110),y)
   obj-y		+= io.o

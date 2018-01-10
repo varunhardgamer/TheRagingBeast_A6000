@@ -72,11 +72,8 @@ enum {
 	INET_DIAG_BC_AUTO,
 	INET_DIAG_BC_S_COND,
 	INET_DIAG_BC_D_COND,
-<<<<<<< HEAD
 	INET_DIAG_BC_DEV_COND,   /* u32 ifindex */
 	INET_DIAG_BC_MARK_COND,
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 
 struct inet_diag_hostcond {
@@ -86,14 +83,11 @@ struct inet_diag_hostcond {
 	__be32	addr[0];
 };
 
-<<<<<<< HEAD
 struct inet_diag_markcond {
 	__u32 mark;
 	__u32 mask;
 };
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /* Base info structure. It contains socket identity (addrs/ports/cookie)
  * and, alas, the information shown by netstat. */
 struct inet_diag_msg {
@@ -123,7 +117,6 @@ enum {
 	INET_DIAG_TCLASS,
 	INET_DIAG_SKMEMINFO,
 	INET_DIAG_SHUTDOWN,
-<<<<<<< HEAD
 	INET_DIAG_DCTCPINFO,
 	INET_DIAG_PROTOCOL,  /* response attribute only */
 	INET_DIAG_SKV6ONLY,
@@ -134,11 +127,6 @@ enum {
 };
 
 #define INET_DIAG_MAX INET_DIAG_MARK
-=======
-};
-
-#define INET_DIAG_MAX INET_DIAG_SHUTDOWN
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 
 /* INET_DIAG_MEM */

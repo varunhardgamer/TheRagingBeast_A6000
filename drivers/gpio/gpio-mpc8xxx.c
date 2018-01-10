@@ -295,11 +295,7 @@ static int mpc8xxx_gpio_irq_map(struct irq_domain *h, unsigned int virq,
 		mpc8xxx_irq_chip.irq_set_type = mpc8xxx_gc->of_dev_id_data;
 
 	irq_set_chip_data(virq, h->host_data);
-<<<<<<< HEAD
 	irq_set_chip_and_handler(virq, &mpc8xxx_irq_chip, handle_edge_irq);
-=======
-	irq_set_chip_and_handler(virq, &mpc8xxx_irq_chip, handle_level_irq);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	return 0;
 }

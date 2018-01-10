@@ -32,11 +32,8 @@
 #define DMA_TX_TIMEOUT 200
 #define DMA_TPG_FIFO_LEN 64
 
-<<<<<<< HEAD
 #define CEIL(x, y)		(((x) + ((y) - 1)) / (y))
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 struct mdss_dsi_ctrl_pdata *ctrl_list[DSI_CTRL_MAX];
 
 struct mdss_hw mdss_dsi0_hw = {
@@ -967,21 +964,16 @@ void mdss_dsi_cmd_bta_sw_trigger(struct mdss_panel_data *pdata)
 	pr_debug("%s: BTA done, status = %d\n", __func__, status);
 }
 
-<<<<<<< HEAD
 
 #ifdef CONFIG_MACH_WT86518
 static int mdss_dsi_read_status(struct mdss_dsi_ctrl_pdata *ctrl, int i)
 #else
 static int mdss_dsi_read_status(struct mdss_dsi_ctrl_pdata *ctrl)
 #endif
-=======
-static int mdss_dsi_read_status(struct mdss_dsi_ctrl_pdata *ctrl)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	struct dcs_cmd_req cmdreq;
 
 	memset(&cmdreq, 0, sizeof(cmdreq));
-<<<<<<< HEAD
 #ifdef CONFIG_MACH_WT86518
 	cmdreq.cmds = ctrl->status_cmds[i].cmds;
 	cmdreq.cmds_cnt = ctrl->status_cmds[i].cmd_cnt;
@@ -989,10 +981,6 @@ static int mdss_dsi_read_status(struct mdss_dsi_ctrl_pdata *ctrl)
 	cmdreq.cmds = ctrl->status_cmds.cmds;
 	cmdreq.cmds_cnt = ctrl->status_cmds.cmd_cnt;
 #endif
-=======
-	cmdreq.cmds = ctrl->status_cmds.cmds;
-	cmdreq.cmds_cnt = ctrl->status_cmds.cmd_cnt;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	cmdreq.flags = CMD_REQ_COMMIT | CMD_CLK_CTRL | CMD_REQ_RX;
 	cmdreq.rlen = ctrl->status_cmds_rlen;
 	cmdreq.cb = NULL;
@@ -1015,13 +1003,10 @@ static int mdss_dsi_read_status(struct mdss_dsi_ctrl_pdata *ctrl)
 int mdss_dsi_reg_status_check(struct mdss_dsi_ctrl_pdata *ctrl_pdata)
 {
 	int ret = 0;
-<<<<<<< HEAD
 #ifdef CONFIG_MACH_WT86518
 	int i,j;
 	u32 value;
 #endif
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (ctrl_pdata == NULL) {
 		pr_err("%s: Invalid input data\n", __func__);
@@ -1029,7 +1014,6 @@ int mdss_dsi_reg_status_check(struct mdss_dsi_ctrl_pdata *ctrl_pdata)
 	}
 
 	pr_debug("%s: Checking Register status\n", __func__);
-<<<<<<< HEAD
 #ifdef CONFIG_MACH_WT86518
 	for(i=0;i<ctrl_pdata->status_cmds_num;i++)
 	{
@@ -1075,9 +1059,6 @@ int mdss_dsi_reg_status_check(struct mdss_dsi_ctrl_pdata *ctrl_pdata)
 		}
 	}
 #else
-=======
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	mdss_dsi_clk_ctrl(ctrl_pdata, DSI_ALL_CLKS, 1);
 
 	if (ctrl_pdata->status_cmds.link_state == DSI_HS_MODE)
@@ -1098,15 +1079,10 @@ int mdss_dsi_reg_status_check(struct mdss_dsi_ctrl_pdata *ctrl_pdata)
 	} else {
 		pr_err("%s: Read status register returned error\n", __func__);
 	}
-<<<<<<< HEAD
 #endif
 #ifndef CONFIG_MACH_WT86518
 	mdss_dsi_clk_ctrl(ctrl_pdata, DSI_ALL_CLKS, 0);
 #endif
-=======
-
-	mdss_dsi_clk_ctrl(ctrl_pdata, DSI_ALL_CLKS, 0);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	pr_debug("%s: Read register done with ret: %d\n", __func__, ret);
 
 	return ret;
@@ -1146,16 +1122,11 @@ static void mdss_dsi_mode_setup(struct mdss_panel_data *pdata)
 	height = pdata->panel_info.yres;
 
 	if (pdata->panel_info.type == MIPI_VIDEO_PANEL) {
-<<<<<<< HEAD
 		dummy_xres = mult_frac((pdata->panel_info.lcdc.border_left +
 				pdata->panel_info.lcdc.border_right),
 				dst_bpp, pdata->panel_info.bpp);
 		dummy_yres = pdata->panel_info.lcdc.border_top +
 				pdata->panel_info.lcdc.border_bottom;
-=======
-		dummy_xres = pdata->panel_info.lcdc.xres_pad;
-		dummy_yres = pdata->panel_info.lcdc.yres_pad;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 
 	vsync_period = vspw + vbp + height + dummy_yres + vfp;
@@ -1573,12 +1544,9 @@ static struct dsi_cmd_desc pkt_size_cmd = {
  * 3rd read: 14 bytes payload + 2 crc
  *
  */
-<<<<<<< HEAD
 #ifdef CONFIG_MACH_WT86518
 extern int Packet_PLAG;
 #endif
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 int mdss_dsi_cmds_rx(struct mdss_dsi_ctrl_pdata *ctrl,
 			struct dsi_cmd_desc *cmds, int rlen, int use_dma_tpg)
 {
@@ -1648,7 +1616,6 @@ do_send:
 	while (!end) {
 		pr_debug("%s:  rlen=%d pkt_size=%d rx_byte=%d\n",
 				__func__, rlen, pkt_size, rx_byte);
-<<<<<<< HEAD
 #ifdef CONFIG_MACH_WT86518
 		if(Packet_PLAG==0){
 			max_pktsize[0] = pkt_size;
@@ -1681,8 +1648,6 @@ do_send:
 			
 		}
 #else
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		max_pktsize[0] = pkt_size;
 		mdss_dsi_buf_init(tp);
 		ret = mdss_dsi_cmd_dma_add(tp, &pkt_size_cmd);
@@ -1711,11 +1676,7 @@ do_send:
 		}
 		pr_debug("%s: max_pkt_size=%d sent\n",
 					__func__, pkt_size);
-<<<<<<< HEAD
 #endif
-=======
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		mdss_dsi_buf_init(tp);
 		ret = mdss_dsi_cmd_dma_add(tp, cmds);
 		if (!ret) {
@@ -2114,18 +2075,14 @@ void mdss_dsi_wait4video_done(struct mdss_dsi_ctrl_pdata *ctrl)
 static int mdss_dsi_wait4video_eng_busy(struct mdss_dsi_ctrl_pdata *ctrl)
 {
 	int ret = 0;
-<<<<<<< HEAD
 	u32 v_total = 0, v_blank = 0, sleep_ms = 0, fps = 0;
 	struct mdss_panel_info *pinfo = &ctrl->panel_data.panel_info;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (ctrl->panel_mode == DSI_CMD_MODE)
 		return ret;
 
 	if (ctrl->ctrl_state & CTRL_STATE_MDP_ACTIVE) {
 		mdss_dsi_wait4video_done(ctrl);
-<<<<<<< HEAD
 		v_total = mdss_panel_get_vtotal(pinfo);
 		v_blank = pinfo->lcdc.v_back_porch + pinfo->lcdc.v_pulse_width;
 		fps = pinfo->mipi.frame_rate;
@@ -2134,10 +2091,6 @@ static int mdss_dsi_wait4video_eng_busy(struct mdss_dsi_ctrl_pdata *ctrl)
 		/* delay sleep_ms to skip BLLP */
 		if (sleep_ms)
 			usleep(sleep_ms * 1000);
-=======
-		/* delay 4 ms to skip BLLP */
-		usleep(4000);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		ret = 1;
 	}
 
@@ -2458,7 +2411,6 @@ static int dsi_event_thread(void *data)
 	spin_lock_init(&ev->event_lock);
 
 	while (1) {
-<<<<<<< HEAD
 		ret = wait_event_interruptible(ev->event_q,
 			(ev->event_pndx != ev->event_gndx) ||
 			kthread_should_stop());
@@ -2467,9 +2419,6 @@ static int dsi_event_thread(void *data)
 			pr_debug("%s: interrupted\n", __func__);
 			continue;
 		}
-=======
-		wait_event(ev->event_q, (ev->event_pndx != ev->event_gndx));
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		spin_lock_irqsave(&ev->event_lock, flag);
 		evq = &ev->todo_list[ev->event_gndx++];
 		todo = evq->todo;

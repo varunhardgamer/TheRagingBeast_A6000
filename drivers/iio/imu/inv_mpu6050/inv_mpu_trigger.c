@@ -135,11 +135,7 @@ int inv_mpu6050_probe_trigger(struct iio_dev *indio_dev)
 	ret = iio_trigger_register(st->trig);
 	if (ret)
 		goto error_free_irq;
-<<<<<<< HEAD
 	indio_dev->trig = iio_trigger_get(st->trig);
-=======
-	indio_dev->trig = st->trig;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	return 0;
 

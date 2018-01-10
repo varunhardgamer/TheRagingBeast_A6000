@@ -549,7 +549,6 @@ group_add_out:
 	}
 
 	case EXT4_IOC_SWAP_BOOT:
-<<<<<<< HEAD
 	{
 		int err;
 		if (!(filp->f_mode & FMODE_WRITE))
@@ -561,11 +560,6 @@ group_add_out:
 		mnt_drop_write_file(filp);
 		return err;
 	}
-=======
-		if (!(filp->f_mode & FMODE_WRITE))
-			return -EBADF;
-		return swap_inode_boot_loader(sb, inode);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	case EXT4_IOC_RESIZE_FS: {
 		ext4_fsblk_t n_blocks_count;

@@ -73,11 +73,7 @@ smb2_open_file(const unsigned int xid, struct cifs_tcon *tcon, const char *path,
 		goto out;
 	}
 
-<<<<<<< HEAD
 	smb2_data = kzalloc(sizeof(struct smb2_file_all_info) + PATH_MAX * 2,
-=======
-	smb2_data = kzalloc(sizeof(struct smb2_file_all_info) + MAX_NAME * 2,
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			    GFP_KERNEL);
 	if (smb2_data == NULL) {
 		rc = -ENOMEM;
@@ -270,11 +266,7 @@ smb2_push_mandatory_locks(struct cifsFileInfo *cfile)
 	 * and check it for zero before using.
 	 */
 	max_buf = tlink_tcon(cfile->tlink)->ses->server->maxBuf;
-<<<<<<< HEAD
 	if (max_buf < sizeof(struct smb2_lock_element)) {
-=======
-	if (!max_buf) {
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		free_xid(xid);
 		return -EINVAL;
 	}

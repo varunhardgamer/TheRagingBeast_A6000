@@ -289,10 +289,7 @@ void ocfs2_stack_glue_set_max_proto_version(struct ocfs2_protocol_version *max_p
 int ocfs2_stack_glue_register(struct ocfs2_stack_plugin *plugin);
 void ocfs2_stack_glue_unregister(struct ocfs2_stack_plugin *plugin);
 
-<<<<<<< HEAD
 /* In ocfs2_downconvert_lock(), we need to know which stack we are using */
 int ocfs2_is_o2cb_active(void);
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #endif  /* STACKGLUE_H */

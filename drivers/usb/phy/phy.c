@@ -78,13 +78,9 @@ static void devm_usb_phy_release(struct device *dev, void *res)
 
 static int devm_usb_phy_match(struct device *dev, void *res, void *match_data)
 {
-<<<<<<< HEAD
 	struct usb_phy **phy = res;
 
 	return *phy == match_data;
-=======
-	return res == match_data;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 /**
@@ -335,11 +331,8 @@ int usb_add_phy(struct usb_phy *x, enum usb_phy_type type)
 		return -EINVAL;
 	}
 
-<<<<<<< HEAD
 	ATOMIC_INIT_NOTIFIER_HEAD(&x->notifier);
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	spin_lock_irqsave(&phy_lock, flags);
 
 	list_for_each_entry(phy, &phy_list, head) {
@@ -378,11 +371,8 @@ int usb_add_phy_dev(struct usb_phy *x)
 		return -EINVAL;
 	}
 
-<<<<<<< HEAD
 	ATOMIC_INIT_NOTIFIER_HEAD(&x->notifier);
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	spin_lock_irqsave(&phy_lock, flags);
 	list_for_each_entry(phy_bind, &phy_bind_list, list)
 		if (!(strcmp(phy_bind->phy_dev_name, dev_name(x->dev))))

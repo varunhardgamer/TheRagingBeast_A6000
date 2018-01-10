@@ -122,10 +122,6 @@ good_area:
 			goto bad_area;
 	}
 
-<<<<<<< HEAD
-=======
-survive:
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/*
 	 * If for any reason at all we couldn't handle the fault,
 	 * make sure we exit gracefully rather than endlessly redo
@@ -164,11 +160,8 @@ survive:
 	/* TBD: switch to pagefault_out_of_memory() */
 	if (fault & VM_FAULT_OOM)
 		goto out_of_memory;
-<<<<<<< HEAD
 	else if (fault & VM_FAULT_SIGSEGV)
 		goto bad_area;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	else if (fault & VM_FAULT_SIGBUS)
 		goto do_sigbus;
 
@@ -210,23 +203,12 @@ no_context:
 	die("Oops", regs, address, cause_code);
 
 out_of_memory:
-<<<<<<< HEAD
 	up_read(&mm->mmap_sem);
 
 	if (user_mode(regs)) {
 		pagefault_out_of_memory();
 		return;
 	}
-=======
-	if (is_global_init(tsk)) {
-		yield();
-		goto survive;
-	}
-	up_read(&mm->mmap_sem);
-
-	if (user_mode(regs))
-		do_group_exit(SIGKILL);	/* This will never return */
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	goto no_context;
 

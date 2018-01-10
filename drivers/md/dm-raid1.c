@@ -604,7 +604,6 @@ static void write_callback(unsigned long error, void *context)
 		return;
 	}
 
-<<<<<<< HEAD
 	/*
 	 * If the bio is discard, return an error, but do not
 	 * degrade the array.
@@ -614,8 +613,6 @@ static void write_callback(unsigned long error, void *context)
 		return;
 	}
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	for (i = 0; i < ms->nr_mirrors; i++)
 		if (test_bit(i, &error))
 			fail_mirror(ms->mirror + i, DM_RAID1_WRITE_ERROR);

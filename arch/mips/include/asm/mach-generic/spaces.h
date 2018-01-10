@@ -90,16 +90,11 @@
 #endif
 
 #ifndef FIXADDR_TOP
-<<<<<<< HEAD
 #ifdef CONFIG_KVM_GUEST
 #define FIXADDR_TOP		((unsigned long)(long)(int)0x7ffe0000)
 #else
 #define FIXADDR_TOP		((unsigned long)(long)(int)0xfffe0000)
 #endif
 #endif
-=======
-#define FIXADDR_TOP		((unsigned long)(long)(int)0xfffe0000)
-#endif
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #endif /* __ASM_MACH_GENERIC_SPACES_H */

@@ -611,8 +611,4 @@ module_exit(cast6_exit);
 
 MODULE_DESCRIPTION("Cast6 Cipher Algorithm, AVX optimized");
 MODULE_LICENSE("GPL");
-<<<<<<< HEAD
 MODULE_ALIAS_CRYPTO("cast6");
-=======
-MODULE_ALIAS("cast6");
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c

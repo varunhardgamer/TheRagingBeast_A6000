@@ -1012,13 +1012,10 @@ void dccp_close(struct sock *sk, long timeout)
 		__kfree_skb(skb);
 	}
 
-<<<<<<< HEAD
 	/* If socket has been already reset kill it. */
 	if (sk->sk_state == DCCP_CLOSED)
 		goto adjudge_to_death;
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (data_was_unread) {
 		/* Unread data was tossed, send an appropriate Reset Code */
 		DCCP_WARN("ABORT with %u bytes unread\n", data_was_unread);

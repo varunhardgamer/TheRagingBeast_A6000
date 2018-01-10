@@ -2,11 +2,7 @@
 # Makefile for the kernel character device drivers.
 #
 
-<<<<<<< HEAD
 obj-y				+= mem.o random.o frandom.o
-=======
-obj-y				+= mem.o random.o
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 obj-$(CONFIG_TTY_PRINTK)	+= ttyprintk.o
 obj-y				+= misc.o
 obj-$(CONFIG_ATARI_DSP56K)	+= dsp56k.o

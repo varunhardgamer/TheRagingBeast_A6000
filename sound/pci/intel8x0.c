@@ -2885,10 +2885,7 @@ static void intel8x0_measure_ac97_clock(struct intel8x0 *chip)
 
 static struct snd_pci_quirk intel8x0_clock_list[] = {
 	SND_PCI_QUIRK(0x0e11, 0x008a, "AD1885", 41000),
-<<<<<<< HEAD
 	SND_PCI_QUIRK(0x1014, 0x0581, "AD1981B", 48000),
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	SND_PCI_QUIRK(0x1028, 0x00be, "AD1885", 44100),
 	SND_PCI_QUIRK(0x1028, 0x0177, "AD1980", 48000),
 	SND_PCI_QUIRK(0x1028, 0x01ad, "AD1981B", 48000),

@@ -114,10 +114,7 @@ int __ieee80211_suspend(struct ieee80211_hw *hw, struct cfg80211_wowlan *wowlan)
 			break;
 		}
 
-<<<<<<< HEAD
 		flush_delayed_work(&sdata->dec_tailroom_needed_wk);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		drv_remove_interface(local, sdata);
 	}
 

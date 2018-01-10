@@ -5,17 +5,13 @@
 
 enum {
 	XT_SOCKET_TRANSPARENT = 1 << 0,
-<<<<<<< HEAD
 	XT_SOCKET_NOWILDCARD = 1 << 1,
 	XT_SOCKET_RESTORESKMARK = 1 << 2,
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 
 struct xt_socket_mtinfo1 {
 	__u8 flags;
 };
-<<<<<<< HEAD
 #define XT_SOCKET_FLAGS_V1 XT_SOCKET_TRANSPARENT
 
 struct xt_socket_mtinfo2 {
@@ -29,8 +25,6 @@ struct xt_socket_mtinfo3 {
 #define XT_SOCKET_FLAGS_V3 (XT_SOCKET_TRANSPARENT \
 			   | XT_SOCKET_NOWILDCARD \
 			   | XT_SOCKET_RESTORESKMARK)
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 void xt_socket_put_sk(struct sock *sk);
 struct sock *xt_socket_get4_sk(const struct sk_buff *skb,

@@ -734,15 +734,12 @@ ssize_t tcp_splice_read(struct socket *sock, loff_t *ppos,
 				ret = -EAGAIN;
 				break;
 			}
-<<<<<<< HEAD
 			/* if __tcp_splice_read() got nothing while we have
 			 * an skb in receive queue, we do not want to loop.
 			 * This might happen with URG data.
 			 */
 			if (!skb_queue_empty(&sk->sk_receive_queue))
 				break;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			sk_wait_data(sk, &timeo);
 			if (signal_pending(current)) {
 				ret = sock_intr_errno(timeo);
@@ -1085,11 +1082,7 @@ int tcp_sendmsg(struct kiocb *iocb, struct sock *sk, struct msghdr *msg,
 	if (unlikely(tp->repair)) {
 		if (tp->repair_queue == TCP_RECV_QUEUE) {
 			copied = tcp_send_rcvq(sk, msg, size);
-<<<<<<< HEAD
 			goto out_nopush;
-=======
-			goto out;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		}
 
 		err = -EINVAL;
@@ -1262,10 +1255,7 @@ wait_for_memory:
 out:
 	if (copied)
 		tcp_push(sk, flags, mss_now, tp->nonagle);
-<<<<<<< HEAD
 out_nopush:
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	release_sock(sk);
 
 	if (copied + copied_syn)
@@ -2346,7 +2336,6 @@ int tcp_disconnect(struct sock *sk, int flags)
 	tcp_set_ca_state(sk, TCP_CA_Open);
 	tcp_clear_retrans(tp);
 	inet_csk_delack_init(sk);
-<<<<<<< HEAD
 	/* Initialize rcv_mss to TCP_MIN_MSS to avoid division by 0
 	 * issue in __tcp_select_window()
 	 */
@@ -2356,11 +2345,6 @@ int tcp_disconnect(struct sock *sk, int flags)
 	__sk_dst_reset(sk);
 	dst_release(sk->sk_rx_dst);
 	sk->sk_rx_dst = NULL;
-=======
-	tcp_init_send_head(sk);
-	memset(&tp->rx_opt, 0, sizeof(tp->rx_opt));
-	__sk_dst_reset(sk);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	WARN_ON(inet->inet_num && !icsk->icsk_bind_hash);
 
@@ -3415,7 +3399,6 @@ void tcp_done(struct sock *sk)
 }
 EXPORT_SYMBOL_GPL(tcp_done);
 
-<<<<<<< HEAD
 int tcp_abort(struct sock *sk, int err)
 {
 	if (sk->sk_state == TCP_TIME_WAIT) {
@@ -3453,8 +3436,6 @@ int tcp_abort(struct sock *sk, int err)
 }
 EXPORT_SYMBOL_GPL(tcp_abort);
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 extern struct tcp_congestion_ops tcp_reno;
 
 static __initdata unsigned long thash_entries;
@@ -3606,11 +3587,7 @@ int tcp_nuke_addr(struct net *net, struct sockaddr *addr)
 		return -EAFNOSUPPORT;
 	}
 
-<<<<<<< HEAD
 	for (bucket = 0; bucket <= tcp_hashinfo.ehash_mask; bucket++) {
-=======
-	for (bucket = 0; bucket < tcp_hashinfo.ehash_mask; bucket++) {
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		struct hlist_nulls_node *node;
 		struct sock *sk;
 		spinlock_t *lock = inet_ehash_lockp(&tcp_hashinfo, bucket);

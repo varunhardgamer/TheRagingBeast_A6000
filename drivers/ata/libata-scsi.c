@@ -673,7 +673,6 @@ static int ata_ioc32(struct ata_port *ap)
 int ata_sas_scsi_ioctl(struct ata_port *ap, struct scsi_device *scsidev,
 		     int cmd, void __user *arg)
 {
-<<<<<<< HEAD
 	unsigned long val;
 	int rc = -EINVAL;
 	unsigned long flags;
@@ -686,21 +685,6 @@ int ata_sas_scsi_ioctl(struct ata_port *ap, struct scsi_device *scsidev,
 		return put_user(val, (unsigned long __user *)arg);
 
 	case HDIO_SET_32BIT:
-=======
-	int val = -EINVAL, rc = -EINVAL;
-	unsigned long flags;
-
-	switch (cmd) {
-	case ATA_IOC_GET_IO32:
-		spin_lock_irqsave(ap->lock, flags);
-		val = ata_ioc32(ap);
-		spin_unlock_irqrestore(ap->lock, flags);
-		if (copy_to_user(arg, &val, 1))
-			return -EFAULT;
-		return 0;
-
-	case ATA_IOC_SET_IO32:
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		val = (unsigned long) arg;
 		rc = 0;
 		spin_lock_irqsave(ap->lock, flags);
@@ -2527,12 +2511,8 @@ static unsigned int ata_scsiop_read_cap(struct ata_scsi_args *args, u8 *rbuf)
 		rbuf[14] = (lowest_aligned >> 8) & 0x3f;
 		rbuf[15] = lowest_aligned;
 
-<<<<<<< HEAD
 		if (ata_id_has_trim(args->id) &&
 		    !(dev->horkage & ATA_HORKAGE_NOTRIM)) {
-=======
-		if (ata_id_has_trim(args->id)) {
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			rbuf[14] |= 0x80; /* TPE */
 
 			if (ata_id_has_zero_after_trim(args->id))
@@ -2814,19 +2794,12 @@ static unsigned int atapi_xlat(struct ata_queued_cmd *qc)
 static struct ata_device *ata_find_dev(struct ata_port *ap, int devno)
 {
 	if (!sata_pmp_attached(ap)) {
-<<<<<<< HEAD
 		if (likely(devno >= 0 &&
 			   devno < ata_link_max_devices(&ap->link)))
 			return &ap->link.device[devno];
 	} else {
 		if (likely(devno >= 0 &&
 			   devno < ap->nr_pmp_links))
-=======
-		if (likely(devno < ata_link_max_devices(&ap->link)))
-			return &ap->link.device[devno];
-	} else {
-		if (likely(devno < ap->nr_pmp_links))
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			return &ap->pmp_link[devno].device[0];
 	}
 

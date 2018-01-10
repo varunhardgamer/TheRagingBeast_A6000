@@ -51,11 +51,7 @@ struct pcifront_device {
 };
 
 struct pcifront_sd {
-<<<<<<< HEAD
 	struct pci_sysdata sd;
-=======
-	int domain;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	struct pcifront_device *pdev;
 };
 
@@ -69,13 +65,9 @@ static inline void pcifront_init_sd(struct pcifront_sd *sd,
 				    unsigned int domain, unsigned int bus,
 				    struct pcifront_device *pdev)
 {
-<<<<<<< HEAD
 	/* Because we do not expose that information via XenBus. */
 	sd->sd.node = first_online_node;
 	sd->sd.domain = domain;
-=======
-	sd->domain = domain;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	sd->pdev = pdev;
 }
 
@@ -473,13 +465,8 @@ static int pcifront_scan_root(struct pcifront_device *pdev,
 	dev_info(&pdev->xdev->dev, "Creating PCI Frontend Bus %04x:%02x\n",
 		 domain, bus);
 
-<<<<<<< HEAD
 	bus_entry = kzalloc(sizeof(*bus_entry), GFP_KERNEL);
 	sd = kzalloc(sizeof(*sd), GFP_KERNEL);
-=======
-	bus_entry = kmalloc(sizeof(*bus_entry), GFP_KERNEL);
-	sd = kmalloc(sizeof(*sd), GFP_KERNEL);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (!bus_entry || !sd) {
 		err = -ENOMEM;
 		goto err_out;

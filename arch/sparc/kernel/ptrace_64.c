@@ -308,11 +308,7 @@ static int genregs64_set(struct task_struct *target,
 	}
 
 	if (!ret) {
-<<<<<<< HEAD
 		unsigned long y = regs->y;
-=======
-		unsigned long y;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 		ret = user_regset_copyin(&pos, &count, &kbuf, &ubuf,
 					 &y,

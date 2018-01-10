@@ -222,12 +222,8 @@ static int __kprobes do_page_fault(unsigned long addr, unsigned int esr,
 
 	if (esr & ESR_LNX_EXEC) {
 		vm_flags = VM_EXEC;
-<<<<<<< HEAD
 	} else if (((esr & ESR_EL1_WRITE) && !(esr & ESR_EL1_CM)) ||
 			((esr & ESR_EL1_CM) && !(mm_flags & FAULT_FLAG_USER))) {
-=======
-	} else if (esr & ESR_EL1_WRITE) {
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		vm_flags = VM_WRITE;
 		mm_flags |= FAULT_FLAG_WRITE;
 	}
@@ -287,10 +283,7 @@ retry:
 			 * starvation.
 			 */
 			mm_flags &= ~FAULT_FLAG_ALLOW_RETRY;
-<<<<<<< HEAD
 			mm_flags |= FAULT_FLAG_TRIED;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			goto retry;
 		}
 	}

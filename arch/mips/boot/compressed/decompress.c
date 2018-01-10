@@ -13,10 +13,7 @@
 
 #include <linux/types.h>
 #include <linux/kernel.h>
-<<<<<<< HEAD
 #include <linux/string.h>
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #include <asm/addrspace.h>
 

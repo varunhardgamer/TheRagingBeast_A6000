@@ -695,7 +695,6 @@ int page_swapcount(struct page *page)
 }
 
 /*
-<<<<<<< HEAD
  * How many references to @entry are currently swapped out?
  * This considers COUNT_CONTINUED so it returns exact answer.
  */
@@ -738,8 +737,6 @@ out:
 }
 
 /*
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  * We can write to an anon page without COW if there are no other references
  * to it.  And as a side-effect, free up its swap: because the old content
  * on disk will never be read, and seeking back there to write new content
@@ -1991,11 +1988,8 @@ static unsigned long read_swap_header(struct swap_info_struct *p,
 		swab32s(&swap_header->info.version);
 		swab32s(&swap_header->info.last_page);
 		swab32s(&swap_header->info.nr_badpages);
-<<<<<<< HEAD
 		if (swap_header->info.nr_badpages > MAX_SWAP_BADPAGES)
 			return 0;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		for (i = 0; i < swap_header->info.nr_badpages; i++)
 			swab32s(&swap_header->info.badpages[i]);
 	}

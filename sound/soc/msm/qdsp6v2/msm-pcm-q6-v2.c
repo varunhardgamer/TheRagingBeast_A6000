@@ -1123,11 +1123,7 @@ static int msm_pcm_app_type_cfg_ctl_put(struct snd_kcontrol *kcontrol,
 	pr_debug("%s: app_type- %d acdb_dev_id- %d sample_rate- %d\n",
 		__func__, app_type, acdb_dev_id, sample_rate);
 	msm_pcm_routing_reg_stream_app_type_cfg(fe_id, app_type,
-<<<<<<< HEAD
 						acdb_dev_id, sample_rate, SESSION_TYPE_RX);
-=======
-						acdb_dev_id, sample_rate);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	return 0;
 }

@@ -111,13 +111,10 @@ struct kimage {
 #define KEXEC_TYPE_CRASH   1
 	unsigned int preserve_context : 1;
 
-<<<<<<< HEAD
 #ifdef CONFIG_KEXEC_HARDBOOT
 	unsigned int hardboot : 1;
 #endif
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #ifdef ARCH_HAS_KIMAGE_ARCH
 	struct kimage_arch arch;
 #endif
@@ -182,7 +179,6 @@ extern struct kimage *kexec_crash_image;
 #define kexec_flush_icache_page(page)
 #endif
 
-<<<<<<< HEAD
 #ifdef CONFIG_KEXEC_HARDBOOT
 #define KEXEC_HARDBOOT		0x00000004
 #endif
@@ -196,13 +192,6 @@ extern struct kimage *kexec_crash_image;
 #define KEXEC_FLAGS    (KEXEC_ON_CRASH | KEXEC_HARDBOOT)
 #else
 #define KEXEC_FLAGS    (KEXEC_ON_CRASH)
-=======
-/* List of defined/legal kexec flags */
-#ifndef CONFIG_KEXEC_JUMP
-#define KEXEC_FLAGS    KEXEC_ON_CRASH
-#else
-#define KEXEC_FLAGS    (KEXEC_ON_CRASH | KEXEC_PRESERVE_CONTEXT)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #endif
 
 #define VMCOREINFO_BYTES           (4096)

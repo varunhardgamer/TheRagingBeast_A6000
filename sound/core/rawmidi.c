@@ -934,18 +934,13 @@ static long snd_rawmidi_kernel_read1(struct snd_rawmidi_substream *substream,
 	unsigned long flags;
 	long result = 0, count1;
 	struct snd_rawmidi_runtime *runtime = substream->runtime;
-<<<<<<< HEAD
 	unsigned long appl_ptr;
 
 	spin_lock_irqsave(&runtime->lock, flags);
-=======
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	while (count > 0 && runtime->avail) {
 		count1 = runtime->buffer_size - runtime->appl_ptr;
 		if (count1 > count)
 			count1 = count;
-<<<<<<< HEAD
 		if (count1 > (int)runtime->avail)
 			count1 = runtime->avail;
 
@@ -961,35 +956,14 @@ static long snd_rawmidi_kernel_read1(struct snd_rawmidi_substream *substream,
 			spin_unlock_irqrestore(&runtime->lock, flags);
 			if (copy_to_user(userbuf + result,
 					 runtime->buffer + appl_ptr, count1)) {
-=======
-		spin_lock_irqsave(&runtime->lock, flags);
-		if (count1 > (int)runtime->avail)
-			count1 = runtime->avail;
-		if (kernelbuf)
-			memcpy(kernelbuf + result, runtime->buffer + runtime->appl_ptr, count1);
-		if (userbuf) {
-			spin_unlock_irqrestore(&runtime->lock, flags);
-			if (copy_to_user(userbuf + result,
-					 runtime->buffer + runtime->appl_ptr, count1)) {
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 				return result > 0 ? result : -EFAULT;
 			}
 			spin_lock_irqsave(&runtime->lock, flags);
 		}
-<<<<<<< HEAD
 		result += count1;
 		count -= count1;
 	}
 	spin_unlock_irqrestore(&runtime->lock, flags);
-=======
-		runtime->appl_ptr += count1;
-		runtime->appl_ptr %= runtime->buffer_size;
-		runtime->avail -= count1;
-		spin_unlock_irqrestore(&runtime->lock, flags);
-		result += count1;
-		count -= count1;
-	}
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return result;
 }
 
@@ -1192,14 +1166,9 @@ static long snd_rawmidi_kernel_write1(struct snd_rawmidi_substream *substream,
 	unsigned long flags;
 	long count1, result;
 	struct snd_rawmidi_runtime *runtime = substream->runtime;
-<<<<<<< HEAD
 	unsigned long appl_ptr;
 
 	if (!kernelbuf && !userbuf)
-=======
-
-	if (snd_BUG_ON(!kernelbuf && !userbuf))
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		return -EINVAL;
 	if (snd_BUG_ON(!runtime->buffer))
 		return -EINVAL;
@@ -1218,7 +1187,6 @@ static long snd_rawmidi_kernel_write1(struct snd_rawmidi_substream *substream,
 			count1 = count;
 		if (count1 > (long)runtime->avail)
 			count1 = runtime->avail;
-<<<<<<< HEAD
 
 		/* update runtime->appl_ptr before unlocking for userbuf */
 		appl_ptr = runtime->appl_ptr;
@@ -1232,14 +1200,6 @@ static long snd_rawmidi_kernel_write1(struct snd_rawmidi_substream *substream,
 		else if (userbuf) {
 			spin_unlock_irqrestore(&runtime->lock, flags);
 			if (copy_from_user(runtime->buffer + appl_ptr,
-=======
-		if (kernelbuf)
-			memcpy(runtime->buffer + runtime->appl_ptr,
-			       kernelbuf + result, count1);
-		else if (userbuf) {
-			spin_unlock_irqrestore(&runtime->lock, flags);
-			if (copy_from_user(runtime->buffer + runtime->appl_ptr,
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 					   userbuf + result, count1)) {
 				spin_lock_irqsave(&runtime->lock, flags);
 				result = result > 0 ? result : -EFAULT;
@@ -1247,12 +1207,6 @@ static long snd_rawmidi_kernel_write1(struct snd_rawmidi_substream *substream,
 			}
 			spin_lock_irqsave(&runtime->lock, flags);
 		}
-<<<<<<< HEAD
-=======
-		runtime->appl_ptr += count1;
-		runtime->appl_ptr %= runtime->buffer_size;
-		runtime->avail -= count1;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		result += count1;
 		count -= count1;
 	}
@@ -1610,18 +1564,12 @@ static int snd_rawmidi_dev_register(struct snd_device *device)
 	}
 	list_add_tail(&rmidi->list, &snd_rawmidi_devices);
 	sprintf(name, "midiC%iD%i", rmidi->card->number, rmidi->device);
-<<<<<<< HEAD
 	mutex_unlock(&register_mutex);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if ((err = snd_register_device(SNDRV_DEVICE_TYPE_RAWMIDI,
 				       rmidi->card, rmidi->device,
 				       &snd_rawmidi_f_ops, rmidi, name)) < 0) {
 		snd_printk(KERN_ERR "unable to register rawmidi device %i:%i\n", rmidi->card->number, rmidi->device);
-<<<<<<< HEAD
 		mutex_lock(&register_mutex);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		list_del(&rmidi->list);
 		mutex_unlock(&register_mutex);
 		return err;
@@ -1629,10 +1577,7 @@ static int snd_rawmidi_dev_register(struct snd_device *device)
 	if (rmidi->ops && rmidi->ops->dev_register &&
 	    (err = rmidi->ops->dev_register(rmidi)) < 0) {
 		snd_unregister_device(SNDRV_DEVICE_TYPE_RAWMIDI, rmidi->card, rmidi->device);
-<<<<<<< HEAD
 		mutex_lock(&register_mutex);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		list_del(&rmidi->list);
 		mutex_unlock(&register_mutex);
 		return err;
@@ -1661,10 +1606,6 @@ static int snd_rawmidi_dev_register(struct snd_device *device)
 		}
 	}
 #endif /* CONFIG_SND_OSSEMUL */
-<<<<<<< HEAD
-=======
-	mutex_unlock(&register_mutex);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	sprintf(name, "midi%d", rmidi->device);
 	entry = snd_info_create_card_entry(rmidi->card, name, rmidi->card->proc_root);
 	if (entry) {

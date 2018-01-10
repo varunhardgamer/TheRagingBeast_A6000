@@ -33,15 +33,12 @@
  */
 #define Q6_READY_TIMEOUT_MS 100
 
-<<<<<<< HEAD
 enum {
 	META_CAL,
 	CUST_TOP_CAL,
 	CORE_MAX_CAL
 };
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 struct q6core_str {
 	struct apr_svc *core_handle_q;
 	wait_queue_head_t bus_bw_req_wait;
@@ -49,12 +46,8 @@ struct q6core_str {
 	u32 bus_bw_resp_received;
 	enum cmd_flags {
 		FLAG_NONE,
-<<<<<<< HEAD
 		FLAG_CMDRSP_LICENSE_RESULT,
 		FLAG_AVCS_GET_VERSIONS_RESULT,
-=======
-		FLAG_CMDRSP_LICENSE_RESULT
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	} cmd_resp_received_flag;
 	struct mutex cmd_lock;
 	union {
@@ -63,14 +56,10 @@ struct q6core_str {
 	} cmd_resp_payload;
 	struct avcs_cmd_rsp_get_low_power_segments_info_t lp_ocm_payload;
 	u32 param;
-<<<<<<< HEAD
 	u32 q6_core_avs_version;
 	struct cal_type_data *cal_data[CORE_MAX_CAL];
 	uint32_t mem_map_cal_handle;
 	int32_t adsp_status;
-=======
-	struct cal_type_data *cal_data;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 
 static struct q6core_str q6core_lcl;
@@ -115,7 +104,6 @@ static int32_t aprv2_core_fn_q(struct apr_client_data *data, void *priv)
 			pr_info("%s: Cmd = AVCS_CMD_GET_LOW_POWER_SEGMENTS_INFO status[0x%x]\n",
 				__func__, payload1[1]);
 			break;
-<<<<<<< HEAD
 		case AVCS_CMD_SHARED_MEM_UNMAP_REGIONS:
 			pr_debug("%s: Cmd = AVCS_CMD_SHARED_MEM_UNMAP_REGIONS status[0x%x]\n",
 				__func__, payload1[1]);
@@ -142,8 +130,6 @@ static int32_t aprv2_core_fn_q(struct apr_client_data *data, void *priv)
 			q6core_lcl.bus_bw_resp_received = 1;
 			wake_up(&q6core_lcl.bus_bw_req_wait);
 			break;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		default:
 			pr_err("%s: Invalid cmd rsp[0x%x][0x%x] opcode %d\n",
 					__func__,
@@ -186,7 +172,6 @@ static int32_t aprv2_core_fn_q(struct apr_client_data *data, void *priv)
 		q6core_lcl.core_handle_q = NULL;
 		break;
 	}
-<<<<<<< HEAD
 	case AVCS_CMDRSP_SHARED_MEM_MAP_REGIONS:
 		payload1 = data->payload;
 		pr_debug("%s: AVCS_CMDRSP_SHARED_MEM_MAP_REGIONS handle %d\n",
@@ -195,9 +180,6 @@ static int32_t aprv2_core_fn_q(struct apr_client_data *data, void *priv)
 		q6core_lcl.bus_bw_resp_received = 1;
 		wake_up(&q6core_lcl.bus_bw_req_wait);
 		break;
-=======
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	case AVCS_CMDRSP_ADSP_EVENT_GET_STATE:
 		payload1 = data->payload;
 		q6core_lcl.param = payload1[0];
@@ -208,7 +190,6 @@ static int32_t aprv2_core_fn_q(struct apr_client_data *data, void *priv)
 		q6core_lcl.bus_bw_resp_received = 1;
 		wake_up(&q6core_lcl.bus_bw_req_wait);
 		break;
-<<<<<<< HEAD
 	case AVCS_GET_VERSIONS_RSP:
 		payload1 = data->payload;
 		pr_debug("%s: Received ADSP version response[3]0x%x\n",
@@ -236,9 +217,6 @@ static int32_t aprv2_core_fn_q(struct apr_client_data *data, void *priv)
 		break;
 
 	 case AVCS_CMDRSP_GET_LICENSE_VALIDATION_RESULT:
-=======
-	case AVCS_CMDRSP_GET_LICENSE_VALIDATION_RESULT:
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		payload1 = data->payload;
 		pr_debug("%s: cmd = LICENSE_VALIDATION_RESULT, result = 0x%x\n",
 				__func__, payload1[0]);
@@ -264,10 +242,6 @@ static int32_t aprv2_core_fn_q(struct apr_client_data *data, void *priv)
 		}
 		break;
 	}
-<<<<<<< HEAD
-=======
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return 0;
 }
 
@@ -296,29 +270,18 @@ int32_t core_set_license(uint32_t key, uint32_t module_id)
 	pr_debug("%s: key:0x%x, id:0x%x\n", __func__, key, module_id);
 
 	mutex_lock(&(q6core_lcl.cmd_lock));
-<<<<<<< HEAD
 	if (q6core_lcl.cal_data[META_CAL] == NULL) {
-=======
-	if (q6core_lcl.cal_data == NULL) {
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		pr_err("%s: cal_data not initialized yet!!\n", __func__);
 		rc = -EINVAL;
 		goto unlock1;
 	}
 
-<<<<<<< HEAD
 	mutex_lock(&((q6core_lcl.cal_data[META_CAL])->lock));
 	cal_block =
 		cal_utils_get_only_cal_block(q6core_lcl.cal_data[META_CAL]);
 	if (cal_block == NULL ||
 		cal_block->cal_data.kvaddr == NULL ||
 		cal_block->cal_data.size <= 0) {
-=======
-	mutex_lock(&((q6core_lcl.cal_data)->lock));
-	cal_block = cal_utils_get_only_cal_block(q6core_lcl.cal_data);
-	if (cal_block == NULL || cal_block->cal_data.kvaddr == NULL ||
-					cal_block->cal_data.size <= 0) {
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		pr_err("%s: Invalid cal block to send", __func__);
 		rc = -EINVAL;
 		goto unlock2;
@@ -370,12 +333,8 @@ int32_t core_set_license(uint32_t key, uint32_t module_id)
 	cmd_setl->overwrite = 1;
 	cmd_setl->size = cal_block->cal_data.size;
 	memcpy((uint8_t *)cmd_setl + sizeof(struct avcs_cmd_set_license),
-<<<<<<< HEAD
 		cal_block->cal_data.kvaddr,
 		cal_block->cal_data.size);
-=======
-			cal_block->cal_data.kvaddr, cal_block->cal_data.size);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	pr_info("%s: Set license opcode=0x%x ,key=0x%x, id =0x%x, size = %d\n",
 			__func__, cmd_setl->hdr.opcode,
 			metainfo->nKey, cmd_setl->id, cmd_setl->size);
@@ -387,18 +346,13 @@ int32_t core_set_license(uint32_t key, uint32_t module_id)
 fail_cmd:
 	kfree(cmd_setl);
 unlock2:
-<<<<<<< HEAD
 	mutex_unlock(&((q6core_lcl.cal_data[META_CAL])->lock));
-=======
-	mutex_unlock(&((q6core_lcl.cal_data)->lock));
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 unlock1:
 	mutex_unlock(&(q6core_lcl.cmd_lock));
 
 	return rc;
 }
 
-<<<<<<< HEAD
 int core_get_adsp_ver(void)
 {
 	struct avcs_cmd_get_version_result get_aver_cmd;
@@ -458,8 +412,6 @@ enum q6_subsys_image q6core_get_avs_version(void)
 	return q6core_lcl.q6_core_avs_version;
 }
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 int32_t core_get_license_status(uint32_t module_id)
 {
 	struct avcs_cmd_get_license_validation_result get_lvr_cmd;
@@ -486,11 +438,7 @@ int32_t core_get_license_status(uint32_t module_id)
 	get_lvr_cmd.hdr.opcode = AVCS_CMD_GET_LICENSE_VALIDATION_RESULT;
 	get_lvr_cmd.id = module_id;
 
-<<<<<<< HEAD
 	q6core_lcl.cmd_resp_received_flag &= ~(FLAG_CMDRSP_LICENSE_RESULT);
-=======
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	ret = apr_send_pkt(q6core_lcl.core_handle_q, (uint32_t *) &get_lvr_cmd);
 	if (ret < 0) {
 		pr_err("%s: license_validation request failed, err %d\n",
@@ -499,10 +447,6 @@ int32_t core_get_license_status(uint32_t module_id)
 		goto fail_cmd;
 	}
 
-<<<<<<< HEAD
-=======
-	q6core_lcl.cmd_resp_received_flag &= ~(FLAG_CMDRSP_LICENSE_RESULT);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	mutex_unlock(&(q6core_lcl.cmd_lock));
 	ret = wait_event_timeout(q6core_lcl.cmd_req_wait,
 			(q6core_lcl.cmd_resp_received_flag ==
@@ -533,7 +477,6 @@ uint32_t core_set_dolby_manufacturer_id(int manufacturer_id)
 
 	pr_debug("%s: manufacturer_id :%d\n", __func__, manufacturer_id);
 	mutex_lock(&(q6core_lcl.cmd_lock));
-<<<<<<< HEAD
 
 	ocm_core_open();
         if (q6core_lcl.core_handle_q == NULL) {
@@ -542,9 +485,6 @@ uint32_t core_set_dolby_manufacturer_id(int manufacturer_id)
                 goto fail_cmd;
         }
 
-=======
-	ocm_core_open();
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (q6core_lcl.core_handle_q) {
 		payload.hdr.hdr_field = APR_HDR_FIELD(APR_MSG_TYPE_EVENT,
 			APR_HDR_LEN(APR_HDR_SIZE), APR_PKT_VER);
@@ -566,14 +506,10 @@ uint32_t core_set_dolby_manufacturer_id(int manufacturer_id)
 					__func__, payload.hdr.opcode, rc);
 		}
 	}
-<<<<<<< HEAD
 
 fail_cmd:
 	mutex_unlock(&(q6core_lcl.cmd_lock));
 
-=======
-	mutex_unlock(&(q6core_lcl.cmd_lock));
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return rc;
 }
 
@@ -662,7 +598,6 @@ bail:
 	return ret;
 }
 
-<<<<<<< HEAD
 
 static int q6core_map_memory_regions(phys_addr_t *buf_add, uint32_t mempool_id,
 			uint32_t *bufsz, uint32_t bufcnt, uint32_t *map_handle)
@@ -968,28 +903,12 @@ static int q6core_alloc_cal(int32_t cal_type,
 		goto done;
 	}
 done:
-=======
-static int q6core_alloc_cal(int32_t cal_type,
-				size_t data_size, void *data)
-{
-	int				ret = 0;
-	pr_debug("%s:\n", __func__);
-
-	ret = cal_utils_alloc_cal(data_size, data,
-		q6core_lcl.cal_data, 0, NULL);
-	if (ret < 0) {
-		pr_err("%s: cal_utils_alloc_block failed, ret = %d, cal type = %d!\n",
-			__func__, ret, cal_type);
-		ret = -EINVAL;
-	}
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return ret;
 }
 
 static int q6core_dealloc_cal(int32_t cal_type,
 				size_t data_size, void *data)
 {
-<<<<<<< HEAD
 	int ret = 0;
 	int cal_index;
 
@@ -1010,18 +929,6 @@ static int q6core_dealloc_cal(int32_t cal_type,
 		goto done;
 	}
 done:
-=======
-	int				ret = 0;
-	pr_debug("%s:\n", __func__);
-
-	ret = cal_utils_dealloc_cal(data_size, data,
-		q6core_lcl.cal_data);
-	if (ret < 0) {
-		pr_err("%s: cal_utils_dealloc_block failed, ret = %d, cal type = %d!\n",
-			__func__, ret, cal_type);
-		ret = -EINVAL;
-	}
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return ret;
 }
 
@@ -1029,7 +936,6 @@ static int q6core_set_cal(int32_t cal_type,
 	size_t data_size, void *data)
 {
 	int ret = 0;
-<<<<<<< HEAD
 	int cal_index;
 
 	cal_index = get_cal_type_index(cal_type);
@@ -1052,17 +958,6 @@ static int q6core_set_cal(int32_t cal_type,
 	if (cal_index == CUST_TOP_CAL)
 		ret = q6core_send_custom_topologies();
 done:
-=======
-	pr_debug("%s:\n", __func__);
-
-	ret = cal_utils_set_cal(data_size, data,
-		q6core_lcl.cal_data, 0, NULL);
-	if (ret < 0) {
-		pr_err("%s: cal_utils_set_cal failed, ret = %d, cal type = %d!\n",
-		__func__, ret, cal_type);
-		ret = -EINVAL;
-	}
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return ret;
 }
 
@@ -1070,11 +965,7 @@ static void q6core_delete_cal_data(void)
 {
 	pr_debug("%s:\n", __func__);
 
-<<<<<<< HEAD
 	cal_utils_destroy_cal_types(CORE_MAX_CAL, q6core_lcl.cal_data);
-=======
-	cal_utils_destroy_cal_types(1, &q6core_lcl.cal_data);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return;
 }
 
@@ -1082,7 +973,6 @@ static void q6core_delete_cal_data(void)
 static int q6core_init_cal_data(void)
 {
 	int ret = 0;
-<<<<<<< HEAD
 	struct cal_type_info    cal_type_info[] = {
 		{{AUDIO_CORE_METAINFO_CAL_TYPE,
 		{q6core_alloc_cal, q6core_dealloc_cal, NULL,
@@ -1098,18 +988,6 @@ static int q6core_init_cal_data(void)
 
 	ret = cal_utils_create_cal_types(CORE_MAX_CAL,
 		q6core_lcl.cal_data, cal_type_info);
-=======
-	struct cal_type_info    cal_type_info = {
-		{AUDIO_CORE_METAINFO_CAL_TYPE,
-		{q6core_alloc_cal, q6core_dealloc_cal, NULL,
-		q6core_set_cal, NULL, NULL} },
-		{NULL, NULL, cal_utils_match_buf_num}
-	};
-	pr_debug("%s:\n", __func__);
-
-	ret = cal_utils_create_cal_types(1, &q6core_lcl.cal_data,
-		&cal_type_info);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (ret < 0) {
 		pr_err("%s: could not create cal type!\n",
 			__func__);
@@ -1133,11 +1011,8 @@ static int __init core_init(void)
 	init_waitqueue_head(&q6core_lcl.cmd_req_wait);
 	q6core_lcl.cmd_resp_received_flag = FLAG_NONE;
 	mutex_init(&q6core_lcl.cmd_lock);
-<<<<<<< HEAD
 	q6core_lcl.mem_map_cal_handle = 0;
 	q6core_lcl.adsp_status = 0;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (q6core_init_cal_data())
 		pr_err("%s: could not init cal data!\n", __func__);

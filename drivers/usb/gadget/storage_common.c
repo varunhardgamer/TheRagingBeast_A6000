@@ -580,7 +580,6 @@ static ssize_t fsg_show_nofua(struct device *dev, struct device_attribute *attr,
 	return sprintf(buf, "%u\n", curlun->nofua);
 }
 
-<<<<<<< HEAD
 static ssize_t fsg_show_cdrom (struct device *dev, struct device_attribute *attr,
 			   char *buf)
 {
@@ -589,8 +588,6 @@ static ssize_t fsg_show_cdrom (struct device *dev, struct device_attribute *attr
 	return sprintf(buf, "%d\n", curlun->cdrom);
 }
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #ifdef CONFIG_USB_MSC_PROFILING
 static ssize_t fsg_show_perf(struct device *dev, struct device_attribute *attr,
 			      char *buf)
@@ -747,7 +744,6 @@ static ssize_t fsg_store_file(struct device *dev, struct device_attribute *attr,
 	up_write(filesem);
 	return (rc < 0 ? rc : count);
 }
-<<<<<<< HEAD
 
 static ssize_t fsg_store_cdrom(struct device *dev, struct device_attribute *attr,
 				  const char *buf, size_t count)
@@ -777,5 +773,3 @@ static ssize_t fsg_store_cdrom(struct device *dev, struct device_attribute *attr
 	up_read(filesem);
 	return rc;
 }
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c

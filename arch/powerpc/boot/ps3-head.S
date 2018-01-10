@@ -57,14 +57,6 @@ __system_reset_overlay:
 	bctr
 
 1:
-<<<<<<< HEAD
-=======
-	/* Save the value at addr zero for a null pointer write check later. */
-
-	li	r4, 0
-	lwz	r3, 0(r4)
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/* Primary delays then goes to _zimage_start in wrapper. */
 
 	or	31, 31, 31 /* db16cyc */

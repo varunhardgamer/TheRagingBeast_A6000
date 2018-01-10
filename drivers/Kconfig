@@ -174,11 +174,6 @@ source "drivers/irqchip/Kconfig"
 
 source "drivers/ipack/Kconfig"
 
-<<<<<<< HEAD
-=======
-source "drivers/gud/Kconfig"
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 source "drivers/reset/Kconfig"
 
 source "drivers/coresight/Kconfig"
@@ -193,9 +188,6 @@ source "drivers/soc/Kconfig"
 
 source "drivers/firmware/Kconfig"
 
-<<<<<<< HEAD
 source "drivers/cpuquiet/Kconfig"
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 endmenu

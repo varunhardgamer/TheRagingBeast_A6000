@@ -817,7 +817,6 @@ static int ati_remote2_probe(struct usb_interface *interface, const struct usb_d
 
 	ar2->udev = udev;
 
-<<<<<<< HEAD
 	/* Sanity check, first interface must have an endpoint */
 	if (alt->desc.bNumEndpoints < 1 || !alt->endpoint) {
 		dev_err(&interface->dev,
@@ -849,36 +848,18 @@ static int ati_remote2_probe(struct usb_interface *interface, const struct usb_d
 		r = -ENODEV;
 		goto fail2;
 	}
-=======
-	ar2->intf[0] = interface;
-	ar2->ep[0] = &alt->endpoint[0].desc;
-
-	ar2->intf[1] = usb_ifnum_to_if(udev, 1);
-	r = usb_driver_claim_interface(&ati_remote2_driver, ar2->intf[1], ar2);
-	if (r)
-		goto fail1;
-	alt = ar2->intf[1]->cur_altsetting;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	ar2->ep[1] = &alt->endpoint[0].desc;
 
 	r = ati_remote2_urb_init(ar2);
 	if (r)
-<<<<<<< HEAD
 		goto fail3;
-=======
-		goto fail2;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	ar2->channel_mask = channel_mask;
 	ar2->mode_mask = mode_mask;
 
 	r = ati_remote2_setup(ar2, ar2->channel_mask);
 	if (r)
-<<<<<<< HEAD
 		goto fail3;
-=======
-		goto fail2;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	usb_make_path(udev, ar2->phys, sizeof(ar2->phys));
 	strlcat(ar2->phys, "/input0", sizeof(ar2->phys));
@@ -887,19 +868,11 @@ static int ati_remote2_probe(struct usb_interface *interface, const struct usb_d
 
 	r = sysfs_create_group(&udev->dev.kobj, &ati_remote2_attr_group);
 	if (r)
-<<<<<<< HEAD
 		goto fail3;
 
 	r = ati_remote2_input_init(ar2);
 	if (r)
 		goto fail4;
-=======
-		goto fail2;
-
-	r = ati_remote2_input_init(ar2);
-	if (r)
-		goto fail3;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	usb_set_intfdata(interface, ar2);
 
@@ -907,18 +880,11 @@ static int ati_remote2_probe(struct usb_interface *interface, const struct usb_d
 
 	return 0;
 
-<<<<<<< HEAD
  fail4:
 	sysfs_remove_group(&udev->dev.kobj, &ati_remote2_attr_group);
  fail3:
 	ati_remote2_urb_cleanup(ar2);
  fail2:
-=======
- fail3:
-	sysfs_remove_group(&udev->dev.kobj, &ati_remote2_attr_group);
- fail2:
-	ati_remote2_urb_cleanup(ar2);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	usb_driver_release_interface(&ati_remote2_driver, ar2->intf[1]);
  fail1:
 	kfree(ar2);

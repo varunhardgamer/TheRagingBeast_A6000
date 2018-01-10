@@ -176,20 +176,12 @@ META_COLLECTOR(int_vlan_tag)
 {
 	unsigned short tag;
 
-<<<<<<< HEAD
 	if (vlan_tx_tag_present(skb))
 		dst->value = vlan_tx_tag_get(skb);
 	else if (!__vlan_get_tag(skb, &tag))
 		dst->value = tag;
 	else
 		*err = -1;
-=======
-	tag = vlan_tx_tag_get(skb);
-	if (!tag && __vlan_get_tag(skb, &tag))
-		*err = -1;
-	else
-		dst->value = tag;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 

@@ -1290,11 +1290,8 @@ void ipoib_cm_destroy_tx(struct ipoib_cm_tx *tx)
 	}
 }
 
-<<<<<<< HEAD
 #define QPN_AND_OPTIONS_OFFSET	4
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static void ipoib_cm_tx_start(struct work_struct *work)
 {
 	struct ipoib_dev_priv *priv = container_of(work, struct ipoib_dev_priv,
@@ -1303,10 +1300,7 @@ static void ipoib_cm_tx_start(struct work_struct *work)
 	struct ipoib_neigh *neigh;
 	struct ipoib_cm_tx *p;
 	unsigned long flags;
-<<<<<<< HEAD
 	struct ipoib_path *path;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	int ret;
 
 	struct ib_sa_path_rec pathrec;
@@ -1319,7 +1313,6 @@ static void ipoib_cm_tx_start(struct work_struct *work)
 		p = list_entry(priv->cm.start_list.next, typeof(*p), list);
 		list_del_init(&p->list);
 		neigh = p->neigh;
-<<<<<<< HEAD
 
 		qpn = IPOIB_QPN(neigh->daddr);
 		/*
@@ -1333,9 +1326,6 @@ static void ipoib_cm_tx_start(struct work_struct *work)
 				neigh->daddr + QPN_AND_OPTIONS_OFFSET);
 			goto free_neigh;
 		}
-=======
-		qpn = IPOIB_QPN(neigh->daddr);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		memcpy(&pathrec, &p->path->pathrec, sizeof pathrec);
 
 		spin_unlock_irqrestore(&priv->lock, flags);
@@ -1347,10 +1337,7 @@ static void ipoib_cm_tx_start(struct work_struct *work)
 		spin_lock_irqsave(&priv->lock, flags);
 
 		if (ret) {
-<<<<<<< HEAD
 free_neigh:
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			neigh = p->neigh;
 			if (neigh) {
 				neigh->cm = NULL;
@@ -1495,7 +1482,6 @@ static ssize_t set_mode(struct device *d, struct device_attribute *attr,
 
 	ret = ipoib_set_mode(dev, buf);
 
-<<<<<<< HEAD
 	/* The assumption is that the function ipoib_set_mode returned
 	 * with the rtnl held by it, if not the value -EBUSY returned,
 	 * then no need to rtnl_unlock
@@ -1504,14 +1490,6 @@ static ssize_t set_mode(struct device *d, struct device_attribute *attr,
 		rtnl_unlock();
 
 	return (!ret || ret == -EBUSY) ? count : ret;
-=======
-	rtnl_unlock();
-
-	if (!ret)
-		return count;
-
-	return ret;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static DEVICE_ATTR(mode, S_IWUSR | S_IRUGO, show_mode, set_mode);

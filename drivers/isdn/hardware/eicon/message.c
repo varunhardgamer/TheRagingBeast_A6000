@@ -11304,12 +11304,8 @@ static void mixer_notify_update(PLCI *plci, byte others)
 				((CAPI_MSG *) msg)->header.ncci = 0;
 				((CAPI_MSG *) msg)->info.facility_req.Selector = SELECTOR_LINE_INTERCONNECT;
 				((CAPI_MSG *) msg)->info.facility_req.structs[0] = 3;
-<<<<<<< HEAD
 				((CAPI_MSG *) msg)->info.facility_req.structs[1] = LI_REQ_SILENT_UPDATE & 0xff;
 				((CAPI_MSG *) msg)->info.facility_req.structs[2] = LI_REQ_SILENT_UPDATE >> 8;
-=======
-				PUT_WORD(&(((CAPI_MSG *) msg)->info.facility_req.structs[1]), LI_REQ_SILENT_UPDATE);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 				((CAPI_MSG *) msg)->info.facility_req.structs[3] = 0;
 				w = api_put(notify_plci->appl, (CAPI_MSG *) msg);
 				if (w != _QUEUE_FULL)

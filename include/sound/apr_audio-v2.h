@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 /* Copyright (c) 2012-2017, The Linux Foundation. All rights reserved.
-=======
-/* Copyright (c) 2012-2016, The Linux Foundation. All rights reserved.
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 *
 * This program is free software; you can redistribute it and/or modify
 * it under the terms of the GNU General Public License version 2 and
@@ -2807,11 +2803,8 @@ struct asm_softvolume_params {
 
 #define ASM_MEDIA_FMT_MULTI_CHANNEL_PCM_V2 0x00010DA5
 
-<<<<<<< HEAD
 #define ASM_MEDIA_FMT_MULTI_CHANNEL_PCM_V3 0x00010DDC
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #define ASM_MEDIA_FMT_EVRCB_FS 0x00010BEF
 
 #define ASM_MEDIA_FMT_EVRCWB_FS 0x00010BF0
@@ -2879,7 +2872,6 @@ struct asm_multi_channel_pcm_fmt_blk_v2 {
  */
 } __packed;
 
-<<<<<<< HEAD
 struct asm_multi_channel_pcm_fmt_blk_v3 {
 	uint16_t                num_channels;
 /*
@@ -2925,8 +2917,6 @@ struct asm_multi_channel_pcm_fmt_blk_param_v3 {
 	struct asm_multi_channel_pcm_fmt_blk_v3 param;
 } __packed;
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 struct asm_stream_cmd_set_encdec_param {
 	u32                  param_id;
 	/* ID of the parameter. */
@@ -2962,7 +2952,6 @@ struct asm_dec_ddp_endp_param_v2 {
 	int endp_param_value;
 } __packed;
 
-<<<<<<< HEAD
 /*
  * Payload of the multichannel PCM encoder configuration parameters in
  * the ASM_MEDIA_FMT_MULTI_CHANNEL_PCM_V3 media format.
@@ -3025,10 +3014,6 @@ struct asm_multi_channel_pcm_enc_cfg_v3 {
 /* @brief Multichannel PCM encoder configuration structure used
  * in the #ASM_STREAM_CMD_OPEN_READ_V2(for AVS2.6 image) OR
  * ASM_PARAM_ID_ENCDEC_ENC_CFG_BLK_V2(FOR AVS2.7 image) command.
-=======
-/* @brief Multichannel PCM encoder configuration structure used
- * in the #ASM_STREAM_CMD_OPEN_READ_V2 command.
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  */
 
 struct asm_multi_channel_pcm_enc_cfg_v2 {
@@ -3508,12 +3493,8 @@ struct asm_v13k_enc_cfg {
 #define ASM_MEDIA_FMT_EVRC_FS                   0x00010BEE
 
 /*  EVRC encoder configuration structure used in the
-<<<<<<< HEAD
  * #ASM_PARAM_ID_ENCDEC_ENC_CFG_BLK_V2(for AVS2.6 image)
  * #ASM_STREAM_CMD_OPEN_READ_V2(for AVS2.7 image) command.
-=======
- * #ASM_STREAM_CMD_OPEN_READ_V2 command.
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  */
 struct asm_evrc_enc_cfg {
 	struct apr_hdr hdr;
@@ -3722,11 +3703,8 @@ struct asm_amrwbplus_fmt_blk_v2 {
 
 } __packed;
 
-<<<<<<< HEAD
 #define ASM_MEDIA_FMT_AC3			0x00010DEE
 #define ASM_MEDIA_FMT_EAC3			0x00010DEF
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #define ASM_MEDIA_FMT_AC3_DEC                0x00010BF6
 #define ASM_MEDIA_FMT_EAC3_DEC               0x00010C3C
 #define ASM_MEDIA_FMT_DTS                    0x00010D88
@@ -4473,11 +4451,8 @@ struct asm_stream_cmd_open_write_v3 {
  * - #ASM_MEDIA_FMT_SBC
  * - #ASM_MEDIA_FMT_WMA_V10PRO_V2
  * - #ASM_MEDIA_FMT_WMA_V9_V2
-<<<<<<< HEAD
  * - #ASM_MEDIA_FMT_AC3
  * - #ASM_MEDIA_FMT_EAC3
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  * - #ASM_MEDIA_FMT_AC3_DEC
  * - #ASM_MEDIA_FMT_EAC3_DEC
  * - #ASM_MEDIA_FMT_G711_ALAW_FS
@@ -4650,10 +4625,7 @@ struct asm_stream_cmd_open_readwrite_v2 {
  * - #ASM_MEDIA_FMT_WMA_V10PRO_V2
  * - #ASM_MEDIA_FMT_WMA_V9_V2
  * - #ASM_MEDIA_FMT_AMR_WB_PLUS_V2
-<<<<<<< HEAD
  * - #ASM_MEDIA_FMT_AC3
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  * - #ASM_MEDIA_FMT_AC3_DEC
  * - #ASM_MEDIA_FMT_G711_ALAW_FS
  * - #ASM_MEDIA_FMT_G711_MLAW_FS
@@ -5270,11 +5242,8 @@ struct asm_stream_cmd_open_write_compressed {
  * Supported values:
  * - #ASM_MEDIA_FMT_AC3_DEC
  * - #ASM_MEDIA_FMT_EAC3_DEC
-<<<<<<< HEAD
  * - #ASM_MEDIA_FMT_AC3
  * - #ASM_MEDIA_FMT_EAC3
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  * - #ASM_MEDIA_FMT_DTS
  * - #ASM_MEDIA_FMT_ATRAC
  * - #ASM_MEDIA_FMT_MAT
@@ -6093,10 +6062,7 @@ struct audproc_topology_module_id_info_t {
  * This module supports the following parameter IDs:
  * - #ASM_PARAM_ID_VOL_CTRL_MASTER_GAIN
  * - #ASM_PARAM_ID_VOL_CTRL_LR_CHANNEL_GAIN
-<<<<<<< HEAD
  * - #ASM_PARAM_ID_MULTICHANNEL_GAIN
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  * - #ASM_PARAM_ID_VOL_CTRL_MUTE_CONFIG
  * - #ASM_PARAM_ID_SOFT_VOL_STEPPING_PARAMETERS
  * - #ASM_PARAM_ID_SOFT_PAUSE_PARAMETERS
@@ -6123,10 +6089,7 @@ struct audproc_topology_module_id_info_t {
  * @messagepayload
  * @structure{asm_volume_ctrl_lr_chan_gain}
  * @tablespace
-<<<<<<< HEAD
  * @inputtable{Audio_Postproc_ASM_PARAM_ID_MULTICHANNEL_GAIN.tex}
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  * @inputtable{Audio_Postproc_ASM_PARAM_ID_VOL_CTRL_LR_CHANNEL_GAIN.tex}
  */
 #define ASM_PARAM_ID_VOL_CTRL_LR_CHANNEL_GAIN     0x00010C00
@@ -6331,19 +6294,10 @@ struct asm_soft_pause_params {
  */
 
 
-<<<<<<< HEAD
 struct asm_volume_ctrl_channeltype_gain_pair {
 	uint8_t                   channeltype;
 /*
  *< Channel type for which the gain setting is to be applied.
-=======
-struct asm_volume_ctrl_channelype_gain_pair {
-	struct apr_hdr	hdr;
-	struct asm_stream_cmd_set_pp_params_v2 param;
-	struct asm_stream_param_data_v2 data;
-	uint8_t                   channelype;
-/*< Channel type for which the gain setting is to be applied.
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  * Supported values:
  * - #PCM_CHANNEL_L
  * - #PCM_CHANNEL_R
@@ -6373,12 +6327,8 @@ struct asm_volume_ctrl_channelype_gain_pair {
 	/*< Clients must set this field to zero. */
 
 	uint32_t                  gain;
-<<<<<<< HEAD
 /*
  *< Gain value for this channel in Q28 format.
-=======
-/*< Gain value for this channel in Q28 format.
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  * Supported values: Any
  */
 } __packed;
@@ -6397,23 +6347,14 @@ struct asm_volume_ctrl_multichannel_gain {
 	struct asm_stream_cmd_set_pp_params_v2 param;
 	struct asm_stream_param_data_v2 data;
 	uint32_t                  num_channels;
-<<<<<<< HEAD
 /*
  *< Number of channels for which gain values are provided. Any
-=======
-/*< Number of channels for which gain values are provided. Any
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  * channels present in the data for which gain is not provided are
  * set to unity gain.
  * Supported values: 1 to 8
  */
 
-<<<<<<< HEAD
 	struct asm_volume_ctrl_channeltype_gain_pair
-=======
-
-	struct asm_volume_ctrl_channelype_gain_pair
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		gain_data[VOLUME_CONTROL_MAX_CHANNELS];
 	/*< Array of channel type/gain pairs.*/
 } __packed;
@@ -7646,7 +7587,6 @@ enum afe_lpass_clk_mode {
 	Q6AFE_LPASS_MODE_BOTH_VALID,
 } __packed;
 
-<<<<<<< HEAD
 /* Clock ID Enumeration Define. */
 /* Clock ID for Primary I2S IBIT */
 #define Q6AFE_LPASS_CLK_ID_PRI_MI2S_IBIT                          0x100
@@ -7795,8 +7735,6 @@ struct afe_clk_set {
 	uint32_t enable;
 };
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 struct afe_clk_cfg {
 /* Minor version used for tracking the version of the I2S
  * configuration interface.
@@ -7834,12 +7772,8 @@ struct afe_clk_cfg {
 
 /* This param id is used to configure I2S clk */
 #define AFE_PARAM_ID_LPAIF_CLK_CONFIG	0x00010238
-<<<<<<< HEAD
 #define AFE_MODULE_CLOCK_SET		0x0001028F
 #define AFE_PARAM_ID_CLOCK_SET		0x00010290
-=======
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 struct afe_lpass_clk_config_command {
 	struct apr_hdr			 hdr;
@@ -8006,7 +7940,6 @@ struct afe_svc_cmd_set_param {
 	uint32_t mem_map_handle;
 } __packed;
 
-<<<<<<< HEAD
 struct afe_svc_param_data {
 	uint32_t module_id;
 	uint32_t param_id;
@@ -8014,8 +7947,6 @@ struct afe_svc_param_data {
 	uint16_t reserved;
 } __packed;
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 struct afe_param_hw_mad_ctrl {
 	uint32_t minor_version;
 	uint16_t mad_type;
@@ -8047,7 +7978,6 @@ struct afe_param_cdc_reg_cfg_payload {
 	struct afe_param_cdc_reg_cfg  reg_cfg;
 } __packed;
 
-<<<<<<< HEAD
 struct afe_lpass_clk_config_command_v2 {
 	struct apr_hdr			hdr;
 	struct afe_svc_cmd_set_param	param;
@@ -8055,8 +7985,6 @@ struct afe_lpass_clk_config_command_v2 {
 	struct afe_clk_set		clk_cfg;
 } __packed;
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /*
  * reg_data's size can be up to AFE_MAX_CDC_REGISTERS_TO_CONFIG
  */
@@ -8268,7 +8196,6 @@ struct asm_mtmx_strtr_params {
 	u32 window_lsw;
 	u32 window_msw;
 } __packed;
-<<<<<<< HEAD
 
 
 
@@ -8414,8 +8341,6 @@ struct asm_mtmx_strtr_get_params_cmdrsp {
 
 
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #define AUDPROC_MODULE_ID_RESAMPLER 0x00010719
 
 enum {

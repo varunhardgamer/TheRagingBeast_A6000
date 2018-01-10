@@ -20,7 +20,6 @@
 /* physical offset of RAM */
 #define PLAT_PHYS_OFFSET UL(CONFIG_PHYS_OFFSET)
 
-<<<<<<< HEAD
 #if defined(CONFIG_KEXEC_HARDBOOT)
 #if defined(CONFIG_MACH_APQ8064_FLO)
 #define KEXEC_HB_PAGE_ADDR		UL(0x88C00000)
@@ -43,8 +42,6 @@
 #endif
 #endif
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #ifndef __ASSEMBLY__
 int msm_get_memory_type_from_name(const char *memtype_name);
 

@@ -266,11 +266,7 @@ static void nuke(struct dummy *dum, struct dummy_ep *ep)
 /* caller must hold lock */
 static void stop_activity(struct dummy *dum)
 {
-<<<<<<< HEAD
 	int i;
-=======
-	struct dummy_ep	*ep;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	/* prevent any more requests */
 	dum->address = 0;
@@ -278,13 +274,8 @@ static void stop_activity(struct dummy *dum)
 	/* The timer is left running so that outstanding URBs can fail */
 
 	/* nuke any pending requests first, so driver i/o is quiesced */
-<<<<<<< HEAD
 	for (i = 0; i < DUMMY_ENDPOINTS; ++i)
 		nuke(dum, &dum->ep[i]);
-=======
-	list_for_each_entry(ep, &dum->gadget.ep_list, ep.ep_list)
-		nuke(dum, ep);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	/* driver now does any non-usb quiescing necessary */
 }

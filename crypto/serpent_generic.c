@@ -665,11 +665,6 @@ module_exit(serpent_mod_fini);
 MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION("Serpent and tnepres (kerneli compatible serpent reversed) Cipher Algorithm");
 MODULE_AUTHOR("Dag Arne Osvik <osvik@ii.uib.no>");
-<<<<<<< HEAD
 MODULE_ALIAS_CRYPTO("tnepres");
 MODULE_ALIAS_CRYPTO("serpent");
 MODULE_ALIAS_CRYPTO("serpent-generic");
-=======
-MODULE_ALIAS("tnepres");
-MODULE_ALIAS("serpent");
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c

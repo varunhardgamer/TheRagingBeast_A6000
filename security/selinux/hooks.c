@@ -431,16 +431,11 @@ static int sb_finish_set_opts(struct super_block *sb)
 	    sbsec->behavior > ARRAY_SIZE(labeling_behaviors))
 		sbsec->flags &= ~SE_SBLABELSUPP;
 
-<<<<<<< HEAD
 	/* Special handling. Is genfs but also has in-core setxattr handler*/
 	if (!strcmp(sb->s_type->name, "sysfs") ||
 	    !strcmp(sb->s_type->name, "pstore") ||
 	    !strcmp(sb->s_type->name, "debugfs") ||
 	    !strcmp(sb->s_type->name, "rootfs"))
-=======
-	/* Special handling for sysfs. Is genfs but also has setxattr handler*/
-	if (strncmp(sb->s_type->name, "sysfs", sizeof("sysfs")) == 0)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		sbsec->flags |= SE_SBLABELSUPP;
 
 	/*
@@ -464,10 +459,7 @@ next_inode:
 				list_entry(sbsec->isec_head.next,
 					   struct inode_security_struct, list);
 		struct inode *inode = isec->inode;
-<<<<<<< HEAD
 		list_del_init(&isec->list);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		spin_unlock(&sbsec->isec_lock);
 		inode = igrab(inode);
 		if (inode) {
@@ -476,10 +468,6 @@ next_inode:
 			iput(inode);
 		}
 		spin_lock(&sbsec->isec_lock);
-<<<<<<< HEAD
-=======
-		list_del_init(&isec->list);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		goto next_inode;
 	}
 	spin_unlock(&sbsec->isec_lock);
@@ -719,16 +707,12 @@ static int selinux_set_mnt_opts(struct super_block *sb,
 	}
 
 	if (strcmp(sb->s_type->name, "proc") == 0)
-<<<<<<< HEAD
 		sbsec->flags |= SE_SBPROC | SE_SBGENFS;
 
 	if (!strcmp(sb->s_type->name, "debugfs") ||
 	    !strcmp(sb->s_type->name, "sysfs") ||
 	    !strcmp(sb->s_type->name, "pstore"))
 		sbsec->flags |= SE_SBGENFS;
-=======
-		sbsec->flags |= SE_SBPROC;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	/* Determine the labeling behavior to use for this filesystem type. */
 	rc = security_fs_use((sbsec->flags & SE_SBPROC) ? "proc" : sb->s_type->name, &sbsec->behavior, &sbsec->sid);
@@ -1213,7 +1197,6 @@ static inline u16 socket_type_to_security_class(int family, int type, int protoc
 	return SECCLASS_SOCKET;
 }
 
-<<<<<<< HEAD
 static int selinux_genfs_get_sid(struct dentry *dentry,
 				 u16 tclass,
 				 u16 flags,
@@ -1221,14 +1204,6 @@ static int selinux_genfs_get_sid(struct dentry *dentry,
 {
 	int rc;
 	struct super_block *sb = dentry->d_inode->i_sb;
-=======
-#ifdef CONFIG_PROC_FS
-static int selinux_proc_get_sid(struct dentry *dentry,
-				u16 tclass,
-				u32 *sid)
-{
-	int rc;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	char *buffer, *path;
 
 	buffer = (char *)__get_free_page(GFP_KERNEL);
@@ -1239,7 +1214,6 @@ static int selinux_proc_get_sid(struct dentry *dentry,
 	if (IS_ERR(path))
 		rc = PTR_ERR(path);
 	else {
-<<<<<<< HEAD
 		if (flags & SE_SBPROC) {
 			/* each process gets a /proc/PID/ entry. Strip off the
 			 * PID part to get a valid selinux labeling.
@@ -1250,31 +1224,10 @@ static int selinux_proc_get_sid(struct dentry *dentry,
 			}
 		}
 		rc = security_genfs_sid(sb->s_type->name, path, tclass, sid);
-=======
-		/* each process gets a /proc/PID/ entry. Strip off the
-		 * PID part to get a valid selinux labeling.
-		 * e.g. /proc/1/net/rpc/nfs -> /net/rpc/nfs */
-		while (path[1] >= '0' && path[1] <= '9') {
-			path[1] = '/';
-			path++;
-		}
-		rc = security_genfs_sid("proc", path, tclass, sid);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 	free_page((unsigned long)buffer);
 	return rc;
 }
-<<<<<<< HEAD
-=======
-#else
-static int selinux_proc_get_sid(struct dentry *dentry,
-				u16 tclass,
-				u32 *sid)
-{
-	return -EINVAL;
-}
-#endif
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 /* The inode's security attributes must be initialized before first use. */
 static int inode_doinit_with_dentry(struct inode *inode, struct dentry *opt_dentry)
@@ -1429,11 +1382,7 @@ static int inode_doinit_with_dentry(struct inode *inode, struct dentry *opt_dent
 		/* Default to the fs superblock SID. */
 		isec->sid = sbsec->sid;
 
-<<<<<<< HEAD
 		if ((sbsec->flags & SE_SBGENFS) && !S_ISLNK(inode->i_mode)) {
-=======
-		if ((sbsec->flags & SE_SBPROC) && !S_ISLNK(inode->i_mode)) {
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			/* We must have a dentry to determine the label on
 			 * procfs inodes */
 			if (opt_dentry)
@@ -1456,12 +1405,8 @@ static int inode_doinit_with_dentry(struct inode *inode, struct dentry *opt_dent
 			if (!dentry)
 				goto out_unlock;
 			isec->sclass = inode_mode_to_security_class(inode->i_mode);
-<<<<<<< HEAD
 			rc = selinux_genfs_get_sid(dentry, isec->sclass,
 						   sbsec->flags, &sid);
-=======
-			rc = selinux_proc_get_sid(dentry, isec->sclass, &sid);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			dput(dentry);
 			if (rc)
 				goto out_unlock;
@@ -1971,18 +1916,10 @@ static int selinux_binder_transfer_file(struct task_struct *from, struct task_st
 	struct inode *inode = file->f_path.dentry->d_inode;
 	struct inode_security_struct *isec = inode->i_security;
 	struct common_audit_data ad;
-<<<<<<< HEAD
-=======
-	struct selinux_audit_data sad = {0,};
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	int rc;
 
 	ad.type = LSM_AUDIT_DATA_PATH;
 	ad.u.path = file->f_path;
-<<<<<<< HEAD
-=======
-	ad.selinux_audit_data = &sad;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (sid != fsec->sid) {
 		rc = avc_has_perm(sid, fsec->sid,
@@ -2893,12 +2830,8 @@ static int selinux_inode_setattr(struct dentry *dentry, struct iattr *iattr)
 			ATTR_ATIME_SET | ATTR_MTIME_SET | ATTR_TIMES_SET))
 		return dentry_has_perm(cred, dentry, FILE__SETATTR);
 
-<<<<<<< HEAD
 	if (selinux_policycap_openperm && (ia_valid & ATTR_SIZE)
 			&& !(ia_valid & ATTR_FILE))
-=======
-	if (selinux_policycap_openperm && (ia_valid & ATTR_SIZE))
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		av |= FILE__OPEN;
 
 	return dentry_has_perm(cred, dentry, av);
@@ -3199,11 +3132,8 @@ int ioctl_has_perm(const struct cred *cred, struct file *file,
 	struct lsm_ioctlop_audit ioctl;
 	u32 ssid = cred_sid(cred);
 	int rc;
-<<<<<<< HEAD
 	u8 driver = cmd >> 8;
 	u8 xperm = cmd & 0xff;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	ad.type = LSM_AUDIT_DATA_IOCTL_OP;
 	ad.u.op = &ioctl;
@@ -3222,13 +3152,8 @@ int ioctl_has_perm(const struct cred *cred, struct file *file,
 	if (unlikely(IS_PRIVATE(inode)))
 		return 0;
 
-<<<<<<< HEAD
 	rc = avc_has_extended_perms(ssid, isec->sid, isec->sclass,
 			requested, driver, xperm, &ad);
-=======
-	rc = avc_has_operation(ssid, isec->sid, isec->sclass,
-			requested, cmd, &ad);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 out:
 	return rc;
 }
@@ -3319,7 +3244,6 @@ error:
 
 static int selinux_mmap_addr(unsigned long addr)
 {
-<<<<<<< HEAD
 	int rc;
 
 	/* do DAC check on address space usage */
@@ -3334,26 +3258,6 @@ static int selinux_mmap_addr(unsigned long addr)
 	}
 
 	return rc;
-=======
-	int rc = 0;
-	u32 sid = current_sid();
-
-	/*
-	 * notice that we are intentionally putting the SELinux check before
-	 * the secondary cap_file_mmap check.  This is such a likely attempt
-	 * at bad behaviour/exploit that we always want to get the AVC, even
-	 * if DAC would have also denied the operation.
-	 */
-	if (addr < CONFIG_LSM_MMAP_MIN_ADDR) {
-		rc = avc_has_perm(sid, sid, SECCLASS_MEMPROTECT,
-				  MEMPROTECT__MMAP_ZERO, NULL);
-		if (rc)
-			return rc;
-	}
-
-	/* do DAC check on address space usage */
-	return cap_mmap_addr(addr);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static int selinux_mmap_file(struct file *file, unsigned long reqprot,
@@ -4373,24 +4277,15 @@ static int selinux_socket_unix_may_send(struct socket *sock,
 			    &ad);
 }
 
-<<<<<<< HEAD
 static int selinux_inet_sys_rcv_skb(struct net *ns, int ifindex,
 				    char *addrp, u16 family, u32 peer_sid,
-=======
-static int selinux_inet_sys_rcv_skb(int ifindex, char *addrp, u16 family,
-				    u32 peer_sid,
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 				    struct common_audit_data *ad)
 {
 	int err;
 	u32 if_sid;
 	u32 node_sid;
 
-<<<<<<< HEAD
 	err = sel_netif_sid(ns, ifindex, &if_sid);
-=======
-	err = sel_netif_sid(ifindex, &if_sid);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (err)
 		return err;
 	err = avc_has_perm(peer_sid, if_sid,
@@ -4483,13 +4378,8 @@ static int selinux_socket_sock_rcv_skb(struct sock *sk, struct sk_buff *skb)
 		err = selinux_skb_peerlbl_sid(skb, family, &peer_sid);
 		if (err)
 			return err;
-<<<<<<< HEAD
 		err = selinux_inet_sys_rcv_skb(sock_net(sk), skb->skb_iif,
 					       addrp, family, peer_sid, &ad);
-=======
-		err = selinux_inet_sys_rcv_skb(skb->skb_iif, addrp, family,
-					       peer_sid, &ad);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		if (err) {
 			selinux_netlbl_err(skb, err, 0);
 			return err;
@@ -4832,12 +4722,8 @@ out:
 
 #ifdef CONFIG_NETFILTER
 
-<<<<<<< HEAD
 static unsigned int selinux_ip_forward(struct sk_buff *skb,
 				       const struct net_device *indev,
-=======
-static unsigned int selinux_ip_forward(struct sk_buff *skb, int ifindex,
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 				       u16 family)
 {
 	int err;
@@ -4863,23 +4749,14 @@ static unsigned int selinux_ip_forward(struct sk_buff *skb, int ifindex,
 
 	ad.type = LSM_AUDIT_DATA_NET;
 	ad.u.net = &net;
-<<<<<<< HEAD
 	ad.u.net->netif = indev->ifindex;
-=======
-	ad.u.net->netif = ifindex;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	ad.u.net->family = family;
 	if (selinux_parse_skb(skb, &ad, &addrp, 1, NULL) != 0)
 		return NF_DROP;
 
 	if (peerlbl_active) {
-<<<<<<< HEAD
 		err = selinux_inet_sys_rcv_skb(dev_net(indev), indev->ifindex,
 					       addrp, family, peer_sid, &ad);
-=======
-		err = selinux_inet_sys_rcv_skb(ifindex, addrp, family,
-					       peer_sid, &ad);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		if (err) {
 			selinux_netlbl_err(skb, err, 1);
 			return NF_DROP;
@@ -4908,11 +4785,7 @@ static unsigned int selinux_ipv4_forward(unsigned int hooknum,
 					 const struct net_device *out,
 					 int (*okfn)(struct sk_buff *))
 {
-<<<<<<< HEAD
 	return selinux_ip_forward(skb, in, PF_INET);
-=======
-	return selinux_ip_forward(skb, in->ifindex, PF_INET);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 #if defined(CONFIG_IPV6) || defined(CONFIG_IPV6_MODULE)
@@ -4922,11 +4795,7 @@ static unsigned int selinux_ipv6_forward(unsigned int hooknum,
 					 const struct net_device *out,
 					 int (*okfn)(struct sk_buff *))
 {
-<<<<<<< HEAD
 	return selinux_ip_forward(skb, in, PF_INET6);
-=======
-	return selinux_ip_forward(skb, in->ifindex, PF_INET6);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 #endif	/* IPV6 */
 
@@ -5014,20 +4883,13 @@ static unsigned int selinux_ip_postroute_compat(struct sk_buff *skb,
 	return NF_ACCEPT;
 }
 
-<<<<<<< HEAD
 static unsigned int selinux_ip_postroute(struct sk_buff *skb,
 					 const struct net_device *outdev,
-=======
-static unsigned int selinux_ip_postroute(struct sk_buff *skb, int ifindex,
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 					 u16 family)
 {
 	u32 secmark_perm;
 	u32 peer_sid;
-<<<<<<< HEAD
 	int ifindex = outdev->ifindex;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	struct sock *sk;
 	struct common_audit_data ad;
 	struct lsm_network_audit net = {0,};
@@ -5140,11 +5002,7 @@ static unsigned int selinux_ip_postroute(struct sk_buff *skb, int ifindex,
 		u32 if_sid;
 		u32 node_sid;
 
-<<<<<<< HEAD
 		if (sel_netif_sid(dev_net(outdev), ifindex, &if_sid))
-=======
-		if (sel_netif_sid(ifindex, &if_sid))
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			return NF_DROP;
 		if (avc_has_perm(peer_sid, if_sid,
 				 SECCLASS_NETIF, NETIF__EGRESS, &ad))
@@ -5166,11 +5024,7 @@ static unsigned int selinux_ipv4_postroute(unsigned int hooknum,
 					   const struct net_device *out,
 					   int (*okfn)(struct sk_buff *))
 {
-<<<<<<< HEAD
 	return selinux_ip_postroute(skb, out, PF_INET);
-=======
-	return selinux_ip_postroute(skb, out->ifindex, PF_INET);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 #if defined(CONFIG_IPV6) || defined(CONFIG_IPV6_MODULE)
@@ -5180,11 +5034,7 @@ static unsigned int selinux_ipv6_postroute(unsigned int hooknum,
 					   const struct net_device *out,
 					   int (*okfn)(struct sk_buff *))
 {
-<<<<<<< HEAD
 	return selinux_ip_postroute(skb, out, PF_INET6);
-=======
-	return selinux_ip_postroute(skb, out->ifindex, PF_INET6);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 #endif	/* IPV6 */
 
@@ -5719,11 +5569,7 @@ static int selinux_setprocattr(struct task_struct *p,
 		return error;
 
 	/* Obtain a SID for the context, if one was specified. */
-<<<<<<< HEAD
 	if (size && str[0] && str[0] != '\n') {
-=======
-	if (size && str[1] && str[1] != '\n') {
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		if (str[size-1] == '\n') {
 			str[size-1] = 0;
 			size--;

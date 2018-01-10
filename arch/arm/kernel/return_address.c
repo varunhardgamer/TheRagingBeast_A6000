@@ -59,13 +59,6 @@ void *return_address(unsigned int level)
 
 #else /* if defined(CONFIG_FRAME_POINTER) && !defined(CONFIG_ARM_UNWIND) */
 
-<<<<<<< HEAD
-=======
-#if defined(CONFIG_ARM_UNWIND)
-#warning "TODO: return_address should use unwind tables"
-#endif
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 void *return_address(unsigned int level)
 {
 	return NULL;

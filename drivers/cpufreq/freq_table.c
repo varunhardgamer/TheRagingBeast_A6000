@@ -115,11 +115,7 @@ int cpufreq_frequency_table_target(struct cpufreq_policy *policy,
 		.driver_data = ~0,
 		.frequency = 0,
 	};
-<<<<<<< HEAD
 	unsigned int diff, i;
-=======
-	unsigned int i;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	pr_debug("request for target %u kHz (relation: %u) for cpu %u\n",
 					target_freq, relation, policy->cpu);
@@ -129,10 +125,7 @@ int cpufreq_frequency_table_target(struct cpufreq_policy *policy,
 		suboptimal.frequency = ~0;
 		break;
 	case CPUFREQ_RELATION_L:
-<<<<<<< HEAD
         case CPUFREQ_RELATION_C:
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		optimal.frequency = ~0;
 		break;
 	}
@@ -170,7 +163,6 @@ int cpufreq_frequency_table_target(struct cpufreq_policy *policy,
 				}
 			}
 			break;
-<<<<<<< HEAD
                    case CPUFREQ_RELATION_C:
 			diff = abs(freq - target_freq);
 			if (diff < optimal.frequency ||
@@ -180,8 +172,6 @@ int cpufreq_frequency_table_target(struct cpufreq_policy *policy,
 				optimal.driver_data = i;
 			}
 			break; 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		}
 	}
 	if (optimal.driver_data > i) {

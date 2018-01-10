@@ -60,13 +60,10 @@
 #include "raid0.h"
 #include "bitmap.h"
 
-<<<<<<< HEAD
 static bool devices_handle_discard_safely = false;
 module_param(devices_handle_discard_safely, bool, 0644);
 MODULE_PARM_DESC(devices_handle_discard_safely,
 		 "Set to Y if all devices in each array reliably return zeroes on reads from discarded regions");
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /*
  * Stripe cache
  */
@@ -1704,12 +1701,8 @@ static int resize_stripes(struct r5conf *conf, int newsize)
 
 	conf->slab_cache = sc;
 	conf->active_name = 1-conf->active_name;
-<<<<<<< HEAD
 	if (!err)
 		conf->pool_size = newsize;
-=======
-	conf->pool_size = newsize;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return err;
 }
 
@@ -2686,12 +2679,8 @@ static int fetch_block(struct stripe_head *sh, struct stripe_head_state *s,
 	     (s->failed >= 2 && fdev[1]->toread) ||
 	     (sh->raid_conf->level <= 5 && s->failed && fdev[0]->towrite &&
 	      !test_bit(R5_OVERWRITE, &fdev[0]->flags)) ||
-<<<<<<< HEAD
 	     ((sh->raid_conf->level == 6 || sh->sector >= sh->raid_conf->mddev->recovery_cp)
 	      && s->failed && s->to_write))) {
-=======
-	     (sh->raid_conf->level == 6 && s->failed && s->to_write))) {
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		/* we would like to get this block, possibly by computing it,
 		 * otherwise read it if the backing disk is insync
 		 */
@@ -2865,12 +2854,8 @@ static void handle_stripe_dirtying(struct r5conf *conf,
 	 * generate correct data from the parity.
 	 */
 	if (conf->max_degraded == 2 ||
-<<<<<<< HEAD
 	    (recovery_cp < MaxSector && sh->sector >= recovery_cp &&
 	     s->failed == 0)) {
-=======
-	    (recovery_cp < MaxSector && sh->sector >= recovery_cp)) {
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		/* Calculate the real rcw later - for now make it
 		 * look like rcw is cheaper
 		 */
@@ -3583,11 +3568,8 @@ static void handle_stripe(struct stripe_head *sh)
 				set_bit(R5_Wantwrite, &dev->flags);
 				if (prexor)
 					continue;
-<<<<<<< HEAD
 				if (s.failed > 1)
 					continue;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 				if (!test_bit(R5_Insync, &dev->flags) ||
 				    ((i == sh->pd_idx || i == sh->qd_idx)  &&
 				     s.failed == 0))
@@ -5634,7 +5616,6 @@ static int run(struct mddev *mddev)
 			stripe = (stripe | (stripe-1)) + 1;
 		mddev->queue->limits.discard_alignment = stripe;
 		mddev->queue->limits.discard_granularity = stripe;
-<<<<<<< HEAD
 
 		/*
 		 * We use 16-bit counter of active stripes in bi_phys_segments
@@ -5647,11 +5628,6 @@ static int run(struct mddev *mddev)
 		/*
 		 * unaligned part of discard request will be ignored, so can't
 		 * guarantee discard_zeroes_data
-=======
-		/*
-		 * unaligned part of discard request will be ignored, so can't
-		 * guarantee discard_zerors_data
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		 */
 		mddev->queue->limits.discard_zeroes_data = 0;
 
@@ -5676,7 +5652,6 @@ static int run(struct mddev *mddev)
 			    !bdev_get_queue(rdev->bdev)->
 						limits.discard_zeroes_data)
 				discard_supported = false;
-<<<<<<< HEAD
 			/* Unfortunately, discard_zeroes_data is not currently
 			 * a guarantee - just a hint.  So we only allow DISCARD
 			 * if the sysadmin has confirmed that only safe devices
@@ -5694,13 +5669,6 @@ static int run(struct mddev *mddev)
 		if (discard_supported &&
 		    mddev->queue->limits.max_discard_sectors >= (stripe >> 9) &&
 		    mddev->queue->limits.discard_granularity >= stripe)
-=======
-		}
-
-		if (discard_supported &&
-		   mddev->queue->limits.max_discard_sectors >= stripe &&
-		   mddev->queue->limits.discard_granularity >= stripe)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			queue_flag_set_unlocked(QUEUE_FLAG_DISCARD,
 						mddev->queue);
 		else

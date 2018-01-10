@@ -18,20 +18,12 @@ __xchg_u32(volatile void *p, unsigned long val)
 	unsigned long prev;
 
 	__asm__ __volatile__(
-<<<<<<< HEAD
 	PPC_ATOMIC_ENTRY_BARRIER
-=======
-	PPC_RELEASE_BARRIER
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 "1:	lwarx	%0,0,%2 \n"
 	PPC405_ERR77(0,%2)
 "	stwcx.	%3,0,%2 \n\
 	bne-	1b"
-<<<<<<< HEAD
 	PPC_ATOMIC_EXIT_BARRIER
-=======
-	PPC_ACQUIRE_BARRIER
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	: "=&r" (prev), "+m" (*(volatile unsigned int *)p)
 	: "r" (p), "r" (val)
 	: "cc", "memory");
@@ -69,20 +61,12 @@ __xchg_u64(volatile void *p, unsigned long val)
 	unsigned long prev;
 
 	__asm__ __volatile__(
-<<<<<<< HEAD
 	PPC_ATOMIC_ENTRY_BARRIER
-=======
-	PPC_RELEASE_BARRIER
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 "1:	ldarx	%0,0,%2 \n"
 	PPC405_ERR77(0,%2)
 "	stdcx.	%3,0,%2 \n\
 	bne-	1b"
-<<<<<<< HEAD
 	PPC_ATOMIC_EXIT_BARRIER
-=======
-	PPC_ACQUIRE_BARRIER
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	: "=&r" (prev), "+m" (*(volatile unsigned long *)p)
 	: "r" (p), "r" (val)
 	: "cc", "memory");
@@ -168,22 +152,14 @@ __cmpxchg_u32(volatile unsigned int *p, unsigned long old, unsigned long new)
 	unsigned int prev;
 
 	__asm__ __volatile__ (
-<<<<<<< HEAD
 	PPC_ATOMIC_ENTRY_BARRIER
-=======
-	PPC_RELEASE_BARRIER
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 "1:	lwarx	%0,0,%2		# __cmpxchg_u32\n\
 	cmpw	0,%0,%3\n\
 	bne-	2f\n"
 	PPC405_ERR77(0,%2)
 "	stwcx.	%4,0,%2\n\
 	bne-	1b"
-<<<<<<< HEAD
 	PPC_ATOMIC_EXIT_BARRIER
-=======
-	PPC_ACQUIRE_BARRIER
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	"\n\
 2:"
 	: "=&r" (prev), "+m" (*p)
@@ -222,21 +198,13 @@ __cmpxchg_u64(volatile unsigned long *p, unsigned long old, unsigned long new)
 	unsigned long prev;
 
 	__asm__ __volatile__ (
-<<<<<<< HEAD
 	PPC_ATOMIC_ENTRY_BARRIER
-=======
-	PPC_RELEASE_BARRIER
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 "1:	ldarx	%0,0,%2		# __cmpxchg_u64\n\
 	cmpd	0,%0,%3\n\
 	bne-	2f\n\
 	stdcx.	%4,0,%2\n\
 	bne-	1b"
-<<<<<<< HEAD
 	PPC_ATOMIC_EXIT_BARRIER
-=======
-	PPC_ACQUIRE_BARRIER
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	"\n\
 2:"
 	: "=&r" (prev), "+m" (*p)

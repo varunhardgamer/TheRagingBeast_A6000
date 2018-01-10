@@ -433,7 +433,6 @@ config INET_UDP_DIAG
 	  Support for UDP socket monitoring interface used by the ss tool.
 	  If unsure, say Y.
 
-<<<<<<< HEAD
 config INET_DIAG_DESTROY
 	bool "INET: allow privileged process to administratively close sockets"
 	depends on INET_DIAG
@@ -447,8 +446,6 @@ config INET_DIAG_DESTROY
 	  had been disconnected.
 	  If unsure, say N.
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 menuconfig TCP_CONG_ADVANCED
 	bool "TCP: advanced congestion control"
 	---help---

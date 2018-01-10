@@ -194,10 +194,7 @@ struct jffs2_inode_cache {
 #define INO_STATE_CLEARING	6	/* In clear_inode() */
 
 #define INO_FLAGS_XATTR_CHECKED	0x01	/* has no duplicate xattr_ref */
-<<<<<<< HEAD
 #define INO_FLAGS_IS_DIR	0x02	/* is a directory */
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #define RAWNODE_CLASS_INODE_CACHE	0
 #define RAWNODE_CLASS_XATTR_DATUM	1
@@ -253,14 +250,10 @@ struct jffs2_readinode_info
 
 struct jffs2_full_dirent
 {
-<<<<<<< HEAD
 	union {
 		struct jffs2_raw_node_ref *raw;
 		struct jffs2_inode_cache *ic; /* Just during part of build */
 	};
-=======
-	struct jffs2_raw_node_ref *raw;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	struct jffs2_full_dirent *next;
 	uint32_t version;
 	uint32_t ino; /* == zero for unlink */

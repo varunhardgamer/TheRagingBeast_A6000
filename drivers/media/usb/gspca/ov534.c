@@ -1490,7 +1490,6 @@ static void sd_set_streamparm(struct gspca_dev *gspca_dev,
 	struct v4l2_fract *tpf = &cp->timeperframe;
 	struct sd *sd = (struct sd *) gspca_dev;
 
-<<<<<<< HEAD
 	if (tpf->numerator == 0 || tpf->denominator == 0)
 		/* Set default framerate */
 		sd->frame_rate = 30;
@@ -1498,10 +1497,6 @@ static void sd_set_streamparm(struct gspca_dev *gspca_dev,
 		/* Set requested framerate */
 		sd->frame_rate = tpf->denominator / tpf->numerator;
 
-=======
-	/* Set requested framerate */
-	sd->frame_rate = tpf->denominator / tpf->numerator;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (gspca_dev->streaming)
 		set_frame_rate(gspca_dev);
 

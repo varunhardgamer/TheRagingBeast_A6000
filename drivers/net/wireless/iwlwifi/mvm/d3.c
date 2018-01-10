@@ -295,21 +295,12 @@ static void iwl_mvm_wowlan_program_keys(struct ieee80211_hw *hw,
 			u8 *pn = seq.ccmp.pn;
 
 			ieee80211_get_key_rx_seq(key, i, &seq);
-<<<<<<< HEAD
 			aes_sc[i].pn = cpu_to_le64((u64)pn[5] |
 						   ((u64)pn[4] << 8) |
 						   ((u64)pn[3] << 16) |
 						   ((u64)pn[2] << 24) |
 						   ((u64)pn[1] << 32) |
 						   ((u64)pn[0] << 40));
-=======
-			aes_sc->pn = cpu_to_le64((u64)pn[5] |
-						 ((u64)pn[4] << 8) |
-						 ((u64)pn[3] << 16) |
-						 ((u64)pn[2] << 24) |
-						 ((u64)pn[1] << 32) |
-						 ((u64)pn[0] << 40));
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		}
 		data->use_rsc_tsc = true;
 		break;

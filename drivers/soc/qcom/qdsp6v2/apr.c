@@ -697,10 +697,6 @@ void dispatch_event(unsigned long code, uint16_t proc)
 	uint16_t clnt;
 	int i, j;
 
-<<<<<<< HEAD
-=======
-	memset(&data, 0, sizeof(data));
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	data.opcode = RESET_EVENTS;
 	data.reset_event = code;
 

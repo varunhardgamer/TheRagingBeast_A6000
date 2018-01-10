@@ -1000,10 +1000,7 @@ static int device_suspend_late(struct device *dev, pm_message_t state)
 {
 	pm_callback_t callback = NULL;
 	char *info = NULL;
-<<<<<<< HEAD
 	int error = 0;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	__pm_runtime_disable(dev, false);
 
@@ -1029,7 +1026,6 @@ static int device_suspend_late(struct device *dev, pm_message_t state)
 		callback = pm_late_early_op(dev->driver->pm, state);
 	}
 
-<<<<<<< HEAD
 	error = dpm_run_callback(callback, dev, state, info);
 	if (error)
 		/*
@@ -1039,9 +1035,6 @@ static int device_suspend_late(struct device *dev, pm_message_t state)
 		pm_runtime_enable(dev);
 
 	return error;
-=======
-	return dpm_run_callback(callback, dev, state, info);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 /**

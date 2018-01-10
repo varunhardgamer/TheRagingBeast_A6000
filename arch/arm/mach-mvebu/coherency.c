@@ -137,7 +137,6 @@ static struct notifier_block mvebu_hwcc_platform_nb = {
 	.notifier_call = mvebu_hwcc_platform_notifier,
 };
 
-<<<<<<< HEAD
 /*
  * Keep track of whether we have IO hardware coherency enabled or not.
  * On Armada 370's we will not be using it for example. We need to make
@@ -152,13 +151,10 @@ int coherency_available(void)
 	return coherency_enabled;
 }
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 int __init coherency_init(void)
 {
 	struct device_node *np;
 
-<<<<<<< HEAD
 	/*
 	 * The coherency fabric is needed:
 	 * - For coherency between processors on Armada XP, so only
@@ -182,18 +178,13 @@ int __init coherency_init(void)
 	if (!is_smp())
 		return 0;
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	np = of_find_matching_node(NULL, of_coherency_table);
 	if (np) {
 		pr_info("Initializing Coherency fabric\n");
 		coherency_base = of_iomap(np, 0);
 		coherency_cpu_base = of_iomap(np, 1);
 		set_cpu_coherent(cpu_logical_map(smp_processor_id()), 0);
-<<<<<<< HEAD
 		coherency_enabled = 1;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		bus_register_notifier(&platform_bus_type,
 					&mvebu_hwcc_platform_nb);
 	}

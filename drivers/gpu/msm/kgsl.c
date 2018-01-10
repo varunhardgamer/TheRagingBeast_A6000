@@ -1372,27 +1372,15 @@ kgsl_sharedmem_region_empty(struct kgsl_process_private *private,
 static inline struct kgsl_mem_entry * __must_check
 kgsl_sharedmem_find_id(struct kgsl_process_private *process, unsigned int id)
 {
-<<<<<<< HEAD
 	int result;
-=======
-	int result = 0;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	struct kgsl_mem_entry *entry;
 
 	spin_lock(&process->mem_lock);
 	entry = idr_find(&process->mem_idr, id);
-<<<<<<< HEAD
 	result = kgsl_mem_entry_get(entry);
 	spin_unlock(&process->mem_lock);
 
 	if (result == 0)
-=======
-	if (entry)
-		result = kgsl_mem_entry_get(entry);
-	spin_unlock(&process->mem_lock);
-
-	if (!result)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		return NULL;
 	return entry;
 }
@@ -3978,12 +3966,8 @@ kgsl_mmap_memstore(struct kgsl_device *device, struct vm_area_struct *vma)
 static void kgsl_gpumem_vm_open(struct vm_area_struct *vma)
 {
 	struct kgsl_mem_entry *entry = vma->vm_private_data;
-<<<<<<< HEAD
 
 	if (kgsl_mem_entry_get(entry) == 0)
-=======
-	if (!kgsl_mem_entry_get(entry))
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		vma->vm_private_data = NULL;
 }
 
@@ -4620,10 +4604,6 @@ static int _register_device(struct kgsl_device *device)
 
 int kgsl_device_platform_probe(struct kgsl_device *device)
 {
-<<<<<<< HEAD
-=======
-	int result;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	int status = -EINVAL;
 	struct resource *res;
 
@@ -4725,14 +4705,6 @@ int kgsl_device_platform_probe(struct kgsl_device *device)
 
 	rwlock_init(&device->context_lock);
 
-<<<<<<< HEAD
-=======
-	result = kgsl_drm_init(device->pdev);
-	if (result)
-		goto error_pwrctrl_close;
-
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	setup_timer(&device->idle_timer, kgsl_timer, (unsigned long) device);
 	status = kgsl_create_device_workqueue(device);
 	if (status)
@@ -4832,10 +4804,6 @@ EXPORT_SYMBOL(kgsl_device_platform_remove);
 static void kgsl_core_exit(void)
 {
 	kgsl_events_exit();
-<<<<<<< HEAD
-=======
-	kgsl_drm_exit();
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	kgsl_cffdump_destroy();
 	kgsl_core_debugfs_close();
 
@@ -4866,11 +4834,8 @@ static void kgsl_core_exit(void)
 static int __init kgsl_core_init(void)
 {
 	int result = 0;
-<<<<<<< HEAD
 	struct sched_param param = { .sched_priority = 2 };
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/* alloc major and minor device numbers */
 	result = alloc_chrdev_region(&kgsl_driver.major, 0, KGSL_DEVICE_MAX,
 		"kgsl");
@@ -4932,7 +4897,6 @@ static int __init kgsl_core_init(void)
 
 	kgsl_mmu_set_mmutype(ksgl_mmu_type);
 
-<<<<<<< HEAD
 	init_kthread_worker(&kgsl_driver.worker);
 
 	kgsl_driver.worker_thread = kthread_run(kthread_worker_fn,
@@ -4945,8 +4909,6 @@ static int __init kgsl_core_init(void)
 
 	sched_setscheduler(kgsl_driver.worker_thread, SCHED_FIFO, &param);
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	kgsl_events_init();
 
 	/* create the memobjs kmem cache */

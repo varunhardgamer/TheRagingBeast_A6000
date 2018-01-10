@@ -312,12 +312,9 @@ static void mxs_mmc_ac(struct mxs_mmc_host *host)
 	cmd0 = BF_SSP(cmd->opcode, CMD0_CMD);
 	cmd1 = cmd->arg;
 
-<<<<<<< HEAD
 	if (cmd->opcode == MMC_STOP_TRANSMISSION)
 		cmd0 |= BM_SSP_CMD0_APPEND_8CYC;
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (host->sdio_irq_en) {
 		ctrl0 |= BM_SSP_CTRL0_SDIO_IRQ_CHECK;
 		cmd0 |= BM_SSP_CMD0_CONT_CLKING_EN | BM_SSP_CMD0_SLOW_CLKING_EN;
@@ -426,12 +423,7 @@ static void mxs_mmc_adtc(struct mxs_mmc_host *host)
 		       ssp->base + HW_SSP_BLOCK_SIZE);
 	}
 
-<<<<<<< HEAD
 	if (cmd->opcode == SD_IO_RW_EXTENDED)
-=======
-	if ((cmd->opcode == MMC_STOP_TRANSMISSION) ||
-	    (cmd->opcode == SD_IO_RW_EXTENDED))
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		cmd0 |= BM_SSP_CMD0_APPEND_8CYC;
 
 	cmd1 = cmd->arg;
@@ -684,21 +676,13 @@ static int mxs_mmc_probe(struct platform_device *pdev)
 
 	platform_set_drvdata(pdev, mmc);
 
-<<<<<<< HEAD
 	spin_lock_init(&host->lock);
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	ret = devm_request_irq(&pdev->dev, irq_err, mxs_mmc_irq_handler, 0,
 			       DRIVER_NAME, host);
 	if (ret)
 		goto out_free_dma;
 
-<<<<<<< HEAD
-=======
-	spin_lock_init(&host->lock);
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	ret = mmc_add_host(mmc);
 	if (ret)
 		goto out_free_dma;

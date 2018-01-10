@@ -23,12 +23,9 @@
 		nfc-nci@e {
 			qcom,clk-gpio = <&pm8916_gpios 2 0>;
 		};
-<<<<<<< HEAD
 		nq@28 {
 			qcom,nq-clkreq = <&pm8916_gpios 2 0>;
 		};
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	};
 
 };

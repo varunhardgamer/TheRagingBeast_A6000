@@ -23,10 +23,7 @@
 #include <asm/cacheflush.h>
 #include <soc/qcom/scm.h>
 #include "governor.h"
-<<<<<<< HEAD
 #include <linux/powersuspend.h>
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 static DEFINE_SPINLOCK(tz_lock);
 
@@ -40,13 +37,10 @@ static DEFINE_SPINLOCK(tz_lock);
  */
 #define MIN_BUSY		1000
 #define MAX_TZ_VERSION		0
-<<<<<<< HEAD
 #define LONG_FLOOR		50000
 #define HIST			5
 #define TARGET			80
 #define CAP			75
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 /*
  * CEILING is 50msec, larger than any standard
@@ -72,12 +66,9 @@ static void do_partner_stop_event(struct work_struct *work);
 static void do_partner_suspend_event(struct work_struct *work);
 static void do_partner_resume_event(struct work_struct *work);
 
-<<<<<<< HEAD
 /* Boolean to detect if pm has entered suspend mode */
 static bool suspended = false;
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /* Trap into the TrustZone, and call funcs there. */
 static int __secure_tz_reset_entry2(unsigned int *scm_data, u32 size_scm_data,
 					bool is_64)
@@ -186,7 +177,6 @@ static int tz_init(struct devfreq_msm_adreno_tz_data *priv,
 	return ret;
 }
 
-<<<<<<< HEAD
 static void _update_cutoff(struct devfreq_msm_adreno_tz_data *priv,
 				unsigned int norm_max)
 {
@@ -204,15 +194,12 @@ extern int adreno_idler(struct devfreq_dev_status stats, struct devfreq *devfreq
 		 unsigned long *freq);
 #endif
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static int tz_get_target_freq(struct devfreq *devfreq, unsigned long *freq,
 				u32 *flag)
 {
 	int result = 0;
 	struct devfreq_msm_adreno_tz_data *priv = devfreq->data;
 	struct devfreq_dev_status stats;
-<<<<<<< HEAD
         struct xstats b;
 	int val, level = 0;
         int act_level;
@@ -225,10 +212,6 @@ static int tz_get_target_freq(struct devfreq *devfreq, unsigned long *freq,
 		stats.private_data = &b;
 	else
 		stats.private_data = NULL;
-=======
-	int val, level = 0;
-	unsigned int scm_data[3];
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	/* keeps stats.private_data == NULL   */
 	result = devfreq->profile->get_dev_status(devfreq->dev.parent, &stats);
@@ -238,7 +221,6 @@ static int tz_get_target_freq(struct devfreq *devfreq, unsigned long *freq,
 	}
 
 	*freq = stats.current_frequency;
-<<<<<<< HEAD
 
         /*
 	 * Force to use & record as min freq when system has
@@ -264,10 +246,6 @@ static int tz_get_target_freq(struct devfreq *devfreq, unsigned long *freq,
 		priv->bus.ram_time += b.ram_time;
 		priv->bus.ram_time += b.ram_wait;
 	}
-=======
-	priv->bin.total_time += stats.total_time;
-	priv->bin.busy_time += stats.busy_time;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	/*
 	 * Do not waste CPU cycles running this algorithm if
@@ -424,11 +402,8 @@ static int tz_resume(struct devfreq *devfreq)
 	struct devfreq_dev_profile *profile = devfreq->profile;
 	unsigned long freq;
 
-<<<<<<< HEAD
         suspended = false;
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	freq = profile->initial_freq;
 
 	return profile->target(devfreq->dev.parent, &freq, 0);
@@ -440,11 +415,8 @@ static int tz_suspend(struct devfreq *devfreq)
 	unsigned int scm_data[2] = {0, 0};
 	__secure_tz_reset_entry2(scm_data, sizeof(scm_data), priv->is_64);
 
-<<<<<<< HEAD
         suspended = true;
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	priv->bin.total_time = 0;
 	priv->bin.busy_time = 0;
 	return 0;

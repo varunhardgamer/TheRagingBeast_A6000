@@ -269,11 +269,8 @@ static int usbtll_omap_probe(struct platform_device *pdev)
 
 		if (IS_ERR(tll->ch_clk[i]))
 			dev_dbg(dev, "can't get clock : %s\n", clkname);
-<<<<<<< HEAD
 		else
 			clk_prepare(tll->ch_clk[i]);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 
 	pm_runtime_put_sync(dev);
@@ -306,18 +303,12 @@ static int usbtll_omap_remove(struct platform_device *pdev)
 	tll_dev = NULL;
 	spin_unlock(&tll_lock);
 
-<<<<<<< HEAD
 	for (i = 0; i < tll->nch; i++) {
 		if (!IS_ERR(tll->ch_clk[i])) {
 			clk_unprepare(tll->ch_clk[i]);
 			clk_put(tll->ch_clk[i]);
 		}
 	}
-=======
-	for (i = 0; i < tll->nch; i++)
-		if (!IS_ERR(tll->ch_clk[i]))
-			clk_put(tll->ch_clk[i]);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	pm_runtime_disable(&pdev->dev);
 	return 0;
@@ -389,13 +380,8 @@ int omap_tll_init(struct usbhs_omap_platform_data *pdata)
 				 * and use SDR Mode
 				 */
 				reg &= ~(OMAP_TLL_CHANNEL_CONF_UTMIAUTOIDLE
-<<<<<<< HEAD
 					| OMAP_TLL_CHANNEL_CONF_ULPIDDRMODE);
 				reg |= OMAP_TLL_CHANNEL_CONF_ULPINOBITSTUFF;
-=======
-					| OMAP_TLL_CHANNEL_CONF_ULPINOBITSTUFF
-					| OMAP_TLL_CHANNEL_CONF_ULPIDDRMODE);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			} else if (pdata->port_mode[i] ==
 					OMAP_EHCI_PORT_MODE_HSIC) {
 				/*

@@ -35,21 +35,12 @@ struct __read_mostly va_alignment va_align = {
 	.flags = -1,
 };
 
-<<<<<<< HEAD
 static unsigned long stack_maxrandom_size(void)
 {
 	unsigned long max = 0;
 	if ((current->flags & PF_RANDOMIZE) &&
 		!(current->personality & ADDR_NO_RANDOMIZE)) {
 		max = ((-1UL) & STACK_RND_MASK) << PAGE_SHIFT;
-=======
-static unsigned int stack_maxrandom_size(void)
-{
-	unsigned int max = 0;
-	if ((current->flags & PF_RANDOMIZE) &&
-		!(current->personality & ADDR_NO_RANDOMIZE)) {
-		max = ((-1U) & STACK_RND_MASK) << PAGE_SHIFT;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 
 	return max;
@@ -76,7 +67,6 @@ static int mmap_is_legacy(void)
 
 static unsigned long mmap_rnd(void)
 {
-<<<<<<< HEAD
 	unsigned long rnd;
 
 	/*
@@ -92,24 +82,6 @@ static unsigned long mmap_rnd(void)
 }
 
 static unsigned long mmap_base(unsigned long rnd)
-=======
-	unsigned long rnd = 0;
-
-	/*
-	*  8 bits of randomness in 32bit mmaps, 20 address space bits
-	* 28 bits of randomness in 64bit mmaps, 40 address space bits
-	*/
-	if (current->flags & PF_RANDOMIZE) {
-		if (mmap_is_ia32())
-			rnd = get_random_int() % (1<<8);
-		else
-			rnd = get_random_int() % (1<<28);
-	}
-	return rnd << PAGE_SHIFT;
-}
-
-static unsigned long mmap_base(void)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	unsigned long gap = rlimit(RLIMIT_STACK);
 
@@ -118,23 +90,7 @@ static unsigned long mmap_base(void)
 	else if (gap > MAX_GAP)
 		gap = MAX_GAP;
 
-<<<<<<< HEAD
 	return PAGE_ALIGN(TASK_SIZE - gap - rnd);
-=======
-	return PAGE_ALIGN(TASK_SIZE - gap - mmap_rnd());
-}
-
-/*
- * Bottom-up (legacy) layout on X86_32 did not support randomization, X86_64
- * does, but not when emulating X86_32
- */
-static unsigned long mmap_legacy_base(void)
-{
-	if (mmap_is_ia32())
-		return TASK_UNMAPPED_BASE;
-	else
-		return TASK_UNMAPPED_BASE + mmap_rnd();
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 /*
@@ -143,26 +99,18 @@ static unsigned long mmap_legacy_base(void)
  */
 void arch_pick_mmap_layout(struct mm_struct *mm)
 {
-<<<<<<< HEAD
 	unsigned long random_factor = 0UL;
 
 	if (current->flags & PF_RANDOMIZE)
 		random_factor = mmap_rnd();
 
 	mm->mmap_legacy_base = TASK_UNMAPPED_BASE + random_factor;
-=======
-	mm->mmap_legacy_base = mmap_legacy_base();
-	mm->mmap_base = mmap_base();
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (mmap_is_legacy()) {
 		mm->mmap_base = mm->mmap_legacy_base;
 		mm->get_unmapped_area = arch_get_unmapped_area;
 	} else {
-<<<<<<< HEAD
 		mm->mmap_base = mmap_base(random_factor);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		mm->get_unmapped_area = arch_get_unmapped_area_topdown;
 	}
 }

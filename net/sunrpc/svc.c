@@ -1182,24 +1182,17 @@ svc_process_common(struct svc_rqst *rqstp, struct kvec *argv, struct kvec *resv)
 		*statp = procp->pc_func(rqstp, rqstp->rq_argp, rqstp->rq_resp);
 
 		/* Encode reply */
-<<<<<<< HEAD
 		if (*statp == rpc_drop_reply ||
 		    rqstp->rq_dropme) {
-=======
-		if (rqstp->rq_dropme) {
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			if (procp->pc_release)
 				procp->pc_release(rqstp, NULL, rqstp->rq_resp);
 			goto dropit;
 		}
-<<<<<<< HEAD
 		if (*statp == rpc_autherr_badcred) {
 			if (procp->pc_release)
 				procp->pc_release(rqstp, NULL, rqstp->rq_resp);
 			goto err_bad_auth;
 		}
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		if (*statp == rpc_success &&
 		    (xdr = procp->pc_encode) &&
 		    !xdr(rqstp, resv->iov_base+resv->iov_len, rqstp->rq_resp)) {

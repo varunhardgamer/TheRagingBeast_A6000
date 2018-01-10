@@ -72,11 +72,7 @@ struct adreno_dispatcher {
 	atomic_t fault;
 	struct plist_head pending;
 	spinlock_t plist_lock;
-<<<<<<< HEAD
 	struct kthread_work work;
-=======
-	struct work_struct work;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	struct kobject kobj;
 	struct completion idle_gate;
 };

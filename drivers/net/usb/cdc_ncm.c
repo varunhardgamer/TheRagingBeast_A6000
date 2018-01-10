@@ -464,15 +464,11 @@ advance:
 
 	iface_no = ctx->data->cur_altsetting->desc.bInterfaceNumber;
 
-<<<<<<< HEAD
 	/* Reset data interface. Some devices will not reset properly
 	 * unless they are configured first.  Toggle the altsetting to
 	 * force a reset
 	 */
 	usb_set_interface(dev->udev, iface_no, data_altsetting);
-=======
-	/* reset data interface */
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	temp = usb_set_interface(dev->udev, iface_no, 0);
 	if (temp)
 		goto error2;
@@ -481,7 +477,6 @@ advance:
 	if (cdc_ncm_setup(ctx))
 		goto error2;
 
-<<<<<<< HEAD
 	/* Some firmwares need a pause here or they will silently fail
 	 * to set up the interface properly.  This value was decided
 	 * empirically on a Sierra Wireless MC7455 running 02.08.02.00
@@ -489,8 +484,6 @@ advance:
 	 */
 	usleep_range(10000, 20000);
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/* configure data interface */
 	temp = usb_set_interface(dev->udev, iface_no, data_altsetting);
 	if (temp)
@@ -617,12 +610,8 @@ static int cdc_ncm_bind(struct usbnet *dev, struct usb_interface *intf)
 	if (cdc_ncm_comm_intf_is_mbim(intf->cur_altsetting))
 		return -ENODEV;
 
-<<<<<<< HEAD
 	/* NCM data altsetting is always 1 */
 	return cdc_ncm_bind_common(dev, intf, 1);
-=======
-	return cdc_ncm_bind_common(dev, intf, CDC_NCM_DATA_ALTSETTING_NCM);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static void cdc_ncm_align_tail(struct sk_buff *skb, size_t modulus, size_t remainder, size_t max)
@@ -1169,11 +1158,7 @@ static void cdc_ncm_disconnect(struct usb_interface *intf)
 static const struct driver_info cdc_ncm_info = {
 	.description = "CDC NCM",
 	.flags = FLAG_POINTTOPOINT | FLAG_NO_SETINT | FLAG_MULTI_PACKET
-<<<<<<< HEAD
 			| FLAG_LINK_INTR,
-=======
-                        | FLAG_LINK_INTR,
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	.bind = cdc_ncm_bind,
 	.unbind = cdc_ncm_unbind,
 	.check_connect = cdc_ncm_check_connect,

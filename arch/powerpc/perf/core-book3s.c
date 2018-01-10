@@ -112,7 +112,6 @@ static inline void power_pmu_bhrb_read(struct cpu_hw_events *cpuhw) {}
 
 static bool regs_use_siar(struct pt_regs *regs)
 {
-<<<<<<< HEAD
 	/*
 	 * When we take a performance monitor exception the regs are setup
 	 * using perf_read_regs() which overloads some fields, in particular
@@ -123,9 +122,6 @@ static bool regs_use_siar(struct pt_regs *regs)
 	 * is something random.
 	 */
 	return ((TRAP(regs) == 0xf00) && regs->result);
-=======
-	return !!regs->result;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 /*

@@ -69,12 +69,8 @@ snd_emux_init_seq_oss(struct snd_emux *emu)
 	struct snd_seq_oss_reg *arg;
 	struct snd_seq_device *dev;
 
-<<<<<<< HEAD
 	/* using device#1 here for avoiding conflicts with OPL3 */
 	if (snd_seq_device_new(emu->card, 1, SNDRV_SEQ_DEV_ID_OSS,
-=======
-	if (snd_seq_device_new(emu->card, 0, SNDRV_SEQ_DEV_ID_OSS,
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			       sizeof(struct snd_seq_oss_reg), &dev) < 0)
 		return;
 
@@ -123,17 +119,8 @@ snd_emux_open_seq_oss(struct snd_seq_oss_arg *arg, void *closure)
 	if (snd_BUG_ON(!arg || !emu))
 		return -ENXIO;
 
-<<<<<<< HEAD
 	if (!snd_emux_inc_count(emu))
 		return -EFAULT;
-=======
-	mutex_lock(&emu->register_mutex);
-
-	if (!snd_emux_inc_count(emu)) {
-		mutex_unlock(&emu->register_mutex);
-		return -EFAULT;
-	}
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	memset(&callback, 0, sizeof(callback));
 	callback.owner = THIS_MODULE;
@@ -145,10 +132,6 @@ snd_emux_open_seq_oss(struct snd_seq_oss_arg *arg, void *closure)
 	if (p == NULL) {
 		snd_printk(KERN_ERR "can't create port\n");
 		snd_emux_dec_count(emu);
-<<<<<<< HEAD
-=======
-		mutex_unlock(&emu->register_mutex);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		return -ENOMEM;
 	}
 
@@ -161,11 +144,6 @@ snd_emux_open_seq_oss(struct snd_seq_oss_arg *arg, void *closure)
 	reset_port_mode(p, arg->seq_mode);
 
 	snd_emux_reset_port(p);
-<<<<<<< HEAD
-=======
-
-	mutex_unlock(&emu->register_mutex);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return 0;
 }
 
@@ -211,19 +189,11 @@ snd_emux_close_seq_oss(struct snd_seq_oss_arg *arg)
 	if (snd_BUG_ON(!emu))
 		return -ENXIO;
 
-<<<<<<< HEAD
-=======
-	mutex_lock(&emu->register_mutex);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	snd_emux_sounds_off_all(p);
 	snd_soundfont_close_check(emu->sflist, SF_CLIENT_NO(p->chset.port));
 	snd_seq_event_port_detach(p->chset.client, p->chset.port);
 	snd_emux_dec_count(emu);
 
-<<<<<<< HEAD
-=======
-	mutex_unlock(&emu->register_mutex);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return 0;
 }
 

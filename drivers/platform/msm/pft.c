@@ -278,11 +278,7 @@ static char *inode_to_filename(struct inode *inode)
 	if (hlist_empty(&inode->i_dentry))
 		return "unknown";
 
-<<<<<<< HEAD
 	dentry = hlist_entry(inode->i_dentry.first, struct dentry, d_u.d_alias);
-=======
-	dentry = hlist_entry(inode->i_dentry.first, struct dentry, d_alias);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	filename = dentry->d_iname;
 
 	return filename;

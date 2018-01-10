@@ -435,14 +435,9 @@ static int soc_pcm_close(struct snd_pcm_substream *substream)
 		} else {
 			/* start delayed pop wq here for playback streams */
 			rtd->pop_wait = 1;
-<<<<<<< HEAD
 			queue_delayed_work(system_power_efficient_wq,
 					   &rtd->delayed_work,
 					   msecs_to_jiffies(rtd->pmdown_time));
-=======
-			schedule_delayed_work(&rtd->delayed_work,
-				msecs_to_jiffies(rtd->pmdown_time));
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		}
 	} else {
 		/* capture streams can be powered down now */
@@ -1330,12 +1325,8 @@ int dpcm_be_dai_hw_free(struct snd_soc_pcm_runtime *fe, int stream)
 		    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_PREPARE) &&
 		    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_HW_FREE) &&
 		    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_PAUSED) &&
-<<<<<<< HEAD
 		    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_STOP) &&
 		    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_SUSPEND))
-=======
-		    (be->dpcm[stream].state != SND_SOC_DPCM_STATE_STOP))
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			continue;
 
 		dev_dbg(be->dev, "ASoC: hw_free BE %s\n",

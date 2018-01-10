@@ -1235,7 +1235,6 @@ out_unlock:
 	return ret;
 }
 
-<<<<<<< HEAD
 /*
  * foll_force can write to even unwritable pmd's, but only
  * after we've gone through a cow cycle and they are dirty.
@@ -1248,8 +1247,6 @@ static inline bool can_follow_write_pmd(pmd_t pmd, struct page *page,
 		 page && PageAnon(page));
 }
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 struct page *follow_trans_huge_pmd(struct vm_area_struct *vma,
 				   unsigned long addr,
 				   pmd_t *pmd,
@@ -1260,25 +1257,16 @@ struct page *follow_trans_huge_pmd(struct vm_area_struct *vma,
 
 	assert_spin_locked(&mm->page_table_lock);
 
-<<<<<<< HEAD
-=======
-	if (flags & FOLL_WRITE && !pmd_write(*pmd))
-		goto out;
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/* Avoid dumping huge zero page */
 	if ((flags & FOLL_DUMP) && is_huge_zero_pmd(*pmd))
 		return ERR_PTR(-EFAULT);
 
 	page = pmd_page(*pmd);
 	VM_BUG_ON(!PageHead(page));
-<<<<<<< HEAD
 
 	if (flags & FOLL_WRITE && !can_follow_write_pmd(*pmd, page, flags))
 		return NULL;
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (flags & FOLL_TOUCH) {
 		pmd_t _pmd;
 		/*
@@ -1758,39 +1746,24 @@ static int __split_huge_page_map(struct page *page,
 	if (pmd) {
 		pgtable = pgtable_trans_huge_withdraw(mm);
 		pmd_populate(mm, &_pmd, pgtable);
-<<<<<<< HEAD
 		if (pmd_write(*pmd))
 			BUG_ON(page_mapcount(page) != 1);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 		haddr = address;
 		for (i = 0; i < HPAGE_PMD_NR; i++, haddr += PAGE_SIZE) {
 			pte_t *pte, entry;
 			BUG_ON(PageCompound(page+i));
-<<<<<<< HEAD
 			/*
 			 * Note that pmd_numa is not transferred deliberately
 			 * to avoid any possibility that pte_numa leaks to
 			 * a PROT_NONE VMA by accident.
 			 */
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			entry = mk_pte(page + i, vma->vm_page_prot);
 			entry = maybe_mkwrite(pte_mkdirty(entry), vma);
 			if (!pmd_write(*pmd))
 				entry = pte_wrprotect(entry);
-<<<<<<< HEAD
 			if (!pmd_young(*pmd))
 				entry = pte_mkold(entry);
-=======
-			else
-				BUG_ON(page_mapcount(page) != 1);
-			if (!pmd_young(*pmd))
-				entry = pte_mkold(entry);
-			if (pmd_numa(*pmd))
-				entry = pte_mknuma(entry);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			pte = pte_offset_map(&_pmd, haddr);
 			BUG_ON(!pte_none(*pte));
 			set_pte_at(mm, haddr, pte, entry);

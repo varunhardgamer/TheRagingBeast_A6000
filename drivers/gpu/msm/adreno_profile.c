@@ -939,11 +939,7 @@ static ssize_t profile_pipe_print(struct file *filep, char __user *ubuf,
 
 		mutex_unlock(&device->mutex);
 		set_current_state(TASK_INTERRUPTIBLE);
-<<<<<<< HEAD
 		schedule_timeout(msecs_to_jiffies(100));
-=======
-		schedule_timeout(HZ / 10);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		mutex_lock(&device->mutex);
 
 		if (signal_pending(current)) {

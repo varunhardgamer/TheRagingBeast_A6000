@@ -233,7 +233,6 @@ static inline int arch_read_trylock(arch_rwlock_t *rw)
 #define arch_read_relax(lock)	cpu_relax()
 #define arch_write_relax(lock)	cpu_relax()
 
-<<<<<<< HEAD
 /*
  * Accesses appearing in program order before a spin_lock() operation
  * can be reordered with accesses inside the critical section, by virtue
@@ -244,6 +243,4 @@ static inline int arch_read_trylock(arch_rwlock_t *rw)
  */
 #define smp_mb__before_spinlock()	smp_mb()
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #endif /* __ASM_SPINLOCK_H */

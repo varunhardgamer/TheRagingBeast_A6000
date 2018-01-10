@@ -1135,10 +1135,7 @@ static struct xfrm_state * pfkey_msg2xfrm_state(struct net *net,
 			goto out;
 	}
 
-<<<<<<< HEAD
 	err = -ENOBUFS;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	key = ext_hdrs[SADB_EXT_KEY_AUTH - 1];
 	if (sa->sadb_sa_auth) {
 		int keysize = 0;
@@ -1150,15 +1147,10 @@ static struct xfrm_state * pfkey_msg2xfrm_state(struct net *net,
 		if (key)
 			keysize = (key->sadb_key_bits + 7) / 8;
 		x->aalg = kmalloc(sizeof(*x->aalg) + keysize, GFP_KERNEL);
-<<<<<<< HEAD
 		if (!x->aalg) {
 			err = -ENOMEM;
 			goto out;
 		}
-=======
-		if (!x->aalg)
-			goto out;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		strcpy(x->aalg->alg_name, a->name);
 		x->aalg->alg_key_len = 0;
 		if (key) {
@@ -1177,15 +1169,10 @@ static struct xfrm_state * pfkey_msg2xfrm_state(struct net *net,
 				goto out;
 			}
 			x->calg = kmalloc(sizeof(*x->calg), GFP_KERNEL);
-<<<<<<< HEAD
 			if (!x->calg) {
 				err = -ENOMEM;
 				goto out;
 			}
-=======
-			if (!x->calg)
-				goto out;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			strcpy(x->calg->alg_name, a->name);
 			x->props.calgo = sa->sadb_sa_encrypt;
 		} else {
@@ -1199,15 +1186,10 @@ static struct xfrm_state * pfkey_msg2xfrm_state(struct net *net,
 			if (key)
 				keysize = (key->sadb_key_bits + 7) / 8;
 			x->ealg = kmalloc(sizeof(*x->ealg) + keysize, GFP_KERNEL);
-<<<<<<< HEAD
 			if (!x->ealg) {
 				err = -ENOMEM;
 				goto out;
 			}
-=======
-			if (!x->ealg)
-				goto out;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			strcpy(x->ealg->alg_name, a->name);
 			x->ealg->alg_key_len = 0;
 			if (key) {
@@ -1255,15 +1237,10 @@ static struct xfrm_state * pfkey_msg2xfrm_state(struct net *net,
 		struct xfrm_encap_tmpl *natt;
 
 		x->encap = kmalloc(sizeof(*x->encap), GFP_KERNEL);
-<<<<<<< HEAD
 		if (!x->encap) {
 			err = -ENOMEM;
 			goto out;
 		}
-=======
-		if (!x->encap)
-			goto out;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 		natt = x->encap;
 		n_type = ext_hdrs[SADB_X_EXT_NAT_T_TYPE-1];

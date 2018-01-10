@@ -23,10 +23,7 @@
 #include <linux/of_gpio.h>
 #include <dt-bindings/clock/msm-clocks-8909.h>
 #include <sound/q6afe-v2.h>
-<<<<<<< HEAD
 #include <sound/q6core.h>
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #include <linux/io.h>
 #include "../msm/msm-audio-pinctrl.h"
 
@@ -52,7 +49,6 @@ struct audio_ext_pmi_clk {
 	struct clk c;
 };
 
-<<<<<<< HEAD
 static struct afe_clk_set digital_cdc_core_clk = {
 	Q6AFE_LPASS_CLK_CONFIG_API_VERSION,
 	Q6AFE_LPASS_CLK_ID_INTERNAL_DIGITAL_CODEC_CORE,
@@ -61,8 +57,6 @@ static struct afe_clk_set digital_cdc_core_clk = {
 	Q6AFE_LPASS_CLK_ROOT_DEFAULT,
 };
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static int audio_ext_clk_prepare(struct clk *clk);
 static void audio_ext_clk_unprepare(struct clk *clk);
 
@@ -128,15 +122,6 @@ static int audio_ext_clk_prepare(struct clk *clk)
 			goto err;
 		}
 
-<<<<<<< HEAD
-=======
-		tasha_digital_cdc_clk.i2s_cfg_minor_version =
-					AFE_API_VERSION_I2S_CONFIG;
-		tasha_digital_cdc_clk.clk_val = 9600000;
-		tasha_digital_cdc_clk.clk_root = 5;
-		tasha_digital_cdc_clk.reserved = 0;
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		vaddr = ioremap(LPASS_CSR_GP_IO_MUX_SPKR_CTL , 4);
 		val = ioread32(vaddr);
 		val = val | 0x00000002;
@@ -147,7 +132,6 @@ static int audio_ext_clk_prepare(struct clk *clk)
 		val = val | 0x00000002;
 		iowrite32(val, vaddr);
 
-<<<<<<< HEAD
 		switch (q6core_get_avs_version()) {
 		case (Q6_SUBSYS_AVS2_6):
 			tasha_digital_cdc_clk.i2s_cfg_minor_version =
@@ -176,15 +160,6 @@ static int audio_ext_clk_prepare(struct clk *clk)
 			ret = -EINVAL;
 			pr_err("%s: INVALID AVS IMAGE\n", __func__);
 			break;
-=======
-		ret = afe_set_digital_codec_core_clock(
-			AFE_PORT_ID_PRIMARY_MI2S_RX , &tasha_digital_cdc_clk);
-
-		if (ret < 0) {
-			pr_err("%s afe_set_digital_codec_core_clock failed\n",
-				__func__);
-			return ret;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		}
 	} else {
 		pr_err("%s: gpio: %d\n", __func__, audio_clk->gpio);
@@ -208,7 +183,6 @@ static void audio_ext_clk_unprepare(struct clk *clk)
 				   __func__, ret);
 			ret = -EIO;
 		}
-<<<<<<< HEAD
 		switch (q6core_get_avs_version()) {
 		case (Q6_SUBSYS_AVS2_6):
 			tasha_digital_cdc_clk.clk_val = 0;
@@ -233,16 +207,6 @@ static void audio_ext_clk_unprepare(struct clk *clk)
 			ret = -EINVAL;
 			pr_err("%s: INVALID AVS IMAGE\n", __func__);
 			break;
-=======
-		tasha_digital_cdc_clk.clk_val = 0;
-
-		ret = afe_set_digital_codec_core_clock(
-			AFE_PORT_ID_PRIMARY_MI2S_RX, &tasha_digital_cdc_clk);
-
-		if (ret < 0) {
-			pr_err("%s afe_set_digital_codec_core_clock failed\n",
-				__func__);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		}
 	} else {
 		pr_debug("%s: gpio: %d\n", __func__, audio_clk->gpio);

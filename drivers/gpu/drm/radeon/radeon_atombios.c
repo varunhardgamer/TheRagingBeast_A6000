@@ -452,13 +452,9 @@ static bool radeon_atom_apply_quirks(struct drm_device *dev,
 	}
 
 	/* Fujitsu D3003-S2 board lists DVI-I as DVI-D and VGA */
-<<<<<<< HEAD
 	if (((dev->pdev->device == 0x9802) ||
 	     (dev->pdev->device == 0x9805) ||
 	     (dev->pdev->device == 0x9806)) &&
-=======
-	if (((dev->pdev->device == 0x9802) || (dev->pdev->device == 0x9806)) &&
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	    (dev->pdev->subsystem_vendor == 0x1734) &&
 	    (dev->pdev->subsystem_device == 0x11bd)) {
 		if (*connector_type == DRM_MODE_CONNECTOR_VGA) {
@@ -469,10 +465,6 @@ static bool radeon_atom_apply_quirks(struct drm_device *dev,
 		}
 	}
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return true;
 }
 
@@ -1152,11 +1144,7 @@ bool radeon_atom_get_clock_info(struct drm_device *dev)
 		    le16_to_cpu(firmware_info->info.usReferenceClock);
 		p1pll->reference_div = 0;
 
-<<<<<<< HEAD
 		if ((frev < 2) && (crev < 2))
-=======
-		if (crev < 2)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			p1pll->pll_out_min =
 				le16_to_cpu(firmware_info->info.usMinPixelClockPLL_Output);
 		else
@@ -1165,11 +1153,7 @@ bool radeon_atom_get_clock_info(struct drm_device *dev)
 		p1pll->pll_out_max =
 		    le32_to_cpu(firmware_info->info.ulMaxPixelClockPLL_Output);
 
-<<<<<<< HEAD
 		if (((frev < 2) && (crev >= 4)) || (frev >= 2)) {
-=======
-		if (crev >= 4) {
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			p1pll->lcd_pll_out_min =
 				le16_to_cpu(firmware_info->info_14.usLcdMinPixelClockPLL_Output) * 100;
 			if (p1pll->lcd_pll_out_min == 0)
@@ -1925,11 +1909,7 @@ static const char *thermal_controller_names[] = {
 	"adm1032",
 	"adm1030",
 	"max6649",
-<<<<<<< HEAD
 	"lm63", /* lm64 */
-=======
-	"lm64",
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	"f75375",
 	"asc7xxx",
 };
@@ -1940,11 +1920,7 @@ static const char *pp_lib_thermal_controller_names[] = {
 	"adm1032",
 	"adm1030",
 	"max6649",
-<<<<<<< HEAD
 	"lm63", /* lm64 */
-=======
-	"lm64",
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	"f75375",
 	"RV6xx",
 	"RV770",

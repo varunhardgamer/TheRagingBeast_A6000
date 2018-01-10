@@ -44,29 +44,23 @@ void xenvif_get(struct xenvif *vif)
 	atomic_inc(&vif->refcnt);
 }
 
-<<<<<<< HEAD
 void xenvif_get_rings(struct xenvif *vif)
 {
 	atomic_inc(&vif->ring_refcnt);
 }
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 void xenvif_put(struct xenvif *vif)
 {
 	if (atomic_dec_and_test(&vif->refcnt))
 		wake_up(&vif->waiting_to_free);
 }
 
-<<<<<<< HEAD
 void xenvif_put_rings(struct xenvif *vif)
 {
 	if (atomic_dec_and_test(&vif->ring_refcnt))
 		wake_up(&vif->waiting_to_unmap);
 }
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 int xenvif_schedulable(struct xenvif *vif)
 {
 	return netif_running(vif->dev) && netif_carrier_ok(vif->dev);
@@ -108,10 +102,7 @@ static int xenvif_start_xmit(struct sk_buff *skb, struct net_device *dev)
 	/* Reserve ring slots for the worst-case number of fragments. */
 	vif->rx_req_cons_peek += xen_netbk_count_skb_slots(vif, skb);
 	xenvif_get(vif);
-<<<<<<< HEAD
 	xenvif_get_rings(vif);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (vif->can_queue && xen_netbk_must_stop_queue(vif))
 		netif_stop_queue(dev);
@@ -292,10 +283,7 @@ struct xenvif *xenvif_alloc(struct device *parent, domid_t domid,
 	vif->dev = dev;
 	INIT_LIST_HEAD(&vif->schedule_list);
 	INIT_LIST_HEAD(&vif->notify_list);
-<<<<<<< HEAD
 	init_waitqueue_head(&vif->waiting_to_unmap);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	vif->credit_bytes = vif->remaining_credit = ~0UL;
 	vif->credit_usec  = 0UL;
@@ -390,20 +378,12 @@ void xenvif_disconnect(struct xenvif *vif)
 	if (netif_carrier_ok(vif->dev))
 		xenvif_carrier_off(vif);
 
-<<<<<<< HEAD
 	disable_irq(vif->irq);
 	xen_netbk_unmap_frontend_rings(vif);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (vif->irq) {
 		unbind_from_irqhandler(vif->irq, vif);
 		vif->irq = 0;
 	}
-<<<<<<< HEAD
-=======
-
-	xen_netbk_unmap_frontend_rings(vif);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 void xenvif_free(struct xenvif *vif)

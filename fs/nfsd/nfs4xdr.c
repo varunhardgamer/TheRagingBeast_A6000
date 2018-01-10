@@ -1743,12 +1743,9 @@ static __be32 nfsd4_encode_components_esc(char sep, char *components,
 		}
 		else
 			end++;
-<<<<<<< HEAD
 		if (found_esc)
 			end = next;
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		str = end;
 	}
 	*pp = p;

@@ -1788,12 +1788,7 @@ static void transport_complete_qf(struct se_cmd *cmd)
 
 	if (cmd->se_cmd_flags & SCF_TRANSPORT_TASK_SENSE) {
 		ret = cmd->se_tfo->queue_status(cmd);
-<<<<<<< HEAD
 		goto out;
-=======
-		if (ret)
-			goto out;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 
 	switch (cmd->data_direction) {
@@ -2133,11 +2128,7 @@ transport_generic_new_cmd(struct se_cmd *cmd)
 	 * and let it call back once the write buffers are ready.
 	 */
 	target_add_to_state_list(cmd);
-<<<<<<< HEAD
 	if (cmd->data_direction != DMA_TO_DEVICE || cmd->data_length == 0) {
-=======
-	if (cmd->data_direction != DMA_TO_DEVICE) {
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		target_execute_cmd(cmd);
 		return 0;
 	}
@@ -2231,13 +2222,10 @@ int target_get_sess_cmd(struct se_session *se_sess, struct se_cmd *se_cmd,
 
 out:
 	spin_unlock_irqrestore(&se_sess->sess_cmd_lock, flags);
-<<<<<<< HEAD
 
 	if (ret && ack_kref)
 		target_put_sess_cmd(se_sess, se_cmd);
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return ret;
 }
 EXPORT_SYMBOL(target_get_sess_cmd);

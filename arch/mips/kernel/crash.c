@@ -15,7 +15,6 @@ static int crashing_cpu = -1;
 static cpumask_t cpus_in_crash = CPU_MASK_NONE;
 
 #ifdef CONFIG_SMP
-<<<<<<< HEAD
 static void crash_shutdown_secondary(void *passed_regs)
 {
 	struct pt_regs *regs = passed_regs;
@@ -32,14 +31,6 @@ static void crash_shutdown_secondary(void *passed_regs)
 		regs = get_irq_regs();
 	if (!regs)
 		regs = task_pt_regs(current);
-=======
-static void crash_shutdown_secondary(void *ignore)
-{
-	struct pt_regs *regs;
-	int cpu = smp_processor_id();
-
-	regs = task_pt_regs(current);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (!cpu_online(cpu))
 		return;

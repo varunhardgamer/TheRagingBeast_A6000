@@ -118,11 +118,7 @@ hugetlb_get_unmapped_area(struct file *file, unsigned long addr,
 		addr = ALIGN(addr, HPAGE_SIZE);
 		vma = find_vma(mm, addr);
 		if (task_size - len >= addr &&
-<<<<<<< HEAD
 		    (!vma || addr + len <= vm_start_gap(vma)))
-=======
-		    (!vma || addr + len <= vma->vm_start))
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			return addr;
 	}
 	if (mm->get_unmapped_area == arch_get_unmapped_area)

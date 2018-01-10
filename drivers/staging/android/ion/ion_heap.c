@@ -2,11 +2,7 @@
  * drivers/gpu/ion/ion_heap.c
  *
  * Copyright (C) 2011 Google, Inc.
-<<<<<<< HEAD
  * Copyright (c) 2011-2014,2016, The Linux Foundation. All rights reserved.
-=======
- * Copyright (c) 2011-2014,2016 The Linux Foundation. All rights reserved.
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  *
  * This software is licensed under the terms of the GNU General Public
  * License version 2, as published by the Free Software Foundation, and

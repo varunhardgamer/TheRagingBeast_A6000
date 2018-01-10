@@ -1730,12 +1730,8 @@ static void lio_tpg_release_fabric_acl(
 }
 
 /*
-<<<<<<< HEAD
  * Called with spin_lock_irq(struct se_portal_group->session_lock) held
  * or not held.
-=======
- * Called with spin_lock_bh(struct se_portal_group->session_lock) held..
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  *
  * Also, this function calls iscsit_inc_session_usage_count() on the
  * struct iscsi_session in question.
@@ -1743,7 +1739,6 @@ static void lio_tpg_release_fabric_acl(
 static int lio_tpg_shutdown_session(struct se_session *se_sess)
 {
 	struct iscsi_session *sess = se_sess->fabric_sess_ptr;
-<<<<<<< HEAD
 	struct se_portal_group *se_tpg = se_sess->se_tpg;
 	bool local_lock = false;
 
@@ -1751,34 +1746,25 @@ static int lio_tpg_shutdown_session(struct se_session *se_sess)
 		spin_lock_irq(&se_tpg->session_lock);
 		local_lock = true;
 	}
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	spin_lock(&sess->conn_lock);
 	if (atomic_read(&sess->session_fall_back_to_erl0) ||
 	    atomic_read(&sess->session_logout) ||
 	    (sess->time2retain_timer_flags & ISCSI_TF_EXPIRED)) {
 		spin_unlock(&sess->conn_lock);
-<<<<<<< HEAD
 		if (local_lock)
 			spin_unlock_irq(&sess->conn_lock);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		return 0;
 	}
 	atomic_set(&sess->session_reinstatement, 1);
 	spin_unlock(&sess->conn_lock);
 
 	iscsit_stop_time2retain_timer(sess);
-<<<<<<< HEAD
 	spin_unlock_irq(&se_tpg->session_lock);
 
 	iscsit_stop_session(sess, 1, 1);
 	if (!local_lock)
 		spin_lock_irq(&se_tpg->session_lock);
-=======
-	iscsit_stop_session(sess, 1, 1);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	return 1;
 }

@@ -943,11 +943,7 @@ again:
 		base = btrfs_item_ptr_offset(leaf, path->slots[0]);
 
 		while (cur_offset < item_size) {
-<<<<<<< HEAD
 			extref = (struct btrfs_inode_extref *)(base + cur_offset);
-=======
-			extref = (struct btrfs_inode_extref *)base + cur_offset;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 			victim_name_len = btrfs_inode_extref_name_len(leaf, extref);
 
@@ -1695,19 +1691,11 @@ static noinline int find_dir_range(struct btrfs_root *root,
 next:
 	/* check the next slot in the tree to see if it is a valid item */
 	nritems = btrfs_header_nritems(path->nodes[0]);
-<<<<<<< HEAD
 	path->slots[0]++;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (path->slots[0] >= nritems) {
 		ret = btrfs_next_leaf(root, path);
 		if (ret)
 			goto out;
-<<<<<<< HEAD
-=======
-	} else {
-		path->slots[0]++;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 
 	btrfs_item_key_to_cpu(path->nodes[0], &key, path->slots[0]);

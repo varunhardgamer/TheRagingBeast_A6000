@@ -226,12 +226,8 @@ struct mod_kallsyms {
 	char *strtab;
 };
 
-<<<<<<< HEAD
 struct module
 {
-=======
-struct module {
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	enum module_state state;
 
 	/* Member of list of modules */

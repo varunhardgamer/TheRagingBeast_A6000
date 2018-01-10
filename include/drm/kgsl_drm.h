@@ -3,11 +3,8 @@
 
 #include "drm.h"
 
-<<<<<<< HEAD
 #define KGSL_DRM_IRQ	"kgsl_drm_irq"
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #define DRM_KGSL_GEM_CREATE 0x00
 #define DRM_KGSL_GEM_PREP   0x01
 #define DRM_KGSL_GEM_SETMEMTYPE 0x02
@@ -152,7 +149,6 @@ struct drm_kgsl_gem_cache_ops)
 #define DRM_KGSL_GEM_TYPE_FD_FBMEM   0x1000000
 #define DRM_KGSL_GEM_TYPE_FD_MASK    0xF000000
 
-<<<<<<< HEAD
 enum drm_kgsl_crtc_id {
 	DRM_KGSL_CRTC_PRIMARY,
 	DRM_KGSL_CRTC_HDMI,
@@ -162,8 +158,6 @@ enum drm_kgsl_crtc_id {
 	DRM_KGSL_CRTC_MAX,
 };
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 struct drm_kgsl_gem_create {
 	uint32_t size;
 	uint32_t handle;
@@ -247,9 +241,6 @@ struct drm_kgsl_gem_cache_ops {
 	uint32_t length;
 };
 
-<<<<<<< HEAD
 extern void mdss_mdp_clk_ctrl(int enable, int isr);
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #endif

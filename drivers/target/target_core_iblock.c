@@ -122,11 +122,7 @@ static int iblock_configure_device(struct se_device *dev)
 	q = bdev_get_queue(bd);
 
 	dev->dev_attrib.hw_block_size = bdev_logical_block_size(bd);
-<<<<<<< HEAD
 	dev->dev_attrib.hw_max_sectors = queue_max_hw_sectors(q);
-=======
-	dev->dev_attrib.hw_max_sectors = UINT_MAX;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	dev->dev_attrib.hw_queue_depth = q->nr_requests;
 
 	/*

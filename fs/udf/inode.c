@@ -1237,13 +1237,8 @@ int udf_setsize(struct inode *inode, loff_t newsize)
 			return err;
 		}
 set_size:
-<<<<<<< HEAD
 		up_write(&iinfo->i_data_sem);
 		truncate_setsize(inode, newsize);
-=======
-		truncate_setsize(inode, newsize);
-		up_write(&iinfo->i_data_sem);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	} else {
 		if (iinfo->i_alloc_type == ICBTAG_FLAG_AD_IN_ICB) {
 			down_write(&iinfo->i_data_sem);
@@ -1260,15 +1255,9 @@ set_size:
 					  udf_get_block);
 		if (err)
 			return err;
-<<<<<<< HEAD
 		truncate_setsize(inode, newsize);
 		down_write(&iinfo->i_data_sem);
 		udf_clear_extent_cache(inode);
-=======
-		down_write(&iinfo->i_data_sem);
-		udf_clear_extent_cache(inode);
-		truncate_setsize(inode, newsize);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		udf_truncate_extents(inode);
 		up_write(&iinfo->i_data_sem);
 	}
@@ -1281,7 +1270,6 @@ update_time:
 	return 0;
 }
 
-<<<<<<< HEAD
 /*
  * Maximum length of linked list formed by ICB hierarchy. The chosen number is
  * arbitrary - just that we hopefully don't limit any real use of rewritten
@@ -1289,21 +1277,15 @@ update_time:
  */
 #define UDF_MAX_ICB_NESTING 1024
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static void __udf_read_inode(struct inode *inode)
 {
 	struct buffer_head *bh = NULL;
 	struct fileEntry *fe;
 	uint16_t ident;
 	struct udf_inode_info *iinfo = UDF_I(inode);
-<<<<<<< HEAD
 	unsigned int indirections = 0;
 
 reread:
-=======
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/*
 	 * Set defaults, but the inode is still incomplete!
 	 * Note: get_new_inode() sets the following on a new inode:
@@ -1340,17 +1322,12 @@ reread:
 		ibh = udf_read_ptagged(inode->i_sb, &iinfo->i_location, 1,
 					&ident);
 		if (ident == TAG_IDENT_IE && ibh) {
-<<<<<<< HEAD
-=======
-			struct buffer_head *nbh = NULL;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			struct kernel_lb_addr loc;
 			struct indirectEntry *ie;
 
 			ie = (struct indirectEntry *)ibh->b_data;
 			loc = lelb_to_cpu(ie->indirectICB.extLocation);
 
-<<<<<<< HEAD
 			if (ie->indirectICB.extLength) {
 				brelse(bh);
 				brelse(ibh);
@@ -1365,23 +1342,6 @@ reread:
 					return;
 				}
 				goto reread;
-=======
-			if (ie->indirectICB.extLength &&
-				(nbh = udf_read_ptagged(inode->i_sb, &loc, 0,
-							&ident))) {
-				if (ident == TAG_IDENT_FE ||
-					ident == TAG_IDENT_EFE) {
-					memcpy(&iinfo->i_location,
-						&loc,
-						sizeof(struct kernel_lb_addr));
-					brelse(bh);
-					brelse(ibh);
-					brelse(nbh);
-					__udf_read_inode(inode);
-					return;
-				}
-				brelse(nbh);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			}
 		}
 		brelse(ibh);
@@ -1535,7 +1495,6 @@ static void udf_fill_inode(struct inode *inode, struct buffer_head *bh)
 		iinfo->i_checkpoint = le32_to_cpu(efe->checkpoint);
 	}
 
-<<<<<<< HEAD
 	/*
 	 * Sanity check length of allocation descriptors and extended attrs to
 	 * avoid integer overflows
@@ -1546,8 +1505,6 @@ static void udf_fill_inode(struct inode *inode, struct buffer_head *bh)
 	if (udf_file_entry_alloc_offset(inode) + iinfo->i_lenAlloc > inode->i_sb->s_blocksize)
 		return;
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	switch (fe->icbTag.fileType) {
 	case ICBTAG_FILE_TYPE_DIRECTORY:
 		inode->i_op = &udf_dir_inode_operations;
@@ -2098,28 +2055,21 @@ void udf_write_aext(struct inode *inode, struct extent_position *epos,
 		epos->offset += adsize;
 }
 
-<<<<<<< HEAD
 /*
  * Only 1 indirect extent in a row really makes sense but allow upto 16 in case
  * someone does some weird stuff.
  */
 #define UDF_MAX_INDIR_EXTS 16
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 int8_t udf_next_aext(struct inode *inode, struct extent_position *epos,
 		     struct kernel_lb_addr *eloc, uint32_t *elen, int inc)
 {
 	int8_t etype;
-<<<<<<< HEAD
 	unsigned int indirections = 0;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	while ((etype = udf_current_aext(inode, epos, eloc, elen, inc)) ==
 	       (EXT_NEXT_EXTENT_ALLOCDECS >> 30)) {
 		int block;
-<<<<<<< HEAD
 
 		if (++indirections > UDF_MAX_INDIR_EXTS) {
 			udf_err(inode->i_sb,
@@ -2128,8 +2078,6 @@ int8_t udf_next_aext(struct inode *inode, struct extent_position *epos,
 			return -1;
 		}
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		epos->block = *eloc;
 		epos->offset = sizeof(struct allocExtDesc);
 		brelse(epos->bh);

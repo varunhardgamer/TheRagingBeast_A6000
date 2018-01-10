@@ -1110,10 +1110,7 @@ struct snd_lsm_detection_params_32 {
 	enum lsm_detection_mode detect_mode;
 	u8 num_confidence_levels;
 	bool detect_failure;
-<<<<<<< HEAD
 	bool poll_enable;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 
 struct lsm_params_info_32 {
@@ -1299,10 +1296,7 @@ static int msm_lsm_ioctl_compat(struct snd_pcm_substream *substream,
 				det_params32.num_confidence_levels;
 			det_params.detect_failure =
 				det_params32.detect_failure;
-<<<<<<< HEAD
 			det_params.poll_enable = det_params32.poll_enable;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			cmd = SNDRV_LSM_SET_PARAMS;
 			err = msm_lsm_ioctl_shared(substream, cmd,
 					&det_params);
@@ -1966,7 +1960,6 @@ static int msm_lsm_pcm_copy(struct snd_pcm_substream *substream, int ch,
 	return 0;
 }
 
-<<<<<<< HEAD
 static int msm_lsm_app_type_cfg_ctl_put(struct snd_kcontrol *kcontrol,
 					struct snd_ctl_elem_value *ucontrol)
 {
@@ -2070,8 +2063,6 @@ static int msm_lsm_add_controls(struct snd_soc_pcm_runtime *rtd)
 	return ret;
 }
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static struct snd_pcm_ops msm_lsm_ops = {
 	.open           = msm_lsm_open,
 	.close          = msm_lsm_close,
@@ -2086,23 +2077,16 @@ static struct snd_pcm_ops msm_lsm_ops = {
 static int msm_asoc_lsm_new(struct snd_soc_pcm_runtime *rtd)
 {
 	struct snd_card *card = rtd->card->snd_card;
-<<<<<<< HEAD
 	int ret = 0;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (!card->dev->coherent_dma_mask)
 		card->dev->coherent_dma_mask = DMA_BIT_MASK(32);
 
-<<<<<<< HEAD
 	ret = msm_lsm_add_controls(rtd);
 	if (ret)
 		pr_err("%s, kctl add failed:%d\n", __func__, ret);
 
 	return ret;
-=======
-	return 0;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static int msm_asoc_lsm_probe(struct snd_soc_platform *platform)

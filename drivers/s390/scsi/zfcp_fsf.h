@@ -3,11 +3,7 @@
  *
  * Interface to the FSF support functions.
  *
-<<<<<<< HEAD
  * Copyright IBM Corp. 2002, 2016
-=======
- * Copyright IBM Corp. 2002, 2010
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  */
 
 #ifndef FSF_H
@@ -90,10 +86,7 @@
 #define FSF_APP_TAG_CHECK_FAILURE		0x00000082
 #define FSF_REF_TAG_CHECK_FAILURE		0x00000083
 #define FSF_ADAPTER_STATUS_AVAILABLE		0x000000AD
-<<<<<<< HEAD
 #define FSF_FCP_RSP_AVAILABLE			0x000000AF
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #define FSF_UNKNOWN_COMMAND			0x000000E2
 #define FSF_UNKNOWN_OP_SUBTYPE                  0x000000E3
 #define FSF_INVALID_COMMAND_OPTION              0x000000E5
@@ -470,10 +463,7 @@ struct zfcp_blk_drv_data {
  * @handler_data: data passed to handler function
  * @port: Optional pointer to port for zfcp internal ELS (only test link ADISC)
  * @status: used to pass error status to calling function
-<<<<<<< HEAD
  * @d_id: Destination ID of either open WKA port for CT or of D_ID for ELS
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  */
 struct zfcp_fsf_ct_els {
 	struct scatterlist *req;
@@ -482,10 +472,7 @@ struct zfcp_fsf_ct_els {
 	void *handler_data;
 	struct zfcp_port *port;
 	int status;
-<<<<<<< HEAD
 	u32 d_id;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 
 #endif				/* FSF_H */

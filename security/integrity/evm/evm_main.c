@@ -20,10 +20,7 @@
 #include <linux/integrity.h>
 #include <linux/evm.h>
 #include <crypto/hash.h>
-<<<<<<< HEAD
 #include <crypto/algapi.h>
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #include "evm.h"
 
 int evm_initialized;
@@ -132,11 +129,7 @@ static enum integrity_status evm_verify_hmac(struct dentry *dentry,
 				   xattr_value_len, calc.digest);
 		if (rc)
 			break;
-<<<<<<< HEAD
 		rc = crypto_memneq(xattr_data->digest, calc.digest,
-=======
-		rc = memcmp(xattr_data->digest, calc.digest,
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			    sizeof(calc.digest));
 		if (rc)
 			rc = -EINVAL;
@@ -294,18 +287,12 @@ int evm_inode_setxattr(struct dentry *dentry, const char *xattr_name,
 {
 	const struct evm_ima_xattr_data *xattr_data = xattr_value;
 
-<<<<<<< HEAD
 	if (strcmp(xattr_name, XATTR_NAME_EVM) == 0) {
 		if (!xattr_value_len)
 			return -EINVAL;
 		if (xattr_data->type != EVM_IMA_XATTR_DIGSIG)
 			return -EPERM;
 	}
-=======
-	if ((strcmp(xattr_name, XATTR_NAME_EVM) == 0)
-	    && (xattr_data->type == EVM_XATTR_HMAC))
-		return -EPERM;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return evm_protect_xattr(dentry, xattr_name, xattr_value,
 				 xattr_value_len);
 }

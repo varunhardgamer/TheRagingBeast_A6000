@@ -153,10 +153,7 @@ enum zone_stat_item {
 #endif
 	NR_ANON_TRANSPARENT_HUGEPAGES,
 	NR_FREE_CMA_PAGES,
-<<<<<<< HEAD
 	NR_SWAPCACHE,
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	NR_VM_ZONE_STAT_ITEMS };
 
 /*

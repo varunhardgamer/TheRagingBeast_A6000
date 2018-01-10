@@ -1599,20 +1599,12 @@ int should_remove_suid(struct dentry *dentry)
 }
 EXPORT_SYMBOL(should_remove_suid);
 
-<<<<<<< HEAD
 static int __remove_suid(struct vfsmount *mnt, struct dentry *dentry, int kill)
-=======
-static int __remove_suid(struct dentry *dentry, int kill)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	struct iattr newattrs;
 
 	newattrs.ia_valid = ATTR_FORCE | kill;
-<<<<<<< HEAD
 	return notify_change2(mnt, dentry, &newattrs);
-=======
-	return notify_change(dentry, &newattrs);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 int file_remove_suid(struct file *file)
@@ -1635,15 +1627,9 @@ int file_remove_suid(struct file *file)
 	if (killpriv)
 		error = security_inode_killpriv(dentry);
 	if (!error && killsuid)
-<<<<<<< HEAD
 		error = __remove_suid(file->f_path.mnt, dentry, killsuid);
 	if (!error)
 		inode_has_no_xattr(inode);
-=======
-		error = __remove_suid(dentry, killsuid);
-	if (!error && (inode->i_sb->s_flags & MS_NOSEC))
-		inode->i_flags |= S_NOSEC;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	return error;
 }

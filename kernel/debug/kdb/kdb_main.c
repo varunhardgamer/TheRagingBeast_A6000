@@ -2532,11 +2532,7 @@ static int kdb_summary(int argc, const char **argv)
 #define K(x) ((x) << (PAGE_SHIFT - 10))
 	kdb_printf("\nMemTotal:       %8lu kB\nMemFree:        %8lu kB\n"
 		   "Buffers:        %8lu kB\n",
-<<<<<<< HEAD
 		   K(val.totalram), K(val.freeram), K(val.bufferram));
-=======
-		   val.totalram, val.freeram, val.bufferram);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return 0;
 }
 

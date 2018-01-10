@@ -248,11 +248,7 @@ static int wm831x_clkout_is_enabled(struct clk_hw *hw)
 	if (ret < 0) {
 		dev_err(wm831x->dev, "Unable to read CLOCK_CONTROL_1: %d\n",
 			ret);
-<<<<<<< HEAD
 		return false;
-=======
-		return true;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 
 	return (ret & WM831X_CLKOUT_ENA) != 0;

@@ -349,10 +349,7 @@ struct kvm_mips_tlb {
 #define KVM_MIPS_GUEST_TLB_SIZE     64
 struct kvm_vcpu_arch {
 	void *host_ebase, *guest_ebase;
-<<<<<<< HEAD
 	int (*vcpu_run)(struct kvm_run *run, struct kvm_vcpu *vcpu);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	unsigned long host_stack;
 	unsigned long host_gp;
 
@@ -378,14 +375,10 @@ struct kvm_vcpu_arch {
 	/* Host KSEG0 address of the EI/DI offset */
 	void *kseg0_commpage;
 
-<<<<<<< HEAD
 	/* Resume PC after MMIO completion */
 	unsigned long io_pc;
 	/* GPR used as IO source/target */
 	u32 io_gpr;
-=======
-	u32 io_gpr;		/* GPR used as IO source/target */
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	/* Used to calibrate the virutal count register for the guest */
 	int32_t host_cp0_count;
@@ -396,11 +389,6 @@ struct kvm_vcpu_arch {
 	/* Bitmask of pending exceptions to be cleared */
 	unsigned long pending_exceptions_clr;
 
-<<<<<<< HEAD
-=======
-	unsigned long pending_load_cause;
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/* Save/Restore the entryhi register when are are preempted/scheduled back in */
 	unsigned long preempt_entryhi;
 

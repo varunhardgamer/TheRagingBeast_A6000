@@ -580,10 +580,5 @@ module_exit(fini);
 
 MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION("Twofish Cipher Algorithm, AVX2 optimized");
-<<<<<<< HEAD
 MODULE_ALIAS_CRYPTO("twofish");
 MODULE_ALIAS_CRYPTO("twofish-asm");
-=======
-MODULE_ALIAS("twofish");
-MODULE_ALIAS("twofish-asm");
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c

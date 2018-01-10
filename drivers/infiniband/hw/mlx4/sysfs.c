@@ -563,11 +563,8 @@ static int add_port(struct mlx4_ib_dev *dev, int port_num, int slave)
 	struct mlx4_port *p;
 	int i;
 	int ret;
-<<<<<<< HEAD
 	int is_eth = rdma_port_get_link_layer(&dev->ib_dev, port_num) ==
 			IB_LINK_LAYER_ETHERNET;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	p = kzalloc(sizeof *p, GFP_KERNEL);
 	if (!p)
@@ -585,12 +582,8 @@ static int add_port(struct mlx4_ib_dev *dev, int port_num, int slave)
 
 	p->pkey_group.name  = "pkey_idx";
 	p->pkey_group.attrs =
-<<<<<<< HEAD
 		alloc_group_attrs(show_port_pkey,
 				  is_eth ? NULL : store_port_pkey,
-=======
-		alloc_group_attrs(show_port_pkey, store_port_pkey,
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 				  dev->dev->caps.pkey_table_len[port_num]);
 	if (!p->pkey_group.attrs)
 		goto err_alloc;

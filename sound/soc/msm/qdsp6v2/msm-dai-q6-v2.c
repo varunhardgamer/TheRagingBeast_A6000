@@ -994,7 +994,6 @@ static int msm_dai_q6_i2s_hw_params(struct snd_pcm_hw_params *params,
 	dai_data->port_config.i2s.i2s_cfg_minor_version =
 						AFE_API_VERSION_I2S_CONFIG;
 	dai_data->port_config.i2s.data_format =  AFE_LINEAR_PCM_DATA;
-<<<<<<< HEAD
 	switch (params_format(params)) {
 	case SNDRV_PCM_FORMAT_S16_LE:
 	case SNDRV_PCM_FORMAT_SPECIAL:
@@ -1008,10 +1007,6 @@ static int msm_dai_q6_i2s_hw_params(struct snd_pcm_hw_params *params,
 		pr_err("%s: format %d\n",
 			__func__, params_format(params));
 	}
-=======
-	/* Q6 only supports 16 as now */
-	dai_data->port_config.i2s.bit_width = 16;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	dai_data->port_config.i2s.channel_mode = 1;
 
 	return 0;

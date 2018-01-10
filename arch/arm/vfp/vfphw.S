@@ -14,7 +14,6 @@
  * r10 points at the start of the private FP workspace in the thread structure
  * sp points to a struct pt_regs (as defined in include/asm/proc/ptrace.h)
  */
-<<<<<<< HEAD
 #include <linux/init.h>
 #include <linux/linkage.h>
 #include <asm/thread_info.h>
@@ -22,12 +21,6 @@
 #include <linux/kern_levels.h>
 #include <asm/assembler.h>
 #include <asm/asm-offsets.h>
-=======
-#include <asm/thread_info.h>
-#include <asm/vfpmacros.h>
-#include <linux/kern_levels.h>
-#include "../kernel/entry-header.S"
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	.macro	DBGSTR, str
 #ifdef DEBUG

@@ -98,10 +98,7 @@ int __add_to_swap_cache(struct page *page, swp_entry_t entry)
 	if (likely(!error)) {
 		address_space->nrpages++;
 		__inc_zone_page_state(page, NR_FILE_PAGES);
-<<<<<<< HEAD
 		__inc_zone_page_state(page, NR_SWAPCACHE);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		INC_CACHE_INFO(add_total);
 	}
 	spin_unlock_irq(&address_space->tree_lock);
@@ -154,10 +151,7 @@ void __delete_from_swap_cache(struct page *page)
 	ClearPageSwapCache(page);
 	address_space->nrpages--;
 	__dec_zone_page_state(page, NR_FILE_PAGES);
-<<<<<<< HEAD
 	__dec_zone_page_state(page, NR_SWAPCACHE);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	INC_CACHE_INFO(del_total);
 }
 

@@ -40,10 +40,7 @@
 #include <linux/rculist.h>
 #include <linux/mm.h>
 #include <linux/random.h>
-<<<<<<< HEAD
 #include <linux/vmalloc.h>
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #include "qib.h"
 #include "qib_common.h"
@@ -2088,7 +2085,6 @@ int qib_register_ib_device(struct qib_devdata *dd)
 	 * the LKEY).  The remaining bits act as a generation number or tag.
 	 */
 	spin_lock_init(&dev->lk_table.lock);
-<<<<<<< HEAD
 	/* insure generation is at least 4 bits see keys.c */
 	if (ib_qib_lkey_table_size > MAX_LKEY_TABLE_BITS) {
 		qib_dev_warn(dd, "lkey bits %u too large, reduced to %u\n",
@@ -2099,12 +2095,6 @@ int qib_register_ib_device(struct qib_devdata *dd)
 	lk_tab_size = dev->lk_table.max * sizeof(*dev->lk_table.table);
 	dev->lk_table.table = (struct qib_mregion __rcu **)
 		vmalloc(lk_tab_size);
-=======
-	dev->lk_table.max = 1 << ib_qib_lkey_table_size;
-	lk_tab_size = dev->lk_table.max * sizeof(*dev->lk_table.table);
-	dev->lk_table.table = (struct qib_mregion __rcu **)
-		__get_free_pages(GFP_KERNEL, get_order(lk_tab_size));
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (dev->lk_table.table == NULL) {
 		ret = -ENOMEM;
 		goto err_lk;
@@ -2277,11 +2267,7 @@ err_tx:
 					sizeof(struct qib_pio_header),
 				  dev->pio_hdrs, dev->pio_hdrs_phys);
 err_hdrs:
-<<<<<<< HEAD
 	vfree(dev->lk_table.table);
-=======
-	free_pages((unsigned long) dev->lk_table.table, get_order(lk_tab_size));
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 err_lk:
 	kfree(dev->qp_table);
 err_qpt:
@@ -2335,12 +2321,7 @@ void qib_unregister_ib_device(struct qib_devdata *dd)
 					sizeof(struct qib_pio_header),
 				  dev->pio_hdrs, dev->pio_hdrs_phys);
 	lk_tab_size = dev->lk_table.max * sizeof(*dev->lk_table.table);
-<<<<<<< HEAD
 	vfree(dev->lk_table.table);
-=======
-	free_pages((unsigned long) dev->lk_table.table,
-		   get_order(lk_tab_size));
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	kfree(dev->qp_table);
 }
 

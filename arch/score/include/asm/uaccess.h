@@ -158,11 +158,7 @@ do {									\
 		__get_user_asm(val, "lw", ptr);				\
 		 break;							\
 	case 8: 							\
-<<<<<<< HEAD
 		if (__copy_from_user((void *)&val, ptr, 8) == 0)	\
-=======
-		if ((copy_from_user((void *)&val, ptr, 8)) == 0)	\
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			__gu_err = 0;					\
 		else							\
 			__gu_err = -EFAULT;				\
@@ -187,11 +183,8 @@ do {									\
 									\
 	if (likely(access_ok(VERIFY_READ, __gu_ptr, size)))		\
 		__get_user_common((x), size, __gu_ptr);			\
-<<<<<<< HEAD
 	else								\
 		(x) = 0;						\
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 									\
 	__gu_err;							\
 })
@@ -205,10 +198,7 @@ do {									\
 		"2:\n"							\
 		".section .fixup,\"ax\"\n"				\
 		"3:li	%0, %4\n"					\
-<<<<<<< HEAD
 		"li	%1, 0\n"					\
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		"j	2b\n"						\
 		".previous\n"						\
 		".section __ex_table,\"a\"\n"				\
@@ -306,7 +296,6 @@ extern int __copy_tofrom_user(void *to, const void *from, unsigned long len);
 static inline unsigned long
 copy_from_user(void *to, const void *from, unsigned long len)
 {
-<<<<<<< HEAD
 	unsigned long res = len;
 
 	if (likely(access_ok(VERIFY_READ, from, len)))
@@ -316,24 +305,11 @@ copy_from_user(void *to, const void *from, unsigned long len)
 		memset(to + (len - res), 0, res);
 
 	return res;
-=======
-	unsigned long over;
-
-	if (access_ok(VERIFY_READ, from, len))
-		return __copy_tofrom_user(to, from, len);
-
-	if ((unsigned long)from < TASK_SIZE) {
-		over = (unsigned long)from + len - TASK_SIZE;
-		return __copy_tofrom_user(to, from, len - over) + over;
-	}
-	return len;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static inline unsigned long
 copy_to_user(void *to, const void *from, unsigned long len)
 {
-<<<<<<< HEAD
 	if (likely(access_ok(VERIFY_WRITE, to, len)))
 		len = __copy_tofrom_user(to, from, len);
 
@@ -348,22 +324,6 @@ __copy_from_user(void *to, const void *from, unsigned long len)
 		memset(to + (len - left), 0, left);
 	return left;
 }
-=======
-	unsigned long over;
-
-	if (access_ok(VERIFY_WRITE, to, len))
-		return __copy_tofrom_user(to, from, len);
-
-	if ((unsigned long)to < TASK_SIZE) {
-		over = (unsigned long)to + len - TASK_SIZE;
-		return __copy_tofrom_user(to, from, len - over) + over;
-	}
-	return len;
-}
-
-#define __copy_from_user(to, from, len)	\
-		__copy_tofrom_user((to), (from), (len))
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #define __copy_to_user(to, from, len)		\
 		__copy_tofrom_user((to), (from), (len))
@@ -377,28 +337,17 @@ __copy_to_user_inatomic(void *to, const void *from, unsigned long len)
 static inline unsigned long
 __copy_from_user_inatomic(void *to, const void *from, unsigned long len)
 {
-<<<<<<< HEAD
 	return __copy_tofrom_user(to, from, len);
 }
 
 #define __copy_in_user(to, from, len)	__copy_tofrom_user(to, from, len)
-=======
-	return __copy_from_user(to, from, len);
-}
-
-#define __copy_in_user(to, from, len)	__copy_from_user(to, from, len)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 static inline unsigned long
 copy_in_user(void *to, const void *from, unsigned long len)
 {
 	if (access_ok(VERIFY_READ, from, len) &&
 		      access_ok(VERFITY_WRITE, to, len))
-<<<<<<< HEAD
 		return __copy_tofrom_user(to, from, len);
-=======
-		return copy_from_user(to, from, len);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 /*

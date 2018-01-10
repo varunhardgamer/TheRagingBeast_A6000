@@ -16,10 +16,7 @@
 #include <linux/kernel.h>
 #include <linux/delay.h>
 #include <linux/mfd/wcd9xxx/wcd9xxx_registers.h>
-<<<<<<< HEAD
 #include "pdesireaudio.h"
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #include "wcd9xxx-common.h"
 
 #define CLSH_COMPUTE_EAR 0x01
@@ -548,61 +545,6 @@ static void wcd9xxx_chargepump_request(struct snd_soc_codec *codec, bool on)
 	}
 }
 
-<<<<<<< HEAD
-=======
-void wcd9xxx_enable_high_perf_mode(struct snd_soc_codec *codec,
-				struct wcd9xxx_clsh_cdc_data *clsh_d,
-				u8 uhqa_mode, u8 req_state, bool req_type)
-{
-	dev_dbg(codec->dev, "%s: users fclk8 %d, fclk5 %d", __func__,
-			clsh_d->ncp_users[NCP_FCLK_LEVEL_8],
-			clsh_d->ncp_users[NCP_FCLK_LEVEL_5]);
-
-	if (req_type == WCD9XXX_CLSAB_REQ_ENABLE) {
-		clsh_d->ncp_users[NCP_FCLK_LEVEL_8]++;
-		snd_soc_write(codec, WCD9XXX_A_RX_HPH_BIAS_PA,
-					WCD9XXX_A_RX_HPH_BIAS_PA__POR);
-		snd_soc_write(codec, WCD9XXX_A_RX_HPH_L_PA_CTL, 0x48);
-		snd_soc_write(codec, WCD9XXX_A_RX_HPH_R_PA_CTL, 0x48);
-		if (uhqa_mode)
-			snd_soc_update_bits(codec, WCD9XXX_A_RX_HPH_CHOP_CTL,
-						0x20, 0x00);
-		wcd9xxx_chargepump_request(codec, true);
-		wcd9xxx_enable_anc_delay(codec, true);
-		wcd9xxx_enable_buck(codec, clsh_d, false);
-		if (clsh_d->ncp_users[NCP_FCLK_LEVEL_8] > 0)
-			snd_soc_update_bits(codec, WCD9XXX_A_NCP_STATIC,
-						0x0F, 0x08);
-		snd_soc_update_bits(codec, WCD9XXX_A_NCP_STATIC, 0x30, 0x30);
-
-		/* Enable NCP and wait until settles down */
-		if (snd_soc_update_bits(codec, WCD9XXX_A_NCP_EN, 0x01, 0x01))
-			usleep_range(NCP_SETTLE_TIME_US, NCP_SETTLE_TIME_US+10);
-	} else {
-		snd_soc_update_bits(codec, WCD9XXX_A_RX_HPH_CHOP_CTL,
-					0x20, 0x20);
-		snd_soc_write(codec, WCD9XXX_A_RX_HPH_L_PA_CTL,
-					WCD9XXX_A_RX_HPH_L_PA_CTL__POR);
-		snd_soc_write(codec, WCD9XXX_A_RX_HPH_R_PA_CTL,
-					WCD9XXX_A_RX_HPH_R_PA_CTL__POR);
-		snd_soc_write(codec, WCD9XXX_A_RX_HPH_BIAS_PA, 0x55);
-		wcd9xxx_enable_buck(codec, clsh_d, true);
-		wcd9xxx_chargepump_request(codec, false);
-		wcd9xxx_enable_anc_delay(codec, false);
-		clsh_d->ncp_users[NCP_FCLK_LEVEL_8]--;
-		if (clsh_d->ncp_users[NCP_FCLK_LEVEL_8] == 0 &&
-		    clsh_d->ncp_users[NCP_FCLK_LEVEL_5] == 0)
-			snd_soc_update_bits(codec, WCD9XXX_A_NCP_EN,
-						0x01, 0x00);
-		else if (clsh_d->ncp_users[NCP_FCLK_LEVEL_8] == 0)
-			snd_soc_update_bits(codec, WCD9XXX_A_NCP_STATIC,
-						0x0F, 0x05);
-	}
-	dev_dbg(codec->dev, "%s: leave\n", __func__);
-}
-EXPORT_SYMBOL(wcd9xxx_enable_high_perf_mode);
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static int get_impedance_index(u32 imped)
 {
 	int i = 0;
@@ -1206,7 +1148,6 @@ static void wcd9xxx_clsh_state_hph_l(struct snd_soc_codec *codec,
 	}
 }
 
-<<<<<<< HEAD
 void pdesireaudio_uhqa_mode(struct snd_soc_codec *codec,
 				struct wcd9xxx_clsh_cdc_data *clsh_d,
 				u8 uhqa_mode, u8 req_state, bool req_type)
@@ -1266,8 +1207,6 @@ void pdesireaudio_uhqa_mode(struct snd_soc_codec *codec,
 }
 EXPORT_SYMBOL(pdesireaudio_uhqa_mode);
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static void wcd9xxx_clsh_state_hph_r(struct snd_soc_codec *codec,
 		struct wcd9xxx_clsh_cdc_data *clsh_d,
 		u8 req_state, bool is_enable)

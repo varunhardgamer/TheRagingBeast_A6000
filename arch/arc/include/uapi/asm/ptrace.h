@@ -11,10 +11,7 @@
 #ifndef _UAPI__ASM_ARC_PTRACE_H
 #define _UAPI__ASM_ARC_PTRACE_H
 
-<<<<<<< HEAD
 #define PTRACE_GET_THREAD_AREA	25
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #ifndef __ASSEMBLY__
 /*

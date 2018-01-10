@@ -88,12 +88,8 @@ static irqreturn_t mpr_touchkey_interrupt(int irq, void *dev_id)
 	struct mpr121_touchkey *mpr121 = dev_id;
 	struct i2c_client *client = mpr121->client;
 	struct input_dev *input = mpr121->input_dev;
-<<<<<<< HEAD
 	unsigned long bit_changed;
 	unsigned int key_num;
-=======
-	unsigned int key_num, key_val, pressed;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	int reg;
 
 	reg = i2c_smbus_read_byte_data(client, ELE_TOUCH_STATUS_1_ADDR);
@@ -111,7 +107,6 @@ static irqreturn_t mpr_touchkey_interrupt(int irq, void *dev_id)
 
 	reg &= TOUCH_STATUS_MASK;
 	/* use old press bit to figure out which bit changed */
-<<<<<<< HEAD
 	bit_changed = reg ^ mpr121->statusbits;
 	mpr121->statusbits = reg;
 	for_each_set_bit(key_num, &bit_changed, mpr121->keycount) {
@@ -129,21 +124,6 @@ static irqreturn_t mpr_touchkey_interrupt(int irq, void *dev_id)
 	}
 	input_sync(input);
 
-=======
-	key_num = ffs(reg ^ mpr121->statusbits) - 1;
-	pressed = reg & (1 << key_num);
-	mpr121->statusbits = reg;
-
-	key_val = mpr121->keycodes[key_num];
-
-	input_event(input, EV_MSC, MSC_SCAN, key_num);
-	input_report_key(input, key_val, pressed);
-	input_sync(input);
-
-	dev_dbg(&client->dev, "key %d %d %s\n", key_num, key_val,
-		pressed ? "pressed" : "released");
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 out:
 	return IRQ_HANDLED;
 }
@@ -255,10 +235,7 @@ static int mpr_touchkey_probe(struct i2c_client *client,
 	input_dev->id.bustype = BUS_I2C;
 	input_dev->dev.parent = &client->dev;
 	input_dev->evbit[0] = BIT_MASK(EV_KEY) | BIT_MASK(EV_REP);
-<<<<<<< HEAD
 	input_set_capability(input_dev, EV_MSC, MSC_SCAN);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	input_dev->keycode = mpr121->keycodes;
 	input_dev->keycodesize = sizeof(mpr121->keycodes[0]);

@@ -531,11 +531,7 @@ void __init kirkwood_init_early(void)
 
 	mvebu_mbus_init("marvell,kirkwood-mbus",
 			BRIDGE_WINS_BASE, BRIDGE_WINS_SZ,
-<<<<<<< HEAD
 			DDR_WINDOW_CPU_BASE, DDR_WINDOW_CPU_SZ, 0);
-=======
-			DDR_WINDOW_CPU_BASE, DDR_WINDOW_CPU_SZ);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 int kirkwood_tclk;

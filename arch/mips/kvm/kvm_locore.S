@@ -156,17 +156,11 @@ FEXPORT(__kvm_mips_vcpu_run)
 
 FEXPORT(__kvm_mips_load_asid)
     /* Set the ASID for the Guest Kernel */
-<<<<<<< HEAD
     PTR_L	t0, VCPU_COP0(k1)
     LONG_L	t0, COP0_STATUS(t0)
     andi	t0, KSU_USER | ST0_ERL | ST0_EXL
     xori	t0, KSU_USER
     bnez	t0, 1f		/* If kernel */
-=======
-    sll         t0, t0, 1                       /* with kseg0 @ 0x40000000, kernel */
-                                                /* addresses shift to 0x80000000 */
-    bltz        t0, 1f                          /* If kernel */
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	addiu       t1, k1, VCPU_GUEST_KERNEL_ASID  /* (BD)  */
     addiu       t1, k1, VCPU_GUEST_USER_ASID    /* else user */
 1:
@@ -233,10 +227,7 @@ FEXPORT(__kvm_mips_load_k0k1)
     /* Jump to guest */
 	eret
 	.set	pop
-<<<<<<< HEAD
 EXPORT(__kvm_mips_vcpu_run_end)
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 VECTOR(MIPSX(exception), unknown)
 /*
@@ -443,11 +434,7 @@ __kvm_mips_return_to_guest:
     /* Setup status register for running guest in UM */
     .set at
     or     v1, v1, (ST0_EXL | KSU_USER | ST0_IE)
-<<<<<<< HEAD
     and     v1, v1, ~(ST0_CU0 | ST0_MX)
-=======
-    and     v1, v1, ~ST0_CU0
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
     .set noat
     mtc0    v1, CP0_STATUS
     ehb
@@ -458,17 +445,11 @@ __kvm_mips_return_to_guest:
 	mtc0		t0, CP0_EPC
 
     /* Set the ASID for the Guest Kernel */
-<<<<<<< HEAD
     PTR_L	t0, VCPU_COP0(k1)
     LONG_L	t0, COP0_STATUS(t0)
     andi	t0, KSU_USER | ST0_ERL | ST0_EXL
     xori	t0, KSU_USER
     bnez	t0, 1f		/* If kernel */
-=======
-    sll         t0, t0, 1                       /* with kseg0 @ 0x40000000, kernel */
-                                                /* addresses shift to 0x80000000 */
-    bltz        t0, 1f                          /* If kernel */
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	addiu       t1, k1, VCPU_GUEST_KERNEL_ASID  /* (BD)  */
     addiu       t1, k1, VCPU_GUEST_USER_ASID    /* else user */
 1:

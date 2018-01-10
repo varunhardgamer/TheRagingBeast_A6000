@@ -3,11 +3,7 @@
  *
  * External function declarations.
  *
-<<<<<<< HEAD
  * Copyright IBM Corp. 2002, 2016
-=======
- * Copyright IBM Corp. 2002, 2010
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  */
 
 #ifndef ZFCP_EXT_H
@@ -53,16 +49,11 @@ extern void zfcp_dbf_adapter_unregister(struct zfcp_adapter *);
 extern void zfcp_dbf_rec_trig(char *, struct zfcp_adapter *,
 			      struct zfcp_port *, struct scsi_device *, u8, u8);
 extern void zfcp_dbf_rec_run(char *, struct zfcp_erp_action *);
-<<<<<<< HEAD
 extern void zfcp_dbf_rec_run_lvl(int level, char *tag,
 				 struct zfcp_erp_action *erp);
 extern void zfcp_dbf_rec_run_wka(char *, struct zfcp_fc_wka_port *, u64);
 extern void zfcp_dbf_hba_fsf_uss(char *, struct zfcp_fsf_req *);
 extern void zfcp_dbf_hba_fsf_res(char *, int, struct zfcp_fsf_req *);
-=======
-extern void zfcp_dbf_hba_fsf_uss(char *, struct zfcp_fsf_req *);
-extern void zfcp_dbf_hba_fsf_res(char *, struct zfcp_fsf_req *);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 extern void zfcp_dbf_hba_bit_err(char *, struct zfcp_fsf_req *);
 extern void zfcp_dbf_hba_berr(struct zfcp_dbf *, struct zfcp_fsf_req *);
 extern void zfcp_dbf_hba_def_err(struct zfcp_adapter *, u64, u16, void **);
@@ -70,12 +61,8 @@ extern void zfcp_dbf_hba_basic(char *, struct zfcp_adapter *);
 extern void zfcp_dbf_san_req(char *, struct zfcp_fsf_req *, u32);
 extern void zfcp_dbf_san_res(char *, struct zfcp_fsf_req *);
 extern void zfcp_dbf_san_in_els(char *, struct zfcp_fsf_req *);
-<<<<<<< HEAD
 extern void zfcp_dbf_scsi(char *, int, struct scsi_cmnd *,
 			  struct zfcp_fsf_req *);
-=======
-extern void zfcp_dbf_scsi(char *, struct scsi_cmnd *, struct zfcp_fsf_req *);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 /* zfcp_erp.c */
 extern void zfcp_erp_set_adapter_status(struct zfcp_adapter *, u32);

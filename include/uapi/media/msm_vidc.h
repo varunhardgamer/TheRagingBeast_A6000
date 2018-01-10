@@ -43,7 +43,6 @@ struct msm_vidc_mpeg2_seqdisp_payload {
 	unsigned int disp_width;
 	unsigned int disp_height;
 };
-<<<<<<< HEAD
 
 struct msm_vidc_vc1_seqdisp_payload {
 	unsigned int prog_seg_format;
@@ -57,8 +56,6 @@ struct msm_vidc_vc1_seqdisp_payload {
 	unsigned int aspect_vert;
 };
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 struct msm_vidc_input_crop_payload {
 	unsigned int size;
 	unsigned int version;
@@ -125,7 +122,6 @@ struct msm_vidc_s3d_frame_packing_payload {
 	unsigned int fpa_extension_flag;
 };
 
-<<<<<<< HEAD
 struct msm_vidc_vpx_colorspace_payload {
 	unsigned int color_space;
 	unsigned int yuv_range_flag;
@@ -164,8 +160,6 @@ struct msm_vidc_vui_display_info_payload {
 	unsigned int chroma_sample_loc_type_bottom_field;
 };
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 enum msm_vidc_extradata_type {
 	MSM_VIDC_EXTRADATA_NONE = 0x00000000,
 	MSM_VIDC_EXTRADATA_MB_QUANTIZATION = 0x00000001,
@@ -181,7 +175,6 @@ enum msm_vidc_extradata_type {
 	MSM_VIDC_EXTRADATA_STREAM_USERDATA = 0x0000000E,
 	MSM_VIDC_EXTRADATA_FRAME_QP = 0x0000000F,
 	MSM_VIDC_EXTRADATA_FRAME_BITS_INFO = 0x00000010,
-<<<<<<< HEAD
 #define MSM_VIDC_EXTRADATA_MASTERING_DISPLAY_COLOUR_SEI \
 	MSM_VIDC_EXTRADATA_MASTERING_DISPLAY_COLOUR_SEI
 	MSM_VIDC_EXTRADATA_MASTERING_DISPLAY_COLOUR_SEI = 0x00000015,
@@ -193,10 +186,6 @@ enum msm_vidc_extradata_type {
 #define MSM_VIDC_EXTRADATA_VPX_COLORSPACE_INFO \
 	MSM_VIDC_EXTRADATA_VPX_COLORSPACE_INFO
 	MSM_VIDC_EXTRADATA_VPX_COLORSPACE_INFO = 0x070000011,
-=======
-	MSM_VIDC_EXTRADATA_INPUT_CROP = 0x0700000E,
-	MSM_VIDC_EXTRADATA_DIGITAL_ZOOM = 0x07000010,
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	MSM_VIDC_EXTRADATA_MULTISLICE_INFO = 0x7F100000,
 	MSM_VIDC_EXTRADATA_NUM_CONCEALED_MB = 0x7F100001,
 	MSM_VIDC_EXTRADATA_INDEX = 0x7F100002,
@@ -204,12 +193,9 @@ enum msm_vidc_extradata_type {
 	MSM_VIDC_EXTRADATA_METADATA_LTR = 0x7F100004,
 	MSM_VIDC_EXTRADATA_METADATA_FILLER = 0x7FE00002,
 	MSM_VIDC_EXTRADATA_METADATA_MBI = 0x7F100005,
-<<<<<<< HEAD
 #define MSM_VIDC_EXTRADATA_VUI_DISPLAY_INFO \
 	MSM_VIDC_EXTRADATA_VUI_DISPLAY_INFO
 	MSM_VIDC_EXTRADATA_VUI_DISPLAY_INFO = 0x7F100006,
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 enum msm_vidc_interlace_type {
 	MSM_VIDC_INTERLACE_FRAME_PROGRESSIVE = 0x01,
@@ -228,7 +214,6 @@ enum msm_vidc_userdata_type {
 	MSM_VIDC_USERDATA_TYPE_TOP_FIELD = 0x2,
 	MSM_VIDC_USERDATA_TYPE_BOTTOM_FIELD = 0x3,
 };
-<<<<<<< HEAD
 /* See colour_primaries of ISO/IEC 14496 for significance */
 enum msm_vidc_h264_color_primaries_values {
 	MSM_VIDC_RESERVED_1 = 0,
@@ -304,6 +289,4 @@ enum msm_vidc_color_desc_flag {
 	MSM_VIDC_COLOR_DESC_NOT_PRESENT,
 	MSM_VIDC_COLOR_DESC_PRESENT,
 };
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #endif

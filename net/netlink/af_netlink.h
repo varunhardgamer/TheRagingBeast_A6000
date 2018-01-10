@@ -32,12 +32,8 @@ struct netlink_sock {
 	unsigned long		*groups;
 	unsigned long		state;
 	wait_queue_head_t	wait;
-<<<<<<< HEAD
 	bool			cb_running;
 	struct netlink_callback	cb;
-=======
-	struct netlink_callback	*cb;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	struct mutex		*cb_mutex;
 	struct mutex		cb_def_mutex;
 	void			(*netlink_rcv)(struct sk_buff *skb);

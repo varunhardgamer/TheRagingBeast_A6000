@@ -48,12 +48,9 @@ struct net_device_context {
 	struct work_struct work;
 };
 
-<<<<<<< HEAD
 /* Restrict GSO size to account for NVGRE */
 #define NETVSC_GSO_MAX_SIZE	62768
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #define RING_SIZE_MIN 64
 static int ring_size = 128;
 module_param(ring_size, int, S_IRUGO);
@@ -144,10 +141,7 @@ static int netvsc_start_xmit(struct sk_buff *skb, struct net_device *net)
 	struct hv_netvsc_packet *packet;
 	int ret;
 	unsigned int i, num_pages, npg_data;
-<<<<<<< HEAD
 	u32 skb_length = skb->len;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	/* Add multipages for skb->data and additional 2 for RNDIS */
 	npg_data = (((unsigned long)skb->data + skb_headlen(skb) - 1)
@@ -218,11 +212,7 @@ static int netvsc_start_xmit(struct sk_buff *skb, struct net_device *net)
 	ret = rndis_filter_send(net_device_ctx->device_ctx,
 				  packet);
 	if (ret == 0) {
-<<<<<<< HEAD
 		net->stats.tx_bytes += skb_length;
-=======
-		net->stats.tx_bytes += skb->len;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		net->stats.tx_packets++;
 	} else {
 		kfree(packet);
@@ -449,10 +439,7 @@ static int netvsc_probe(struct hv_device *dev,
 
 	SET_ETHTOOL_OPS(net, &ethtool_ops);
 	SET_NETDEV_DEV(net, &dev->device);
-<<<<<<< HEAD
 	netif_set_gso_max_size(net, NETVSC_GSO_MAX_SIZE);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	ret = register_netdev(net);
 	if (ret != 0) {

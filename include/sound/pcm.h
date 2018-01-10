@@ -101,11 +101,7 @@ struct snd_pcm_ops {
 #define SNDRV_PCM_IOCTL1_TRUE		((void *)1)
 
 #define SNDRV_PCM_IOCTL1_RESET		0
-<<<<<<< HEAD
 /* 1 is absent slot. */
-=======
-#define SNDRV_PCM_IOCTL1_INFO		1
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #define SNDRV_PCM_IOCTL1_CHANNEL_INFO	2
 #define SNDRV_PCM_IOCTL1_GSTATE		3
 #define SNDRV_PCM_IOCTL1_FIFO_SIZE	4

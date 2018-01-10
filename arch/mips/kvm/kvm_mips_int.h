@@ -27,11 +27,8 @@
 #define MIPS_EXC_MAX                12
 /* XXXSL More to follow */
 
-<<<<<<< HEAD
 extern char __kvm_mips_vcpu_run_end[];
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #define C_TI        (_ULCAST_(1) << 30)
 
 #define KVM_MIPS_IRQ_DELIVER_ALL_AT_ONCE (0)

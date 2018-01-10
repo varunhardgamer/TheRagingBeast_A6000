@@ -10,10 +10,7 @@ struct linear_conf
 {
 	struct rcu_head		rcu;
 	sector_t		array_sectors;
-<<<<<<< HEAD
 	int			raid_disks; /* a copy of mddev->raid_disks */
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	struct dev_info		disks[0];
 };
 #endif

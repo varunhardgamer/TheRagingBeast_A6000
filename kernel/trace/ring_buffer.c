@@ -463,11 +463,7 @@ struct ring_buffer_per_cpu {
 	raw_spinlock_t			reader_lock;	/* serialize readers */
 	arch_spinlock_t			lock;
 	struct lock_class_key		lock_key;
-<<<<<<< HEAD
 	unsigned long			nr_pages;
-=======
-	unsigned int			nr_pages;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	struct list_head		*pages;
 	struct buffer_page		*head_page;	/* read from head */
 	struct buffer_page		*tail_page;	/* write to tail */
@@ -487,11 +483,7 @@ struct ring_buffer_per_cpu {
 	u64				write_stamp;
 	u64				read_stamp;
 	/* ring buffer pages to update, > 0 to add, < 0 to remove */
-<<<<<<< HEAD
 	long				nr_pages_to_update;
-=======
-	int				nr_pages_to_update;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	struct list_head		new_pages; /* new pages to add */
 	struct work_struct		update_pages_work;
 	struct completion		update_done;
@@ -624,13 +616,6 @@ int ring_buffer_poll_wait(struct ring_buffer *buffer, int cpu,
 	struct ring_buffer_per_cpu *cpu_buffer;
 	struct rb_irq_work *work;
 
-<<<<<<< HEAD
-=======
-	if ((cpu == RING_BUFFER_ALL_CPUS && !ring_buffer_empty(buffer)) ||
-	    (cpu != RING_BUFFER_ALL_CPUS && !ring_buffer_empty_cpu(buffer, cpu)))
-		return POLLIN | POLLRDNORM;
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (cpu == RING_BUFFER_ALL_CPUS)
 		work = &buffer->irq_work;
 	else {
@@ -641,7 +626,6 @@ int ring_buffer_poll_wait(struct ring_buffer *buffer, int cpu,
 		work = &cpu_buffer->irq_work;
 	}
 
-<<<<<<< HEAD
 	poll_wait(filp, &work->waiters, poll_table);
 	work->waiters_pending = true;
 	/*
@@ -658,10 +642,6 @@ int ring_buffer_poll_wait(struct ring_buffer *buffer, int cpu,
 	 * will fix it later.
 	 */
 	smp_mb();
-=======
-	work->waiters_pending = true;
-	poll_wait(filp, &work->waiters, poll_table);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if ((cpu == RING_BUFFER_ALL_CPUS && !ring_buffer_empty(buffer)) ||
 	    (cpu != RING_BUFFER_ALL_CPUS && !ring_buffer_empty_cpu(buffer, cpu)))
@@ -1140,17 +1120,10 @@ static int rb_check_pages(struct ring_buffer_per_cpu *cpu_buffer)
 	return 0;
 }
 
-<<<<<<< HEAD
 static int __rb_allocate_pages(long nr_pages, struct list_head *pages, int cpu)
 {
 	struct buffer_page *bpage, *tmp;
 	long i;
-=======
-static int __rb_allocate_pages(int nr_pages, struct list_head *pages, int cpu)
-{
-	int i;
-	struct buffer_page *bpage, *tmp;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	for (i = 0; i < nr_pages; i++) {
 		struct page *page;
@@ -1187,11 +1160,7 @@ free_pages:
 }
 
 static int rb_allocate_pages(struct ring_buffer_per_cpu *cpu_buffer,
-<<<<<<< HEAD
 			     unsigned long nr_pages)
-=======
-			     unsigned nr_pages)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	LIST_HEAD(pages);
 
@@ -1216,11 +1185,7 @@ static int rb_allocate_pages(struct ring_buffer_per_cpu *cpu_buffer,
 }
 
 static struct ring_buffer_per_cpu *
-<<<<<<< HEAD
 rb_allocate_cpu_buffer(struct ring_buffer *buffer, long nr_pages, int cpu)
-=======
-rb_allocate_cpu_buffer(struct ring_buffer *buffer, int nr_pages, int cpu)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	struct ring_buffer_per_cpu *cpu_buffer;
 	struct buffer_page *bpage;
@@ -1319,14 +1284,9 @@ struct ring_buffer *__ring_buffer_alloc(unsigned long size, unsigned flags,
 					struct lock_class_key *key)
 {
 	struct ring_buffer *buffer;
-<<<<<<< HEAD
 	long nr_pages;
 	int bsize;
 	int cpu;
-=======
-	int bsize;
-	int cpu, nr_pages;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	/* keep it in its own cache line */
 	buffer = kzalloc(ALIGN(sizeof(*buffer), cache_line_size()),
@@ -1452,20 +1412,12 @@ static inline unsigned long rb_page_write(struct buffer_page *bpage)
 }
 
 static int
-<<<<<<< HEAD
 rb_remove_pages(struct ring_buffer_per_cpu *cpu_buffer, unsigned long nr_pages)
-=======
-rb_remove_pages(struct ring_buffer_per_cpu *cpu_buffer, unsigned int nr_pages)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	struct list_head *tail_page, *to_remove, *next_page;
 	struct buffer_page *to_remove_page, *tmp_iter_page;
 	struct buffer_page *last_page, *first_page;
-<<<<<<< HEAD
 	unsigned long nr_removed;
-=======
-	unsigned int nr_removed;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	unsigned long head_bit;
 	int page_entries;
 
@@ -1681,11 +1633,7 @@ int ring_buffer_resize(struct ring_buffer *buffer, unsigned long size,
 			int cpu_id)
 {
 	struct ring_buffer_per_cpu *cpu_buffer;
-<<<<<<< HEAD
 	unsigned long nr_pages;
-=======
-	unsigned nr_pages;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	int cpu, err = 0;
 
 	/*
@@ -2003,15 +1951,6 @@ rb_set_commit_to_write(struct ring_buffer_per_cpu *cpu_buffer)
 		goto again;
 }
 
-<<<<<<< HEAD
-=======
-static void rb_reset_reader_page(struct ring_buffer_per_cpu *cpu_buffer)
-{
-	cpu_buffer->read_stamp = cpu_buffer->reader_page->page->time_stamp;
-	cpu_buffer->reader_page->read = 0;
-}
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static void rb_inc_iter(struct ring_buffer_iter *iter)
 {
 	struct ring_buffer_per_cpu *cpu_buffer = iter->cpu_buffer;
@@ -2052,11 +1991,7 @@ rb_add_time_stamp(struct ring_buffer_event *event, u64 delta)
 
 /**
  * rb_update_event - update event type and data
-<<<<<<< HEAD
  * @event: the event to update
-=======
- * @event: the even to update
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  * @type: the type of event
  * @length: the size of the event field in the ring buffer
  *
@@ -2712,11 +2647,7 @@ static DEFINE_PER_CPU(unsigned int, current_context);
 
 static __always_inline int trace_recursive_lock(void)
 {
-<<<<<<< HEAD
 	unsigned int val = __this_cpu_read(current_context);
-=======
-	unsigned int val = this_cpu_read(current_context);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	int bit;
 
 	if (in_interrupt()) {
@@ -2733,29 +2664,17 @@ static __always_inline int trace_recursive_lock(void)
 		return 1;
 
 	val |= (1 << bit);
-<<<<<<< HEAD
 	__this_cpu_write(current_context, val);
-=======
-	this_cpu_write(current_context, val);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	return 0;
 }
 
 static __always_inline void trace_recursive_unlock(void)
 {
-<<<<<<< HEAD
 	unsigned int val = __this_cpu_read(current_context);
 
 	val &= val & (val - 1);
 	__this_cpu_write(current_context, val);
-=======
-	unsigned int val = this_cpu_read(current_context);
-
-	val--;
-	val &= this_cpu_read(current_context);
-	this_cpu_write(current_context, val);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 #else
@@ -3444,33 +3363,16 @@ static void rb_iter_reset(struct ring_buffer_iter *iter)
 	struct ring_buffer_per_cpu *cpu_buffer = iter->cpu_buffer;
 
 	/* Iterator usage is expected to have record disabled */
-<<<<<<< HEAD
 	iter->head_page = cpu_buffer->reader_page;
 	iter->head = cpu_buffer->reader_page->read;
 
 	iter->cache_reader_page = iter->head_page;
 	iter->cache_read = cpu_buffer->read;
 
-=======
-	if (list_empty(&cpu_buffer->reader_page->list)) {
-		iter->head_page = rb_set_head_page(cpu_buffer);
-		if (unlikely(!iter->head_page))
-			return;
-		iter->head = iter->head_page->read;
-	} else {
-		iter->head_page = cpu_buffer->reader_page;
-		iter->head = cpu_buffer->reader_page->read;
-	}
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (iter->head)
 		iter->read_stamp = cpu_buffer->read_stamp;
 	else
 		iter->read_stamp = iter->head_page->page->time_stamp;
-<<<<<<< HEAD
-=======
-	iter->cache_reader_page = cpu_buffer->reader_page;
-	iter->cache_read = cpu_buffer->read;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 /**
@@ -3503,7 +3405,6 @@ EXPORT_SYMBOL_GPL(ring_buffer_iter_reset);
 int ring_buffer_iter_empty(struct ring_buffer_iter *iter)
 {
 	struct ring_buffer_per_cpu *cpu_buffer;
-<<<<<<< HEAD
 	struct buffer_page *reader;
 	struct buffer_page *head_page;
 	struct buffer_page *commit_page;
@@ -3521,13 +3422,6 @@ int ring_buffer_iter_empty(struct ring_buffer_iter *iter)
 		(iter->head_page == reader && commit_page == head_page &&
 		 head_page->read == commit &&
 		 iter->head == rb_page_commit(cpu_buffer->reader_page)));
-=======
-
-	cpu_buffer = iter->cpu_buffer;
-
-	return iter->head_page == cpu_buffer->commit_page &&
-		iter->head == rb_commit_index(cpu_buffer);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 EXPORT_SYMBOL_GPL(ring_buffer_iter_empty);
 
@@ -3706,11 +3600,7 @@ rb_get_reader_page(struct ring_buffer_per_cpu *cpu_buffer)
 
 	/* Finally update the reader page to the new head */
 	cpu_buffer->reader_page = reader;
-<<<<<<< HEAD
 	cpu_buffer->reader_page->read = 0;
-=======
-	rb_reset_reader_page(cpu_buffer);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (overwrite != cpu_buffer->last_overrun) {
 		cpu_buffer->lost_events = overwrite - cpu_buffer->last_overrun;
@@ -3720,13 +3610,10 @@ rb_get_reader_page(struct ring_buffer_per_cpu *cpu_buffer)
 	goto again;
 
  out:
-<<<<<<< HEAD
 	/* Update the read_stamp on the first event */
 	if (reader && reader->read == 0)
 		cpu_buffer->read_stamp = reader->page->time_stamp;
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	arch_spin_unlock(&cpu_buffer->lock);
 	local_irq_restore(flags);
 
@@ -3894,7 +3781,6 @@ rb_iter_peek(struct ring_buffer_iter *iter, u64 *ts)
 		return NULL;
 
 	/*
-<<<<<<< HEAD
 	 * We repeat when a time extend is encountered or we hit
 	 * the end of the page. Since the time extend is always attached
 	 * to a data event, we should never loop more than three times.
@@ -3903,14 +3789,6 @@ rb_iter_peek(struct ring_buffer_iter *iter, u64 *ts)
 	 * (We never hit the following condition more than thrice).
 	 */
 	if (RB_WARN_ON(cpu_buffer, ++nr_loops > 3))
-=======
-	 * We repeat when a time extend is encountered.
-	 * Since the time extend is always attached to a data event,
-	 * we should never loop more than once.
-	 * (We never hit the following condition more than twice).
-	 */
-	if (RB_WARN_ON(cpu_buffer, ++nr_loops > 2))
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		return NULL;
 
 	if (rb_per_cpu_empty(cpu_buffer))
@@ -4744,14 +4622,9 @@ static int rb_cpu_notify(struct notifier_block *self,
 	struct ring_buffer *buffer =
 		container_of(self, struct ring_buffer, cpu_notify);
 	long cpu = (long)hcpu;
-<<<<<<< HEAD
 	long nr_pages_same;
 	int cpu_i;
 	unsigned long nr_pages;
-=======
-	int cpu_i, nr_pages_same;
-	unsigned int nr_pages;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	switch (action) {
 	case CPU_UP_PREPARE:
@@ -4979,15 +4852,9 @@ static __init int test_ringbuffer(void)
 		rb_data[cpu].cnt = cpu;
 		rb_threads[cpu] = kthread_create(rb_test, &rb_data[cpu],
 						 "rbtester/%d", cpu);
-<<<<<<< HEAD
 		if (WARN_ON(IS_ERR(rb_threads[cpu]))) {
 			pr_cont("FAILED\n");
 			ret = PTR_ERR(rb_threads[cpu]);
-=======
-		if (WARN_ON(!rb_threads[cpu])) {
-			pr_cont("FAILED\n");
-			ret = -1;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			goto out_free;
 		}
 
@@ -4997,15 +4864,9 @@ static __init int test_ringbuffer(void)
 
 	/* Now create the rb hammer! */
 	rb_hammer = kthread_run(rb_hammer_test, NULL, "rbhammer");
-<<<<<<< HEAD
 	if (WARN_ON(IS_ERR(rb_hammer))) {
 		pr_cont("FAILED\n");
 		ret = PTR_ERR(rb_hammer);
-=======
-	if (WARN_ON(!rb_hammer)) {
-		pr_cont("FAILED\n");
-		ret = -1;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		goto out_free;
 	}
 

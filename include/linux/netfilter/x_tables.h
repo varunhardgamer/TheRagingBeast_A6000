@@ -239,24 +239,18 @@ extern void xt_unregister_match(struct xt_match *target);
 extern int xt_register_matches(struct xt_match *match, unsigned int n);
 extern void xt_unregister_matches(struct xt_match *match, unsigned int n);
 
-<<<<<<< HEAD
 int xt_check_entry_offsets(const void *base, const char *elems,
                            unsigned int target_offset,
                            unsigned int next_offset);
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 extern int xt_check_match(struct xt_mtchk_param *,
 			  unsigned int size, u_int8_t proto, bool inv_proto);
 extern int xt_check_target(struct xt_tgchk_param *,
 			   unsigned int size, u_int8_t proto, bool inv_proto);
 
-<<<<<<< HEAD
 void *xt_copy_counters_from_user(const void __user *user, unsigned int len,
 				 struct xt_counters_info *info, bool compat);
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 extern struct xt_table *xt_register_table(struct net *net,
 					  const struct xt_table *table,
 					  struct xt_table_info *bootstrap,
@@ -436,11 +430,7 @@ extern void xt_compat_init_offsets(u_int8_t af, unsigned int number);
 extern int xt_compat_calc_jump(u_int8_t af, unsigned int offset);
 
 extern int xt_compat_match_offset(const struct xt_match *match);
-<<<<<<< HEAD
 extern void xt_compat_match_from_user(struct xt_entry_match *m,
-=======
-extern int xt_compat_match_from_user(struct xt_entry_match *m,
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 				     void **dstptr, unsigned int *size);
 extern int xt_compat_match_to_user(const struct xt_entry_match *m,
 				   void __user **dstptr, unsigned int *size);
@@ -450,12 +440,9 @@ extern void xt_compat_target_from_user(struct xt_entry_target *t,
 				       void **dstptr, unsigned int *size);
 extern int xt_compat_target_to_user(const struct xt_entry_target *t,
 				    void __user **dstptr, unsigned int *size);
-<<<<<<< HEAD
 int xt_compat_check_entry_offsets(const void *base, const char *elems,
                                   unsigned int target_offset,
                                   unsigned int next_offset);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #endif /* CONFIG_COMPAT */
 #endif /* _X_TABLES_H */

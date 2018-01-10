@@ -83,11 +83,7 @@ struct callee_regs {
 	long r13;
 };
 
-<<<<<<< HEAD
 #define instruction_pointer(regs)	(unsigned long)((regs)->ret)
-=======
-#define instruction_pointer(regs)	((regs)->ret)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #define profile_pc(regs)		instruction_pointer(regs)
 
 /* return 1 if user mode or 0 if kernel mode */

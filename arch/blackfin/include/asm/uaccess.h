@@ -177,20 +177,12 @@ static inline int bad_user_access_length(void)
 static inline unsigned long __must_check
 copy_from_user(void *to, const void __user *from, unsigned long n)
 {
-<<<<<<< HEAD
 	if (likely(access_ok(VERIFY_READ, from, n))) {
 		memcpy(to, (const void __force *)from, n);
 		return 0;
 	}
 	memset(to, 0, n);
 	return n;
-=======
-	if (access_ok(VERIFY_READ, from, n))
-		memcpy(to, (const void __force *)from, n);
-	else
-		return n;
-	return 0;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static inline unsigned long __must_check

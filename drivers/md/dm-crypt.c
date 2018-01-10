@@ -1311,7 +1311,6 @@ static int crypt_set_key(struct crypt_config *cc, char *key)
 	if (!cc->key_size && strcmp(key, "-"))
 		goto out;
 
-<<<<<<< HEAD
 	/* clear the flag since following operations may invalidate previously valid key */
 	clear_bit(DM_CRYPT_KEY_VALID, &cc->flags);
 
@@ -1321,14 +1320,6 @@ static int crypt_set_key(struct crypt_config *cc, char *key)
 	r = crypt_setkey_allcpus(cc);
 	if (!r)
 		set_bit(DM_CRYPT_KEY_VALID, &cc->flags);
-=======
-	if (cc->key_size && crypt_decode_key(cc->key, key, cc->key_size) < 0)
-		goto out;
-
-	set_bit(DM_CRYPT_KEY_VALID, &cc->flags);
-
-	r = crypt_setkey_allcpus(cc);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 out:
 	/* Hex key string not needed after here, so wipe it. */
@@ -1547,10 +1538,7 @@ static int crypt_ctr(struct dm_target *ti, unsigned int argc, char **argv)
 	unsigned int key_size, opt_params;
 	unsigned long long tmpll;
 	int ret;
-<<<<<<< HEAD
 	size_t iv_size_padding;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	struct dm_arg_set as;
 	const char *opt_string;
 	char dummy;
@@ -1580,7 +1568,6 @@ static int crypt_ctr(struct dm_target *ti, unsigned int argc, char **argv)
 
 	cc->dmreq_start = sizeof(struct ablkcipher_request);
 	cc->dmreq_start += crypto_ablkcipher_reqsize(any_tfm(cc));
-<<<<<<< HEAD
 	cc->dmreq_start = ALIGN(cc->dmreq_start, __alignof__(struct dm_crypt_request));
 
 	if (crypto_ablkcipher_alignmask(any_tfm(cc)) < CRYPTO_MINALIGN) {
@@ -1599,15 +1586,6 @@ static int crypt_ctr(struct dm_target *ti, unsigned int argc, char **argv)
 	ret = -ENOMEM;
 	cc->req_pool = mempool_create_kmalloc_pool(MIN_IOS, cc->dmreq_start +
 			sizeof(struct dm_crypt_request) + iv_size_padding + cc->iv_size);
-=======
-	cc->dmreq_start = ALIGN(cc->dmreq_start, crypto_tfm_ctx_alignment());
-	cc->dmreq_start += crypto_ablkcipher_alignmask(any_tfm(cc)) &
-			   ~(crypto_tfm_ctx_alignment() - 1);
-
-	ret = -ENOMEM;
-	cc->req_pool = mempool_create_kmalloc_pool(MIN_IOS, cc->dmreq_start +
-			sizeof(struct dm_crypt_request) + cc->iv_size);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (!cc->req_pool) {
 		ti->error = "Cannot allocate crypt request mempool";
 		goto bad;

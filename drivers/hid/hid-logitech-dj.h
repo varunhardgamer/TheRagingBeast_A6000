@@ -27,10 +27,7 @@
 
 #define DJ_MAX_PAIRED_DEVICES			6
 #define DJ_MAX_NUMBER_NOTIFICATIONS		8
-<<<<<<< HEAD
 #define DJ_RECEIVER_INDEX			0
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #define DJ_DEVICE_INDEX_MIN 			1
 #define DJ_DEVICE_INDEX_MAX 			6
 

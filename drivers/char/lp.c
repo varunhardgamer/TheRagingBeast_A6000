@@ -857,15 +857,11 @@ static int __init lp_setup (char *str)
 	} else if (!strcmp(str, "auto")) {
 		parport_nr[0] = LP_PARPORT_AUTO;
 	} else if (!strcmp(str, "none")) {
-<<<<<<< HEAD
 		if (parport_ptr < LP_NO)
 			parport_nr[parport_ptr++] = LP_PARPORT_NONE;
 		else
 			printk(KERN_INFO "lp: too many ports, %s ignored.\n",
 			       str);
-=======
-		parport_nr[parport_ptr++] = LP_PARPORT_NONE;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	} else if (!strcmp(str, "reset")) {
 		reset = 1;
 	}

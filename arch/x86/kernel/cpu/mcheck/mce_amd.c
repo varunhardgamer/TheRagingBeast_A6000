@@ -51,11 +51,7 @@ static const char * const th_names[] = {
 	"load_store",
 	"insn_fetch",
 	"combined_unit",
-<<<<<<< HEAD
 	"decode_unit",
-=======
-	"",
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	"northbridge",
 	"execution_unit",
 };

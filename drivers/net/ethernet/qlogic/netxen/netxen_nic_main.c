@@ -2315,14 +2315,10 @@ static int netxen_nic_poll(struct napi_struct *napi, int budget)
 
 	work_done = netxen_process_rcv_ring(sds_ring, budget);
 
-<<<<<<< HEAD
 	if (!tx_complete)
 		work_done = budget;
 
 	if (work_done < budget) {
-=======
-	if ((work_done < budget) && tx_complete) {
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		napi_complete(&sds_ring->napi);
 		if (test_bit(__NX_DEV_UP, &adapter->state))
 			netxen_nic_enable_int(sds_ring);

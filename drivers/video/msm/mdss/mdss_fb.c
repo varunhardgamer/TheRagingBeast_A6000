@@ -54,11 +54,8 @@
 #include "mdss_fb.h"
 #include "mdss_mdp_splash_logo.h"
 
-<<<<<<< HEAD
 #include "mdss_livedisplay.h"
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #ifdef CONFIG_FB_MSM_TRIPLE_BUFFER
 #define MDSS_FB_NUM 3
 #else
@@ -526,22 +523,14 @@ static ssize_t mdss_fb_get_panel_info(struct device *dev,
 			"pu_en=%d\nxstart=%d\nwalign=%d\nystart=%d\nhalign=%d\n"
 			"min_w=%d\nmin_h=%d\nroi_merge=%d\ndyn_fps_en=%d\n"
 			"min_fps=%d\nmax_fps=%d\npanel_name=%s\n"
-<<<<<<< HEAD
 			"primary_panel=%d\nidle_fps=%d\n",
-=======
-			"primary_panel=%d\n",
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			pinfo->partial_update_enabled, pinfo->xstart_pix_align,
 			pinfo->width_pix_align, pinfo->ystart_pix_align,
 			pinfo->height_pix_align, pinfo->min_width,
 			pinfo->min_height, pinfo->partial_update_roi_merge,
 			pinfo->dynamic_fps, pinfo->min_fps, pinfo->max_fps,
-<<<<<<< HEAD
 			pinfo->panel_name, pinfo->is_prim_panel,
 			pinfo->idle_fps);
-=======
-			pinfo->panel_name, pinfo->is_prim_panel);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	return ret;
 }
@@ -631,11 +620,7 @@ static int mdss_fb_lpm_enable(struct msm_fb_data_type *mfd, int mode)
 	unlock_fb_info(mfd->fbi);
 
 	mutex_lock(&mfd->bl_lock);
-<<<<<<< HEAD
 	mfd->allow_bl_update = true;
-=======
-	mfd->bl_updated = true;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	mdss_fb_set_backlight(mfd, bl_lvl);
 	mutex_unlock(&mfd->bl_lock);
 
@@ -740,12 +725,8 @@ static int mdss_fb_create_sysfs(struct msm_fb_data_type *mfd)
 	rc = sysfs_create_group(&mfd->fbi->dev->kobj, &mdss_fb_attr_group);
 	if (rc)
 		pr_err("sysfs group creation failed, rc=%d\n", rc);
-<<<<<<< HEAD
 
 	return mdss_livedisplay_create_sysfs(mfd);
-=======
-	return rc;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static void mdss_fb_remove_sysfs(struct msm_fb_data_type *mfd)
@@ -1193,7 +1174,6 @@ void mdss_fb_set_backlight(struct msm_fb_data_type *mfd, u32 bkl_lvl)
 	if ((bkl_lvl == 0) && (mfd->doze_mode)) {
 		pr_debug("keeping backlight on with always-on displays\n");
 		mfd->unset_bl_level = 0;
-<<<<<<< HEAD
 #ifdef CONFIG_MACH_WT86518
 		if(bkl_lvl==0)
                     {  pdata = dev_get_platdata(&mfd->pdev->dev);
@@ -1208,13 +1188,6 @@ void mdss_fb_set_backlight(struct msm_fb_data_type *mfd, u32 bkl_lvl)
 		(((mdss_fb_is_power_off(mfd) && mfd->dcm_state != DCM_ENTER)
 		|| !mfd->allow_bl_update) && !IS_CALIB_MODE_BL(mfd)) ||
 #endif
-=======
-		return;
-	}
-
-	if ((((mdss_fb_is_power_off(mfd) && mfd->dcm_state != DCM_ENTER)
-		|| !mfd->bl_updated) && !IS_CALIB_MODE_BL(mfd)) ||
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		mfd->panel_info->cont_splash_enabled) {
 		mfd->unset_bl_level = bkl_lvl;
 		return;
@@ -1261,11 +1234,7 @@ void mdss_fb_update_backlight(struct msm_fb_data_type *mfd)
 	if (!mfd->unset_bl_level)
 		return;
 	mutex_lock(&mfd->bl_lock);
-<<<<<<< HEAD
 	if (!mfd->allow_bl_update) {
-=======
-	if (!mfd->bl_updated) {
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		pdata = dev_get_platdata(&mfd->pdev->dev);
 		if ((pdata) && (pdata->set_backlight)) {
 			mfd->bl_level = mfd->unset_bl_level;
@@ -1277,13 +1246,8 @@ void mdss_fb_update_backlight(struct msm_fb_data_type *mfd)
 				mdss_fb_scale_bl(mfd, &temp);
 			pdata->set_backlight(pdata, temp);
 			mfd->bl_level_scaled = mfd->unset_bl_level;
-<<<<<<< HEAD
 			mdss_fb_bl_update_notify(mfd);
 			mfd->allow_bl_update = true;
-=======
-			mfd->bl_updated = 1;
-			mdss_fb_bl_update_notify(mfd);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		}
 	}
 	mutex_unlock(&mfd->bl_lock);
@@ -1388,11 +1352,7 @@ static int mdss_fb_blank_blank(struct msm_fb_data_type *mfd,
 			mdss_fb_stop_disp_thread(mfd);
 		mutex_lock(&mfd->bl_lock);
 		mdss_fb_set_backlight(mfd, 0);
-<<<<<<< HEAD
 		mfd->allow_bl_update = false;
-=======
-		mfd->bl_updated = 0;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		mfd->unset_bl_level = current_bl;
 		mutex_unlock(&mfd->bl_lock);
 	}
@@ -1459,13 +1419,8 @@ static int mdss_fb_blank_unblank(struct msm_fb_data_type *mfd)
 	/* Reset the backlight only if the panel was off */
 	if (mdss_panel_is_power_off(cur_power_state)) {
 		mutex_lock(&mfd->bl_lock);
-<<<<<<< HEAD
 		if (!mfd->allow_bl_update) {
 			mfd->allow_bl_update = true;
-=======
-		if (!mfd->bl_updated) {
-			mfd->bl_updated = 1;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			/*
 			 * If in AD calibration mode then frameworks would not
 			 * be allowed to update backlight hence post unblank
@@ -1476,7 +1431,6 @@ static int mdss_fb_blank_unblank(struct msm_fb_data_type *mfd)
 				mdss_fb_set_backlight(mfd, mfd->calib_mode_bl);
 			else if (!mfd->panel_info->mipi.post_init_delay)
 				mdss_fb_set_backlight(mfd, mfd->unset_bl_level);
-<<<<<<< HEAD
 
 			/*
 			 * it blocks the backlight update between unblank and
@@ -1484,8 +1438,6 @@ static int mdss_fb_blank_unblank(struct msm_fb_data_type *mfd)
 			 * frame is transferred to panel through unblank call.
 			 */
 			mfd->allow_bl_update = false;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		}
 		mutex_unlock(&mfd->bl_lock);
 	}
@@ -2951,7 +2903,6 @@ static int __mdss_fb_display_thread(void *data)
 				mfd->index);
 
 	while (1) {
-<<<<<<< HEAD
 		ret = wait_event_interruptible(mfd->commit_wait_q,
 				(atomic_read(&mfd->commits_pending) ||
 				 kthread_should_stop()));
@@ -2961,12 +2912,6 @@ static int __mdss_fb_display_thread(void *data)
 			continue;
 		}
 
-=======
-		wait_event(mfd->commit_wait_q,
-				(atomic_read(&mfd->commits_pending) ||
-				 kthread_should_stop()));
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		if (kthread_should_stop())
 			break;
 

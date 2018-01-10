@@ -73,11 +73,7 @@ static inline unsigned long __cmpxchg_u32(volatile int *m, unsigned long old,
 		      "	DCACHE	[%2], %0\n"
 #endif
 		      "2:\n"
-<<<<<<< HEAD
 		      : "=&d" (temp), "=&d" (retval)
-=======
-		      : "=&d" (temp), "=&da" (retval)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		      : "da" (m), "bd" (old), "da" (new)
 		      : "cc"
 		      );

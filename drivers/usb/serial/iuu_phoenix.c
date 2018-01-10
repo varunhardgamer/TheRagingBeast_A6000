@@ -69,7 +69,6 @@ struct iuu_private {
 	u32 clk;
 };
 
-<<<<<<< HEAD
 static int iuu_attach(struct usb_serial *serial)
 {
 	unsigned char num_ports = serial->num_ports;
@@ -80,8 +79,6 @@ static int iuu_attach(struct usb_serial *serial)
 	return 0;
 }
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static int iuu_port_probe(struct usb_serial_port *port)
 {
 	struct iuu_private *priv;
@@ -1212,10 +1209,7 @@ static struct usb_serial_driver iuu_device = {
 	.tiocmset = iuu_tiocmset,
 	.set_termios = iuu_set_termios,
 	.init_termios = iuu_init_termios,
-<<<<<<< HEAD
 	.attach = iuu_attach,
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	.port_probe = iuu_port_probe,
 	.port_remove = iuu_port_remove,
 };

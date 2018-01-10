@@ -46,7 +46,6 @@ struct rnd_state {
 
 /* Exported functions */
 
-<<<<<<< HEAD
 /*
  * Flags for getrandom(2)
  *
@@ -55,7 +54,5 @@ struct rnd_state {
  */
 #define GRND_NONBLOCK	0x0001
 #define GRND_RANDOM	0x0002
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #endif /* _UAPI_LINUX_RANDOM_H */

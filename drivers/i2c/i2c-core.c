@@ -206,10 +206,7 @@ int i2c_generic_scl_recovery(struct i2c_adapter *adap)
 	adap->bus_recovery_info->set_scl(adap, 1);
 	return i2c_generic_recovery(adap);
 }
-<<<<<<< HEAD
 EXPORT_SYMBOL_GPL(i2c_generic_scl_recovery);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 int i2c_generic_gpio_recovery(struct i2c_adapter *adap)
 {
@@ -224,10 +221,7 @@ int i2c_generic_gpio_recovery(struct i2c_adapter *adap)
 
 	return ret;
 }
-<<<<<<< HEAD
 EXPORT_SYMBOL_GPL(i2c_generic_gpio_recovery);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 int i2c_recover_bus(struct i2c_adapter *adap)
 {
@@ -237,10 +231,7 @@ int i2c_recover_bus(struct i2c_adapter *adap)
 	dev_dbg(&adap->dev, "Trying i2c bus recovery\n");
 	return adap->bus_recovery_info->recover_bus(adap);
 }
-<<<<<<< HEAD
 EXPORT_SYMBOL_GPL(i2c_recover_bus);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 static int i2c_device_probe(struct device *dev)
 {
@@ -1332,10 +1323,7 @@ int i2c_register_driver(struct module *owner, struct i2c_driver *driver)
 	/* add the driver to the list of i2c drivers in the driver core */
 	driver->driver.owner = owner;
 	driver->driver.bus = &i2c_bus_type;
-<<<<<<< HEAD
 	INIT_LIST_HEAD(&driver->clients);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	/* When registration returns, the driver core
 	 * will have called probe() for all matching-but-unbound devices.
@@ -1354,10 +1342,6 @@ int i2c_register_driver(struct module *owner, struct i2c_driver *driver)
 
 	pr_debug("i2c-core: driver [%s] registered\n", driver->driver.name);
 
-<<<<<<< HEAD
-=======
-	INIT_LIST_HEAD(&driver->clients);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/* Walk the adapters that are already present */
 	i2c_for_each_dev(driver, __process_new_driver);
 

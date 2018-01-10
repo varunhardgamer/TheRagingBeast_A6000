@@ -618,8 +618,4 @@ module_exit(serpent_sse2_exit);
 
 MODULE_DESCRIPTION("Serpent Cipher Algorithm, SSE2 optimized");
 MODULE_LICENSE("GPL");
-<<<<<<< HEAD
 MODULE_ALIAS_CRYPTO("serpent");
-=======
-MODULE_ALIAS("serpent");
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c

@@ -109,11 +109,7 @@ ENTRY(stext)
 	sub	r4, r3, r4			@ (PHYS_OFFSET - PAGE_OFFSET)
 	add	r8, r8, r4			@ PHYS_OFFSET
 #else
-<<<<<<< HEAD
 	ldr	r8, =PLAT_PHYS_OFFSET		@ always constant in this case
-=======
-	ldr	r8, =PHYS_OFFSET		@ always constant in this case
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #endif
 
 	/*

@@ -83,19 +83,12 @@ static inline void iio_trigger_put(struct iio_trigger *trig)
 	put_device(&trig->dev);
 }
 
-<<<<<<< HEAD
 static inline struct iio_trigger *iio_trigger_get(struct iio_trigger *trig)
 {
 	get_device(&trig->dev);
 	__module_get(trig->ops->owner);
 
 	return trig;
-=======
-static inline void iio_trigger_get(struct iio_trigger *trig)
-{
-	get_device(&trig->dev);
-	__module_get(trig->ops->owner);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 /**

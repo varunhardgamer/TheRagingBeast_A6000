@@ -64,12 +64,7 @@ MODULE_ALIAS("mmc:block");
 #define INAND_CMD38_ARG_SECTRIM2 0x88
 #define MMC_BLK_TIMEOUT_MS  (30 * 1000)        /* 30 sec timeout */
 
-<<<<<<< HEAD
 #define mmc_req_rel_wr(req)	((req->cmd_flags & REQ_FUA) && \
-=======
-#define mmc_req_rel_wr(req)	(((req->cmd_flags & REQ_FUA) || \
-				  (req->cmd_flags & REQ_META)) && \
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 				  (rq_data_dir(req) == WRITE))
 #define PACKED_CMD_VER	0x01
 #define PACKED_CMD_WR	0x02
@@ -232,11 +227,8 @@ static ssize_t power_ro_lock_show(struct device *dev,
 
 	ret = snprintf(buf, PAGE_SIZE, "%d\n", locked);
 
-<<<<<<< HEAD
 	mmc_blk_put(md);
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return ret;
 }
 
@@ -299,11 +291,7 @@ static ssize_t force_ro_show(struct device *dev, struct device_attribute *attr,
 	if (!md)
 		return -EINVAL;
 
-<<<<<<< HEAD
 	ret = snprintf(buf, PAGE_SIZE, "%d\n",
-=======
-	ret = snprintf(buf, PAGE_SIZE, "%d",
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		       get_disk_ro(dev_to_disk(dev)) ^
 		       md->read_only);
 	mmc_blk_put(md);
@@ -715,17 +703,6 @@ static int mmc_blk_ioctl_cmd(struct block_device *bdev,
 	cmd.arg = idata->ic.arg;
 	cmd.flags = idata->ic.flags;
 
-<<<<<<< HEAD
-=======
-	if (idata->ic.postsleep_max_us < idata->ic.postsleep_min_us) {
-		pr_err("%s: min value: %u must not be greater than max value: %u\n",
-			__func__, idata->ic.postsleep_min_us,
-			idata->ic.postsleep_max_us);
-		WARN_ON(1);
-		return -EPERM;
-	}
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (idata->buf_bytes) {
 		data.sg = &sg;
 		data.sg_len = 1;
@@ -1386,7 +1363,6 @@ static inline void mmc_blk_reset_success(struct mmc_blk_data *md, int type)
 	md->reset_done &= ~type;
 }
 
-<<<<<<< HEAD
 int mmc_access_rpmb(struct mmc_queue *mq)
 {
 	struct mmc_blk_data *md = mq->data;
@@ -1399,8 +1375,6 @@ int mmc_access_rpmb(struct mmc_queue *mq)
 	return false;
 }
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static int mmc_blk_issue_discard_rq(struct mmc_queue *mq, struct request *req)
 {
 	struct mmc_blk_data *md = mq->data;
@@ -1910,19 +1884,9 @@ static void mmc_blk_rw_rq_prep(struct mmc_queue_req *mqrq,
 
 	/*
 	 * Reliable writes are used to implement Forced Unit Access and
-<<<<<<< HEAD
 	 * are supported only on MMCs.
 	 */
 	bool do_rel_wr = (req->cmd_flags & REQ_FUA) &&
-=======
-	 * REQ_META accesses, and are supported only on MMCs.
-	 *
-	 * XXX: this really needs a good explanation of why REQ_META
-	 * is treated special.
-	 */
-	bool do_rel_wr = ((req->cmd_flags & REQ_FUA) ||
-			  (req->cmd_flags & REQ_META)) &&
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		(rq_data_dir(req) == WRITE) &&
 		(md->flags & MMC_BLK_REL_WR);
 
@@ -2434,13 +2398,8 @@ static void mmc_blk_packed_hdr_wrq_prep(struct mmc_queue_req *mqrq,
 
 	packed_cmd_hdr = packed->cmd_hdr;
 	memset(packed_cmd_hdr, 0, sizeof(packed->cmd_hdr));
-<<<<<<< HEAD
 	packed_cmd_hdr[0] = cpu_to_le32((packed->nr_entries << 16) |
 		(PACKED_CMD_WR << 8) | PACKED_CMD_VER);
-=======
-	packed_cmd_hdr[0] = (packed->nr_entries << 16) |
-		(PACKED_CMD_WR << 8) | PACKED_CMD_VER;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	hdr_blocks = mmc_large_sector(card) ? 8 : 1;
 
 	/*
@@ -2454,7 +2413,6 @@ static void mmc_blk_packed_hdr_wrq_prep(struct mmc_queue_req *mqrq,
 			((brq->data.blocks * brq->data.blksz) >=
 			 card->ext_csd.data_tag_unit_size);
 		/* Argument of CMD23 */
-<<<<<<< HEAD
 		packed_cmd_hdr[(i * 2)] = cpu_to_le32(
 			(do_rel_wr ? MMC_CMD23_ARG_REL_WR : 0) |
 			(do_data_tag ? MMC_CMD23_ARG_TAG_REQ : 0) |
@@ -2463,16 +2421,6 @@ static void mmc_blk_packed_hdr_wrq_prep(struct mmc_queue_req *mqrq,
 		packed_cmd_hdr[((i * 2)) + 1] = cpu_to_le32(
 			mmc_card_blockaddr(card) ?
 			blk_rq_pos(prq) : blk_rq_pos(prq) << 9);
-=======
-		packed_cmd_hdr[(i * 2)] =
-			(do_rel_wr ? MMC_CMD23_ARG_REL_WR : 0) |
-			(do_data_tag ? MMC_CMD23_ARG_TAG_REQ : 0) |
-			blk_rq_sectors(prq);
-		/* Argument of CMD18 or CMD25 */
-		packed_cmd_hdr[((i * 2)) + 1] =
-			mmc_card_blockaddr(card) ?
-			blk_rq_pos(prq) : blk_rq_pos(prq) << 9;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		packed->blocks += blk_rq_sectors(prq);
 		i++;
 	}
@@ -3035,12 +2983,8 @@ static struct mmc_blk_data *mmc_blk_alloc_req(struct mmc_card *card,
 		((unsigned int)size * percentage) / 100;
 
 	if (mmc_host_cmd23(card->host)) {
-<<<<<<< HEAD
 		if ((mmc_card_mmc(card) &&
 		     card->csd.mmca_vsn >= CSD_SPEC_VER_3) ||
-=======
-		if (mmc_card_mmc(card) ||
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		    (mmc_card_sd(card) &&
 		     card->scr.cmds & SD_SCR_CMD23_SUPPORT))
 			md->flags |= MMC_BLK_CMD23;
@@ -3311,20 +3255,12 @@ static const struct mmc_fixup blk_fixups[] =
 		  MMC_QUIRK_BLK_NO_CMD23),
 
 	/*
-<<<<<<< HEAD
 	 * Some MMC cards need longer data read timeout than indicated in CSD.
 	 */
 	MMC_FIXUP(CID_NAME_ANY, CID_MANFID_MICRON, 0x200, add_quirk_mmc,
 		  MMC_QUIRK_LONG_READ_TIME),
 	MMC_FIXUP("008GE0", CID_MANFID_TOSHIBA, CID_OEMID_ANY, add_quirk_mmc,
 		  MMC_QUIRK_LONG_READ_TIME),
-=======
-	 * Some Micron MMC cards needs longer data read timeout than
-	 * indicated in CSD.
-	 */
-	MMC_FIXUP(CID_NAME_ANY, CID_MANFID_MICRON, 0x200, add_quirk_mmc,
-		  MMC_QUIRK_LONG_READ_TIME),
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	/*
 	 * Some Samsung MMC cards need longer data read timeout than
@@ -3332,11 +3268,8 @@ static const struct mmc_fixup blk_fixups[] =
 	 */
 	MMC_FIXUP("Q7XSAB", CID_MANFID_SAMSUNG, 0x100, add_quirk_mmc,
 		  MMC_QUIRK_LONG_READ_TIME),
-<<<<<<< HEAD
 	MMC_FIXUP("Q72SMB", CID_MANFID_SAMSUNG, 0x100, add_quirk_mmc,
 		  MMC_QUIRK_LONG_READ_TIME),
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	/*
 	 * On these Samsung MoviNAND parts, performing secure erase or
@@ -3359,11 +3292,8 @@ static const struct mmc_fixup blk_fixups[] =
 		  MMC_QUIRK_SEC_ERASE_TRIM_BROKEN),
 	MMC_FIXUP("VZL00M", CID_MANFID_SAMSUNG, CID_OEMID_ANY, add_quirk_mmc,
 		  MMC_QUIRK_SEC_ERASE_TRIM_BROKEN),
-<<<<<<< HEAD
 	MMC_FIXUP("Q72SMB", CID_MANFID_SAMSUNG, CID_OEMID_ANY, add_quirk_mmc,
 		  MMC_QUIRK_SEC_ERASE_TRIM_BROKEN),
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	MMC_FIXUP(CID_NAME_ANY, CID_MANFID_HYNIX, CID_OEMID_ANY, add_quirk_mmc,
 		  MMC_QUIRK_BROKEN_DATA_TIMEOUT),
 

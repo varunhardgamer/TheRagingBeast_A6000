@@ -300,11 +300,8 @@ enum MR_EVT_ARGS {
 	MR_EVT_ARGS_GENERIC,
 };
 
-<<<<<<< HEAD
 
 #define SGE_BUFFER_SIZE	4096
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /*
  * define constants for device list query options
  */
@@ -1405,11 +1402,7 @@ struct megasas_instance_template {
 };
 
 #define MEGASAS_IS_LOGICAL(scp)						\
-<<<<<<< HEAD
 	((scp->device->channel < MEGASAS_MAX_PD_CHANNELS) ? 0 : 1)
-=======
-	(scp->device->channel < MEGASAS_MAX_PD_CHANNELS) ? 0 : 1
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #define MEGASAS_DEV_INDEX(inst, scp)					\
 	((scp->device->channel % 2) * MEGASAS_MAX_DEV_PER_CHANNEL) + 	\

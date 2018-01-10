@@ -4080,16 +4080,11 @@ int extent_fiemap(struct inode *inode, struct fiemap_extent_info *fieinfo,
 		}
 		ret = fiemap_fill_next_extent(fieinfo, em_start, disko,
 					      em_len, flags);
-<<<<<<< HEAD
 		if (ret) {
 			if (ret == 1)
 				ret = 0;
 			goto out_free;
 		}
-=======
-		if (ret)
-			goto out_free;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 out_free:
 	free_extent_map(em);
@@ -4666,7 +4661,6 @@ int read_extent_buffer_pages(struct extent_io_tree *tree,
 			lock_page(page);
 		}
 		locked_pages++;
-<<<<<<< HEAD
 	}
 	/*
 	 * We need to firstly lock all pages to make sure that
@@ -4675,17 +4669,12 @@ int read_extent_buffer_pages(struct extent_io_tree *tree,
 	 */
 	for (i = start_i; i < num_pages; i++) {
 		page = eb->pages[i];
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		if (!PageUptodate(page)) {
 			num_reads++;
 			all_uptodate = 0;
 		}
 	}
-<<<<<<< HEAD
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (all_uptodate) {
 		if (start_i == 0)
 			set_bit(EXTENT_BUFFER_UPTODATE, &eb->bflags);

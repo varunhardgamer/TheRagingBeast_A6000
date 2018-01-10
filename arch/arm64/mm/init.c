@@ -250,11 +250,7 @@ static void __init free_unused_memmap(void)
 		 * memmap entries are valid from the bank end aligned to
 		 * MAX_ORDER_NR_PAGES.
 		 */
-<<<<<<< HEAD
 		prev_end = ALIGN(__phys_to_pfn(reg->base + reg->size),
-=======
-		prev_end = ALIGN(start + __phys_to_pfn(reg->size),
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 				 MAX_ORDER_NR_PAGES);
 	}
 

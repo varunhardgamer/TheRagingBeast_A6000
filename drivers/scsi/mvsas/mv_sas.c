@@ -441,20 +441,11 @@ static u32 mvs_get_ncq_tag(struct sas_task *task, u32 *tag)
 static int mvs_task_prep_ata(struct mvs_info *mvi,
 			     struct mvs_task_exec_info *tei)
 {
-<<<<<<< HEAD
-=======
-	struct sas_ha_struct *sha = mvi->sas;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	struct sas_task *task = tei->task;
 	struct domain_device *dev = task->dev;
 	struct mvs_device *mvi_dev = dev->lldd_dev;
 	struct mvs_cmd_hdr *hdr = tei->hdr;
 	struct asd_sas_port *sas_port = dev->port;
-<<<<<<< HEAD
-=======
-	struct sas_phy *sphy = dev->phy;
-	struct asd_sas_phy *sas_phy = sha->sas_phy[sphy->number];
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	struct mvs_slot_info *slot;
 	void *buf_prd;
 	u32 tag = tei->tag, hdr_tag;
@@ -474,11 +465,7 @@ static int mvs_task_prep_ata(struct mvs_info *mvi,
 	slot->tx = mvi->tx_prod;
 	del_q = TXQ_MODE_I | tag |
 		(TXQ_CMD_STP << TXQ_CMD_SHIFT) |
-<<<<<<< HEAD
 		((sas_port->phy_mask & TXQ_PHY_MASK) << TXQ_PHY_SHIFT) |
-=======
-		(MVS_PHY_ID << TXQ_PHY_SHIFT) |
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		(mvi_dev->taskfileset << TXQ_SRS_SHIFT);
 	mvi->tx[mvi->tx_prod] = cpu_to_le32(del_q);
 
@@ -749,13 +736,8 @@ static int mvs_task_prep(struct sas_task *task, struct mvs_info *mvi, int is_tmf
 			mv_dprintk("device %016llx not ready.\n",
 				SAS_ADDR(dev->sas_addr));
 
-<<<<<<< HEAD
 		rc = SAS_PHY_DOWN;
 		return rc;
-=======
-			rc = SAS_PHY_DOWN;
-			return rc;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 	tei.port = dev->port->lldd_port;
 	if (tei.port && !tei.port->port_attached && !tmf) {
@@ -1005,11 +987,8 @@ static void mvs_slot_free(struct mvs_info *mvi, u32 rx_desc)
 static void mvs_slot_task_free(struct mvs_info *mvi, struct sas_task *task,
 			  struct mvs_slot_info *slot, u32 slot_idx)
 {
-<<<<<<< HEAD
 	if (!slot)
 		return;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (!slot->task)
 		return;
 	if (!sas_protocol_ata(task->task_proto))

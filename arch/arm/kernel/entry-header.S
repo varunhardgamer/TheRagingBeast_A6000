@@ -125,14 +125,6 @@
 	movs	pc, lr				@ return & move spsr_svc into cpsr
 	.endm
 
-<<<<<<< HEAD
-=======
-	.macro	get_thread_info, rd
-	mov	\rd, sp, lsr #13
-	mov	\rd, \rd, lsl #13
-	.endm
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	@
 	@ 32-bit wide "mov pc, reg"
 	@
@@ -185,15 +177,6 @@
 	movs	pc, lr				@ return & move spsr_svc into cpsr
 	.endm
 
-<<<<<<< HEAD
-=======
-	.macro	get_thread_info, rd
-	mov	\rd, sp
-	lsr	\rd, \rd, #13
-	mov	\rd, \rd, lsl #13
-	.endm
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	@
 	@ 32-bit wide "mov pc, reg"
 	@

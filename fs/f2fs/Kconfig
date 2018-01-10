@@ -1,9 +1,5 @@
 config F2FS_FS
-<<<<<<< HEAD
 	tristate "F2FS filesystem support"
-=======
-	tristate "F2FS filesystem support (EXPERIMENTAL)"
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	depends on BLOCK
 	help
 	  F2FS is based on Log-structured File System (LFS), which supports
@@ -23,19 +19,11 @@ config F2FS_STAT_FS
 	depends on F2FS_FS && DEBUG_FS
 	default y
 	help
-<<<<<<< HEAD
 	  /sys/debug/f2fs/ contains information about all the partitions
 	  mounted as f2fs. Each file shows the whole f2fs information.
 
 	  /sys/debug/f2fs/status includes:
 	    - major filesystem information managed by f2fs currently
-=======
-	  /sys/kernel/debug/f2fs/ contains information about all the partitions
-	  mounted as f2fs. Each file shows the whole f2fs information.
-
-	  /sys/kernel/debug/f2fs/status includes:
-	    - major file system information managed by f2fs currently
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	    - average SIT information about whole segments
 	    - current memory footprint consumed by f2fs.
 
@@ -63,7 +51,6 @@ config F2FS_FS_POSIX_ACL
 	  Linux website <http://acl.bestbits.at/>.
 
 	  If you don't know what Access Control Lists are, say N
-<<<<<<< HEAD
 
 config F2FS_FS_SECURITY
 	bool "F2FS Security Labels"
@@ -122,5 +109,3 @@ config F2FS_EMULATED_SD
 	  Enable emulated SD card on f2fs.
 
 	  If unsure, say N.
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c

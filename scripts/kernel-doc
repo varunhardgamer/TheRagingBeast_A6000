@@ -1750,11 +1750,7 @@ sub dump_struct($$) {
 	# strip kmemcheck_bitfield_{begin,end}.*;
 	$members =~ s/kmemcheck_bitfield_.*?;//gos;
 	# strip attributes
-<<<<<<< HEAD
 	$members =~ s/__aligned\s*\([^;]*\)//gos;
-=======
-	$members =~ s/__aligned\s*\(.+\)//gos;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	create_parameterlist($members, ';', $file);
 	check_sections($file, $declaration_name, "struct", $sectcheck, $struct_actual, $nested);

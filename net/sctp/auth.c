@@ -812,13 +812,8 @@ int sctp_auth_ep_set_hmacs(struct sctp_endpoint *ep,
 	if (!has_sha1)
 		return -EINVAL;
 
-<<<<<<< HEAD
 	for (i = 0; i < hmacs->shmac_num_idents; i++)
 		ep->auth_hmacs_list->hmac_ids[i] = htons(hmacs->shmac_idents[i]);
-=======
-	memcpy(ep->auth_hmacs_list->hmac_ids, &hmacs->shmac_idents[0],
-		hmacs->shmac_num_idents * sizeof(__u16));
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	ep->auth_hmacs_list->param_hdr.length = htons(sizeof(sctp_paramhdr_t) +
 				hmacs->shmac_num_idents * sizeof(__u16));
 	return 0;
@@ -879,11 +874,6 @@ int sctp_auth_set_key(struct sctp_endpoint *ep,
 		list_add(&cur_key->key_list, sh_keys);
 
 	cur_key->key = key;
-<<<<<<< HEAD
-=======
-	sctp_auth_key_hold(key);
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return 0;
 nomem:
 	if (!replace)

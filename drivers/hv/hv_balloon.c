@@ -673,11 +673,7 @@ static bool pfn_covered(unsigned long start_pfn, unsigned long pfn_cnt)
 		 * If the pfn range we are dealing with is not in the current
 		 * "hot add block", move on.
 		 */
-<<<<<<< HEAD
 		if (start_pfn < has->start_pfn || start_pfn >= has->end_pfn)
-=======
-		if ((start_pfn >= has->end_pfn))
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			continue;
 		/*
 		 * If the current hot add-request extends beyond
@@ -732,11 +728,7 @@ static unsigned long handle_pg_range(unsigned long pg_start,
 		 * If the pfn range we are dealing with is not in the current
 		 * "hot add block", move on.
 		 */
-<<<<<<< HEAD
 		if (start_pfn < has->start_pfn || start_pfn >= has->end_pfn)
-=======
-		if ((start_pfn >= has->end_pfn))
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			continue;
 
 		old_covered_state = has->covered_end_pfn;

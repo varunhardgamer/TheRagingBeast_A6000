@@ -39,20 +39,14 @@
 #include <linux/hw_breakpoint.h>
 #include <linux/mm_types.h>
 #include <linux/cgroup.h>
-<<<<<<< HEAD
 #include <linux/compat.h>
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #include "internal.h"
 
 #include <asm/irq_regs.h>
 
-<<<<<<< HEAD
 static struct workqueue_struct *perf_wq;
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 struct remote_function_call {
 	struct task_struct	*p;
 	int			(*func)(void *info);
@@ -126,7 +120,6 @@ static int cpu_function_call(int cpu, int (*func) (void *info), void *info)
 	return data.ret;
 }
 
-<<<<<<< HEAD
 #define EVENT_OWNER_KERNEL ((void *) -1)
 
 static bool is_kernel_event(struct perf_event *event)
@@ -134,8 +127,6 @@ static bool is_kernel_event(struct perf_event *event)
 	return event->owner == EVENT_OWNER_KERNEL;
 }
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #define PERF_FLAG_ALL (PERF_FLAG_FD_NO_GROUP |\
 		       PERF_FLAG_FD_OUTPUT  |\
 		       PERF_FLAG_PID_CGROUP)
@@ -1357,7 +1348,6 @@ out:
 		perf_event__header_size(tmp);
 }
 
-<<<<<<< HEAD
 /*
  * User event without the task.
  */
@@ -1397,8 +1387,6 @@ static int __init perf_workqueue_init(void)
 
 core_initcall(perf_workqueue_init);
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static inline int
 event_filter_match(struct perf_event *event)
 {
@@ -1445,11 +1433,8 @@ event_sched_out(struct perf_event *event,
 		ctx->nr_freq--;
 	if (event->attr.exclusive || !cpuctx->active_oncpu)
 		cpuctx->exclusive = 0;
-<<<<<<< HEAD
 	if (is_orphaned_child(event))
 		schedule_orphans_remove(ctx);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static void
@@ -1549,14 +1534,11 @@ retry:
 	 */
 	if (ctx->is_active) {
 		raw_spin_unlock_irq(&ctx->lock);
-<<<<<<< HEAD
 		/*
 		 * Reload the task pointer, it might have been changed by
 		 * a concurrent perf_event_context_sched_out().
 		 */
 		task = ctx->task;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		goto retry;
 	}
 
@@ -1766,12 +1748,9 @@ event_sched_in(struct perf_event *event,
 	if (event->attr.exclusive)
 		cpuctx->exclusive = 1;
 
-<<<<<<< HEAD
 	if (is_orphaned_child(event))
 		schedule_orphans_remove(ctx);
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return 0;
 }
 
@@ -2007,14 +1986,11 @@ retry:
 	 */
 	if (ctx->is_active) {
 		raw_spin_unlock_irq(&ctx->lock);
-<<<<<<< HEAD
 		/*
 		 * Reload the task pointer, it might have been changed by
 		 * a concurrent perf_event_context_sched_out().
 		 */
 		task = ctx->task;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		goto retry;
 	}
 
@@ -3099,10 +3075,7 @@ static void __perf_event_init_context(struct perf_event_context *ctx)
 	INIT_LIST_HEAD(&ctx->flexible_groups);
 	INIT_LIST_HEAD(&ctx->event_list);
 	atomic_set(&ctx->refcount, 1);
-<<<<<<< HEAD
 	INIT_DELAYED_WORK(&ctx->orphans_remove, orphans_remove_work);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static struct perf_event_context *
@@ -3144,11 +3117,7 @@ find_lively_task_by_vpid(pid_t vpid)
 
 	/* Reuse ptrace permission checks for now. */
 	err = -EACCES;
-<<<<<<< HEAD
 	if (!ptrace_may_access(task, PTRACE_MODE_READ_REALCREDS))
-=======
-	if (!ptrace_may_access(task, PTRACE_MODE_READ))
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		goto errout;
 
 	return task;
@@ -3344,24 +3313,12 @@ int perf_event_release_kernel(struct perf_event *event)
 EXPORT_SYMBOL_GPL(perf_event_release_kernel);
 
 /*
-<<<<<<< HEAD
  * Remove user event from the owner task.
  */
 static void perf_remove_from_owner(struct perf_event *event)
 {
 	struct task_struct *owner;
 
-=======
- * Called when the last reference to the file is gone.
- */
-static void put_event(struct perf_event *event)
-{
-	struct task_struct *owner;
-
-	if (!atomic_long_dec_and_test(&event->refcount))
-		return;
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	rcu_read_lock();
 	owner = ACCESS_ONCE(event->owner);
 	/*
@@ -3404,7 +3361,6 @@ static void put_event(struct perf_event *event)
 		mutex_unlock(&owner->perf_event_mutex);
 		put_task_struct(owner);
 	}
-<<<<<<< HEAD
 }
 
 /*
@@ -3417,8 +3373,6 @@ static void put_event(struct perf_event *event)
 
 	if (!is_kernel_event(event))
 		perf_remove_from_owner(event);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	perf_event_release_kernel(event);
 }
@@ -3439,7 +3393,6 @@ static int perf_release(struct inode *inode, struct file *file)
 	return 0;
 }
 
-<<<<<<< HEAD
 /*
  * Remove all orphanes events from the context.
  */
@@ -3476,8 +3429,6 @@ static void orphans_remove_work(struct work_struct *work)
 	put_ctx(ctx);
 }
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 u64 perf_event_read_value(struct perf_event *event, u64 *enabled, u64 *running)
 {
 	struct perf_event *child;
@@ -3790,7 +3741,6 @@ static long _perf_ioctl(struct perf_event *event, unsigned int cmd,
 
 static long perf_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
 {
-<<<<<<< HEAD
 	struct perf_event *event = file->private_data;
 	struct perf_event_context *ctx;
 	long ret;
@@ -3821,19 +3771,6 @@ static long perf_compat_ioctl(struct file *file, unsigned int cmd,
 # define perf_compat_ioctl NULL
 #endif
 
-=======
-        struct perf_event *event = file->private_data;
-        struct perf_event_context *ctx;
-        long ret;
-
-        ctx = perf_event_ctx_lock(event);
-        ret = _perf_ioctl(event, cmd, arg);
-        perf_event_ctx_unlock(event, ctx);
-
-        return ret;
-}
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 int perf_event_task_enable(void)
 {
 	struct perf_event_context *ctx;
@@ -4313,11 +4250,7 @@ static const struct file_operations perf_fops = {
 	.read			= perf_read,
 	.poll			= perf_poll,
 	.unlocked_ioctl		= perf_ioctl,
-<<<<<<< HEAD
 	.compat_ioctl		= perf_compat_ioctl,
-=======
-	.compat_ioctl		= perf_ioctl,
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	.mmap			= perf_mmap,
 	.fasync			= perf_fasync,
 };
@@ -4329,7 +4262,6 @@ static const struct file_operations perf_fops = {
  * to user-space before waking everybody up.
  */
 
-<<<<<<< HEAD
 static inline struct fasync_struct **perf_event_fasync(struct perf_event *event)
 {
 	/* only the parent has fasync state */
@@ -4338,18 +4270,12 @@ static inline struct fasync_struct **perf_event_fasync(struct perf_event *event)
 	return &event->fasync;
 }
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 void perf_event_wakeup(struct perf_event *event)
 {
 	ring_buffer_wakeup(event);
 
 	if (event->pending_kill) {
-<<<<<<< HEAD
 		kill_fasync(perf_event_fasync(event), SIGIO, event->pending_kill);
-=======
-		kill_fasync(&event->fasync, SIGIO, event->pending_kill);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		event->pending_kill = 0;
 	}
 }
@@ -4358,7 +4284,6 @@ static void perf_pending_event(struct irq_work *entry)
 {
 	struct perf_event *event = container_of(entry,
 			struct perf_event, pending);
-<<<<<<< HEAD
 	int rctx;
 
 	rctx = perf_swevent_get_recursion_context();
@@ -4366,8 +4291,6 @@ static void perf_pending_event(struct irq_work *entry)
 	 * If we 'fail' here, that's OK, it means recursion is already disabled
 	 * and we won't recurse 'further'.
 	 */
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (event->pending_disable) {
 		event->pending_disable = 0;
@@ -4378,12 +4301,9 @@ static void perf_pending_event(struct irq_work *entry)
 		event->pending_wakeup = 0;
 		perf_event_wakeup(event);
 	}
-<<<<<<< HEAD
 
 	if (rctx >= 0)
 		perf_swevent_put_recursion_context(rctx);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 /*
@@ -5510,11 +5430,7 @@ static int __perf_event_overflow(struct perf_event *event,
 	else
 		perf_event_output(event, data, regs);
 
-<<<<<<< HEAD
 	if (*perf_event_fasync(event) && event->pending_kill) {
-=======
-	if (event->fasync && event->pending_kill) {
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		event->pending_wakeup = 1;
 		irq_work_queue(&event->pending);
 	}
@@ -5982,13 +5898,10 @@ static int perf_tp_filter_match(struct perf_event *event,
 {
 	void *record = data->raw->data;
 
-<<<<<<< HEAD
 	/* only top level events have filters set */
 	if (event->parent)
 		event = event->parent;
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (likely(!event->filter) || filter_match_preds(event->filter, record))
 		return 1;
 	return 0;
@@ -7052,7 +6965,6 @@ static void mutex_lock_double(struct mutex *a, struct mutex *b)
 	mutex_lock_nested(b, SINGLE_DEPTH_NESTING);
 }
 
-<<<<<<< HEAD
 /*
  * Variation on perf_event_ctx_lock_nested(), except we take two context
  * mutexes.
@@ -7084,8 +6996,6 @@ again:
 	return gctx;
 }
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /**
  * sys_perf_event_open - open a performance event, associate it to a task/cpu
  *
@@ -7300,7 +7210,6 @@ SYSCALL_DEFINE5(perf_event_open,
 	}
 
 	if (move_group) {
-<<<<<<< HEAD
 		gctx = __perf_event_ctx_lock_double(group_leader, ctx);
 
 		/*
@@ -7321,20 +7230,11 @@ SYSCALL_DEFINE5(perf_event_open,
 				move_group = 0;
 			}
 		}
-=======
-		gctx = group_leader->ctx;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 		/*
 		 * See perf_event_ctx_lock() for comments on the details
 		 * of swizzling perf_event::ctx.
 		 */
-<<<<<<< HEAD
-=======
-		mutex_lock_double(&gctx->mutex, &ctx->mutex);
-
-		mutex_lock(&gctx->mutex);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		perf_remove_from_context(group_leader, false);
 
 		/*
@@ -7361,19 +7261,11 @@ SYSCALL_DEFINE5(perf_event_open,
 		 * the old lists, before installing it on new lists.
 		 */
 		synchronize_rcu();
-<<<<<<< HEAD
 		perf_install_in_context(ctx, group_leader, group_leader->cpu);
 		get_ctx(ctx);
 		list_for_each_entry(sibling, &group_leader->sibling_list,
 				    group_entry) {
 			perf_install_in_context(ctx, sibling, sibling->cpu);
-=======
-		perf_install_in_context(ctx, group_leader, event->cpu);
-		get_ctx(ctx);
-		list_for_each_entry(sibling, &group_leader->sibling_list,
-				    group_entry) {
-			perf_install_in_context(ctx, sibling, event->cpu);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			get_ctx(ctx);
 		}
 	}
@@ -7383,11 +7275,7 @@ SYSCALL_DEFINE5(perf_event_open,
 	perf_unpin_context(ctx);
 
 	if (move_group) {
-<<<<<<< HEAD
 		perf_event_ctx_unlock(group_leader, gctx);
-=======
-		mutex_unlock(&gctx->mutex);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		put_ctx(gctx);
 	}
 	mutex_unlock(&ctx->mutex);
@@ -7418,14 +7306,11 @@ SYSCALL_DEFINE5(perf_event_open,
 	fd_install(event_fd, event_file);
 	return event_fd;
 
-<<<<<<< HEAD
 err_locked:
 	if (move_group)
 		perf_event_ctx_unlock(group_leader, gctx);
 	mutex_unlock(&ctx->mutex);
 	fput(event_file);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 err_context:
 	perf_unpin_context(ctx);
 	put_ctx(ctx);
@@ -7472,12 +7357,9 @@ perf_event_create_kernel_counter(struct perf_event_attr *attr, int cpu,
 		goto err;
 	}
 
-<<<<<<< HEAD
 	/* Mark owner so we could distinguish it from user events. */
 	event->owner = EVENT_OWNER_KERNEL;
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	ctx = find_get_context(event->pmu, task, cpu);
 	if (IS_ERR(ctx)) {
 		err = PTR_ERR(ctx);
@@ -7788,12 +7670,8 @@ inherit_event(struct perf_event *parent_event,
 	if (IS_ERR(child_event))
 		return child_event;
 
-<<<<<<< HEAD
 	if (is_orphaned_event(parent_event) ||
 	    !atomic_long_inc_not_zero(&parent_event->refcount)) {
-=======
-	if (!atomic_long_inc_not_zero(&parent_event->refcount)) {
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		free_event(child_event);
 		return NULL;
 	}
@@ -7954,11 +7832,7 @@ int perf_event_init_context(struct task_struct *child, int ctxn)
 		ret = inherit_task_group(event, parent, parent_ctx,
 					 child, ctxn, &inherited_all);
 		if (ret)
-<<<<<<< HEAD
 			goto out_unlock;
-=======
-			break;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 
 	/*
@@ -7974,11 +7848,7 @@ int perf_event_init_context(struct task_struct *child, int ctxn)
 		ret = inherit_task_group(event, parent, parent_ctx,
 					 child, ctxn, &inherited_all);
 		if (ret)
-<<<<<<< HEAD
 			goto out_unlock;
-=======
-			break;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 
 	raw_spin_lock_irqsave(&parent_ctx->lock, flags);
@@ -8006,10 +7876,7 @@ int perf_event_init_context(struct task_struct *child, int ctxn)
 	}
 
 	raw_spin_unlock_irqrestore(&parent_ctx->lock, flags);
-<<<<<<< HEAD
 out_unlock:
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	mutex_unlock(&parent_ctx->mutex);
 
 	perf_unpin_context(parent_ctx);
@@ -8031,15 +7898,10 @@ int perf_event_init_task(struct task_struct *child)
 
 	for_each_task_context_nr(ctxn) {
 		ret = perf_event_init_context(child, ctxn);
-<<<<<<< HEAD
 		if (ret) {
 			perf_event_free_task(child);
 			return ret;
 		}
-=======
-		if (ret)
-			return ret;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 
 	return 0;

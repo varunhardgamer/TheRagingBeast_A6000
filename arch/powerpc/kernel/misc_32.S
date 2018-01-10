@@ -295,11 +295,7 @@ _GLOBAL(flush_instruction_cache)
 	lis	r3, KERNELBASE@h
 	iccci	0,r3
 #endif
-<<<<<<< HEAD
 #elif defined(CONFIG_FSL_BOOKE)
-=======
-#elif CONFIG_FSL_BOOKE
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 BEGIN_FTR_SECTION
 	mfspr   r3,SPRN_L1CSR0
 	ori     r3,r3,L1CSR0_CFI|L1CSR0_CLFC

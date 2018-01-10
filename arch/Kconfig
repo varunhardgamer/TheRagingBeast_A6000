@@ -455,7 +455,6 @@ config HAVE_UNDERSCORE_SYMBOL_PREFIX
 	  Some architectures generate an _ in front of C symbols; things like
 	  module loading and assembly files need to know about this.
 
-<<<<<<< HEAD
 config HAVE_ARCH_MMAP_RND_BITS
 	bool
 	help
@@ -524,8 +523,6 @@ config ARCH_MMAP_RND_COMPAT_BITS
 	  This value can be changed after boot using the
 	  /proc/sys/vm/mmap_rnd_compat_bits tunable
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #
 # ABI hall of shame
 #

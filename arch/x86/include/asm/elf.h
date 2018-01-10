@@ -155,14 +155,9 @@ do {						\
 #define elf_check_arch(x)			\
 	((x)->e_machine == EM_X86_64)
 
-<<<<<<< HEAD
 #define compat_elf_check_arch(x)					\
 	(elf_check_arch_ia32(x) ||					\
 	 (IS_ENABLED(CONFIG_X86_X32_ABI) && (x)->e_machine == EM_X86_64))
-=======
-#define compat_elf_check_arch(x)		\
-	(elf_check_arch_ia32(x) || (x)->e_machine == EM_X86_64)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #if __USER32_DS != __USER_DS
 # error "The following code assumes __USER32_DS == __USER_DS"
@@ -277,11 +272,7 @@ struct task_struct;
 
 #define	ARCH_DLINFO_IA32(vdso_enabled)					\
 do {									\
-<<<<<<< HEAD
 	if (VDSO_CURRENT_BASE) {					\
-=======
-	if (vdso_enabled) {						\
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		NEW_AUX_ENT(AT_SYSINFO,	VDSO_ENTRY);			\
 		NEW_AUX_ENT(AT_SYSINFO_EHDR, VDSO_CURRENT_BASE);	\
 	}								\

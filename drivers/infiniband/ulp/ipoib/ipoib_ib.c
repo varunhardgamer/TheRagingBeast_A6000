@@ -979,7 +979,6 @@ static void __ipoib_ib_dev_flush(struct ipoib_dev_priv *priv,
 	}
 
 	if (level == IPOIB_FLUSH_LIGHT) {
-<<<<<<< HEAD
 		int oper_up;
 		ipoib_mark_paths_invalid(dev);
 		/* Set IPoIB operation as down to prevent races between:
@@ -991,10 +990,6 @@ static void __ipoib_ib_dev_flush(struct ipoib_dev_priv *priv,
 		ipoib_mcast_dev_flush(dev);
 		if (oper_up)
 			set_bit(IPOIB_FLAG_OPER_UP, &priv->flags);
-=======
-		ipoib_mark_paths_invalid(dev);
-		ipoib_mcast_dev_flush(dev);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 
 	if (level >= IPOIB_FLUSH_NORMAL)

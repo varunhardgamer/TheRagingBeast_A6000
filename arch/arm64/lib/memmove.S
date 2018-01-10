@@ -58,10 +58,7 @@ D_l	.req	x13
 D_h	.req	x14
 
 ENTRY(memmove)
-<<<<<<< HEAD
 	prfm    pldl1strm, [src, #L1_CACHE_BYTES]
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	cmp	dstin, src
 	b.lo	memcpy
 	add	tmp1, src, count
@@ -188,10 +185,7 @@ ENTRY(memmove)
 	ldp	C_l, C_h, [src, #-48]
 	stp	D_l, D_h, [dst, #-64]!
 	ldp	D_l, D_h, [src, #-64]!
-<<<<<<< HEAD
 	prfm    pldl1strm, [src, #(4*L1_CACHE_BYTES)]
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	subs	count, count, #64
 	b.ge	1b
 	stp	A_l, A_h, [dst, #-16]

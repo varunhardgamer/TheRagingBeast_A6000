@@ -65,12 +65,9 @@ startup_64:
 	 * tables and then reload them.
 	 */
 
-<<<<<<< HEAD
 	/* Sanitize CPU configuration */
 	call verify_cpu
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/*
 	 * Compute the delta between the address I am compiled to run at and the
 	 * address I am actually running at.
@@ -180,12 +177,9 @@ ENTRY(secondary_startup_64)
 	 * after the boot processor executes this code.
 	 */
 
-<<<<<<< HEAD
 	/* Sanitize CPU configuration */
 	call verify_cpu
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	movq	$(init_level4_pgt - __START_KERNEL_map), %rax
 1:
 
@@ -300,11 +294,8 @@ ENTRY(secondary_startup_64)
 	pushq	%rax		# target address in negative space
 	lretq
 
-<<<<<<< HEAD
 #include "verify_cpu.S"
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #ifdef CONFIG_HOTPLUG_CPU
 /*
  * Boot CPU0 entry point. It's called from play_dead(). Everything has been set
@@ -338,19 +329,13 @@ bad_address:
 	jmp bad_address
 
 	__INIT
-<<<<<<< HEAD
 ENTRY(early_idt_handler_array)
-=======
-	.globl early_idt_handlers
-early_idt_handlers:
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	# 104(%rsp) %rflags
 	#  96(%rsp) %cs
 	#  88(%rsp) %rip
 	#  80(%rsp) error code
 	i = 0
 	.rept NUM_EXCEPTION_VECTORS
-<<<<<<< HEAD
 	.ifeq (EXCEPTION_ERRCODE_MASK >> i) & 1
 	pushq $0		# Dummy error code, to make stack frame uniform
 	.endif
@@ -366,20 +351,6 @@ early_idt_handler_common:
 	 * The stack is the hardware frame, an error code or zero, and the
 	 * vector number.
 	 */
-=======
-	.if (EXCEPTION_ERRCODE_MASK >> i) & 1
-	ASM_NOP2
-	.else
-	pushq $0		# Dummy error code, to make stack frame uniform
-	.endif
-	pushq $i		# 72(%rsp) Vector number
-	jmp early_idt_handler
-	i = i + 1
-	.endr
-
-/* This is global to keep gas from relaxing the jumps */
-ENTRY(early_idt_handler)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	cld
 
 	cmpl $2,(%rsp)		# X86_TRAP_NMI
@@ -451,11 +422,7 @@ ENTRY(early_idt_handler)
 is_nmi:
 	addq $16,%rsp		# drop vector number and error code
 	INTERRUPT_RETURN
-<<<<<<< HEAD
 ENDPROC(early_idt_handler_common)
-=======
-ENDPROC(early_idt_handler)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	__INITDATA
 

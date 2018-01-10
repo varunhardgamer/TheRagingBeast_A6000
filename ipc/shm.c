@@ -544,15 +544,6 @@ static int newseg(struct ipc_namespace *ns, struct ipc_params *params)
 	if (IS_ERR(file))
 		goto no_file;
 
-<<<<<<< HEAD
-=======
-	id = ipc_addid(&shm_ids(ns), &shp->shm_perm, ns->shm_ctlmni);
-	if (id < 0) {
-		error = id;
-		goto no_id;
-	}
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	shp->shm_cprid = task_tgid_vnr(current);
 	shp->shm_lprid = 0;
 	shp->shm_atim = shp->shm_dtim = 0;
@@ -562,15 +553,12 @@ static int newseg(struct ipc_namespace *ns, struct ipc_params *params)
 	shp->shm_file = file;
 	shp->shm_creator = current;
 
-<<<<<<< HEAD
 	id = ipc_addid(&shm_ids(ns), &shp->shm_perm, ns->shm_ctlmni);
 	if (id < 0) {
 		error = id;
 		goto no_id;
 	}
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/*
 	 * shmid gets reported as "inode#" in /proc/pid/maps.
 	 * proc-ps tools use this. Changing this will break them.
@@ -1053,13 +1041,8 @@ out_unlock1:
  * "raddr" thing points to kernel space, and there has to be a wrapper around
  * this.
  */
-<<<<<<< HEAD
 long do_shmat(int shmid, char __user *shmaddr, int shmflg,
 	      ulong *raddr, unsigned long shmlba)
-=======
-long do_shmat(int shmid, char __user *shmaddr, int shmflg, ulong *raddr,
-	      unsigned long shmlba)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	struct shmid_kernel *shp;
 	unsigned long addr;
@@ -1080,7 +1063,6 @@ long do_shmat(int shmid, char __user *shmaddr, int shmflg, ulong *raddr,
 		goto out;
 	else if ((addr = (ulong)shmaddr)) {
 		if (addr & (shmlba - 1)) {
-<<<<<<< HEAD
 			/*
 			 * Round down to the nearest multiple of shmlba.
 			 * For sane do_mmap_pgoff() parameters, avoid
@@ -1088,10 +1070,6 @@ long do_shmat(int shmid, char __user *shmaddr, int shmflg, ulong *raddr,
 			 */
 			if ((shmflg & SHM_RND) && addr >= shmlba)
 				addr &= ~(shmlba - 1);
-=======
-			if (shmflg & SHM_RND)
-				addr &= ~(shmlba - 1);	   /* round down */
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			else
 #ifndef __ARCH_FORCE_SHMLBA
 				if (addr & ~PAGE_MASK)

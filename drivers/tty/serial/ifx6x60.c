@@ -1379,15 +1379,9 @@ static struct spi_driver ifx_spi_driver = {
 static void __exit ifx_spi_exit(void)
 {
 	/* unregister */
-<<<<<<< HEAD
 	spi_unregister_driver((void *)&ifx_spi_driver);
 	tty_unregister_driver(tty_drv);
 	put_tty_driver(tty_drv);
-=======
-	tty_unregister_driver(tty_drv);
-	put_tty_driver(tty_drv);
-	spi_unregister_driver((void *)&ifx_spi_driver);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	unregister_reboot_notifier(&ifx_modem_reboot_notifier_block);
 }
 

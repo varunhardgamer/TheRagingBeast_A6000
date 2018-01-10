@@ -284,11 +284,7 @@ static struct dst_ops xfrm6_dst_ops = {
 	.destroy =		xfrm6_dst_destroy,
 	.ifdown =		xfrm6_dst_ifdown,
 	.local_out =		__ip6_local_out,
-<<<<<<< HEAD
 	.gc_thresh =		32768,
-=======
-	.gc_thresh =		1024,
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 
 static struct xfrm_policy_afinfo xfrm6_policy_afinfo = {

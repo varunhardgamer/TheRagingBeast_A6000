@@ -262,7 +262,6 @@ static int fuse_dentry_revalidate(struct dentry *entry, unsigned int flags)
 	return 1;
 }
 
-<<<<<<< HEAD
 /*
  * Get the canonical path. Since we must translate to a path, this must be done
  * in the context of the userspace daemon, however, the userspace daemon cannot
@@ -307,8 +306,6 @@ default_path:
 	path_get(canonical_path);
 }
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static int invalid_nodeid(u64 nodeid)
 {
 	return !nodeid || nodeid == FUSE_ROOT_ID;
@@ -316,10 +313,7 @@ static int invalid_nodeid(u64 nodeid)
 
 const struct dentry_operations fuse_dentry_operations = {
 	.d_revalidate	= fuse_dentry_revalidate,
-<<<<<<< HEAD
 	.d_canonical_path = fuse_dentry_canonical_path,
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 
 int fuse_valid_type(int m)
@@ -523,12 +517,9 @@ static int fuse_create_open(struct inode *dir, struct dentry *entry,
 	if (err)
 		goto out_free_ff;
 
-<<<<<<< HEAD
 	if (req->private_lower_rw_file != NULL)
 		ff->rw_lower_file = req->private_lower_rw_file;
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	err = -EIO;
 	if (!S_ISREG(outentry.attr.mode) || invalid_nodeid(outentry.nodeid))
 		goto out_free_ff;

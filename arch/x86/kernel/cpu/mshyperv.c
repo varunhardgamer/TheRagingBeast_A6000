@@ -60,10 +60,7 @@ static struct clocksource hyperv_cs = {
 	.rating		= 400, /* use this when running on Hyperv*/
 	.read		= read_hv_clock,
 	.mask		= CLOCKSOURCE_MASK(64),
-<<<<<<< HEAD
 	.flags		= CLOCK_SOURCE_IS_CONTINUOUS,
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 
 static void __init ms_hyperv_init_platform(void)

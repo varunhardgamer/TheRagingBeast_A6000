@@ -32,10 +32,7 @@
 #include <linux/timer.h>
 #include <linux/workqueue.h>
 #include <linux/sched.h>
-<<<<<<< HEAD
 #include <linux/switch.h>
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #include <sound/q6afe-v2.h>
 #include <sound/pcm.h>
 #include <sound/pcm_params.h>
@@ -135,14 +132,11 @@ enum {
 static const DECLARE_TLV_DB_SCALE(digital_gain, 0, 1, 0);
 static const DECLARE_TLV_DB_SCALE(analog_gain, 0, 25, 1);
 static struct snd_soc_dai_driver msm8x16_wcd_i2s_dai[];
-<<<<<<< HEAD
 #ifdef CONFIG_MACH_WT86518
 static struct switch_dev accdet_data;
 static int accdet_state = 0;
 static struct delayed_work analog_switch_enable;
 #endif
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #define MSM8X16_WCD_ACQUIRE_LOCK(x) \
 	mutex_lock_nested(&x, SINGLE_DEPTH_NESTING);
@@ -1160,7 +1154,6 @@ static int __msm8x16_wcd_reg_read(struct snd_soc_codec *codec,
 	else if (MSM8X16_WCD_IS_DIGITAL_REG(reg)) {
 		mutex_lock(&pdata->cdc_mclk_mutex);
 		if (atomic_read(&pdata->mclk_enabled) == false) {
-<<<<<<< HEAD
 			switch (q6core_get_avs_version()) {
 			case (Q6_SUBSYS_AVS2_6):
 				pdata->digital_cdc_clk.clk_val =
@@ -1182,12 +1175,6 @@ static int __msm8x16_wcd_reg_read(struct snd_soc_codec *codec,
 				pr_err("%s: INVALID AVS IMAGE\n", __func__);
 				break;
 			}
-=======
-			pdata->digital_cdc_clk.clk_val = pdata->mclk_freq;
-			ret = afe_set_digital_codec_core_clock(
-					AFE_PORT_ID_PRIMARY_MI2S_RX,
-					&pdata->digital_cdc_clk);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			if (ret < 0) {
 				pr_err("failed to enable the MCLK\n");
 				goto err;
@@ -1235,7 +1222,6 @@ static int __msm8x16_wcd_reg_write(struct snd_soc_codec *codec,
 		mutex_lock(&pdata->cdc_mclk_mutex);
 		if (atomic_read(&pdata->mclk_enabled) == false) {
 			pr_debug("enable MCLK for AHB write %s:\n", __func__);
-<<<<<<< HEAD
 			switch (q6core_get_avs_version()) {
 			case (Q6_SUBSYS_AVS2_6):
 				pdata->digital_cdc_clk.clk_val =
@@ -1257,12 +1243,6 @@ static int __msm8x16_wcd_reg_write(struct snd_soc_codec *codec,
 				pr_err("%s: INVALID AVS IMAGE\n", __func__);
 				break;
 			}
-=======
-			pdata->digital_cdc_clk.clk_val = pdata->mclk_freq;
-			ret = afe_set_digital_codec_core_clock(
-					AFE_PORT_ID_PRIMARY_MI2S_RX,
-					&pdata->digital_cdc_clk);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			if (ret < 0) {
 				pr_err("failed to enable the MCLK\n");
 				ret = 0;
@@ -2101,7 +2081,6 @@ static int msm8x16_wcd_pa_gain_put(struct snd_kcontrol *kcontrol,
 	return 0;
 }
 
-<<<<<<< HEAD
 #ifdef CONFIG_MACH_JALEBI
 static int msm8x16_wcd_ext_spk_get(struct snd_kcontrol *kcontrol,
 				struct snd_ctl_elem_value *ucontrol)
@@ -2139,8 +2118,6 @@ static int msm8x16_wcd_ext_spk_set(struct snd_kcontrol *kcontrol,
 	return 0;
 }
 #endif
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 static int msm8x16_wcd_boost_option_get(struct snd_kcontrol *kcontrol,
 				struct snd_ctl_elem_value *ucontrol)
@@ -2512,7 +2489,6 @@ static const struct soc_enum msm8x16_wcd_spk_boost_ctl_enum[] = {
 		SOC_ENUM_SINGLE_EXT(2, msm8x16_wcd_spk_boost_ctrl_text),
 };
 
-<<<<<<< HEAD
 #ifdef CONFIG_MACH_JALEBI
 static const char * const msm8x16_wcd_ext_spk_ctrl_text[] = {
 		"DISABLE", "ENABLE", "MODE_2", "MODE_3", "MODE_4"};
@@ -2521,8 +2497,6 @@ static const struct soc_enum msm8x16_wcd_ext_spk_ctl_enum[] = {
 };
 #endif
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static const char * const msm8x16_wcd_ext_spk_boost_ctrl_text[] = {
 		"DISABLE", "ENABLE"};
 static const struct soc_enum msm8x16_wcd_ext_spk_boost_ctl_enum[] = {
@@ -2568,14 +2542,10 @@ static const struct snd_kcontrol_new msm8x16_wcd_snd_controls[] = {
 
 	SOC_ENUM_EXT("LOOPBACK Mode", msm8x16_wcd_loopback_mode_ctl_enum[0],
 		msm8x16_wcd_loopback_mode_get, msm8x16_wcd_loopback_mode_put),
-<<<<<<< HEAD
 #ifdef CONFIG_MACH_JALEBI
 	SOC_ENUM_EXT("Speaker Ext", msm8x16_wcd_ext_spk_ctl_enum[0],
 		msm8x16_wcd_ext_spk_get, msm8x16_wcd_ext_spk_set),
 #endif
-=======
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	SOC_SINGLE_TLV("ADC1 Volume", MSM8X16_WCD_A_ANALOG_TX_1_EN, 3,
 					8, 0, analog_gain),
 	SOC_SINGLE_TLV("ADC2 Volume", MSM8X16_WCD_A_ANALOG_TX_2_EN, 3,
@@ -3530,24 +3500,16 @@ static int msm8x16_wcd_codec_enable_micbias(struct snd_soc_dapm_widget *w,
 				snd_soc_update_bits(codec,
 					MSM8X16_WCD_A_ANALOG_TX_1_2_ATEST_CTL_2,
 					0x02, 0x02);
-<<<<<<< HEAD
 #ifndef CONFIG_MACH_SPIRIT
 			snd_soc_update_bits(codec, micb_int_reg, 0x80, 0x80);
 #endif
-=======
-			snd_soc_update_bits(codec, micb_int_reg, 0x80, 0x80);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		} else if (strnstr(w->name, internal2_text, strlen(w->name))) {
 			snd_soc_update_bits(codec, micb_int_reg, 0x10, 0x10);
 			snd_soc_update_bits(codec, w->reg, 0x60, 0x00);
 		} else if (strnstr(w->name, internal3_text, strlen(w->name))) {
-<<<<<<< HEAD
 #ifndef CONFIG_MACH_SPIRIT
 			snd_soc_update_bits(codec, micb_int_reg, 0x2, 0x2);
 #endif
-=======
-			snd_soc_update_bits(codec, micb_int_reg, 0x2, 0x2);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		}
 		if (!strnstr(w->name, external_text, strlen(w->name)))
 			snd_soc_update_bits(codec,
@@ -4128,7 +4090,6 @@ static int msm8x16_wcd_hphr_dac_event(struct snd_soc_dapm_widget *w,
 	return 0;
 }
 
-<<<<<<< HEAD
 #ifdef CONFIG_MACH_JALEBI
 static int enable_ext_spk(struct snd_soc_dapm_widget *w, bool enable)
 {
@@ -4213,20 +4174,14 @@ static void enable_ldo17(int enable)
 }
 #endif
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static int msm8x16_wcd_hph_pa_event(struct snd_soc_dapm_widget *w,
 			      struct snd_kcontrol *kcontrol, int event)
 {
 	struct snd_soc_codec *codec = w->codec;
 	struct msm8x16_wcd_priv *msm8x16_wcd = snd_soc_codec_get_drvdata(codec);
-<<<<<<< HEAD
 #ifdef CONFIG_MACH_WT86518
 	int state = 0;
 #endif
-=======
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	dev_dbg(codec->dev, "%s: %s event = %d\n", __func__, w->name, event);
 
 	switch (event) {
@@ -4242,7 +4197,6 @@ static int msm8x16_wcd_hph_pa_event(struct snd_soc_dapm_widget *w,
 		break;
 
 	case SND_SOC_DAPM_POST_PMU:
-<<<<<<< HEAD
 #ifdef CONFIG_MACH_WT86518
 		enable_ldo17(1);//wgz
 		state = msm8x16_wcd_codec_get_headset_state();
@@ -4250,9 +4204,6 @@ static int msm8x16_wcd_hph_pa_event(struct snd_soc_dapm_widget *w,
 #else
 		usleep_range(7000, 7100);
 #endif
-=======
-		usleep_range(7000, 7100);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		if (w->shift == 5) {
 			snd_soc_update_bits(codec,
 				MSM8X16_WCD_A_ANALOG_RX_HPH_L_TEST, 0x04, 0x04);
@@ -4263,7 +4214,6 @@ static int msm8x16_wcd_hph_pa_event(struct snd_soc_dapm_widget *w,
 				MSM8X16_WCD_A_ANALOG_RX_HPH_R_TEST, 0x04, 0x04);
 			snd_soc_update_bits(codec,
 				MSM8X16_WCD_A_CDC_RX2_B6_CTL, 0x01, 0x00);
-<<<<<<< HEAD
 #ifdef CONFIG_MACH_JALEBI
 			enable_ext_spk(w, true);
 #endif
@@ -4276,9 +4226,6 @@ static int msm8x16_wcd_hph_pa_event(struct snd_soc_dapm_widget *w,
 		else
 			schedule_delayed_work(&analog_switch_enable, msecs_to_jiffies(500));
 #endif
-=======
-		}
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		break;
 
 	case SND_SOC_DAPM_PRE_PMD:
@@ -4292,12 +4239,9 @@ static int msm8x16_wcd_hph_pa_event(struct snd_soc_dapm_widget *w,
 			msm8x16_notifier_call(codec,
 					WCD_EVENT_PRE_HPHL_PA_OFF);
 		} else if (w->shift == 4) {
-<<<<<<< HEAD
 #ifdef CONFIG_MACH_JALEBI
 			enable_ext_spk(w, false);
 #endif
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			snd_soc_update_bits(codec,
 				MSM8X16_WCD_A_CDC_RX2_B6_CTL, 0x01, 0x01);
 			msleep(20);
@@ -4334,13 +4278,10 @@ static int msm8x16_wcd_hph_pa_event(struct snd_soc_dapm_widget *w,
 			"%s: sleep 10 ms after %s PA disable.\n", __func__,
 			w->name);
 		usleep_range(10000, 10100);
-<<<<<<< HEAD
 #ifdef CONFIG_MACH_WT86518
 		gpio_direction_output(EXT_SPK_AMP_HEADSET_GPIO, false);
 		enable_ldo17(0);
 #endif
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		break;
 	}
 	return 0;
@@ -4500,17 +4441,13 @@ static const struct snd_soc_dapm_route audio_map[] = {
 	{"IIR2 INP1 MUX", "DEC2", "DEC2 MUX"},
 	{"MIC BIAS Internal1", NULL, "INT_LDO_H"},
 	{"MIC BIAS Internal2", NULL, "INT_LDO_H"},
-<<<<<<< HEAD
 #if defined(CONFIG_MACH_LONGCHEER) || defined(CONFIG_MACH_SPIRIT)
 	{"MIC BIAS Internal3", NULL, "INT_LDO_H"},
 #endif
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	{"MIC BIAS External", NULL, "INT_LDO_H"},
 	{"MIC BIAS External2", NULL, "INT_LDO_H"},
 	{"MIC BIAS Internal1", NULL, "MICBIAS_REGULATOR"},
 	{"MIC BIAS Internal2", NULL, "MICBIAS_REGULATOR"},
-<<<<<<< HEAD
 #if defined(CONFIG_MACH_LONGCHEER) || defined(CONFIG_MACH_SPIRIT) || defined(CONFIG_MACH_T86519A1)
 	{"MIC BIAS Internal3", NULL, "MICBIAS_REGULATOR"},
 #endif
@@ -4519,10 +4456,6 @@ static const struct snd_soc_dapm_route audio_map[] = {
 #if defined(CONFIG_MACH_T86519A1)
 	{"MIC BIAS External3", NULL, "MICBIAS_REGULATOR"},
 #endif
-=======
-	{"MIC BIAS External", NULL, "MICBIAS_REGULATOR"},
-	{"MIC BIAS External2", NULL, "MICBIAS_REGULATOR"},
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 
 static int msm8x16_wcd_startup(struct snd_pcm_substream *substream,
@@ -5118,23 +5051,17 @@ static const struct snd_soc_dapm_widget msm8x16_wcd_dapm_widgets[] = {
 		msm8x16_wcd_codec_enable_micbias, SND_SOC_DAPM_PRE_PMU |
 		SND_SOC_DAPM_POST_PMD),
 
-<<<<<<< HEAD
 #ifdef CONFIG_MACH_CP8675
 	SND_SOC_DAPM_MICBIAS_E("MIC BIAS External2",
 		MSM8X16_WCD_A_ANALOG_MICB_2_EN, 7, 0,
 		msm8x16_wcd_codec_enable_micbias, SND_SOC_DAPM_PRE_PMU |
 		SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_POST_PMD),
 #else
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	SND_SOC_DAPM_MICBIAS_E("MIC BIAS External2",
 		MSM8X16_WCD_A_ANALOG_MICB_2_EN, 7, 0,
 		msm8x16_wcd_codec_enable_micbias, SND_SOC_DAPM_POST_PMU |
 		SND_SOC_DAPM_POST_PMD),
-<<<<<<< HEAD
 #endif
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 
 	SND_SOC_DAPM_INPUT("AMIC3"),
@@ -5617,7 +5544,6 @@ static void msm8x16_wcd_configure_cap(struct snd_soc_codec *codec,
 	}
 }
 
-<<<<<<< HEAD
 #ifdef CONFIG_PHANTOM_GAIN_CONTROL
 static struct snd_soc_codec *fauxsound_codec_ptr;
 
@@ -5725,8 +5651,6 @@ static struct attribute_group sound_control_attr_group = {
 static struct kobject *sound_control_kobj;
 #endif
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static int msm8x16_wcd_codec_probe(struct snd_soc_codec *codec)
 {
 	struct msm8x16_wcd_priv *msm8x16_wcd_priv;
@@ -5737,13 +5661,10 @@ static int msm8x16_wcd_codec_probe(struct snd_soc_codec *codec)
 
 	dev_dbg(codec->dev, "%s()\n", __func__);
 
-<<<<<<< HEAD
 #ifdef CONFIG_PHANTOM_GAIN_CONTROL
 	fauxsound_codec_ptr = codec;
 #endif
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	msm8x16_wcd_priv = kzalloc(sizeof(struct msm8x16_wcd_priv), GFP_KERNEL);
 	if (!msm8x16_wcd_priv) {
 		dev_err(codec->dev, "Failed to allocate private data\n");
@@ -5847,7 +5768,6 @@ static int msm8x16_wcd_codec_probe(struct snd_soc_codec *codec)
 
 	wcd_mbhc_init(&msm8x16_wcd_priv->mbhc, codec, &mbhc_cb, &intr_ids,
 		      wcd_mbhc_registers, true);
-<<<<<<< HEAD
 #ifdef CONFIG_MACH_WT86518
 	accdet_data.name = "h2w";
 	accdet_data.index = 0;
@@ -5860,10 +5780,6 @@ static int msm8x16_wcd_codec_probe(struct snd_soc_codec *codec)
 		return -ENOMEM;
 	}
 #endif
-=======
-
-	msm8x16_wcd_priv->mclk_enabled = false;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	msm8x16_wcd_priv->clock_active = false;
 	msm8x16_wcd_priv->config_mode_active = false;
 
@@ -5885,7 +5801,6 @@ static int msm8x16_wcd_codec_probe(struct snd_soc_codec *codec)
 		registered_codec = NULL;
 		return -ENOMEM;
 	}
-<<<<<<< HEAD
 #ifdef CONFIG_MACH_WT86518
 	INIT_DELAYED_WORK(&analog_switch_enable, msm8x16_analog_switch_delayed_enable);
 #endif
@@ -5907,11 +5822,6 @@ int msm8x16_wcd_codec_get_headset_state(void)
 }
 #endif
 
-=======
-	return 0;
-}
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static int msm8x16_wcd_codec_remove(struct snd_soc_codec *codec)
 {
 	struct msm8x16_wcd_priv *msm8x16_wcd_priv =
@@ -5989,10 +5899,7 @@ int msm8x16_wcd_suspend(struct snd_soc_codec *codec)
 	struct msm8916_asoc_mach_data *pdata = NULL;
 	struct msm8x16_wcd *msm8x16 = codec->control_data;
 	struct msm8x16_wcd_pdata *msm8x16_pdata = msm8x16->dev->platform_data;
-<<<<<<< HEAD
 	int ret = 0;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	pdata = snd_soc_card_get_drvdata(codec->card);
 	pr_debug("%s: mclk cnt = %d, mclk_enabled = %d\n",
@@ -6003,7 +5910,6 @@ int msm8x16_wcd_suspend(struct snd_soc_codec *codec)
 				&pdata->disable_mclk_work);
 		mutex_lock(&pdata->cdc_mclk_mutex);
 		if (atomic_read(&pdata->mclk_enabled) == true) {
-<<<<<<< HEAD
 			switch (q6core_get_avs_version()) {
 			case (Q6_SUBSYS_AVS2_6):
 				pdata->digital_cdc_clk.clk_val = 0;
@@ -6026,12 +5932,6 @@ int msm8x16_wcd_suspend(struct snd_soc_codec *codec)
 			}
 			if (ret < 0)
 				pr_err("failed to disable the MCLK\n");
-=======
-			pdata->digital_cdc_clk.clk_val = 0;
-			afe_set_digital_codec_core_clock(
-					AFE_PORT_ID_PRIMARY_MI2S_RX,
-					&pdata->digital_cdc_clk);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			atomic_set(&pdata->mclk_enabled, false);
 		}
 		mutex_unlock(&pdata->cdc_mclk_mutex);
@@ -6313,7 +6213,6 @@ static int msm8x16_wcd_spmi_probe(struct spmi_device *spmi)
 	}
 	dev_set_drvdata(&spmi->dev, msm8x16);
 
-<<<<<<< HEAD
 #ifdef CONFIG_PHANTOM_GAIN_CONTROL
 	sound_control_kobj = kobject_create_and_add("sound_control_3", kernel_kobj);
 	if (sound_control_kobj == NULL) {
@@ -6326,8 +6225,6 @@ static int msm8x16_wcd_spmi_probe(struct spmi_device *spmi)
 	}
 #endif
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	ret = snd_soc_register_codec(&spmi->dev, &soc_codec_dev_msm8x16_wcd,
 				     msm8x16_wcd_i2s_dai,
 				     ARRAY_SIZE(msm8x16_wcd_i2s_dai));

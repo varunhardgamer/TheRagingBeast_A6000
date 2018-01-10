@@ -144,12 +144,8 @@ void put_io_context(struct io_context *ioc)
 	if (atomic_long_dec_and_test(&ioc->refcount)) {
 		spin_lock_irqsave(&ioc->lock, flags);
 		if (!hlist_empty(&ioc->icq_list))
-<<<<<<< HEAD
 			queue_work(system_power_efficient_wq,
 					&ioc->release_work);
-=======
-			schedule_work(&ioc->release_work);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		else
 			free_ioc = true;
 		spin_unlock_irqrestore(&ioc->lock, flags);

@@ -38,16 +38,11 @@
 
 #include <sound/apr_audio-v2.h>
 #include <sound/q6asm-v2.h>
-<<<<<<< HEAD
 #include <sound/q6core.h>
 #include <sound/q6audio-v2.h>
 #include <sound/audio_cal_utils.h>
 #include <sound/adsp_err.h>
 #include <sound/compress_params.h>
-=======
-#include <sound/q6audio-v2.h>
-#include <sound/audio_cal_utils.h>
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #define TRUE        0x01
 #define FALSE       0x00
@@ -98,10 +93,7 @@ static int q6asm_map_channels(u8 *channel_mapping, uint32_t channels);
 void *q6asm_mmap_apr_reg(void);
 
 static int q6asm_is_valid_session(struct apr_client_data *data, void *priv);
-<<<<<<< HEAD
 static int q6asm_send_asm_cal(struct audio_client *ac);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 /* for ASM custom topology */
 static struct cal_type_data *cal_data[ASM_MAX_CAL_TYPES];
@@ -436,7 +428,6 @@ static void q6asm_session_free(struct audio_client *ac)
 	return;
 }
 
-<<<<<<< HEAD
 static uint32_t q6asm_get_next_buf(uint32_t curr_buf, uint32_t max_buf_cnt)
 {
 	pr_debug("%s: curr_buf = %d, max_buf_cnt = %d\n",
@@ -447,9 +438,6 @@ static uint32_t q6asm_get_next_buf(uint32_t curr_buf, uint32_t max_buf_cnt)
 
 static int q6asm_map_cal_memory(int32_t cal_type,
 	struct cal_block_data *cal_block)
-=======
-static int q6asm_map_cal_memory(struct cal_block_data *cal_block)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	int			result = 0;
 	struct asm_buffer_node	*buf_node = NULL;
@@ -517,7 +505,6 @@ done:
 	return result;
 }
 
-<<<<<<< HEAD
 static int remap_cal_data(int32_t cal_type, struct cal_block_data *cal_block)
 {
 	int ret = 0;
@@ -533,16 +520,6 @@ static int remap_cal_data(int32_t cal_type, struct cal_block_data *cal_block)
 		(cal_block->map_data.q6map_handle == 0)) {
 
 		ret = q6asm_map_cal_memory(cal_type, cal_block);
-=======
-static void remap_cal_data(struct cal_block_data *cal_block)
-{
-	int ret = 0;
-
-	if ((cal_block->map_data.map_size > 0) &&
-		(cal_block->map_data.q6map_handle == 0)) {
-
-		ret = q6asm_map_cal_memory(cal_block);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		if (ret < 0) {
 			pr_err("%s: mmap did not work! size = %zd ret %d\n",
 				__func__, cal_block->map_data.map_size, ret);
@@ -550,18 +527,11 @@ static void remap_cal_data(struct cal_block_data *cal_block)
 		}
 	}
 done:
-<<<<<<< HEAD
 	return ret;
 }
 
 static int q6asm_unmap_cal_memory(int32_t cal_type,
 	struct cal_block_data *cal_block)
-=======
-	return;
-}
-
-static int q6asm_unmap_cal_memory(struct cal_block_data *cal_block)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	int			result = 0;
 	int			result2 = 0;
@@ -602,22 +572,14 @@ done:
 	return result;
 }
 
-<<<<<<< HEAD
 int q6asm_unmap_cal_data(int cal_type, struct cal_block_data *cal_block)
-=======
-void q6asm_unmap_cal_data(int cal_type, struct cal_block_data *cal_block)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	int ret = 0;
 
 	if ((cal_block->map_data.map_size > 0) &&
 		(cal_block->map_data.q6map_handle != 0)) {
 
-<<<<<<< HEAD
 		ret = q6asm_unmap_cal_memory(cal_type, cal_block);
-=======
-		ret = q6asm_unmap_cal_memory(cal_block);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		if (ret < 0) {
 			pr_err("%s: unmap did not work! size = %zd ret %d\n",
 				__func__, cal_block->map_data.map_size, ret);
@@ -625,11 +587,7 @@ void q6asm_unmap_cal_data(int cal_type, struct cal_block_data *cal_block)
 		}
 	}
 done:
-<<<<<<< HEAD
 	return ret;
-=======
-	return;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 int send_asm_custom_topology(struct audio_client *ac)
@@ -637,10 +595,7 @@ int send_asm_custom_topology(struct audio_client *ac)
 	struct cal_block_data		*cal_block = NULL;
 	struct cmd_set_topologies	asm_top;
 	int result = 0;
-<<<<<<< HEAD
 	int	result1 = 0;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (cal_data[ASM_CUSTOM_TOP_CAL] == NULL)
 		goto done;
@@ -661,7 +616,6 @@ int send_asm_custom_topology(struct audio_client *ac)
 
 	pr_debug("%s: Sending cal_index %d\n", __func__, ASM_CUSTOM_TOP_CAL);
 
-<<<<<<< HEAD
 	result = remap_cal_data(ASM_CUST_TOPOLOGY_CAL_TYPE, cal_block);
 	if (result) {
 		pr_err("%s: Remap_cal_data failed for cal %d!\n",
@@ -669,12 +623,6 @@ int send_asm_custom_topology(struct audio_client *ac)
 		goto unlock;
 	}
 	q6asm_add_hdr_custom_topology(ac, &asm_top.hdr, sizeof(asm_top), TRUE);
-=======
-	remap_cal_data(cal_block);
-	q6asm_add_hdr_custom_topology(ac, &asm_top.hdr,
-				      APR_PKT_SIZE(APR_HDR_SIZE,
-					sizeof(asm_top)), TRUE);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	atomic_set(&ac->mem_state, 1);
 	asm_top.hdr.opcode = ASM_CMD_ADD_TOPOLOGIES;
 	asm_top.payload_addr_lsw = lower_32_bits(cal_block->cal_data.paddr);
@@ -713,18 +661,12 @@ int send_asm_custom_topology(struct audio_client *ac)
 	}
 
 unmap:
-<<<<<<< HEAD
 	result1 = q6asm_unmap_cal_memory(ASM_CUST_TOPOLOGY_CAL_TYPE,
 		cal_block);
 	if (result1 < 0) {
 		result = result1;
 		pr_debug("%s: unmap cal failed! %d\n", __func__, result);
 	}
-=======
-	result = q6asm_unmap_cal_memory(cal_block);
-	if (result < 0)
-		pr_debug("%s: unmap cal failed! %d\n", __func__, result);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 unlock:
 	mutex_unlock(&cal_data[ASM_CUSTOM_TOP_CAL]->lock);
 done:
@@ -733,11 +675,7 @@ done:
 
 int q6asm_map_rtac_block(struct rtac_cal_block_data *cal_block)
 {
-<<<<<<< HEAD
 	int	result = 0;
-=======
-	int			result = 0;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	struct asm_buffer_node	*buf_node = NULL;
 	struct list_head	*ptr, *next;
 	pr_debug("%s:\n", __func__);
@@ -1522,7 +1460,6 @@ static int32_t is_no_wait_cmd_rsp(uint32_t opcode, uint32_t *cmd_type)
 	return 0;
 }
 
-<<<<<<< HEAD
 static void q6asm_process_mtmx_get_param_rsp(struct audio_client *ac,
 				struct asm_mtmx_strtr_get_params_cmdrsp *cmdrsp)
 {
@@ -1574,8 +1511,6 @@ static void q6asm_process_mtmx_get_param_rsp(struct audio_client *ac,
 	}
 }
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static int32_t q6asm_callback(struct apr_client_data *data, void *priv)
 {
 	int i = 0;
@@ -1799,11 +1734,7 @@ static int32_t q6asm_callback(struct apr_client_data *data, void *priv)
 			generic_get_data->size_in_ints = payload[3];
 			for (i = 0; i < generic_get_data->size_in_ints; i++)
 				generic_get_data->ints[i] = payload[4+i];
-<<<<<<< HEAD
 			pr_debug("callback size in ints = %i\n",
-=======
-			pr_debug("DTS_EAGLE_ASM callback size in ints = %i\n",
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 				 generic_get_data->size_in_ints);
 			atomic_set(&ac->cmd_state, 0);
 			wake_up(&ac->cmd_wait);
@@ -1899,12 +1830,9 @@ static int32_t q6asm_callback(struct apr_client_data *data, void *priv)
 				payload[0], payload[1], payload[2],
 				payload[3]);
 		break;
-<<<<<<< HEAD
 	case ASM_SESSION_CMDRSP_GET_MTMX_STRTR_PARAMS_V2:
 		q6asm_process_mtmx_get_param_rsp(ac, (void *) payload);
 		break;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 	if (ac->cb)
 		ac->cb(data->opcode, data->token,
@@ -1957,12 +1885,8 @@ void *q6asm_is_cpu_buf_avail(int dir, struct audio_client *ac, uint32_t *size,
 		user accesses this function,increase cpu
 		buf(to avoid another api)*/
 		port->buf[idx].used = dir;
-<<<<<<< HEAD
 		port->cpu_buf = q6asm_get_next_buf(port->cpu_buf,
 						   port->max_buf_cnt);
-=======
-		port->cpu_buf = ((port->cpu_buf + 1) & (port->max_buf_cnt - 1));
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		mutex_unlock(&port->lock);
 		return data;
 	}
@@ -2013,12 +1937,8 @@ void *q6asm_is_cpu_buf_avail_nolock(int dir, struct audio_client *ac,
 	 * buf(to avoid another api)
 	 */
 	port->buf[idx].used = dir;
-<<<<<<< HEAD
 	port->cpu_buf = q6asm_get_next_buf(port->cpu_buf,
 					   port->max_buf_cnt);
-=======
-	port->cpu_buf = ((port->cpu_buf + 1) & (port->max_buf_cnt - 1));
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return data;
 }
 
@@ -2184,12 +2104,8 @@ static void q6asm_add_mmaphdr(struct audio_client *ac, struct apr_hdr *hdr,
 	return;
 }
 static int __q6asm_open_read(struct audio_client *ac,
-<<<<<<< HEAD
 			     uint32_t format, uint16_t bits_per_sample,
 			     bool use_v3_format, bool ts_mode)
-=======
-		uint32_t format, uint16_t bits_per_sample)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	int rc = 0x00;
 	struct asm_stream_cmd_open_read_v3 open;
@@ -2229,16 +2145,12 @@ static int __q6asm_open_read(struct audio_client *ac,
 	switch (format) {
 	case FORMAT_LINEAR_PCM:
 		open.mode_flags |= 0x00;
-<<<<<<< HEAD
 		if (ts_mode)
 			open.mode_flags |= ABSOLUTE_TIMESTAMP_ENABLE;
 		if (use_v3_format)
 			open.enc_cfg_id = ASM_MEDIA_FMT_MULTI_CHANNEL_PCM_V3;
 		else
 			open.enc_cfg_id = ASM_MEDIA_FMT_MULTI_CHANNEL_PCM_V2;
-=======
-		open.enc_cfg_id = ASM_MEDIA_FMT_MULTI_CHANNEL_PCM_V2;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		break;
 	case FORMAT_MPEG4_AAC:
 		open.mode_flags |= BUFFER_META_ENABLE;
@@ -2285,13 +2197,10 @@ static int __q6asm_open_read(struct audio_client *ac,
 	}
 
 	ac->io_mode |= TUN_READ_IO_MODE;
-<<<<<<< HEAD
 
 	rc = q6asm_send_asm_cal(ac);
 	pr_debug("%s: q6asm_send_asm_cal ret=%d\n", __func__, rc);
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return 0;
 fail_cmd:
 	return -EINVAL;
@@ -2300,18 +2209,13 @@ fail_cmd:
 int q6asm_open_read(struct audio_client *ac,
 		uint32_t format)
 {
-<<<<<<< HEAD
 	return __q6asm_open_read(ac, format, 16,
 				 false /*use_v3_format*/, false/*ts_mode*/);
-=======
-	return __q6asm_open_read(ac, format, 16);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 int q6asm_open_read_v2(struct audio_client *ac, uint32_t format,
 			uint16_t bits_per_sample)
 {
-<<<<<<< HEAD
 	return __q6asm_open_read(ac, format, bits_per_sample,
 				 false /*use_v3_format*/, false/*ts_mode*/);
 }
@@ -2345,10 +2249,6 @@ int q6asm_open_read_v4(struct audio_client *ac, uint32_t format,
 				true /*use_v3_format*/, true/*ts_mode*/);
 }
 EXPORT_SYMBOL(q6asm_open_read_v4);
-=======
-	return __q6asm_open_read(ac, format, bits_per_sample);
-}
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 int q6asm_open_write_compressed(struct audio_client *ac, uint32_t format,
 				uint32_t passthrough_flag)
@@ -2376,7 +2276,6 @@ int q6asm_open_write_compressed(struct audio_client *ac, uint32_t format,
 
 	switch (format) {
 	case FORMAT_AC3:
-<<<<<<< HEAD
 		switch (q6core_get_avs_version()) {
 		case Q6_SUBSYS_AVS2_7:
 			open.fmt_id = ASM_MEDIA_FMT_AC3;
@@ -2406,16 +2305,6 @@ int q6asm_open_write_compressed(struct audio_client *ac, uint32_t format,
 			rc = -EINVAL;
 			goto fail_cmd;
 		}
-=======
-		open.fmt_id = ASM_MEDIA_FMT_AC3_DEC;
-		break;
-	case FORMAT_EAC3:
-		open.fmt_id = ASM_MEDIA_FMT_EAC3_DEC;
-		break;
-	default:
-		pr_err("%s: Invalid format[%d]\n", __func__, format);
-		goto fail_cmd;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 	/*Below flag indicates the DSP that Compressed audio input
 	stream is not IEC 61937 or IEC 60958 packetizied*/
@@ -2446,12 +2335,9 @@ int q6asm_open_write_compressed(struct audio_client *ac, uint32_t format,
 		rc = -ETIMEDOUT;
 		goto fail_cmd;
 	}
-<<<<<<< HEAD
 	rc = q6asm_send_asm_cal(ac);
 	pr_debug("%s: q6asm_send_asm_cal ret=%d\n", __func__, rc);
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return 0;
 fail_cmd:
 	return rc;
@@ -2462,10 +2348,7 @@ static int __q6asm_open_write(struct audio_client *ac, uint32_t format,
 				bool is_gapless_mode)
 {
 	int rc = 0x00;
-<<<<<<< HEAD
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	struct asm_stream_cmd_open_write_v3 open;
 
 	if (ac == NULL) {
@@ -2537,7 +2420,6 @@ static int __q6asm_open_write(struct audio_client *ac, uint32_t format,
 		open.dec_fmt_id = ASM_MEDIA_FMT_MP3;
 		break;
 	case FORMAT_AC3:
-<<<<<<< HEAD
 		switch (q6core_get_avs_version()) {
 		case Q6_SUBSYS_AVS2_7:
 			open.dec_fmt_id = ASM_MEDIA_FMT_AC3;
@@ -2568,12 +2450,6 @@ static int __q6asm_open_write(struct audio_client *ac, uint32_t format,
 			rc = -EINVAL;
 			goto fail_cmd;
 		}
-=======
-		open.dec_fmt_id = ASM_MEDIA_FMT_EAC3_DEC;
-		break;
-	case FORMAT_EAC3:
-		open.dec_fmt_id = ASM_MEDIA_FMT_EAC3_DEC;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		break;
 	case FORMAT_MP2:
 		open.dec_fmt_id = ASM_MEDIA_FMT_MP2;
@@ -2612,13 +2488,10 @@ static int __q6asm_open_write(struct audio_client *ac, uint32_t format,
 		goto fail_cmd;
 	}
 	ac->io_mode |= TUN_WRITE_IO_MODE;
-<<<<<<< HEAD
 
 	rc = q6asm_send_asm_cal(ac);
 	pr_debug("%s: q6asm_send_asm_cal ret=%d\n", __func__, rc);
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return 0;
 fail_cmd:
 	return -EINVAL;
@@ -2784,12 +2657,9 @@ static int __q6asm_open_read_write(struct audio_client *ac, uint32_t rd_format,
 				__func__, atomic_read(&ac->cmd_state));
 		goto fail_cmd;
 	}
-<<<<<<< HEAD
 	rc = q6asm_send_asm_cal(ac);
 	pr_debug("%s: q6asm_send_asm_cal ret=%d\n", __func__, rc);
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return 0;
 fail_cmd:
 	return -EINVAL;
@@ -3065,7 +2935,6 @@ fail_cmd:
 		return rc;
 }
 
-<<<<<<< HEAD
 /*
  * q6asm_enc_cfg_blk_pcm_v3 - sends encoder configuration parameters
  *
@@ -3165,10 +3034,6 @@ EXPORT_SYMBOL(q6asm_enc_cfg_blk_pcm_v3);
 int q6asm_enc_cfg_blk_pcm_v2(struct audio_client *ac,
 		uint32_t rate, uint32_t channels, uint16_t bits_per_sample,
 		bool use_default_chmap, bool use_back_flavor, u8 *channel_map)
-=======
-static int __q6asm_enc_cfg_blk_pcm(struct audio_client *ac,
-		uint32_t rate, uint32_t channels, uint16_t bits_per_sample)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	struct asm_multi_channel_pcm_enc_cfg_v2  enc_cfg;
 	u8 *channel_mapping;
@@ -3176,15 +3041,12 @@ static int __q6asm_enc_cfg_blk_pcm(struct audio_client *ac,
 
 	int rc = 0;
 
-<<<<<<< HEAD
 	if (!use_default_chmap && (channel_map == NULL)) {
 		pr_err("%s: No valid chan map and can't use default\n",
 				__func__);
 		return -EINVAL;
 	}
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	pr_debug("%s: Session %d, rate = %d, channels = %d\n", __func__,
 			 ac->session, rate, channels);
 
@@ -3206,7 +3068,6 @@ static int __q6asm_enc_cfg_blk_pcm(struct audio_client *ac,
 
 	memset(channel_mapping, 0, PCM_FORMAT_MAX_NUM_CHANNEL);
 
-<<<<<<< HEAD
 	if (use_default_chmap) {
 		pr_debug("%s: setting default channel map for %d channels",
 		__func__, channels);
@@ -3219,11 +3080,6 @@ static int __q6asm_enc_cfg_blk_pcm(struct audio_client *ac,
 		pr_debug("%s: Using pre-defined channel map", __func__);
 		memcpy(channel_mapping, channel_map,
 			PCM_FORMAT_MAX_NUM_CHANNEL);
-=======
-	if (q6asm_map_channels(channel_mapping, channels)) {
-		pr_err("%s: map channels failed %d", __func__, channels);
-		return -EINVAL;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 
 	rc = apr_send_pkt(ac->apr, (uint32_t *) &enc_cfg);
@@ -3249,7 +3105,6 @@ fail_cmd:
 	return -EINVAL;
 }
 
-<<<<<<< HEAD
 static int __q6asm_enc_cfg_blk_pcm_v3(struct audio_client *ac,
 				      uint32_t rate, uint32_t channels,
 				      uint16_t bits_per_sample,
@@ -3267,8 +3122,6 @@ static int __q6asm_enc_cfg_blk_pcm(struct audio_client *ac,
 					bits_per_sample, true, false, NULL);
 }
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 int q6asm_enc_cfg_blk_pcm(struct audio_client *ac,
 			uint32_t rate, uint32_t channels)
 {
@@ -3281,7 +3134,6 @@ int q6asm_enc_cfg_blk_pcm_format_support(struct audio_client *ac,
 	 return __q6asm_enc_cfg_blk_pcm(ac, rate, channels, bits_per_sample);
 }
 
-<<<<<<< HEAD
 /*
  * q6asm_enc_cfg_blk_pcm_format_support_v3 - sends encoder configuration
  *                                           parameters
@@ -3302,8 +3154,6 @@ int q6asm_enc_cfg_blk_pcm_format_support_v3(struct audio_client *ac,
 }
 EXPORT_SYMBOL(q6asm_enc_cfg_blk_pcm_format_support_v3);
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 int q6asm_enc_cfg_blk_pcm_native(struct audio_client *ac,
 			uint32_t rate, uint32_t channels)
 {
@@ -3380,24 +3230,14 @@ static int q6asm_map_channels(u8 *channel_mapping, uint32_t channels)
 	} else if (channels == 4) {
 		lchannel_mapping[0] = PCM_CHANNEL_FL;
 		lchannel_mapping[1] = PCM_CHANNEL_FR;
-<<<<<<< HEAD
 		lchannel_mapping[2] = PCM_CHANNEL_LS;
 		lchannel_mapping[3] = PCM_CHANNEL_RS;
-=======
-		lchannel_mapping[2] = PCM_CHANNEL_RB;
-		lchannel_mapping[3] = PCM_CHANNEL_LB;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	} else if (channels == 5) {
 		lchannel_mapping[0] = PCM_CHANNEL_FL;
 		lchannel_mapping[1] = PCM_CHANNEL_FR;
 		lchannel_mapping[2] = PCM_CHANNEL_FC;
-<<<<<<< HEAD
 		lchannel_mapping[3] = PCM_CHANNEL_LS;
 		lchannel_mapping[4] = PCM_CHANNEL_RS;
-=======
-		lchannel_mapping[3] = PCM_CHANNEL_LB;
-		lchannel_mapping[4] = PCM_CHANNEL_RB;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	} else if (channels == 6) {
 		lchannel_mapping[0] = PCM_CHANNEL_FL;
 		lchannel_mapping[1] = PCM_CHANNEL_FR;
@@ -3412,23 +3252,14 @@ static int q6asm_map_channels(u8 *channel_mapping, uint32_t channels)
 		lchannel_mapping[3] = PCM_CHANNEL_LFE;
 		lchannel_mapping[4] = PCM_CHANNEL_LB;
 		lchannel_mapping[5] = PCM_CHANNEL_RB;
-<<<<<<< HEAD
 		lchannel_mapping[6] = PCM_CHANNEL_LS;
 		lchannel_mapping[7] = PCM_CHANNEL_RS;
-=======
-		lchannel_mapping[6] = PCM_CHANNEL_FLC;
-		lchannel_mapping[7] = PCM_CHANNEL_FRC;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	} else {
 		pr_err("%s: ERROR.unsupported num_ch = %u\n",
 		 __func__, channels);
 		return -EINVAL;
 	}
 	return 0;
-<<<<<<< HEAD
-=======
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 int q6asm_enable_sbrps(struct audio_client *ac,
@@ -3754,12 +3585,8 @@ fail_cmd:
 
 static int __q6asm_media_format_block_pcm(struct audio_client *ac,
 				uint32_t rate, uint32_t channels,
-<<<<<<< HEAD
 				uint16_t bits_per_sample, int stream_id,
 				bool use_default_chmap, char *channel_map)
-=======
-				uint16_t bits_per_sample, int stream_id)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	struct asm_multi_channel_pcm_fmt_blk_v2 fmt;
 	u8 *channel_mapping;
@@ -3794,7 +3621,6 @@ static int __q6asm_media_format_block_pcm(struct audio_client *ac,
 
 	memset(channel_mapping, 0, PCM_FORMAT_MAX_NUM_CHANNEL);
 
-<<<<<<< HEAD
 	if (use_default_chmap) {
 		if (q6asm_map_channels(channel_mapping, channels)) {
 			pr_err("%s: map channels failed %d\n",
@@ -3804,11 +3630,6 @@ static int __q6asm_media_format_block_pcm(struct audio_client *ac,
 	} else {
 		memcpy(channel_mapping, channel_map,
 			 PCM_FORMAT_MAX_NUM_CHANNEL);
-=======
-	if (q6asm_map_channels(channel_mapping, channels)) {
-		pr_err("%s: map channels failed %d\n", __func__, channels);
-		return -EINVAL;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 
 	rc = apr_send_pkt(ac->apr, (uint32_t *) &fmt);
@@ -3832,7 +3653,6 @@ fail_cmd:
 	return -EINVAL;
 }
 
-<<<<<<< HEAD
 static int __q6asm_media_format_block_pcm_v3(struct audio_client *ac,
 					     uint32_t rate, uint32_t channels,
 					     uint16_t bits_per_sample,
@@ -3914,18 +3734,12 @@ fail_cmd:
 	return rc;
 }
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 int q6asm_media_format_block_pcm(struct audio_client *ac,
 				uint32_t rate, uint32_t channels)
 {
 	return __q6asm_media_format_block_pcm(ac, rate,
-<<<<<<< HEAD
 				channels, 16, ac->stream_id,
 				true, NULL);
-=======
-				channels, 16, ac->stream_id);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 int q6asm_media_format_block_pcm_format_support(struct audio_client *ac,
@@ -3933,17 +3747,12 @@ int q6asm_media_format_block_pcm_format_support(struct audio_client *ac,
 				uint16_t bits_per_sample)
 {
 	return __q6asm_media_format_block_pcm(ac, rate,
-<<<<<<< HEAD
 				channels, bits_per_sample, ac->stream_id,
 				true, NULL);
-=======
-				channels, bits_per_sample, ac->stream_id);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 int q6asm_media_format_block_pcm_format_support_v2(struct audio_client *ac,
 				uint32_t rate, uint32_t channels,
-<<<<<<< HEAD
 				uint16_t bits_per_sample, int stream_id,
 				bool use_default_chmap, char *channel_map)
 {
@@ -3991,13 +3800,6 @@ int q6asm_media_format_block_pcm_format_support_v3(struct audio_client *ac,
 
 }
 EXPORT_SYMBOL(q6asm_media_format_block_pcm_format_support_v3);
-=======
-				uint16_t bits_per_sample, int stream_id)
-{
-	return __q6asm_media_format_block_pcm(ac, rate,
-				channels, bits_per_sample, stream_id);
-}
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 static int __q6asm_media_format_block_multi_ch_pcm(struct audio_client *ac,
 				uint32_t rate, uint32_t channels,
@@ -5008,7 +4810,6 @@ fail_cmd:
 	return rc;
 }
 
-<<<<<<< HEAD
 /*
  * q6asm_set_multich_gain: set multiple channel gains on an ASM session
  * @ac: audio client handle
@@ -5113,8 +4914,6 @@ done:
 	return rc;
 }
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 int q6asm_set_mute(struct audio_client *ac, int muteflag)
 {
 	struct asm_volume_ctrl_mute_config mute;
@@ -5562,12 +5361,8 @@ static int __q6asm_read(struct audio_client *ac, bool is_custom_len_reqd,
 		read.buf_size = is_custom_len_reqd ? len : ab->size;
 		read.seq_id = port->dsp_buf;
 		read.hdr.token = port->dsp_buf;
-<<<<<<< HEAD
 		port->dsp_buf = q6asm_get_next_buf(port->dsp_buf,
 						   port->max_buf_cnt);
-=======
-		port->dsp_buf = (port->dsp_buf + 1) & (port->max_buf_cnt - 1);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		mutex_unlock(&port->lock);
 		dev_vdbg(ac->dev, "%s: buf add[%pK] token[%d] uid[%d]\n",
 				__func__, &ab->phys, read.hdr.token,
@@ -5645,12 +5440,8 @@ int q6asm_read_nolock(struct audio_client *ac)
 			}
 		}
 
-<<<<<<< HEAD
 		port->dsp_buf = q6asm_get_next_buf(port->dsp_buf,
 						   port->max_buf_cnt);
-=======
-		port->dsp_buf = (port->dsp_buf + 1) & (port->max_buf_cnt - 1);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		dev_vdbg(ac->dev, "%s: buf add[%pK] token[%d] uid[%d]\n",
 				__func__, &ab->phys, read.hdr.token,
 				read.seq_id);
@@ -5787,15 +5578,11 @@ int q6asm_async_read(struct audio_client *ac,
 		lbuf_phys_addr = (param->paddr - 64);
 		dir = OUT;
 	} else {
-<<<<<<< HEAD
 		if (param->flags & COMPRESSED_TIMESTAMP_FLAG)
 			lbuf_phys_addr = param->paddr -
 				 sizeof(struct snd_codec_metadata);
 		else
 			lbuf_phys_addr = param->paddr;
-=======
-		lbuf_phys_addr = param->paddr;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		dir = OUT;
 	}
 
@@ -5863,12 +5650,8 @@ int q6asm_write(struct audio_client *ac, uint32_t len, uint32_t msw_ts,
 			write.flags = (0x00000000 | (flags & 0x800000FF));
 		else
 			write.flags = (0x80000000 | flags);
-<<<<<<< HEAD
 		port->dsp_buf = q6asm_get_next_buf(port->dsp_buf,
 						   port->max_buf_cnt);
-=======
-		port->dsp_buf = (port->dsp_buf + 1) & (port->max_buf_cnt - 1);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		buf_node = list_first_entry(&ac->port[IN].mem_map_handle,
 				struct asm_buffer_node,
 				list);
@@ -5945,12 +5728,8 @@ int q6asm_write_nolock(struct audio_client *ac, uint32_t len, uint32_t msw_ts,
 			write.flags = (0x00000000 | (flags & 0x800000FF));
 		else
 			write.flags = (0x80000000 | flags);
-<<<<<<< HEAD
 		port->dsp_buf = q6asm_get_next_buf(port->dsp_buf,
 						   port->max_buf_cnt);
-=======
-		port->dsp_buf = (port->dsp_buf + 1) & (port->max_buf_cnt - 1);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 		dev_vdbg(ac->dev, "%s: ab->phys[%pK]bufadd[0x%x]token[0x%x] buf_id[0x%x]buf_size[0x%x]mmaphdl[0x%x]"
 				, __func__,
@@ -5975,7 +5754,6 @@ fail_cmd:
 
 int q6asm_get_session_time(struct audio_client *ac, uint64_t *tstamp)
 {
-<<<<<<< HEAD
 	struct asm_mtmx_strtr_get_params mtmx_params;
 	int rc;
 
@@ -6033,8 +5811,6 @@ fail_cmd:
 
 int q6asm_get_session_time_legacy(struct audio_client *ac, uint64_t *tstamp)
 {
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	struct apr_hdr hdr;
 	int rc;
 
@@ -6614,7 +6390,6 @@ done:
 	return topology;
 }
 
-<<<<<<< HEAD
 static int q6asm_send_asm_cal(struct audio_client *ac)
 {
 	struct cal_block_data *cal_block = NULL;
@@ -6707,8 +6482,6 @@ unlock:
 done:
 	return rc;
 }
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 static int get_cal_type_index(int32_t cal_type)
 {
@@ -6840,20 +6613,12 @@ static int q6asm_init_cal_data(void)
 		{{ASM_CUST_TOPOLOGY_CAL_TYPE,
 		{q6asm_alloc_cal, q6asm_dealloc_cal, NULL,
 		q6asm_set_cal, NULL, NULL} },
-<<<<<<< HEAD
 		{NULL, q6asm_unmap_cal_memory, cal_utils_match_buf_num} },
-=======
-		{NULL, NULL, cal_utils_match_buf_num} },
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 		{{ASM_AUDSTRM_CAL_TYPE,
 		{q6asm_alloc_cal, q6asm_dealloc_cal, NULL,
 		q6asm_set_cal, NULL, NULL} },
-<<<<<<< HEAD
 		{NULL, q6asm_unmap_cal_memory, cal_utils_match_buf_num} },
-=======
-		{NULL, NULL, cal_utils_match_buf_num} },
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 		{{ASM_RTAC_APR_CAL_TYPE,
 		{NULL, NULL, NULL, NULL, NULL, NULL} },

@@ -371,16 +371,11 @@ static void to_utf8(struct vc_data *vc, uint c)
 
 static void do_compute_shiftstate(void)
 {
-<<<<<<< HEAD
 	unsigned int k, sym, val;
-=======
-	unsigned int i, j, k, sym, val;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	shift_state = 0;
 	memset(shift_down, 0, sizeof(shift_down));
 
-<<<<<<< HEAD
 	for_each_set_bit(k, key_down, min(NR_KEYS, KEY_CNT)) {
 		sym = U(key_maps[0][k]);
 		if (KTYP(sym) != KT_SHIFT && KTYP(sym) != KT_SLOCK)
@@ -392,31 +387,6 @@ static void do_compute_shiftstate(void)
 
 		shift_down[val]++;
 		shift_state |= BIT(val);
-=======
-	for (i = 0; i < ARRAY_SIZE(key_down); i++) {
-
-		if (!key_down[i])
-			continue;
-
-		k = i * BITS_PER_LONG;
-
-		for (j = 0; j < BITS_PER_LONG; j++, k++) {
-
-			if (!test_bit(k, key_down))
-				continue;
-
-			sym = U(key_maps[0][k]);
-			if (KTYP(sym) != KT_SHIFT && KTYP(sym) != KT_SLOCK)
-				continue;
-
-			val = KVAL(sym);
-			if (val == KVAL(K_CAPSSHIFT))
-				val = KVAL(K_SHIFT);
-
-			shift_down[val]++;
-			shift_state |= (1 << val);
-		}
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 }
 

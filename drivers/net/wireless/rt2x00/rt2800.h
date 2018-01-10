@@ -1920,11 +1920,7 @@ struct mac_iveiv_entry {
  * 2 - drop tx power by 12dBm,
  * 3 - increase tx power by 6dBm
  */
-<<<<<<< HEAD
 #define BBP1_TX_POWER_CTRL		FIELD8(0x03)
-=======
-#define BBP1_TX_POWER_CTRL		FIELD8(0x07)
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #define BBP1_TX_ANTENNA			FIELD8(0x18)
 
 /*

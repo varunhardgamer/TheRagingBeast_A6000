@@ -52,11 +52,7 @@ NESTED(handle_sys, PT_SIZE, sp)
 
 stack_done:
 	lw	t0, TI_FLAGS($28)	# syscall tracing enabled?
-<<<<<<< HEAD
 	li	t1, _TIF_WORK_SYSCALL_ENTRY
-=======
-	li	t1, _TIF_SYSCALL_TRACE | _TIF_SYSCALL_AUDIT
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	and	t0, t1
 	bnez	t0, syscall_trace_entry # -> yes
 

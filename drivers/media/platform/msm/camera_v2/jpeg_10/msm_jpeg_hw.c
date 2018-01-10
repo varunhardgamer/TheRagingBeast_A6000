@@ -562,11 +562,7 @@ void msm_jpeg_io_dump(void *base, int size)
 	int i;
 	u32 *p = (u32 *) addr;
 	u32 data;
-<<<<<<< HEAD
 	JPEG_DBG_HIGH("%s:%d] %pK %d", __func__, __LINE__, addr, size);
-=======
-	JPEG_DBG_HIGH("%s:%d] %p %d", __func__, __LINE__, addr, size);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	line_str[0] = '\0';
 	p_str = line_str;
 	for (i = 0; i < size/4; i++) {

@@ -877,11 +877,7 @@ static int adreno_of_get_pdata(struct platform_device *pdev)
 
 	if (of_property_read_u32(pdev->dev.of_node, "qcom,idle-timeout",
 		&pdata->idle_timeout))
-<<<<<<< HEAD
 		pdata->idle_timeout = 80;
-=======
-		pdata->idle_timeout = HZ/12;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	pdata->strtstp_sleepwake = of_property_read_bool(pdev->dev.of_node,
 						"qcom,strtstp-sleepwake");

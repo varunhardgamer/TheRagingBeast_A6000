@@ -51,10 +51,6 @@
 struct rfkill {
 	spinlock_t		lock;
 
-<<<<<<< HEAD
-=======
-	const char		*name;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	enum rfkill_type	type;
 
 	unsigned long		state;
@@ -78,10 +74,7 @@ struct rfkill {
 	struct delayed_work	poll_work;
 	struct work_struct	uevent_work;
 	struct work_struct	sync_work;
-<<<<<<< HEAD
 	char			name[];
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 #define to_rfkill(d)	container_of(d, struct rfkill, dev)
 
@@ -882,22 +875,14 @@ struct rfkill * __must_check rfkill_alloc(const char *name,
 	if (WARN_ON(type == RFKILL_TYPE_ALL || type >= NUM_RFKILL_TYPES))
 		return NULL;
 
-<<<<<<< HEAD
 	rfkill = kzalloc(sizeof(*rfkill) + strlen(name) + 1, GFP_KERNEL);
-=======
-	rfkill = kzalloc(sizeof(*rfkill), GFP_KERNEL);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (!rfkill)
 		return NULL;
 
 	spin_lock_init(&rfkill->lock);
 	INIT_LIST_HEAD(&rfkill->node);
 	rfkill->type = type;
-<<<<<<< HEAD
 	strcpy(rfkill->name, name);
-=======
-	rfkill->name = name;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	rfkill->ops = ops;
 	rfkill->data = ops_data;
 
@@ -1107,20 +1092,6 @@ static unsigned int rfkill_fop_poll(struct file *file, poll_table *wait)
 	return res;
 }
 
-<<<<<<< HEAD
-=======
-static bool rfkill_readable(struct rfkill_data *data)
-{
-	bool r;
-
-	mutex_lock(&data->mtx);
-	r = !list_empty(&data->events);
-	mutex_unlock(&data->mtx);
-
-	return r;
-}
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static ssize_t rfkill_fop_read(struct file *file, char __user *buf,
 			       size_t count, loff_t *pos)
 {
@@ -1137,16 +1108,11 @@ static ssize_t rfkill_fop_read(struct file *file, char __user *buf,
 			goto out;
 		}
 		mutex_unlock(&data->mtx);
-<<<<<<< HEAD
 		/* since we re-check and it just compares pointers,
 		 * using !list_empty() without locking isn't a problem
 		 */
 		ret = wait_event_interruptible(data->read_wait,
 					       !list_empty(&data->events));
-=======
-		ret = wait_event_interruptible(data->read_wait,
-					       rfkill_readable(data));
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		mutex_lock(&data->mtx);
 
 		if (ret)

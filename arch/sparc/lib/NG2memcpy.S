@@ -236,10 +236,7 @@ FUNC_NAME:	/* %o0=dst, %o1=src, %o2=len */
 	 */
 	VISEntryHalf
 
-<<<<<<< HEAD
 	membar		#Sync
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	alignaddr	%o1, %g0, %g0
 
 	add		%o1, (64 - 1), %o4

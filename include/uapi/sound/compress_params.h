@@ -57,10 +57,7 @@
 #define MAX_NUM_CODECS 32
 #define MAX_NUM_CODEC_DESCRIPTORS 32
 #define MAX_NUM_BITRATES 32
-<<<<<<< HEAD
 #define MAX_NUM_SAMPLE_RATES 32
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 /* compressed TX */
 #define MAX_NUM_FRAMES_PER_BUFFER 1
@@ -71,14 +68,11 @@
 #define Q6_DTS		0x00010D88
 #define Q6_DTS_LBR	0x00010DBB
 
-<<<<<<< HEAD
 /* Timestamp flsg */
 /* Bit-0 - 1 : Enable Timestamp mode */
 /* Bit-0 - 0 : Disable Timestamp mode */
 #define COMPRESSED_TIMESTAMP_FLAG 0x0001
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /* Codecs are listed linearly to allow for extensibility */
 #define SND_AUDIOCODEC_PCM                   ((__u32) 0x00000001)
 #define SND_AUDIOCODEC_MP3                   ((__u32) 0x00000002)
@@ -306,11 +300,7 @@ struct snd_enc_vorbis {
 	__u32 max_bit_rate;
 	__u32 min_bit_rate;
 	__u32 downmix;
-<<<<<<< HEAD
 } __attribute__((packed, aligned(4)));
-=======
-};
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 
 /**
@@ -326,11 +316,7 @@ struct snd_enc_real {
 	__u32 quant_bits;
 	__u32 start_region;
 	__u32 num_regions;
-<<<<<<< HEAD
 } __attribute__((packed, aligned(4)));
-=======
-};
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 /**
  * struct snd_enc_flac
@@ -354,48 +340,28 @@ struct snd_enc_real {
 struct snd_enc_flac {
 	__u32 num;
 	__u32 gain;
-<<<<<<< HEAD
 } __attribute__((packed, aligned(4)));
-=======
-};
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 struct snd_enc_generic {
 	__u32 bw;	/* encoder bandwidth */
 	__s32 reserved[15];
-<<<<<<< HEAD
 } __attribute__((packed, aligned(4)));
-=======
-};
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 struct snd_dec_ddp {
 	__u32 params_length;
 	__u32 params_id[18];
 	__u32 params_value[18];
-<<<<<<< HEAD
 } __attribute__((packed, aligned(4)));
-=======
-};
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 struct snd_dec_flac {
 	__u16 sample_size;
 	__u16 min_blk_size;
 	__u16 max_blk_size;
 	__u16 min_frame_size;
 	__u16 max_frame_size;
-<<<<<<< HEAD
 } __attribute__((packed, aligned(4)));
 
 struct snd_dec_vorbis {
 	__u32 bit_stream_fmt;
 } __attribute__((packed, aligned(4)));
-=======
-};
-
-struct snd_dec_vorbis {
-	__u32 bit_stream_fmt;
-};
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 struct snd_dec_alac {
 	__u32 frame_length;
@@ -410,11 +376,7 @@ struct snd_dec_alac {
 	__u32 avg_bit_rate;
 	__u32 sample_rate;
 	__u32 channel_layout_tag;
-<<<<<<< HEAD
 } __attribute__((packed, aligned(4)));
-=======
-};
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 struct snd_dec_ape {
 	__u16 compatible_version;
@@ -427,11 +389,7 @@ struct snd_dec_ape {
 	__u16 num_channels;
 	__u32 sample_rate;
 	__u32 seek_table_present;
-<<<<<<< HEAD
 } __attribute__((packed, aligned(4)));
-=======
-};
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 union snd_codec_options {
 	struct snd_enc_wma wma;
@@ -444,20 +402,12 @@ union snd_codec_options {
 	struct snd_dec_vorbis vorbis_dec;
 	struct snd_dec_alac alac;
 	struct snd_dec_ape ape;
-<<<<<<< HEAD
 } __attribute__((packed, aligned(4)));
 
 /** struct snd_codec_desc - description of codec capabilities
  * @max_ch: Maximum number of audio channels
  * @sample_rates: Sampling rates in Hz, use values like 48000 for this
  * @num_sample_rates: Number of valid values in sample_rates array
-=======
-};
-
-/** struct snd_codec_desc - description of codec capabilities
- * @max_ch: Maximum number of audio channels
- * @sample_rates: Sampling rates in Hz, use SNDRV_PCM_RATE_xxx for this
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  * @bit_rate: Indexed array containing supported bit rates
  * @num_bitrates: Number of valid values in bit_rate array
  * @rate_control: value is specified by SND_RATECONTROLMODE defines.
@@ -479,12 +429,8 @@ union snd_codec_options {
 
 struct snd_codec_desc {
 	__u32 max_ch;
-<<<<<<< HEAD
 	__u32 sample_rates[MAX_NUM_SAMPLE_RATES];
 	__u32 num_sample_rates;
-=======
-	__u32 sample_rates;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	__u32 bit_rate[MAX_NUM_BITRATES];
 	__u32 num_bitrates;
 	__u32 rate_control;
@@ -493,11 +439,7 @@ struct snd_codec_desc {
 	__u32 formats;
 	__u32 min_buffer;
 	__u32 reserved[15];
-<<<<<<< HEAD
 } __attribute__((packed, aligned(4)));
-=======
-};
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 /** struct snd_codec
  * @id: Identifies the supported audio encoder/decoder.
@@ -506,12 +448,8 @@ struct snd_codec_desc {
  * @ch_out: Number of output channels. In case of contradiction between
  *		this field and the channelMode field, the channelMode field
  *		overrides.
-<<<<<<< HEAD
  * @sample_rate: Audio sample rate of input data in Hz, use values like 48000
  *		for this.
-=======
- * @sample_rate: Audio sample rate of input data
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  * @bit_rate: Bitrate of encoded data. May be ignored by decoders
  * @rate_control: Encoding rate control. See SND_RATECONTROLMODE defines.
  *               Encoders may rely on profiles for quality levels.
@@ -542,7 +480,6 @@ struct snd_codec {
 	__u32 align;
 	__u32 compr_passthr;
 	union snd_codec_options options;
-<<<<<<< HEAD
 	__u32 flags;
 	__u32 reserved[2];
 } __attribute__((packed, aligned(4)));
@@ -553,9 +490,5 @@ struct snd_codec_metadata {
 	__u64 timestamp;
 	__u32 reserved[4];
 } __attribute__((packed, aligned(4)));
-=======
-	__u32 reserved[3];
-};
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #endif

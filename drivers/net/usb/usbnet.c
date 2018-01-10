@@ -762,11 +762,7 @@ int usbnet_stop (struct net_device *net)
 {
 	struct usbnet		*dev = netdev_priv(net);
 	struct driver_info	*info = dev->driver_info;
-<<<<<<< HEAD
 	int			retval, pm, mpn;
-=======
-	int			retval, pm;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	clear_bit(EVENT_DEV_OPEN, &dev->flags);
 	netif_stop_queue (net);
@@ -797,11 +793,8 @@ int usbnet_stop (struct net_device *net)
 
 	usbnet_purge_paused_rxq(dev);
 
-<<<<<<< HEAD
 	mpn = !test_and_clear_bit(EVENT_NO_RUNTIME_PM, &dev->flags);
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/* deferred work (task, timer, softirq) must also stop.
 	 * can't flush_scheduled_work() until we drop rtnl (later),
 	 * else workers could deadlock; so make workers a NOP.
@@ -812,12 +805,7 @@ int usbnet_stop (struct net_device *net)
 	if (!pm)
 		usb_autopm_put_interface(dev->intf);
 
-<<<<<<< HEAD
 	if (info->manage_power && mpn)
-=======
-	if (info->manage_power &&
-	    !test_and_clear_bit(EVENT_NO_RUNTIME_PM, &dev->flags))
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		info->manage_power(dev, 0);
 	else
 		usb_autopm_put_interface(dev->intf);
@@ -1652,7 +1640,6 @@ out3:
 	if (info->unbind)
 		info->unbind (dev, udev);
 out1:
-<<<<<<< HEAD
 	/* subdrivers must undo all they did in bind() if they
 	 * fail it, but we may fail later and a deferred kevent
 	 * may trigger an error resubmitting itself and, worse,
@@ -1660,8 +1647,6 @@ out1:
 	 */
 	cancel_work_sync(&dev->kevent);
 	del_timer_sync(&dev->delay);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	free_netdev(net);
 out:
 	return status;

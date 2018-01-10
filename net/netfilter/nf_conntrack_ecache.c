@@ -116,10 +116,7 @@ void nf_conntrack_unregister_notifier(struct net *net,
 	BUG_ON(notify != new);
 	RCU_INIT_POINTER(net->ct.nf_conntrack_event_cb, NULL);
 	mutex_unlock(&nf_ct_ecache_mutex);
-<<<<<<< HEAD
 	/* synchronize_rcu() is called from ctnetlink_exit. */
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 EXPORT_SYMBOL_GPL(nf_conntrack_unregister_notifier);
 
@@ -156,10 +153,7 @@ void nf_ct_expect_unregister_notifier(struct net *net,
 	BUG_ON(notify != new);
 	RCU_INIT_POINTER(net->ct.nf_expect_event_cb, NULL);
 	mutex_unlock(&nf_ct_ecache_mutex);
-<<<<<<< HEAD
 	/* synchronize_rcu() is called from ctnetlink_exit. */
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 EXPORT_SYMBOL_GPL(nf_ct_expect_unregister_notifier);
 

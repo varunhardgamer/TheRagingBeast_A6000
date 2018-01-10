@@ -100,13 +100,8 @@
  */
 
 /*
-<<<<<<< HEAD
  * Xonar Essence ST (Deluxe)/STX (II)
  * ----------------------------------
-=======
- * Xonar Essence ST (Deluxe)/STX
- * -----------------------------
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  *
  * CMI8788:
  *
@@ -1143,7 +1138,6 @@ int get_xonar_pcm179x_model(struct oxygen *chip,
 		chip->model.resume = xonar_stx_resume;
 		chip->model.set_dac_params = set_pcm1796_params;
 		break;
-<<<<<<< HEAD
 	case 0x85f4:
 		chip->model = model_xonar_st;
 		/* TODO: daughterboard support */
@@ -1152,8 +1146,6 @@ int get_xonar_pcm179x_model(struct oxygen *chip,
 		chip->model.resume = xonar_stx_resume;
 		chip->model.set_dac_params = set_pcm1796_params;
 		break;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	default:
 		return -EINVAL;
 	}

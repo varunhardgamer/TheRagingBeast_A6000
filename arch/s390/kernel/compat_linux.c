@@ -248,11 +248,7 @@ asmlinkage long sys32_setgroups16(int gidsetsize, u16 __user *grouplist)
 	struct group_info *group_info;
 	int retval;
 
-<<<<<<< HEAD
 	if (!may_setgroups())
-=======
-	if (!capable(CAP_SETGID))
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		return -EPERM;
 	if ((unsigned)gidsetsize > NGROUPS_MAX)
 		return -EINVAL;

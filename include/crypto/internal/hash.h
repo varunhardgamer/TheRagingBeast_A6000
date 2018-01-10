@@ -55,37 +55,28 @@ extern const struct crypto_type crypto_ahash_type;
 int crypto_hash_walk_done(struct crypto_hash_walk *walk, int err);
 int crypto_hash_walk_first(struct ahash_request *req,
 			   struct crypto_hash_walk *walk);
-<<<<<<< HEAD
 int crypto_ahash_walk_first(struct ahash_request *req,
 			   struct crypto_hash_walk *walk);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 int crypto_hash_walk_first_compat(struct hash_desc *hdesc,
 				  struct crypto_hash_walk *walk,
 				  struct scatterlist *sg, unsigned int len);
 
-<<<<<<< HEAD
 static inline int crypto_ahash_walk_done(struct crypto_hash_walk *walk,
 					 int err)
 {
 	return crypto_hash_walk_done(walk, err);
 }
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static inline int crypto_hash_walk_last(struct crypto_hash_walk *walk)
 {
 	return !(walk->entrylen | walk->total);
 }
 
-<<<<<<< HEAD
 static inline int crypto_ahash_walk_last(struct crypto_hash_walk *walk)
 {
 	return crypto_hash_walk_last(walk);
 }
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 int crypto_register_ahash(struct ahash_alg *alg);
 int crypto_unregister_ahash(struct ahash_alg *alg);
 int ahash_register_instance(struct crypto_template *tmpl,
@@ -173,7 +164,6 @@ static inline struct ahash_instance *ahash_alloc_instance(
 	return crypto_alloc_instance2(name, alg, ahash_instance_headroom());
 }
 
-<<<<<<< HEAD
 static inline void ahash_request_complete(struct ahash_request *req, int err)
 {
 	req->base.complete(&req->base, err);
@@ -184,8 +174,6 @@ static inline u32 ahash_request_flags(struct ahash_request *req)
 	return req->base.flags;
 }
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static inline struct crypto_ahash *crypto_spawn_ahash(
 	struct crypto_ahash_spawn *spawn)
 {

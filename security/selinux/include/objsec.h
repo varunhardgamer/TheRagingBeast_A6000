@@ -25,10 +25,7 @@
 #include <linux/in.h>
 #include <linux/spinlock.h>
 #include <linux/in6.h>
-<<<<<<< HEAD
 #include <net/net_namespace.h>
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 struct task_security_struct {
 	u32 osid;		/* SID prior to last execve */
@@ -82,10 +79,7 @@ struct ipc_security_struct {
 };
 
 struct netif_security_struct {
-<<<<<<< HEAD
 	struct net *ns;			/* network namespace */
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	int ifindex;			/* device index */
 	u32 sid;			/* SID for this interface */
 };

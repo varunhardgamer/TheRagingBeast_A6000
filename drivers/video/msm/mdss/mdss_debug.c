@@ -40,15 +40,9 @@
 /* MDP3 HW Version */
 #define MDP_CORE_HW_VERSION 0x03050306
 
-<<<<<<< HEAD
 /* Hex number + whitespace */
 #define NEXT_VALUE_OFFSET 3
 static DEFINE_MUTEX(mdss_debug_lock);
-=======
-static DEFINE_MUTEX(mdss_debug_lock);
-/* Hex number + whitespace */
-#define NEXT_VALUE_OFFSET 3
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 static char panel_reg[2] = {DEFAULT_READ_PANEL_POWER_MODE_REG, 0x00};
 
@@ -152,13 +146,8 @@ static ssize_t panel_debug_base_reg_write(struct file *file,
 	char *bufp;
 
 	struct mdss_data_type *mdata = mdss_res;
-<<<<<<< HEAD
 	struct mdss_panel_data *panel_data = NULL;
 	struct mdss_mdp_ctl *ctl;
-=======
-	struct mdss_mdp_ctl *ctl;
-	struct mdss_panel_data *panel_data = NULL;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	struct mdss_dsi_ctrl_pdata *ctrl_pdata;
 	struct dsi_cmd_desc dsi_write_cmd = {
 		{0/*data type*/, 1, 0, 0, 0, 0/* len */}, reg};
@@ -218,13 +207,6 @@ static ssize_t panel_debug_base_reg_write(struct file *file,
 	cmdreq.rlen = 0;
 	cmdreq.cb = NULL;
 
-<<<<<<< HEAD
-=======
-	ctl = mdata->ctl_off + 0;
-	ctrl_pdata = container_of(ctl->panel_data,
-		struct mdss_dsi_ctrl_pdata, panel_data);
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (mdata->debug_inf.debug_enable_clock)
 		mdata->debug_inf.debug_enable_clock(1);
 

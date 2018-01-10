@@ -1618,11 +1618,7 @@ static int wm8993_resume(struct snd_soc_codec *codec)
 #endif
 
 /* Tune DC servo configuration */
-<<<<<<< HEAD
 static struct reg_sequence wm8993_regmap_patch[] = {
-=======
-static struct reg_default wm8993_regmap_patch[] = {
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	{ 0x44, 3 },
 	{ 0x56, 3 },
 	{ 0x44, 0 },

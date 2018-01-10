@@ -40,10 +40,7 @@
 #include <target/target_core_fabric.h>
 
 #include "target_core_internal.h"
-<<<<<<< HEAD
 #include "target_core_pr.h"
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 extern struct se_device *g_lun0_dev;
 
@@ -169,7 +166,6 @@ void core_tpg_add_node_to_devs(
 
 		core_enable_device_list_for_node(lun, NULL, lun->unpacked_lun,
 				lun_access, acl, tpg);
-<<<<<<< HEAD
 		/*
 		 * Check to see if there are any existing persistent reservation
 		 * APTPL pre-registrations that need to be enabled for this dynamic
@@ -177,8 +173,6 @@ void core_tpg_add_node_to_devs(
 		 */
 		core_scsi3_check_aptpl_registration(dev, tpg, lun, acl,
 						    lun->unpacked_lun);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		spin_lock(&tpg->tpg_lun_lock);
 	}
 	spin_unlock(&tpg->tpg_lun_lock);
@@ -845,11 +839,8 @@ static void core_tpg_shutdown_lun(
 	struct se_portal_group *tpg,
 	struct se_lun *lun)
 {
-<<<<<<< HEAD
 	lun->lun_shutdown = true;
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	core_clear_lun_from_tpg(lun, tpg);
 	transport_clear_lun_from_sessions(lun);
 }
@@ -879,10 +870,7 @@ struct se_lun *core_tpg_pre_dellun(
 		spin_unlock(&tpg->tpg_lun_lock);
 		return ERR_PTR(-ENODEV);
 	}
-<<<<<<< HEAD
 	lun->lun_shutdown = false;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	spin_unlock(&tpg->tpg_lun_lock);
 
 	return lun;

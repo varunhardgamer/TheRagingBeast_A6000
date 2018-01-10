@@ -183,11 +183,8 @@ void __exit snd_seq_queues_delete(void)
 	}
 }
 
-<<<<<<< HEAD
 static void queue_use(struct snd_seq_queue *queue, int client, int use);
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /* allocate a new queue -
  * return queue index value or negative value for error
  */
@@ -199,18 +196,11 @@ int snd_seq_queue_alloc(int client, int locked, unsigned int info_flags)
 	if (q == NULL)
 		return -ENOMEM;
 	q->info_flags = info_flags;
-<<<<<<< HEAD
 	queue_use(q, client, 1);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (queue_list_add(q) < 0) {
 		queue_delete(q);
 		return -ENOMEM;
 	}
-<<<<<<< HEAD
-=======
-	snd_seq_queue_use(q->queue, client, 1); /* use this queue */
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return q->queue;
 }
 
@@ -516,25 +506,9 @@ int snd_seq_queue_timer_set_tempo(int queueid, int client,
 	return result;
 }
 
-<<<<<<< HEAD
 /* use or unuse this queue */
 static void queue_use(struct snd_seq_queue *queue, int client, int use)
 {
-=======
-
-/* use or unuse this queue -
- * if it is the first client, starts the timer.
- * if it is not longer used by any clients, stop the timer.
- */
-int snd_seq_queue_use(int queueid, int client, int use)
-{
-	struct snd_seq_queue *queue;
-
-	queue = queueptr(queueid);
-	if (queue == NULL)
-		return -EINVAL;
-	mutex_lock(&queue->timer_mutex);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (use) {
 		if (!test_and_set_bit(client, queue->clients_bitmap))
 			queue->clients++;
@@ -549,7 +523,6 @@ int snd_seq_queue_use(int queueid, int client, int use)
 	} else {
 		snd_seq_timer_close(queue);
 	}
-<<<<<<< HEAD
 }
 
 /* use or unuse this queue -
@@ -565,8 +538,6 @@ int snd_seq_queue_use(int queueid, int client, int use)
 		return -EINVAL;
 	mutex_lock(&queue->timer_mutex);
 	queue_use(queue, client, use);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	mutex_unlock(&queue->timer_mutex);
 	queuefree(queue);
 	return 0;

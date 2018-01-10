@@ -160,15 +160,12 @@ void kvmppc_core_vcpu_put(struct kvm_vcpu *vcpu)
 
 void kvmppc_set_msr(struct kvm_vcpu *vcpu, u64 msr)
 {
-<<<<<<< HEAD
 	/*
 	 * Check for illegal transactional state bit combination
 	 * and if we find it, force the TS field to a safe state.
 	 */
 	if ((msr & MSR_TS_MASK) == MSR_TS_MASK)
 		msr &= ~MSR_TS_MASK;
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	vcpu->arch.shregs.msr = msr;
 	kvmppc_end_cede(vcpu);
 }

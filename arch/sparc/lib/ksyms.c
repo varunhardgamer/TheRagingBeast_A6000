@@ -126,13 +126,6 @@ EXPORT_SYMBOL(copy_user_page);
 void VISenter(void);
 EXPORT_SYMBOL(VISenter);
 
-<<<<<<< HEAD
-=======
-/* CRYPTO code needs this */
-void VISenterhalf(void);
-EXPORT_SYMBOL(VISenterhalf);
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 extern void xor_vis_2(unsigned long, unsigned long *, unsigned long *);
 extern void xor_vis_3(unsigned long, unsigned long *, unsigned long *,
 		unsigned long *);

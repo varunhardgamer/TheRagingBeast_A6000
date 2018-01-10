@@ -475,10 +475,7 @@ extern const u8 *tcp_parse_md5sig_option(const struct tcphdr *th);
  */
 
 extern void tcp_v4_send_check(struct sock *sk, struct sk_buff *skb);
-<<<<<<< HEAD
 void tcp_v4_mtu_reduced(struct sock *sk);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 extern int tcp_v4_conn_request(struct sock *sk, struct sk_buff *skb);
 extern struct sock * tcp_create_openreq_child(struct sock *sk,
 					      struct request_sock *req,
@@ -1047,10 +1044,7 @@ static inline void tcp_prequeue_init(struct tcp_sock *tp)
 }
 
 extern bool tcp_prequeue(struct sock *sk, struct sk_buff *skb);
-<<<<<<< HEAD
 int tcp_filter(struct sock *sk, struct sk_buff *skb);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #undef STATE_TRACE
 
@@ -1065,11 +1059,8 @@ extern void tcp_set_state(struct sock *sk, int state);
 
 extern void tcp_done(struct sock *sk);
 
-<<<<<<< HEAD
 int tcp_abort(struct sock *sk, int err);
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static inline void tcp_sack_reset(struct tcp_options_received *rx_opt)
 {
 	rx_opt->dsack = 0;
@@ -1620,7 +1611,6 @@ struct tcp_request_sock_ops {
 extern void tcp_v4_init(void);
 extern void tcp_init(void);
 
-<<<<<<< HEAD
 /* At how many jiffies into the future should the RTO fire? */
 static inline s32 tcp_rto_delta(const struct sock *sk)
 {
@@ -1631,6 +1621,4 @@ static inline s32 tcp_rto_delta(const struct sock *sk)
 	return (s32)(rto_time_stamp - tcp_time_stamp);
 }
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #endif	/* _TCP_H */

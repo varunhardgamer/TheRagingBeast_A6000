@@ -15,10 +15,7 @@
 #include <linux/vmalloc.h>
 #include <linux/fs.h>
 #include <linux/bootmem.h>
-<<<<<<< HEAD
 #include <asm/fpu.h>
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #include <asm/page.h>
 #include <asm/cacheflush.h>
 #include <asm/mmu_context.h>
@@ -311,11 +308,7 @@ struct kvm_vcpu *kvm_arch_vcpu_create(struct kvm *kvm, unsigned int id)
 
 	if (!gebase) {
 		err = -ENOMEM;
-<<<<<<< HEAD
 		goto out_uninit_cpu;
-=======
-		goto out_free_cpu;
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 	kvm_info("Allocated %d bytes for KVM Exception Handlers @ %p\n",
 		 ALIGN(size, PAGE_SIZE), gebase);
@@ -350,7 +343,6 @@ struct kvm_vcpu *kvm_arch_vcpu_create(struct kvm *kvm, unsigned int id)
 	memcpy(gebase + offset, mips32_GuestException,
 	       mips32_GuestExceptionEnd - mips32_GuestException);
 
-<<<<<<< HEAD
 #ifdef MODULE
 	offset += mips32_GuestExceptionEnd - mips32_GuestException;
 	memcpy(gebase + offset, (char *)__kvm_mips_vcpu_run,
@@ -360,8 +352,6 @@ struct kvm_vcpu *kvm_arch_vcpu_create(struct kvm *kvm, unsigned int id)
 	vcpu->arch.vcpu_run = __kvm_mips_vcpu_run;
 #endif
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/* Invalidate the icache for these ranges */
 	mips32_SyncICache((unsigned long) gebase, ALIGN(size, PAGE_SIZE));
 
@@ -387,12 +377,9 @@ struct kvm_vcpu *kvm_arch_vcpu_create(struct kvm *kvm, unsigned int id)
 out_free_gebase:
 	kfree(gebase);
 
-<<<<<<< HEAD
 out_uninit_cpu:
 	kvm_vcpu_uninit(vcpu);
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 out_free_cpu:
 	kfree(vcpu);
 
@@ -439,26 +426,16 @@ int kvm_arch_vcpu_ioctl_run(struct kvm_vcpu *vcpu, struct kvm_run *run)
 		vcpu->mmio_needed = 0;
 	}
 
-<<<<<<< HEAD
 	lose_fpu(1);
 
 	local_irq_disable();
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/* Check if we have any exceptions/interrupts pending */
 	kvm_mips_deliver_interrupts(vcpu,
 				    kvm_read_c0_guest_cause(vcpu->arch.cop0));
 
-<<<<<<< HEAD
 	kvm_guest_enter();
 
 	r = vcpu->arch.vcpu_run(run, vcpu);
-=======
-	local_irq_disable();
-	kvm_guest_enter();
-
-	r = __kvm_mips_vcpu_run(run, vcpu);
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	kvm_guest_exit();
 	local_irq_enable();
@@ -1055,12 +1032,6 @@ void kvm_mips_set_c0_status(void)
 {
 	uint32_t status = read_c0_status();
 
-<<<<<<< HEAD
-=======
-	if (cpu_has_fpu)
-		status |= (ST0_CU1);
-
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (cpu_has_dsp)
 		status |= (ST0_MX);
 

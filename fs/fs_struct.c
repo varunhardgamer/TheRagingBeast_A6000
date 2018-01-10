@@ -127,10 +127,7 @@ struct fs_struct *copy_fs_struct(struct fs_struct *old)
 	}
 	return fs;
 }
-<<<<<<< HEAD
 EXPORT_SYMBOL_GPL(copy_fs_struct);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 int unshare_fs_struct(void)
 {

@@ -731,13 +731,7 @@ static int __init vfp_init(void)
 {
 	unsigned int vfpsid;
 	unsigned int cpu_arch = cpu_architecture();
-<<<<<<< HEAD
 
-=======
-#ifdef CONFIG_PROC_FS
-	static struct proc_dir_entry *procfs_entry;
-#endif
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (cpu_arch >= CPU_ARCH_ARMv6)
 		on_each_cpu(vfp_enable, NULL, 1);
 
@@ -812,7 +806,6 @@ static int __init vfp_init(void)
 		}
 	}
 
-<<<<<<< HEAD
 	return 0;
 }
 
@@ -821,9 +814,6 @@ static int __init vfp_rootfs_init(void)
 #ifdef CONFIG_PROC_FS
 	static struct proc_dir_entry *procfs_entry;
 
-=======
-#ifdef CONFIG_PROC_FS
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	procfs_entry = proc_create("cpu/vfp_bounce", S_IRUGO, NULL,
 			&vfp_bounce_fops);
 	if (!procfs_entry)
@@ -834,7 +824,4 @@ static int __init vfp_rootfs_init(void)
 }
 
 core_initcall(vfp_init);
-<<<<<<< HEAD
 rootfs_initcall(vfp_rootfs_init);
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c

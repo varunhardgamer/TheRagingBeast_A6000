@@ -187,13 +187,10 @@ extern void wcd9xxx_enable_high_perf_mode(struct snd_soc_codec *codec,
 				struct wcd9xxx_clsh_cdc_data *clsh_d,
 				u8 uhqa_mode, u8 req_state, bool req_type);
 
-<<<<<<< HEAD
 extern void pdesireaudio_uhqa_mode(struct snd_soc_codec *codec,
 				struct wcd9xxx_clsh_cdc_data *clsh_d,
 				u8 uhqa_mode, u8 req_state, bool req_type);
 
-=======
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 extern void wcd9xxx_clsh_init(struct wcd9xxx_clsh_cdc_data *clsh,
 			      struct wcd9xxx_resmgr *resmgr);
 

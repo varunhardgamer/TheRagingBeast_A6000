@@ -47,11 +47,7 @@ NESTED(handle_sysn32, PT_SIZE, sp)
 
 	sd	a3, PT_R26(sp)		# save a3 for syscall restarting
 
-<<<<<<< HEAD
 	li	t1, _TIF_WORK_SYSCALL_ENTRY
-=======
-	li	t1, _TIF_SYSCALL_TRACE | _TIF_SYSCALL_AUDIT
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	LONG_L	t0, TI_FLAGS($28)	# syscall tracing enabled?
 	and	t0, t1, t0
 	bnez	t0, n32_syscall_trace_entry
@@ -353,11 +349,7 @@ EXPORT(sysn32_call_table)
 	PTR	sys_ni_syscall			/* available, was setaltroot */
 	PTR	sys_add_key
 	PTR	sys_request_key
-<<<<<<< HEAD
 	PTR	compat_sys_keyctl		/* 6245 */
-=======
-	PTR	sys_keyctl			/* 6245 */
->>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	PTR	sys_set_thread_area
 	PTR	sys_inotify_init
 	PTR	sys_inotify_add_watch
