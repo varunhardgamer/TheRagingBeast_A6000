@@ -26,7 +26,6 @@
 #include <linux/workqueue.h>
 #include <linux/freezer.h>
 
-<<<<<<< HEAD
 #ifdef CONFIG_YL_POWEROFF_ALARM
 #include <linux/yl_params.h>
 
@@ -34,9 +33,6 @@
 #endif
 
 #define ALARM_DELTA 120
-=======
-#define ALARM_DELTA 300
->>>>>>> b5bd9af... kernel: alarm: Increase power-on alarm before alarm time to 300 sec
 
 /**
  * struct alarm_base - Alarm timer bases
