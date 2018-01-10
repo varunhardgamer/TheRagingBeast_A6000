@@ -164,28 +164,44 @@ extern int __put_user_bad(void) __attribute__((noreturn));
 	__chk_user_ptr(ptr);					\
 	switch (sizeof(*(ptr))) {				\
 	case 1: {						\
+<<<<<<< HEAD
 		unsigned char __x = 0;				\
+=======
+		unsigned char __x;				\
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		__gu_err = __get_user_fn(sizeof (*(ptr)),	\
 					 ptr, &__x);		\
 		(x) = *(__force __typeof__(*(ptr)) *) &__x;	\
 		break;						\
 	};							\
 	case 2: {						\
+<<<<<<< HEAD
 		unsigned short __x = 0;				\
+=======
+		unsigned short __x;				\
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		__gu_err = __get_user_fn(sizeof (*(ptr)),	\
 					 ptr, &__x);		\
 		(x) = *(__force __typeof__(*(ptr)) *) &__x;	\
 		break;						\
 	};							\
 	case 4: {						\
+<<<<<<< HEAD
 		unsigned int __x = 0;				\
+=======
+		unsigned int __x;				\
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		__gu_err = __get_user_fn(sizeof (*(ptr)),	\
 					 ptr, &__x);		\
 		(x) = *(__force __typeof__(*(ptr)) *) &__x;	\
 		break;						\
 	};							\
 	case 8: {						\
+<<<<<<< HEAD
 		unsigned long long __x = 0;			\
+=======
+		unsigned long long __x;				\
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		__gu_err = __get_user_fn(sizeof (*(ptr)),	\
 					 ptr, &__x);		\
 		(x) = *(__force __typeof__(*(ptr)) *) &__x;	\

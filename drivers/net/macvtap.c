@@ -625,8 +625,11 @@ static int macvtap_skb_to_vnet_hdr(const struct sk_buff *skb,
 	if (skb->ip_summed == CHECKSUM_PARTIAL) {
 		vnet_hdr->flags = VIRTIO_NET_HDR_F_NEEDS_CSUM;
 		vnet_hdr->csum_start = skb_checksum_start_offset(skb);
+<<<<<<< HEAD
 		if (vlan_tx_tag_present(skb))
 			vnet_hdr->csum_start += VLAN_HLEN;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		vnet_hdr->csum_offset = skb->csum_offset;
 	} else if (skb->ip_summed == CHECKSUM_UNNECESSARY) {
 		vnet_hdr->flags = VIRTIO_NET_HDR_F_DATA_VALID;
@@ -658,15 +661,22 @@ static unsigned long iov_pages(const struct iovec *iv, int offset,
 	return pages;
 }
 
+<<<<<<< HEAD
 /* Neighbour code has some assumptions on HH_DATA_MOD alignment */
 #define MACVTAP_RESERVE HH_DATA_OFF(ETH_HLEN)
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /* Get packet from user space buffer */
 static ssize_t macvtap_get_user(struct macvtap_queue *q, struct msghdr *m,
 				const struct iovec *iv, unsigned long total_len,
 				size_t count, int noblock)
 {
+<<<<<<< HEAD
 	int good_linear = SKB_MAX_HEAD(MACVTAP_RESERVE);
+=======
+	int good_linear = SKB_MAX_HEAD(NET_IP_ALIGN);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	struct sk_buff *skb;
 	struct macvlan_dev *vlan;
 	unsigned long len = total_len;
@@ -678,7 +688,11 @@ static ssize_t macvtap_get_user(struct macvtap_queue *q, struct msghdr *m,
 	size_t linear;
 
 	if (q->flags & IFF_VNET_HDR) {
+<<<<<<< HEAD
 		vnet_hdr_len = ACCESS_ONCE(q->vnet_hdr_sz);
+=======
+		vnet_hdr_len = q->vnet_hdr_sz;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 		err = -EINVAL;
 		if (len < vnet_hdr_len)
@@ -725,7 +739,11 @@ static ssize_t macvtap_get_user(struct macvtap_queue *q, struct msghdr *m,
 			linear = vnet_hdr.hdr_len;
 	}
 
+<<<<<<< HEAD
 	skb = macvtap_alloc_skb(&q->sk, MACVTAP_RESERVE, copylen,
+=======
+	skb = macvtap_alloc_skb(&q->sk, NET_IP_ALIGN, copylen,
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 				linear, noblock, &err);
 	if (!skb)
 		goto err;
@@ -809,7 +827,11 @@ static ssize_t macvtap_put_user(struct macvtap_queue *q,
 
 	if (q->flags & IFF_VNET_HDR) {
 		struct virtio_net_hdr vnet_hdr;
+<<<<<<< HEAD
 		vnet_hdr_len = ACCESS_ONCE(q->vnet_hdr_sz);
+=======
+		vnet_hdr_len = q->vnet_hdr_sz;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		if ((len -= vnet_hdr_len) < 0)
 			return -EINVAL;
 

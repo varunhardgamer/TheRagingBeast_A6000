@@ -3726,7 +3726,11 @@ brcmf_cfg80211_start_ap(struct wiphy *wiphy, struct net_device *ndev,
 				(u8 *)&settings->beacon.head[ie_offset],
 				settings->beacon.head_len - ie_offset,
 				WLAN_EID_SSID);
+<<<<<<< HEAD
 		if (!ssid_ie || ssid_ie->len > IEEE80211_MAX_SSID_LEN)
+=======
+		if (!ssid_ie)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			return -EINVAL;
 
 		memcpy(ssid_le.SSID, ssid_ie->data, ssid_ie->len);
@@ -4019,11 +4023,14 @@ brcmf_cfg80211_mgmt_tx(struct wiphy *wiphy, struct wireless_dev *wdev,
 		cfg80211_mgmt_tx_status(wdev, *cookie, buf, len, true,
 					GFP_KERNEL);
 	} else if (ieee80211_is_action(mgmt->frame_control)) {
+<<<<<<< HEAD
 		if (len > BRCMF_FIL_ACTION_FRAME_SIZE + DOT11_MGMT_HDR_LEN) {
 			brcmf_err("invalid action frame length\n");
 			err = -EINVAL;
 			goto exit;
 		}
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		af_params = kzalloc(sizeof(*af_params), GFP_KERNEL);
 		if (af_params == NULL) {
 			brcmf_err("unable to allocate frame\n");

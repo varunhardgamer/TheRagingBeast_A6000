@@ -943,6 +943,12 @@ static int rc_dev_uevent(struct device *device, struct kobj_uevent_env *env)
 {
 	struct rc_dev *dev = to_rc_dev(device);
 
+<<<<<<< HEAD
+=======
+	if (!dev || !dev->input_dev)
+		return -ENODEV;
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (dev->rc_map.name)
 		ADD_HOTPLUG_VAR("NAME=%s", dev->rc_map.name);
 	if (dev->driver_name)

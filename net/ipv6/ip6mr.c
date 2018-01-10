@@ -120,7 +120,11 @@ static void mr6_netlink_event(struct mr6_table *mrt, struct mfc6_cache *mfc,
 			      int cmd);
 static int ip6mr_rtm_dumproute(struct sk_buff *skb,
 			       struct netlink_callback *cb);
+<<<<<<< HEAD
 static void mroute_clean_tables(struct mr6_table *mrt, bool all);
+=======
+static void mroute_clean_tables(struct mr6_table *mrt);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static void ipmr_expire_process(unsigned long arg);
 
 #ifdef CONFIG_IPV6_MROUTE_MULTIPLE_TABLES
@@ -336,8 +340,13 @@ static struct mr6_table *ip6mr_new_table(struct net *net, u32 id)
 
 static void ip6mr_free_table(struct mr6_table *mrt)
 {
+<<<<<<< HEAD
 	del_timer_sync(&mrt->ipmr_expire_timer);
 	mroute_clean_tables(mrt, true);
+=======
+	del_timer(&mrt->ipmr_expire_timer);
+	mroute_clean_tables(mrt);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	kfree(mrt);
 }
 
@@ -552,7 +561,11 @@ static void ipmr_mfc_seq_stop(struct seq_file *seq, void *v)
 
 	if (it->cache == &mrt->mfc6_unres_queue)
 		spin_unlock_bh(&mfc_unres_lock);
+<<<<<<< HEAD
 	else if (it->cache == &mrt->mfc6_cache_array[it->ct])
+=======
+	else if (it->cache == mrt->mfc6_cache_array)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		read_unlock(&mrt_lock);
 }
 
@@ -777,8 +790,12 @@ failure:
  *	Delete a VIF entry
  */
 
+<<<<<<< HEAD
 static int mif6_delete(struct mr6_table *mrt, int vifi, int notify,
 		       struct list_head *head)
+=======
+static int mif6_delete(struct mr6_table *mrt, int vifi, struct list_head *head)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	struct mif_device *v;
 	struct net_device *dev;
@@ -824,7 +841,11 @@ static int mif6_delete(struct mr6_table *mrt, int vifi, int notify,
 					     dev->ifindex, &in6_dev->cnf);
 	}
 
+<<<<<<< HEAD
 	if ((v->flags & MIFF_REGISTER) && !notify)
+=======
+	if (v->flags & MIFF_REGISTER)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		unregister_netdevice_queue(dev, head);
 
 	dev_put(dev);
@@ -1078,7 +1099,10 @@ static struct mfc6_cache *ip6mr_cache_alloc(void)
 	struct mfc6_cache *c = kmem_cache_zalloc(mrt_cachep, GFP_KERNEL);
 	if (c == NULL)
 		return NULL;
+<<<<<<< HEAD
 	c->mfc_un.res.last_assert = jiffies - MFC_ASSERT_THRESH - 1;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	c->mfc_un.res.minvif = MAXMIFS;
 	return c;
 }
@@ -1334,6 +1358,10 @@ static int ip6mr_device_event(struct notifier_block *this,
 	struct mr6_table *mrt;
 	struct mif_device *v;
 	int ct;
+<<<<<<< HEAD
+=======
+	LIST_HEAD(list);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (event != NETDEV_UNREGISTER)
 		return NOTIFY_DONE;
@@ -1342,9 +1370,16 @@ static int ip6mr_device_event(struct notifier_block *this,
 		v = &mrt->vif6_table[0];
 		for (ct = 0; ct < mrt->maxvif; ct++, v++) {
 			if (v->dev == dev)
+<<<<<<< HEAD
 				mif6_delete(mrt, ct, 1, NULL);
 		}
 	}
+=======
+				mif6_delete(mrt, ct, &list);
+		}
+	}
+	unregister_netdevice_many(&list);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	return NOTIFY_DONE;
 }
@@ -1537,7 +1572,11 @@ static int ip6mr_mfc_add(struct net *net, struct mr6_table *mrt,
  *	Close the multicast socket, and clear the vif tables etc
  */
 
+<<<<<<< HEAD
 static void mroute_clean_tables(struct mr6_table *mrt, bool all)
+=======
+static void mroute_clean_tables(struct mr6_table *mrt)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	int i;
 	LIST_HEAD(list);
@@ -1547,9 +1586,14 @@ static void mroute_clean_tables(struct mr6_table *mrt, bool all)
 	 *	Shut down all active vif entries
 	 */
 	for (i = 0; i < mrt->maxvif; i++) {
+<<<<<<< HEAD
 		if (!all && (mrt->vif6_table[i].flags & VIFF_STATIC))
 			continue;
 		mif6_delete(mrt, i, 0, &list);
+=======
+		if (!(mrt->vif6_table[i].flags & VIFF_STATIC))
+			mif6_delete(mrt, i, &list);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 	unregister_netdevice_many(&list);
 
@@ -1558,7 +1602,11 @@ static void mroute_clean_tables(struct mr6_table *mrt, bool all)
 	 */
 	for (i = 0; i < MFC6_LINES; i++) {
 		list_for_each_entry_safe(c, next, &mrt->mfc6_cache_array[i], list) {
+<<<<<<< HEAD
 			if (!all && (c->mfc_flags & MFC_STATIC))
+=======
+			if (c->mfc_flags & MFC_STATIC)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 				continue;
 			write_lock_bh(&mrt_lock);
 			list_del(&c->list);
@@ -1621,7 +1669,11 @@ int ip6mr_sk_done(struct sock *sk)
 						     net->ipv6.devconf_all);
 			write_unlock_bh(&mrt_lock);
 
+<<<<<<< HEAD
 			mroute_clean_tables(mrt, false);
+=======
+			mroute_clean_tables(mrt);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			err = 0;
 			break;
 		}
@@ -1702,7 +1754,11 @@ int ip6_mroute_setsockopt(struct sock *sk, int optname, char __user *optval, uns
 		if (copy_from_user(&mifi, optval, sizeof(mifi_t)))
 			return -EFAULT;
 		rtnl_lock();
+<<<<<<< HEAD
 		ret = mif6_delete(mrt, mifi, 0, NULL);
+=======
+		ret = mif6_delete(mrt, mifi, NULL);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		rtnl_unlock();
 		return ret;
 
@@ -2274,8 +2330,13 @@ static int __ip6mr_fill_mroute(struct mr6_table *mrt, struct sk_buff *skb,
 	return 1;
 }
 
+<<<<<<< HEAD
 int ip6mr_get_route(struct net *net, struct sk_buff *skb, struct rtmsg *rtm,
 		    int nowait, u32 portid)
+=======
+int ip6mr_get_route(struct net *net,
+		    struct sk_buff *skb, struct rtmsg *rtm, int nowait)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	int err;
 	struct mr6_table *mrt;
@@ -2320,7 +2381,10 @@ int ip6mr_get_route(struct net *net, struct sk_buff *skb, struct rtmsg *rtm,
 			return -ENOMEM;
 		}
 
+<<<<<<< HEAD
 		NETLINK_CB(skb2).portid = portid;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		skb_reset_transport_header(skb2);
 
 		skb_put(skb2, sizeof(struct ipv6hdr));

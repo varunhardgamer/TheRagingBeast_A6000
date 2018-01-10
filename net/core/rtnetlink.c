@@ -899,8 +899,19 @@ static int rtnl_fill_ifinfo(struct sk_buff *skb, struct net_device *dev,
 		goto nla_put_failure;
 
 	if (1) {
+<<<<<<< HEAD
 		struct rtnl_link_ifmap map;
 
+=======
+		struct rtnl_link_ifmap map = {
+			.mem_start   = dev->mem_start,
+			.mem_end     = dev->mem_end,
+			.base_addr   = dev->base_addr,
+			.irq         = dev->irq,
+			.dma         = dev->dma,
+			.port        = dev->if_port,
+		};
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		memset(&map, 0, sizeof(map));
 		map.mem_start   = dev->mem_start;
 		map.mem_end     = dev->mem_end;
@@ -1140,10 +1151,21 @@ static const struct nla_policy ifla_vfinfo_policy[IFLA_VF_INFO_MAX+1] = {
 };
 
 static const struct nla_policy ifla_vf_policy[IFLA_VF_MAX+1] = {
+<<<<<<< HEAD
 	[IFLA_VF_MAC]		= { .len = sizeof(struct ifla_vf_mac) },
 	[IFLA_VF_VLAN]		= { .len = sizeof(struct ifla_vf_vlan) },
 	[IFLA_VF_TX_RATE]	= { .len = sizeof(struct ifla_vf_tx_rate) },
 	[IFLA_VF_SPOOFCHK]	= { .len = sizeof(struct ifla_vf_spoofchk) },
+=======
+	[IFLA_VF_MAC]		= { .type = NLA_BINARY,
+				    .len = sizeof(struct ifla_vf_mac) },
+	[IFLA_VF_VLAN]		= { .type = NLA_BINARY,
+				    .len = sizeof(struct ifla_vf_vlan) },
+	[IFLA_VF_TX_RATE]	= { .type = NLA_BINARY,
+				    .len = sizeof(struct ifla_vf_tx_rate) },
+	[IFLA_VF_SPOOFCHK]	= { .type = NLA_BINARY,
+				    .len = sizeof(struct ifla_vf_spoofchk) },
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 
 static const struct nla_policy ifla_port_policy[IFLA_PORT_MAX+1] = {
@@ -1316,7 +1338,10 @@ static int do_setlink(const struct sk_buff *skb,
 			goto errout;
 		}
 		if (!netlink_ns_capable(skb, net->user_ns, CAP_NET_ADMIN)) {
+<<<<<<< HEAD
 			put_net(net);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			err = -EPERM;
 			goto errout;
 		}
@@ -1853,6 +1878,7 @@ replay:
 			goto out;
 
 		err = rtnl_configure_link(dev, ifm);
+<<<<<<< HEAD
 		if (err < 0) {
 			if (ops->newlink) {
 				LIST_HEAD(list_kill);
@@ -1863,6 +1889,10 @@ replay:
 				unregister_netdevice(dev);
 			}
 		}
+=======
+		if (err < 0)
+			unregister_netdevice(dev);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 out:
 		put_net(dest_net);
 		return err;
@@ -2483,16 +2513,23 @@ static int rtnl_bridge_notify(struct net_device *dev, u16 flags)
 			goto errout;
 	}
 
+<<<<<<< HEAD
 	if (!skb->len)
 		goto errout;
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	rtnl_notify(skb, net, 0, RTNLGRP_LINK, NULL, GFP_ATOMIC);
 	return 0;
 errout:
 	WARN_ON(err == -EMSGSIZE);
 	kfree_skb(skb);
+<<<<<<< HEAD
 	if (err)
 		rtnl_set_sk_err(net, RTNLGRP_LINK, err);
+=======
+	rtnl_set_sk_err(net, RTNLGRP_LINK, err);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return err;
 }
 

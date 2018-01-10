@@ -178,8 +178,11 @@ static int pstore_unlink(struct inode *dir, struct dentry *dentry)
 	if (p->psi->erase)
 		p->psi->erase(p->type, p->id, p->count,
 			      dentry->d_inode->i_ctime, p->psi);
+<<<<<<< HEAD
 	else
 		return -EPERM;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	return simple_unlink(dir, dentry);
 }
@@ -315,6 +318,7 @@ int pstore_mkfile(enum pstore_type_id type, char *psname, u64 id, int count,
 
 	switch (type) {
 	case PSTORE_TYPE_DMESG:
+<<<<<<< HEAD
 		scnprintf(name, sizeof(name), "dmesg-%s-%lld",
 			  psname, id);
 		break;
@@ -336,13 +340,37 @@ int pstore_mkfile(enum pstore_type_id type, char *psname, u64 id, int count,
 	default:
 		scnprintf(name, sizeof(name), "type%d-%s-%lld",
 			  type, psname, id);
+=======
+		sprintf(name, "dmesg-%s-%lld", psname, id);
+		break;
+	case PSTORE_TYPE_CONSOLE:
+		sprintf(name, "console-%s", psname);
+		break;
+	case PSTORE_TYPE_FTRACE:
+		sprintf(name, "ftrace-%s", psname);
+		break;
+	case PSTORE_TYPE_MCE:
+		sprintf(name, "mce-%s-%lld", psname, id);
+		break;
+	case PSTORE_TYPE_UNKNOWN:
+		sprintf(name, "unknown-%s-%lld", psname, id);
+		break;
+	default:
+		sprintf(name, "type%d-%s-%lld", type, psname, id);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		break;
 	}
 
 	mutex_lock(&root->d_inode->i_mutex);
 
+<<<<<<< HEAD
 	dentry = d_alloc_name(root, name);
 	if (!dentry)
+=======
+	rc = -ENOSPC;
+	dentry = d_alloc_name(root, name);
+	if (IS_ERR(dentry))
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		goto fail_lockedalloc;
 
 	memcpy(private->data, data, size);

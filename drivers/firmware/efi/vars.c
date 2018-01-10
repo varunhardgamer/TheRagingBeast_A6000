@@ -42,7 +42,11 @@ DECLARE_WORK(efivar_work, NULL);
 EXPORT_SYMBOL_GPL(efivar_work);
 
 static bool
+<<<<<<< HEAD
 validate_device_path(efi_char16_t *var_name, int match, u8 *buffer,
+=======
+validate_device_path(struct efi_variable *var, int match, u8 *buffer,
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		     unsigned long len)
 {
 	struct efi_generic_dev_path *node;
@@ -75,7 +79,11 @@ validate_device_path(efi_char16_t *var_name, int match, u8 *buffer,
 }
 
 static bool
+<<<<<<< HEAD
 validate_boot_order(efi_char16_t *var_name, int match, u8 *buffer,
+=======
+validate_boot_order(struct efi_variable *var, int match, u8 *buffer,
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		    unsigned long len)
 {
 	/* An array of 16-bit integers */
@@ -86,18 +94,31 @@ validate_boot_order(efi_char16_t *var_name, int match, u8 *buffer,
 }
 
 static bool
+<<<<<<< HEAD
 validate_load_option(efi_char16_t *var_name, int match, u8 *buffer,
+=======
+validate_load_option(struct efi_variable *var, int match, u8 *buffer,
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		     unsigned long len)
 {
 	u16 filepathlength;
 	int i, desclength = 0, namelen;
 
+<<<<<<< HEAD
 	namelen = ucs2_strnlen(var_name, EFI_VAR_NAME_LEN);
 
 	/* Either "Boot" or "Driver" followed by four digits of hex */
 	for (i = match; i < match+4; i++) {
 		if (var_name[i] > 127 ||
 		    hex_to_bin(var_name[i] & 0xff) < 0)
+=======
+	namelen = ucs2_strnlen(var->VariableName, sizeof(var->VariableName));
+
+	/* Either "Boot" or "Driver" followed by four digits of hex */
+	for (i = match; i < match+4; i++) {
+		if (var->VariableName[i] > 127 ||
+		    hex_to_bin(var->VariableName[i] & 0xff) < 0)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			return true;
 	}
 
@@ -132,12 +153,20 @@ validate_load_option(efi_char16_t *var_name, int match, u8 *buffer,
 	/*
 	 * And, finally, check the filepath
 	 */
+<<<<<<< HEAD
 	return validate_device_path(var_name, match, buffer + desclength + 6,
+=======
+	return validate_device_path(var, match, buffer + desclength + 6,
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 				    filepathlength);
 }
 
 static bool
+<<<<<<< HEAD
 validate_uint16(efi_char16_t *var_name, int match, u8 *buffer,
+=======
+validate_uint16(struct efi_variable *var, int match, u8 *buffer,
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		unsigned long len)
 {
 	/* A single 16-bit integer */
@@ -148,7 +177,11 @@ validate_uint16(efi_char16_t *var_name, int match, u8 *buffer,
 }
 
 static bool
+<<<<<<< HEAD
 validate_ascii_string(efi_char16_t *var_name, int match, u8 *buffer,
+=======
+validate_ascii_string(struct efi_variable *var, int match, u8 *buffer,
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		      unsigned long len)
 {
 	int i;
@@ -165,6 +198,7 @@ validate_ascii_string(efi_char16_t *var_name, int match, u8 *buffer,
 }
 
 struct variable_validate {
+<<<<<<< HEAD
 	efi_guid_t vendor;
 	char *name;
 	bool (*validate)(efi_char16_t *var_name, int match, u8 *data,
@@ -306,6 +340,68 @@ efivar_variable_is_removable(efi_guid_t vendor, const char *var_name,
 	return found;
 }
 EXPORT_SYMBOL_GPL(efivar_variable_is_removable);
+=======
+	char *name;
+	bool (*validate)(struct efi_variable *var, int match, u8 *data,
+			 unsigned long len);
+};
+
+static const struct variable_validate variable_validate[] = {
+	{ "BootNext", validate_uint16 },
+	{ "BootOrder", validate_boot_order },
+	{ "DriverOrder", validate_boot_order },
+	{ "Boot*", validate_load_option },
+	{ "Driver*", validate_load_option },
+	{ "ConIn", validate_device_path },
+	{ "ConInDev", validate_device_path },
+	{ "ConOut", validate_device_path },
+	{ "ConOutDev", validate_device_path },
+	{ "ErrOut", validate_device_path },
+	{ "ErrOutDev", validate_device_path },
+	{ "Timeout", validate_uint16 },
+	{ "Lang", validate_ascii_string },
+	{ "PlatformLang", validate_ascii_string },
+	{ "", NULL },
+};
+
+bool
+efivar_validate(struct efi_variable *var, u8 *data, unsigned long len)
+{
+	int i;
+	u16 *unicode_name = var->VariableName;
+
+	for (i = 0; variable_validate[i].validate != NULL; i++) {
+		const char *name = variable_validate[i].name;
+		int match;
+
+		for (match = 0; ; match++) {
+			char c = name[match];
+			u16 u = unicode_name[match];
+
+			/* All special variables are plain ascii */
+			if (u > 127)
+				return true;
+
+			/* Wildcard in the matching name means we've matched */
+			if (c == '*')
+				return variable_validate[i].validate(var,
+							     match, data, len);
+
+			/* Case sensitive match */
+			if (c != u)
+				break;
+
+			/* Reached the end of the string while matching */
+			if (!c)
+				return variable_validate[i].validate(var,
+							     match, data, len);
+		}
+	}
+
+	return true;
+}
+EXPORT_SYMBOL_GPL(efivar_validate);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 static efi_status_t
 check_var_size(u32 attributes, unsigned long size)
@@ -562,7 +658,11 @@ EXPORT_SYMBOL_GPL(efivar_entry_remove);
  */
 static void efivar_entry_list_del_unlock(struct efivar_entry *entry)
 {
+<<<<<<< HEAD
 	lockdep_assert_held(&__efivars->lock);
+=======
+	WARN_ON(!spin_is_locked(&__efivars->lock));
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	list_del(&entry->list);
 	spin_unlock_irq(&__efivars->lock);
@@ -588,7 +688,11 @@ int __efivar_entry_delete(struct efivar_entry *entry)
 	const struct efivar_operations *ops = __efivars->ops;
 	efi_status_t status;
 
+<<<<<<< HEAD
 	lockdep_assert_held(&__efivars->lock);
+=======
+	WARN_ON(!spin_is_locked(&__efivars->lock));
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	status = ops->set_variable(entry->var.VariableName,
 				   &entry->var.VendorGuid,
@@ -748,7 +852,11 @@ struct efivar_entry *efivar_entry_find(efi_char16_t *name, efi_guid_t guid,
 	int strsize1, strsize2;
 	bool found = false;
 
+<<<<<<< HEAD
 	lockdep_assert_held(&__efivars->lock);
+=======
+	WARN_ON(!spin_is_locked(&__efivars->lock));
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	list_for_each_entry_safe(entry, n, head, list) {
 		strsize1 = ucs2_strsize(name, 1024);
@@ -812,7 +920,11 @@ int __efivar_entry_get(struct efivar_entry *entry, u32 *attributes,
 	const struct efivar_operations *ops = __efivars->ops;
 	efi_status_t status;
 
+<<<<<<< HEAD
 	lockdep_assert_held(&__efivars->lock);
+=======
+	WARN_ON(!spin_is_locked(&__efivars->lock));
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	status = ops->get_variable(entry->var.VariableName,
 				   &entry->var.VendorGuid,
@@ -878,7 +990,11 @@ int efivar_entry_set_get_size(struct efivar_entry *entry, u32 attributes,
 
 	*set = false;
 
+<<<<<<< HEAD
 	if (efivar_validate(*vendor, name, data, *size) == false)
+=======
+	if (efivar_validate(&entry->var, data, *size) == false)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		return -EINVAL;
 
 	/*

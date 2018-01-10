@@ -872,8 +872,12 @@ static void neigh_probe(struct neighbour *neigh)
 	if (skb)
 		skb = skb_copy(skb, GFP_ATOMIC);
 	write_unlock(&neigh->lock);
+<<<<<<< HEAD
 	if (neigh->ops->solicit)
 		neigh->ops->solicit(neigh, skb);
+=======
+	neigh->ops->solicit(neigh, skb);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	atomic_inc(&neigh->probes);
 	kfree_skb(skb);
 }

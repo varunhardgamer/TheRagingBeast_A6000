@@ -637,7 +637,11 @@ mwifiex_rdeeprom_read(struct file *file, char __user *ubuf,
 		(struct mwifiex_private *) file->private_data;
 	unsigned long addr = get_zeroed_page(GFP_KERNEL);
 	char *buf = (char *) addr;
+<<<<<<< HEAD
 	int pos, ret, i;
+=======
+	int pos = 0, ret = 0, i;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	u8 value[MAX_EEPROM_DATA];
 
 	if (!buf)
@@ -645,7 +649,11 @@ mwifiex_rdeeprom_read(struct file *file, char __user *ubuf,
 
 	if (saved_offset == -1) {
 		/* No command has been given */
+<<<<<<< HEAD
 		pos = snprintf(buf, PAGE_SIZE, "0");
+=======
+		pos += snprintf(buf, PAGE_SIZE, "0");
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		goto done;
 	}
 
@@ -654,6 +662,7 @@ mwifiex_rdeeprom_read(struct file *file, char __user *ubuf,
 				  (u16) saved_bytes, value);
 	if (ret) {
 		ret = -EINVAL;
+<<<<<<< HEAD
 		goto out_free;
 	}
 
@@ -665,6 +674,19 @@ mwifiex_rdeeprom_read(struct file *file, char __user *ubuf,
 done:
 	ret = simple_read_from_buffer(ubuf, count, ppos, buf, pos);
 out_free:
+=======
+		goto done;
+	}
+
+	pos += snprintf(buf, PAGE_SIZE, "%d %d ", saved_offset, saved_bytes);
+
+	for (i = 0; i < saved_bytes; i++)
+		pos += snprintf(buf + strlen(buf), PAGE_SIZE, "%d ", value[i]);
+
+	ret = simple_read_from_buffer(ubuf, count, ppos, buf, pos);
+
+done:
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	free_page(addr);
 	return ret;
 }

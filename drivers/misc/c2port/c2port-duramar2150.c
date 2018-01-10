@@ -129,8 +129,13 @@ static int __init duramar2150_c2port_init(void)
 
 	duramar2150_c2port_dev = c2port_device_register("uc",
 					&duramar2150_c2port_ops, NULL);
+<<<<<<< HEAD
 	if (IS_ERR(duramar2150_c2port_dev)) {
 		ret = PTR_ERR(duramar2150_c2port_dev);
+=======
+	if (!duramar2150_c2port_dev) {
+		ret = -ENODEV;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		goto free_region;
 	}
 

@@ -270,9 +270,15 @@ static int efifb_setcolreg(unsigned regno, unsigned red, unsigned green,
 		return 1;
 
 	if (regno < 16) {
+<<<<<<< HEAD
 		red   >>= 16 - info->var.red.length;
 		green >>= 16 - info->var.green.length;
 		blue  >>= 16 - info->var.blue.length;
+=======
+		red   >>= 8;
+		green >>= 8;
+		blue  >>= 8;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		((u32 *)(info->pseudo_palette))[regno] =
 			(red   << info->var.red.offset)   |
 			(green << info->var.green.offset) |

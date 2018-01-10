@@ -764,7 +764,10 @@ static void purge_configs_funcs(struct gadget_info *gi)
 			}
 		}
 		c->next_interface_id = 0;
+<<<<<<< HEAD
 		memset(c->interface, 0, sizeof(c->interface));
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		c->superspeed = 0;
 		c->highspeed = 0;
 		c->fullspeed = 0;

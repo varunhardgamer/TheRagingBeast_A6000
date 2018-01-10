@@ -19,8 +19,11 @@
 
 int devpts_new_index(struct inode *ptmx_inode);
 void devpts_kill_index(struct inode *ptmx_inode, int idx);
+<<<<<<< HEAD
 void devpts_add_ref(struct inode *ptmx_inode);
 void devpts_del_ref(struct inode *ptmx_inode);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /* mknod in devpts */
 struct inode *devpts_pty_new(struct inode *ptmx_inode, dev_t device, int index,
 		void *priv);
@@ -34,8 +37,11 @@ void devpts_pty_kill(struct inode *inode);
 /* Dummy stubs in the no-pty case */
 static inline int devpts_new_index(struct inode *ptmx_inode) { return -EINVAL; }
 static inline void devpts_kill_index(struct inode *ptmx_inode, int idx) { }
+<<<<<<< HEAD
 static inline void devpts_add_ref(struct inode *ptmx_inode) { }
 static inline void devpts_del_ref(struct inode *ptmx_inode) { }
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static inline struct inode *devpts_pty_new(struct inode *ptmx_inode,
 		dev_t device, int index, void *priv)
 {

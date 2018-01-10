@@ -255,9 +255,15 @@ struct sctp_chunk *sctp_make_asconf_update_ip(struct sctp_association *,
 					      int, __be16);
 struct sctp_chunk *sctp_make_asconf_set_prim(struct sctp_association *asoc,
 					     union sctp_addr *addr);
+<<<<<<< HEAD
 bool sctp_verify_asconf(const struct sctp_association *asoc,
 			struct sctp_chunk *chunk, bool addr_param_needed,
 			struct sctp_paramhdr **errp);
+=======
+int sctp_verify_asconf(const struct sctp_association *asoc,
+		       struct sctp_paramhdr *param_hdr, void *chunk_end,
+		       struct sctp_paramhdr **errp);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 struct sctp_chunk *sctp_process_asconf(struct sctp_association *asoc,
 				       struct sctp_chunk *asconf);
 int sctp_process_asconf_ack(struct sctp_association *asoc,

@@ -27,8 +27,11 @@ struct call_function_data {
 
 static DEFINE_PER_CPU_SHARED_ALIGNED(struct call_function_data, cfd_data);
 
+<<<<<<< HEAD
 static void flush_smp_call_function_queue(bool warn_cpu_offline);
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 struct call_single_queue {
 	struct list_head	list;
 	raw_spinlock_t		lock;
@@ -65,7 +68,10 @@ hotplug_cfd(struct notifier_block *nfb, unsigned long action, void *hcpu)
 #ifdef CONFIG_HOTPLUG_CPU
 	case CPU_UP_CANCELED:
 	case CPU_UP_CANCELED_FROZEN:
+<<<<<<< HEAD
                 /* Fall-through to the CPU_DEAD[_FROZEN] case. */
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	case CPU_DEAD:
 	case CPU_DEAD_FROZEN:
@@ -73,6 +79,7 @@ hotplug_cfd(struct notifier_block *nfb, unsigned long action, void *hcpu)
 		free_cpumask_var(cfd->cpumask_ipi);
 		free_percpu(cfd->csd);
 		break;
+<<<<<<< HEAD
 
         case CPU_DYING:
 	case CPU_DYING_FROZEN:
@@ -87,6 +94,8 @@ hotplug_cfd(struct notifier_block *nfb, unsigned long action, void *hcpu)
 		 */
 		flush_smp_call_function_queue(false);
 		break;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #endif
 	};
 
@@ -186,6 +195,7 @@ void generic_exec_single(int cpu, struct call_single_data *csd, int wait)
 		csd_lock_wait(csd);
 }
 
+<<<<<<< HEAD
 /**
  * generic_smp_call_function_single_interrupt - Execute SMP IPI callbacks
  *
@@ -217,11 +227,27 @@ static void flush_smp_call_function_queue(bool warn_cpu_offline)
 	LIST_HEAD(list);
         static bool warned;
 	WARN_ON(!irqs_disabled());
+=======
+/*
+ * Invoked by arch to handle an IPI for call function single. Must be
+ * called from the arch with interrupts disabled.
+ */
+void generic_smp_call_function_single_interrupt(void)
+{
+	struct call_single_queue *q = &__get_cpu_var(call_single_queue);
+	LIST_HEAD(list);
+
+	/*
+	 * Shouldn't receive this interrupt on a cpu that is not yet online.
+	 */
+	WARN_ON_ONCE(!cpu_online(smp_processor_id()));
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	raw_spin_lock(&q->lock);
 	list_replace_init(&q->list, &list);
 	raw_spin_unlock(&q->lock);
 
+<<<<<<< HEAD
 /* There shouldn't be any pending callbacks on an offline CPU. */
 	if (unlikely(warn_cpu_offline && !cpu_online(smp_processor_id()) &&
 		     !warned && !list_empty(&q->list))) {
@@ -230,12 +256,18 @@ static void flush_smp_call_function_queue(bool warn_cpu_offline)
 	}
 
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	while (!list_empty(&list)) {
 		struct call_single_data *csd;
 		unsigned int csd_flags;
 
 		csd = list_entry(list.next, struct call_single_data, list);
 		list_del(&csd->list);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		/*
 		 * 'csd' can be invalid after this call if flags == 0
 		 * (when called through generic_exec_single()),
@@ -732,7 +764,11 @@ void on_each_cpu_cond(bool (*cond_func)(int cpu, void *info),
 			if (cond_func(cpu, info)) {
 				ret = smp_call_function_single(cpu, func,
 								info, wait);
+<<<<<<< HEAD
 				WARN_ON_ONCE(ret);
+=======
+				WARN_ON_ONCE(!ret);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			}
 		preempt_enable();
 	}

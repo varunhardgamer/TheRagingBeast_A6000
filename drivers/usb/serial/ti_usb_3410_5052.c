@@ -158,7 +158,11 @@ static unsigned int product_5052_count;
 /* the array dimension is the number of default entries plus */
 /* TI_EXTRA_VID_PID_COUNT user defined entries plus 1 terminating */
 /* null entry */
+<<<<<<< HEAD
 static struct usb_device_id ti_id_table_3410[16+TI_EXTRA_VID_PID_COUNT+1] = {
+=======
+static struct usb_device_id ti_id_table_3410[15+TI_EXTRA_VID_PID_COUNT+1] = {
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	{ USB_DEVICE(TI_VENDOR_ID, TI_3410_PRODUCT_ID) },
 	{ USB_DEVICE(TI_VENDOR_ID, TI_3410_EZ430_ID) },
 	{ USB_DEVICE(MTS_VENDOR_ID, MTS_GSM_NO_FW_PRODUCT_ID) },
@@ -184,7 +188,11 @@ static struct usb_device_id ti_id_table_5052[5+TI_EXTRA_VID_PID_COUNT+1] = {
 	{ USB_DEVICE(TI_VENDOR_ID, TI_5052_FIRMWARE_PRODUCT_ID) },
 };
 
+<<<<<<< HEAD
 static struct usb_device_id ti_id_table_combined[20+2*TI_EXTRA_VID_PID_COUNT+1] = {
+=======
+static struct usb_device_id ti_id_table_combined[19+2*TI_EXTRA_VID_PID_COUNT+1] = {
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	{ USB_DEVICE(TI_VENDOR_ID, TI_3410_PRODUCT_ID) },
 	{ USB_DEVICE(TI_VENDOR_ID, TI_3410_EZ430_ID) },
 	{ USB_DEVICE(MTS_VENDOR_ID, MTS_GSM_NO_FW_PRODUCT_ID) },
@@ -401,6 +409,7 @@ static int ti_startup(struct usb_serial *serial)
 		goto free_tdev;
 	}
 
+<<<<<<< HEAD
 	if (serial->num_bulk_in < serial->num_ports ||
 			serial->num_bulk_out < serial->num_ports) {
 		dev_err(&serial->interface->dev, "missing endpoints\n");
@@ -408,6 +417,8 @@ static int ti_startup(struct usb_serial *serial)
 		goto free_tdev;
 	}
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return 0;
 
 free_tdev:

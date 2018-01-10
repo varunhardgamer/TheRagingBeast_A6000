@@ -2139,7 +2139,11 @@ static int smiapp_set_selection(struct v4l2_subdev *subdev,
 		ret = smiapp_set_compose(subdev, fh, sel);
 		break;
 	default:
+<<<<<<< HEAD
 		ret = -EINVAL;
+=======
+		BUG();
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 
 	mutex_unlock(&sensor->mutex);
@@ -2629,9 +2633,13 @@ static int smiapp_registered(struct v4l2_subdev *subdev)
 		pll->flags |= SMIAPP_PLL_FLAG_OP_PIX_CLOCK_PER_LANE;
 	pll->scale_n = sensor->limits[SMIAPP_LIMIT_SCALER_N_MIN];
 
+<<<<<<< HEAD
 	mutex_lock(&sensor->mutex);
 	rval = smiapp_update_mode(sensor);
 	mutex_unlock(&sensor->mutex);
+=======
+	rval = smiapp_update_mode(sensor);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (rval) {
 		dev_err(&client->dev, "update mode failed\n");
 		goto out_nvm_release;

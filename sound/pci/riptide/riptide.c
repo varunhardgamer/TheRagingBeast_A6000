@@ -2032,6 +2032,7 @@ snd_riptide_joystick_probe(struct pci_dev *pci, const struct pci_device_id *id)
 {
 	static int dev;
 	struct gameport *gameport;
+<<<<<<< HEAD
 	int ret;
 
 	if (dev >= SNDRV_CARDS)
@@ -2052,23 +2053,47 @@ snd_riptide_joystick_probe(struct pci_dev *pci, const struct pci_device_id *id)
 		ret = -ENOMEM;
 		goto inc_dev;
 	}
+=======
+
+	if (dev >= SNDRV_CARDS)
+		return -ENODEV;
+	if (!enable[dev]) {
+		dev++;
+		return -ENOENT;
+	}
+
+	if (!joystick_port[dev++])
+		return 0;
+
+	gameport = gameport_allocate_port();
+	if (!gameport)
+		return -ENOMEM;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (!request_region(joystick_port[dev], 8, "Riptide gameport")) {
 		snd_printk(KERN_WARNING
 			   "Riptide: cannot grab gameport 0x%x\n",
 			   joystick_port[dev]);
 		gameport_free_port(gameport);
+<<<<<<< HEAD
 		ret = -EBUSY;
 		goto inc_dev;
+=======
+		return -EBUSY;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 
 	gameport->io = joystick_port[dev];
 	gameport_register_port(gameport);
 	pci_set_drvdata(pci, gameport);
+<<<<<<< HEAD
 
 	ret = 0;
 inc_dev:
 	dev++;
 	return ret;
+=======
+	return 0;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static void snd_riptide_joystick_remove(struct pci_dev *pci)

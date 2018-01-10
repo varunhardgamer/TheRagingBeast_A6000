@@ -1474,5 +1474,9 @@ module_exit(aes_fini);
 
 MODULE_DESCRIPTION("Rijndael (AES) Cipher Algorithm");
 MODULE_LICENSE("Dual BSD/GPL");
+<<<<<<< HEAD
 MODULE_ALIAS_CRYPTO("aes");
 MODULE_ALIAS_CRYPTO("aes-generic");
+=======
+MODULE_ALIAS("aes");
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c

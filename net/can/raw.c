@@ -168,7 +168,11 @@ static int raw_enable_filters(struct net_device *dev, struct sock *sk,
 	for (i = 0; i < count; i++) {
 		err = can_rx_register(dev, filter[i].can_id,
 				      filter[i].can_mask,
+<<<<<<< HEAD
 				      raw_rcv, sk, "raw", sk);
+=======
+				      raw_rcv, sk, "raw");
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		if (err) {
 			/* clean up successfully registered filters */
 			while (--i >= 0)
@@ -189,7 +193,11 @@ static int raw_enable_errfilter(struct net_device *dev, struct sock *sk,
 
 	if (err_mask)
 		err = can_rx_register(dev, 0, err_mask | CAN_ERR_FLAG,
+<<<<<<< HEAD
 				      raw_rcv, sk, "raw", sk);
+=======
+				      raw_rcv, sk, "raw");
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	return err;
 }
@@ -470,9 +478,12 @@ static int raw_setsockopt(struct socket *sock, int level, int optname,
 		if (optlen % sizeof(struct can_filter) != 0)
 			return -EINVAL;
 
+<<<<<<< HEAD
 		if (optlen > CAN_RAW_FILTER_MAX * sizeof(struct can_filter))
 			return -EINVAL;
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		count = optlen / sizeof(struct can_filter);
 
 		if (count > 1) {

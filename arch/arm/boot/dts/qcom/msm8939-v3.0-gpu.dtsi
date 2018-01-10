@@ -13,7 +13,10 @@
 &soc {
 	/* To use BIMC based bus governor */
 	gpubw: qcom,gpubw {
+<<<<<<< HEAD
 		label = "gpubw";
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		compatible = "qcom,devbw";
 		governor = "bw_hwmon";
 		qcom,src-dst-ports = <26 512>;
@@ -51,7 +54,11 @@
 
 		qcom,initial-pwrlevel = <2>;
 
+<<<<<<< HEAD
 		qcom,idle-timeout = <80>; //msec
+=======
+		qcom,idle-timeout = <8>; //<HZ/12>
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		qcom,strtstp-sleepwake;
 
 		/* Clocks = KGSL_CLK_CORE | KGSL_CLK_IFACE | KGSL_CLK_MEM |

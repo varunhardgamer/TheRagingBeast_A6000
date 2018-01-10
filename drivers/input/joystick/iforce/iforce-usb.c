@@ -141,9 +141,12 @@ static int iforce_usb_probe(struct usb_interface *intf,
 
 	interface = intf->cur_altsetting;
 
+<<<<<<< HEAD
 	if (interface->desc.bNumEndpoints < 2)
 		return -ENODEV;
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	epirq = &interface->endpoint[0].desc;
 	epout = &interface->endpoint[1].desc;
 

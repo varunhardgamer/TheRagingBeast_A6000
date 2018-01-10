@@ -1590,8 +1590,12 @@ static void blkback_changed(struct xenbus_device *dev,
 			break;
 		/* Missed the backend's Closing state -- fallthrough */
 	case XenbusStateClosing:
+<<<<<<< HEAD
 		if (info)
 			blkfront_closing(info);
+=======
+		blkfront_closing(info);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		break;
 	}
 }

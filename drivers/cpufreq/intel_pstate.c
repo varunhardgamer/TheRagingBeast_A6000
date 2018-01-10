@@ -599,7 +599,10 @@ static int intel_pstate_set_policy(struct cpufreq_policy *policy)
 	if (policy->policy == CPUFREQ_POLICY_PERFORMANCE) {
 		limits.min_perf_pct = 100;
 		limits.min_perf = int_tofp(1);
+<<<<<<< HEAD
 		limits.max_policy_pct = 100;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		limits.max_perf_pct = 100;
 		limits.max_perf = int_tofp(1);
 		limits.no_turbo = 0;

@@ -218,6 +218,7 @@ static int ghash_async_final(struct ahash_request *req)
 	}
 }
 
+<<<<<<< HEAD
 static int ghash_async_import(struct ahash_request *req, const void *in)
 {
 	struct ahash_request *cryptd_req = ahash_request_ctx(req);
@@ -241,6 +242,8 @@ static int ghash_async_export(struct ahash_request *req, void *out)
 
 }
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static int ghash_async_digest(struct ahash_request *req)
 {
 	struct crypto_ahash *tfm = crypto_ahash_reqtfm(req);
@@ -308,16 +311,24 @@ static struct ahash_alg ghash_async_alg = {
 	.final		= ghash_async_final,
 	.setkey		= ghash_async_setkey,
 	.digest		= ghash_async_digest,
+<<<<<<< HEAD
 	.export		= ghash_async_export,
 	.import		= ghash_async_import,
 	.halg = {
 		.digestsize	= GHASH_DIGEST_SIZE,
 		.statesize = sizeof(struct ghash_desc_ctx),
+=======
+	.halg = {
+		.digestsize	= GHASH_DIGEST_SIZE,
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		.base = {
 			.cra_name		= "ghash",
 			.cra_driver_name	= "ghash-clmulni",
 			.cra_priority		= 400,
+<<<<<<< HEAD
 			.cra_ctxsize		= sizeof(struct ghash_async_ctx),
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			.cra_flags		= CRYPTO_ALG_TYPE_AHASH | CRYPTO_ALG_ASYNC,
 			.cra_blocksize		= GHASH_BLOCK_SIZE,
 			.cra_type		= &crypto_ahash_type,
@@ -368,4 +379,8 @@ module_exit(ghash_pclmulqdqni_mod_exit);
 MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION("GHASH Message Digest Algorithm, "
 		   "acclerated by PCLMULQDQ-NI");
+<<<<<<< HEAD
 MODULE_ALIAS_CRYPTO("ghash");
+=======
+MODULE_ALIAS("ghash");
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c

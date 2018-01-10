@@ -21,7 +21,10 @@
 #define _AT(T,X)	((T)(X))
 #endif
 
+<<<<<<< HEAD
 #define _BITUL(x)	(_AC(1,UL) << (x))
 #define _BITULL(x)	(_AC(1,ULL) << (x))
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #endif /* !(_LINUX_CONST_H) */

@@ -176,6 +176,7 @@ static inline u32 get_hfi_codec(enum hal_video_codec hal_codec)
 	return hfi_codec;
 }
 
+<<<<<<< HEAD
 static void create_pkt_enable(void *pkt, u32 type, bool enable)
 {
          u32 *pkt_header = pkt;
@@ -186,6 +187,8 @@ static void create_pkt_enable(void *pkt, u32 type, bool enable)
          hfi_enable->enable = enable;
 }
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 int create_pkt_cmd_sys_init(struct hfi_cmd_sys_init_packet *pkt,
 			   u32 arch_type)
 {
@@ -493,6 +496,7 @@ static int get_hfi_extradata_index(enum hal_extradata_id index)
 	case HAL_EXTRADATA_METADATA_MBI:
 		ret = HFI_PROPERTY_PARAM_VENC_MBI_DUMPING;
 		break;
+<<<<<<< HEAD
 	case HAL_EXTRADATA_MASTERING_DISPLAY_COLOUR_SEI:
 		ret =
 		HFI_PROPERTY_PARAM_VDEC_MASTERING_DISPLAY_COLOUR_SEI_EXTRADATA;
@@ -506,6 +510,8 @@ static int get_hfi_extradata_index(enum hal_extradata_id index)
 	case HAL_EXTRADATA_VPX_COLORSPACE:
 		ret = HFI_PROPERTY_PARAM_VDEC_VPX_COLORSPACE_EXTRADATA;
 		break;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	default:
 		dprintk(VIDC_WARN, "Extradata index not found: %d\n", index);
 		break;
@@ -1921,6 +1927,7 @@ int create_pkt_cmd_session_set_property(
 			sizeof(struct hfi_hybrid_hierp);
 		break;
 	}
+<<<<<<< HEAD
 	case HAL_PARAM_VENC_VIDEO_SIGNAL_INFO:
 	{
 		struct hal_video_signal_info *hal = pdata;
@@ -1949,6 +1956,8 @@ int create_pkt_cmd_session_set_property(
 		pkt->size += sizeof(u32) + sizeof(struct hfi_enable);
 		break;
 	}
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/* FOLLOWING PROPERTIES ARE NOT IMPLEMENTED IN CORE YET */
 	case HAL_CONFIG_BUFFER_REQUIREMENTS:
 	case HAL_CONFIG_PRIORITY:

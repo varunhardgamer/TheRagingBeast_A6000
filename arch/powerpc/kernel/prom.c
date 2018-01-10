@@ -158,7 +158,11 @@ static struct ibm_pa_feature {
 	{CPU_FTR_NOEXECUTE, 0, 0,	0, 6, 0},
 	{CPU_FTR_NODSISRALIGN, 0, 0,	1, 1, 1},
 	{0, MMU_FTR_CI_LARGE_PAGE, 0,	1, 2, 0},
+<<<<<<< HEAD
 	{CPU_FTR_REAL_LE, 0, PPC_FEATURE_TRUE_LE, 5, 0, 0},
+=======
+	{CPU_FTR_REAL_LE, PPC_FEATURE_TRUE_LE, 5, 0, 0},
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 
 static void __init scan_features(unsigned long node, const unsigned char *ftrs,

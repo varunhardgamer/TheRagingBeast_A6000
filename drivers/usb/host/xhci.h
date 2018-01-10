@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /*
  * xHCI host controller driver
  *
@@ -89,10 +92,16 @@ struct xhci_cap_regs {
 #define HCS_IST(p)		(((p) >> 0) & 0xf)
 /* bits 4:7, max number of Event Ring segments */
 #define HCS_ERST_MAX(p)		(((p) >> 4) & 0xf)
+<<<<<<< HEAD
 /* bits 21:25 Hi 5 bits of Scratchpad buffers SW must allocate for the HW */
 /* bit 26 Scratchpad restore - for save/restore HW state - not used yet */
 /* bits 27:31 Lo 5 bits of Scratchpad buffers SW must allocate for the HW */
 #define HCS_MAX_SCRATCHPAD(p)   ((((p) >> 16) & 0x3e0) | (((p) >> 27) & 0x1f))
+=======
+/* bit 26 Scratchpad restore - for save/restore HW state - not used yet */
+/* bits 27:31 number of Scratchpad buffers SW must allocate for the HW */
+#define HCS_MAX_SCRATCHPAD(p)   (((p) >> 27) & 0x1f)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 /* HCSPARAMS3 - hcs_params3 - bitmasks */
 /* bits 0:7, Max U1 to U0 latency for the roothub ports */
@@ -280,7 +289,10 @@ struct xhci_op_regs {
 #define XDEV_U0		(0x0 << 5)
 #define XDEV_U2		(0x2 << 5)
 #define XDEV_U3		(0x3 << 5)
+<<<<<<< HEAD
 #define XDEV_INACTIVE	(0x6 << 5)
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #define XDEV_RESUME	(0xf << 5)
 /* true: port has power (see HCC_PPC) */
 #define PORT_POWER	(1 << 9)
@@ -1238,7 +1250,11 @@ union xhci_trb {
  * since the command ring is 64-byte aligned.
  * It must also be greater than 16.
  */
+<<<<<<< HEAD
 #define TRBS_PER_SEGMENT	256
+=======
+#define TRBS_PER_SEGMENT	64
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /* Allow two commands + a link TRB, along with any reserved command TRBs */
 #define MAX_RSVD_CMD_TRBS	(TRBS_PER_SEGMENT - 3)
 #define TRB_SEGMENT_SIZE	(TRBS_PER_SEGMENT*16)
@@ -1262,9 +1278,12 @@ struct xhci_td {
 	union xhci_trb		*first_trb;
 	union xhci_trb		*last_trb;
 
+<<<<<<< HEAD
 	/* actual_length of the URB has already been set */
 	bool			urb_length_set;
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/* ZLP received in data stage of a control transfer */
 	bool			zlp_data;
 };
@@ -1497,7 +1516,10 @@ struct xhci_hcd {
  */
 #define XHCI_STATE_DYING	(1 << 0)
 #define XHCI_STATE_HALTED	(1 << 1)
+<<<<<<< HEAD
 #define XHCI_STATE_REMOVING	(1 << 2)
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/* Statistics */
 	int			error_bitmask;
 	unsigned int		quirks;

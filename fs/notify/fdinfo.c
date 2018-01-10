@@ -42,7 +42,11 @@ static int show_mark_fhandle(struct seq_file *m, struct inode *inode)
 {
 	struct {
 		struct file_handle handle;
+<<<<<<< HEAD
 		u8 pad[MAX_HANDLE_SZ];
+=======
+		u8 pad[64];
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	} f;
 	int size, ret, i;
 
@@ -50,7 +54,11 @@ static int show_mark_fhandle(struct seq_file *m, struct inode *inode)
 	size = f.handle.handle_bytes >> 2;
 
 	ret = exportfs_encode_inode_fh(inode, (struct fid *)f.handle.f_handle, &size, 0);
+<<<<<<< HEAD
 	if ((ret == FILEID_INVALID) || (ret < 0)) {
+=======
+	if ((ret == 255) || (ret == -ENOSPC)) {
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		WARN_ONCE(1, "Can't encode file handler for inotify: %d\n", ret);
 		return 0;
 	}

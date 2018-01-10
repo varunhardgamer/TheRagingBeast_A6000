@@ -54,10 +54,13 @@
 #include "mdss_debug.h"
 #include "mdss_mdp_debug.h"
 
+<<<<<<< HEAD
 // irq_mask set by DRM driver
 u32 mdp_drm_intr_mask;
 EXPORT_SYMBOL(mdp_drm_intr_mask);
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #define CREATE_TRACE_POINTS
 #include "mdss_mdp_trace.h"
 
@@ -524,10 +527,16 @@ void mdss_mdp_irq_disable(u32 intr_type, u32 intf_num)
 	} else {
 		mdata->mdp_irq_mask &= ~irq;
 
+<<<<<<< HEAD
 		writel_relaxed(mdata->mdp_irq_mask | mdp_drm_intr_mask,
 				mdata->mdp_base + MDSS_MDP_REG_INTR_EN);
 		if ((mdata->mdp_irq_mask == 0) &&
 			(mdp_drm_intr_mask == 0) &&
+=======
+		writel_relaxed(mdata->mdp_irq_mask, mdata->mdp_base +
+			MDSS_MDP_REG_INTR_EN);
+		if ((mdata->mdp_irq_mask == 0) &&
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			(mdata->mdp_hist_irq_mask == 0))
 			mdata->mdss_util->disable_irq(&mdss_mdp_hw);
 	}
@@ -831,7 +840,10 @@ void mdss_mdp_clk_ctrl(int enable)
 	if (enable && changed)
 		mdss_mdp_idle_pc_restore();
 }
+<<<<<<< HEAD
 EXPORT_SYMBOL(mdss_mdp_clk_ctrl);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 static inline int mdss_mdp_irq_clk_register(struct mdss_data_type *mdata,
 					    char *clk_name, int clk_idx)
@@ -901,8 +913,12 @@ static int mdss_mdp_irq_clk_setup(struct mdss_data_type *mdata)
 	pr_debug("max mdp clk rate=%d\n", mdata->max_mdp_clk_rate);
 
 	ret = devm_request_irq(&mdata->pdev->dev, mdss_mdp_hw.irq_info->irq,
+<<<<<<< HEAD
 				mdss_irq_handler,
 				IRQF_DISABLED | IRQF_SHARED, "MDSS", mdata);
+=======
+				mdss_irq_handler, IRQF_DISABLED, "MDSS", mdata);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (ret) {
 		pr_err("mdp request_irq() failed!\n");
 		return ret;

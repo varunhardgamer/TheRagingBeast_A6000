@@ -119,7 +119,11 @@ unsigned long arch_get_unmapped_area(struct file *filp, unsigned long addr, unsi
 
 		vma = find_vma(mm, addr);
 		if (task_size - len >= addr &&
+<<<<<<< HEAD
 		    (!vma || addr + len <= vm_start_gap(vma)))
+=======
+		    (!vma || addr + len <= vma->vm_start))
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			return addr;
 	}
 
@@ -182,7 +186,11 @@ arch_get_unmapped_area_topdown(struct file *filp, const unsigned long addr0,
 
 		vma = find_vma(mm, addr);
 		if (task_size - len >= addr &&
+<<<<<<< HEAD
 		    (!vma || addr + len <= vm_start_gap(vma)))
+=======
+		    (!vma || addr + len <= vma->vm_start))
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			return addr;
 	}
 
@@ -265,7 +273,11 @@ static unsigned long mmap_rnd(void)
 	unsigned long rnd = 0UL;
 
 	if (current->flags & PF_RANDOMIZE) {
+<<<<<<< HEAD
 		unsigned long val = get_random_long();
+=======
+		unsigned long val = get_random_int();
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		if (test_thread_flag(TIF_32BIT))
 			rnd = (val % (1UL << (23UL-PAGE_SHIFT)));
 		else
@@ -334,7 +346,11 @@ SYSCALL_DEFINE6(sparc_ipc, unsigned int, call, int, first, unsigned long, second
 	long err;
 
 	/* No need for backward compatibility. We can start fresh... */
+<<<<<<< HEAD
 	if (call <= SEMTIMEDOP) {
+=======
+	if (call <= SEMCTL) {
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		switch (call) {
 		case SEMOP:
 			err = sys_semtimedop(first, ptr,
@@ -414,7 +430,11 @@ out:
 
 SYSCALL_DEFINE1(sparc64_personality, unsigned long, personality)
 {
+<<<<<<< HEAD
 	long ret;
+=======
+	int ret;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (personality(current->personality) == PER_LINUX32 &&
 	    personality(personality) == PER_LINUX)

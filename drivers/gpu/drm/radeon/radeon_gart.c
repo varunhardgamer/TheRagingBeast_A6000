@@ -251,10 +251,15 @@ void radeon_gart_unbind(struct radeon_device *rdev, unsigned offset,
 			}
 		}
 	}
+<<<<<<< HEAD
 	if (rdev->gart.ptr) {
 		mb();
 		radeon_gart_tlb_flush(rdev);
 	}
+=======
+	mb();
+	radeon_gart_tlb_flush(rdev);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 /**
@@ -296,10 +301,15 @@ int radeon_gart_bind(struct radeon_device *rdev, unsigned offset,
 			}
 		}
 	}
+<<<<<<< HEAD
 	if (rdev->gart.ptr) {
 		mb();
 		radeon_gart_tlb_flush(rdev);
 	}
+=======
+	mb();
+	radeon_gart_tlb_flush(rdev);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return 0;
 }
 

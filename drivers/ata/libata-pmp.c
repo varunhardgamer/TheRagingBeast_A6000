@@ -460,6 +460,7 @@ static void sata_pmp_quirks(struct ata_port *ap)
 				       ATA_LFLAG_NO_SRST |
 				       ATA_LFLAG_ASSUME_ATA;
 		}
+<<<<<<< HEAD
 	} else if (vendor == 0x11ab && devid == 0x4140) {
 		/* Marvell 4140 quirks */
 		ata_for_each_link(link, ap, EDGE) {
@@ -467,6 +468,8 @@ static void sata_pmp_quirks(struct ata_port *ap)
 			if (link->pmp == 4)
 				link->flags |= ATA_LFLAG_DISABLED;
 		}
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 }
 

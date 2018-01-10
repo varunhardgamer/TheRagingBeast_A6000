@@ -564,6 +564,7 @@ void devpts_kill_index(struct inode *ptmx_inode, int idx)
 	mutex_unlock(&allocated_ptys_lock);
 }
 
+<<<<<<< HEAD
 /*
  * pty code needs to hold extra references in case of last /dev/tty close
  */
@@ -584,6 +585,8 @@ void devpts_del_ref(struct inode *ptmx_inode)
 	deactivate_super(sb);
 }
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /**
  * devpts_pty_new -- create a new inode in /dev/pts/
  * @ptmx_inode: inode of the master

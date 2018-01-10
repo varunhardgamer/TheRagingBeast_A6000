@@ -9,9 +9,12 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_WT86518
 #include "msmb_isp_wt86518.h"
 #else
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #ifndef __MSMB_ISP__
 #define __MSMB_ISP__
 
@@ -615,4 +618,7 @@ struct msm_isp_event_data32 {
 	_IOWR('V', BASE_VIDIOC_PRIVATE+21, struct msm_isp_event_data)
 #endif
 #endif /* __MSMB_ISP__ */
+<<<<<<< HEAD
 #endif /* CONFIG_MACH_WT86518 */
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c

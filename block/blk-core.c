@@ -1189,8 +1189,11 @@ struct request *blk_make_request(struct request_queue *q, struct bio *bio,
 	if (unlikely(!rq))
 		return ERR_PTR(-ENOMEM);
 
+<<<<<<< HEAD
 	blk_rq_set_block_pc(rq);
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	for_each_bio(bio) {
 		struct bio *bounce_bio = bio;
 		int ret;
@@ -1208,6 +1211,7 @@ struct request *blk_make_request(struct request_queue *q, struct bio *bio,
 EXPORT_SYMBOL(blk_make_request);
 
 /**
+<<<<<<< HEAD
  * blk_rq_set_block_pc - initialize a requeest to type BLOCK_PC
  * @rq:		request to be initialized
  *
@@ -1224,6 +1228,8 @@ void blk_rq_set_block_pc(struct request *rq)
 EXPORT_SYMBOL(blk_rq_set_block_pc);
 
 /**
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  * blk_requeue_request - put a request back on queue
  * @q:		request queue where request should be inserted
  * @rq:		request to be inserted
@@ -3215,9 +3221,12 @@ int blk_pre_runtime_suspend(struct request_queue *q)
 {
 	int ret = 0;
 
+<<<<<<< HEAD
 	if (!q->dev)
 		return ret;
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	spin_lock_irq(q->queue_lock);
 	if (q->nr_pending) {
 		ret = -EBUSY;
@@ -3245,9 +3254,12 @@ EXPORT_SYMBOL(blk_pre_runtime_suspend);
  */
 void blk_post_runtime_suspend(struct request_queue *q, int err)
 {
+<<<<<<< HEAD
 	if (!q->dev)
 		return;
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	spin_lock_irq(q->queue_lock);
 	if (!err) {
 		q->rpm_status = RPM_SUSPENDED;
@@ -3272,9 +3284,12 @@ EXPORT_SYMBOL(blk_post_runtime_suspend);
  */
 void blk_pre_runtime_resume(struct request_queue *q)
 {
+<<<<<<< HEAD
 	if (!q->dev)
 		return;
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	spin_lock_irq(q->queue_lock);
 	q->rpm_status = RPM_RESUMING;
 	spin_unlock_irq(q->queue_lock);
@@ -3297,9 +3312,12 @@ EXPORT_SYMBOL(blk_pre_runtime_resume);
  */
 void blk_post_runtime_resume(struct request_queue *q, int err)
 {
+<<<<<<< HEAD
 	if (!q->dev)
 		return;
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	spin_lock_irq(q->queue_lock);
 	if (!err) {
 		q->rpm_status = RPM_ACTIVE;
@@ -3321,7 +3339,11 @@ int __init blk_dev_init(void)
 
 	/* used for unplugging and affects IO latency/throughput - HIGHPRI */
 	kblockd_workqueue = alloc_workqueue("kblockd",
+<<<<<<< HEAD
 					    WQ_MEM_RECLAIM | WQ_HIGHPRI | WQ_POWER_EFFICIENT, 0);
+=======
+					    WQ_MEM_RECLAIM | WQ_HIGHPRI, 0);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (!kblockd_workqueue)
 		panic("Failed to create kblockd\n");
 

@@ -556,8 +556,15 @@ static void fw_dev_release(struct device *dev)
 	module_put(THIS_MODULE);
 }
 
+<<<<<<< HEAD
 static int do_firmware_uevent(struct firmware_priv *fw_priv, struct kobj_uevent_env *env)
 {
+=======
+static int firmware_uevent(struct device *dev, struct kobj_uevent_env *env)
+{
+	struct firmware_priv *fw_priv = to_firmware_priv(dev);
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (add_uevent_var(env, "FIRMWARE=%s", fw_priv->buf->fw_id))
 		return -ENOMEM;
 	if (add_uevent_var(env, "TIMEOUT=%i", loading_timeout))
@@ -568,6 +575,7 @@ static int do_firmware_uevent(struct firmware_priv *fw_priv, struct kobj_uevent_
 	return 0;
 }
 
+<<<<<<< HEAD
 static int firmware_uevent(struct device *dev, struct kobj_uevent_env *env)
 {
 	struct firmware_priv *fw_priv = to_firmware_priv(dev);
@@ -580,6 +588,8 @@ static int firmware_uevent(struct device *dev, struct kobj_uevent_env *env)
 	return err;
 }
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static struct class firmware_class = {
 	.name		= "firmware",
 	.class_attrs	= firmware_class_attrs,
@@ -1060,6 +1070,7 @@ static int fw_load_from_user_helper(struct firmware *firmware,
 	fw_priv->buf = firmware->priv;
 	return _request_firmware_load(fw_priv, desc->uevent, timeout);
 }
+<<<<<<< HEAD
 
 #ifdef CONFIG_FW_CACHE
 /* kill pending requests without uevent to avoid blocking suspend */
@@ -1077,6 +1088,8 @@ static void kill_requests_without_uevent(void)
 }
 #endif
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #else /* CONFIG_FW_LOADER_USER_HELPER */
 static inline int
 fw_load_from_user_helper(struct firmware *firmware, const char *name,
@@ -1536,7 +1549,11 @@ int uncache_firmware(const char *fw_name)
 	return -EINVAL;
 }
 
+<<<<<<< HEAD
 #ifdef CONFIG_FW_CACHE
+=======
+#ifdef CONFIG_PM_SLEEP
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static ASYNC_DOMAIN_EXCLUSIVE(fw_cache_domain);
 
 static struct fw_cache_entry *alloc_fw_cache_entry(const char *name)
@@ -1802,7 +1819,11 @@ static void __init fw_cache_init(void)
 	INIT_LIST_HEAD(&fw_cache.head);
 	fw_cache.state = FW_LOADER_NO_CACHE;
 
+<<<<<<< HEAD
 #ifdef CONFIG_FW_CACHE
+=======
+#ifdef CONFIG_PM_SLEEP
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	spin_lock_init(&fw_cache.name_lock);
 	INIT_LIST_HEAD(&fw_cache.fw_names);
 
@@ -1828,7 +1849,11 @@ static int __init firmware_class_init(void)
 
 static void __exit firmware_class_exit(void)
 {
+<<<<<<< HEAD
 #ifdef CONFIG_FW_CACHE
+=======
+#ifdef CONFIG_PM_SLEEP
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	unregister_syscore_ops(&fw_syscore_ops);
 	unregister_pm_notifier(&fw_cache.pm_notify);
 #endif

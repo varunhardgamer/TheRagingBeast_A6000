@@ -266,6 +266,7 @@ int power_supply_set_low_power_state(struct power_supply *psy, int value)
 }
 EXPORT_SYMBOL(power_supply_set_low_power_state);
 
+<<<<<<< HEAD
 /**
  * power_supply_set_dp_dm -
  * @psy:	the power supply to control
@@ -282,6 +283,8 @@ int power_supply_set_dp_dm(struct power_supply *psy, int value)
 }
 EXPORT_SYMBOL(power_supply_set_dp_dm);
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static int __power_supply_changed_work(struct device *dev, void *data)
 {
 	struct power_supply *psy = (struct power_supply *)data;

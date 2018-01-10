@@ -17,7 +17,10 @@
 #include <linux/err.h>
 #include <linux/rbtree.h>
 #include <linux/sched.h>
+<<<<<<< HEAD
 #include <linux/delay.h>
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #define CREATE_TRACE_POINTS
 #include <trace/events/regmap.h>
@@ -1329,7 +1332,11 @@ EXPORT_SYMBOL_GPL(regmap_bulk_write);
  * relative. The page register has been written if that was necessary.
  */
 int _regmap_raw_multi_reg_write(struct regmap *map,
+<<<<<<< HEAD
 				       const struct reg_sequence *regs,
+=======
+				       const struct reg_default *regs,
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 				       size_t num_regs)
 {
 	int ret;
@@ -1385,11 +1392,16 @@ static unsigned int _regmap_register_page(struct regmap *map,
 }
 
 static int _regmap_range_multi_paged_reg_write(struct regmap *map,
+<<<<<<< HEAD
 					       struct reg_sequence *regs,
+=======
+					       struct reg_default *regs,
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 					       size_t num_regs)
 {
 	int ret;
 	int i, n;
+<<<<<<< HEAD
 	struct reg_sequence *base;
 	unsigned int this_page;
 	unsigned int page_change = 0;
@@ -1398,6 +1410,14 @@ static int _regmap_range_multi_paged_reg_write(struct regmap *map,
 	 * since the order of write must be preserved this algorithm
 	 * chops the set each time the page changes. This also applies
 	 * if there is a delay required at any point in the sequence.
+=======
+	struct reg_default *base;
+	unsigned int this_page;
+	/*
+	 * the set of registers are not neccessarily in order, but
+	 * since the order of write must be preserved this algorithm
+	 * chops the set each time the page changes
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	 */
 	base = regs;
 	for (i = 0, n = 0; i < num_regs; i++, n++) {
@@ -1413,6 +1433,7 @@ static int _regmap_range_multi_paged_reg_write(struct regmap *map,
 				this_page = win_page;
 			if (win_page != this_page) {
 				this_page = win_page;
+<<<<<<< HEAD
 				page_change = 1;
 			}
 		}
@@ -1449,6 +1470,17 @@ static int _regmap_range_multi_paged_reg_write(struct regmap *map,
 
 				page_change = 0;
 			}
+=======
+				ret = _regmap_raw_multi_reg_write(map, base, n);
+				if (ret != 0)
+					return ret;
+				base += n;
+				n = 0;
+			}
+			ret = _regmap_select_page(map, &base[n].reg, range, 1);
+			if (ret != 0)
+				return ret;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		}
 	}
 	if (n > 0)
@@ -1458,7 +1490,11 @@ static int _regmap_range_multi_paged_reg_write(struct regmap *map,
 
 
 static int _regmap_multi_reg_write(struct regmap *map,
+<<<<<<< HEAD
 				   const struct reg_sequence *regs,
+=======
+				   const struct reg_default *regs,
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 				   size_t num_regs)
 {
 	int i;
@@ -1469,9 +1505,12 @@ static int _regmap_multi_reg_write(struct regmap *map,
 			ret = _regmap_write(map, regs[i].reg, regs[i].def);
 			if (ret != 0)
 				return ret;
+<<<<<<< HEAD
 
 			if (regs[i].delay_us)
 				udelay(regs[i].delay_us);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		}
 		return 0;
 	}
@@ -1515,6 +1554,7 @@ static int _regmap_multi_reg_write(struct regmap *map,
 		unsigned int reg = regs[i].reg;
 		struct regmap_range_node *range;
 
+<<<<<<< HEAD
 		/* Coalesce all the writes between a page break or a delay
 		 * in a sequence
 		 */
@@ -1522,6 +1562,12 @@ static int _regmap_multi_reg_write(struct regmap *map,
 		if (range || regs[i].delay_us) {
 			size_t len = sizeof(struct reg_sequence)*num_regs;
 			struct reg_sequence *base = kmemdup(regs, len,
+=======
+		range = _regmap_range_lookup(map, reg);
+		if (range) {
+			size_t len = sizeof(struct reg_default)*num_regs;
+			struct reg_default *base = kmemdup(regs, len,
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 							   GFP_KERNEL);
 			if (!base)
 				return -ENOMEM;
@@ -1554,7 +1600,11 @@ static int _regmap_multi_reg_write(struct regmap *map,
  * A value of zero will be returned on success, a negative errno will be
  * returned in error cases.
  */
+<<<<<<< HEAD
 int regmap_multi_reg_write(struct regmap *map, const struct reg_sequence *regs,
+=======
+int regmap_multi_reg_write(struct regmap *map, const struct reg_default *regs,
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			   int num_regs)
 {
 	int ret;
@@ -1587,7 +1637,11 @@ EXPORT_SYMBOL(regmap_multi_reg_write);
  * be returned in error cases.
  */
 int regmap_multi_reg_write_bypassed(struct regmap *map,
+<<<<<<< HEAD
 				    const struct reg_sequence *regs,
+=======
+				    const struct reg_default *regs,
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 				    int num_regs)
 {
 	int ret;
@@ -1875,7 +1929,11 @@ int regmap_bulk_read(struct regmap *map, unsigned int reg, void *val,
 					  &ival);
 			if (ret != 0)
 				return ret;
+<<<<<<< HEAD
 			map->format.format_val(val + (i * val_bytes), ival, 0);
+=======
+			memcpy(val + (i * val_bytes), &ival, val_bytes);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		}
 	}
 
@@ -2038,7 +2096,11 @@ EXPORT_SYMBOL_GPL(regmap_async_complete);
  * corrections to be applied to the device defaults on startup, such
  * as the updates some vendors provide to undocumented registers.
  */
+<<<<<<< HEAD
 int regmap_register_patch(struct regmap *map, const struct reg_sequence *regs,
+=======
+int regmap_register_patch(struct regmap *map, const struct reg_default *regs,
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			  int num_regs)
 {
 	int i, ret;
@@ -2064,10 +2126,17 @@ int regmap_register_patch(struct regmap *map, const struct reg_sequence *regs,
 		}
 	}
 
+<<<<<<< HEAD
 	map->patch = kcalloc(num_regs, sizeof(struct reg_sequence), GFP_KERNEL);
 	if (map->patch != NULL) {
 		memcpy(map->patch, regs,
 		       num_regs * sizeof(struct reg_sequence));
+=======
+	map->patch = kcalloc(num_regs, sizeof(struct reg_default), GFP_KERNEL);
+	if (map->patch != NULL) {
+		memcpy(map->patch, regs,
+		       num_regs * sizeof(struct reg_default));
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		map->patch_regs = num_regs;
 	} else {
 		ret = -ENOMEM;

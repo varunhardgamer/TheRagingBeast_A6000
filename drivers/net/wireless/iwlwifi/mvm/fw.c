@@ -443,6 +443,7 @@ int iwl_mvm_up(struct iwl_mvm *mvm)
 	if (ret)
 		goto error;
 
+<<<<<<< HEAD
 	if (mvm->trans->ltr_enabled) {
 		struct iwl_ltr_config_cmd cmd = {
 			.flags = cpu_to_le32(LTR_CFG_FLAG_FEATURE_ENABLE),
@@ -452,6 +453,8 @@ int iwl_mvm_up(struct iwl_mvm *mvm)
 					     sizeof(cmd), &cmd));
 	}
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	IWL_DEBUG_INFO(mvm, "RT uCode started.\n");
 
 	return 0;

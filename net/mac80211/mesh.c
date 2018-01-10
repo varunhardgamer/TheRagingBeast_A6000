@@ -161,10 +161,13 @@ void mesh_sta_cleanup(struct sta_info *sta)
 		del_timer_sync(&sta->plink_timer);
 	}
 
+<<<<<<< HEAD
 	/* make sure no readers can access nexthop sta from here on */
 	mesh_path_flush_by_nexthop(sta);
 	synchronize_net();
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (changed)
 		ieee80211_mbss_info_change_notify(sdata, changed);
 }
@@ -345,7 +348,11 @@ int mesh_add_vendor_ies(struct ieee80211_sub_if_data *sdata,
 	/* fast-forward to vendor IEs */
 	offset = ieee80211_ie_split_vendor(ifmsh->ie, ifmsh->ie_len, 0);
 
+<<<<<<< HEAD
 	if (offset < ifmsh->ie_len) {
+=======
+	if (offset) {
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		len = ifmsh->ie_len - offset;
 		data = ifmsh->ie + offset;
 		if (skb_tailroom(skb) < len)

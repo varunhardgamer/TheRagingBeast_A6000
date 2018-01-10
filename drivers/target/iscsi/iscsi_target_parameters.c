@@ -603,7 +603,11 @@ int iscsi_copy_param_list(
 	param_list = kzalloc(sizeof(struct iscsi_param_list), GFP_KERNEL);
 	if (!param_list) {
 		pr_err("Unable to allocate memory for struct iscsi_param_list.\n");
+<<<<<<< HEAD
 		return -1;
+=======
+		goto err_out;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 	INIT_LIST_HEAD(&param_list->param_list);
 	INIT_LIST_HEAD(&param_list->extra_response_list);
@@ -806,6 +810,25 @@ static void iscsi_check_proposer_for_optional_reply(struct iscsi_param *param)
 		if (!strcmp(param->name, MAXRECVDATASEGMENTLENGTH))
 			SET_PSTATE_REPLY_OPTIONAL(param);
 		/*
+<<<<<<< HEAD
+=======
+		 * The GlobalSAN iSCSI Initiator for MacOSX does
+		 * not respond to MaxBurstLength, FirstBurstLength,
+		 * DefaultTime2Wait or DefaultTime2Retain parameter keys.
+		 * So, we set them to 'reply optional' here, and assume the
+		 * the defaults from iscsi_parameters.h if the initiator
+		 * is not RFC compliant and the keys are not negotiated.
+		 */
+		if (!strcmp(param->name, MAXBURSTLENGTH))
+			SET_PSTATE_REPLY_OPTIONAL(param);
+		if (!strcmp(param->name, FIRSTBURSTLENGTH))
+			SET_PSTATE_REPLY_OPTIONAL(param);
+		if (!strcmp(param->name, DEFAULTTIME2WAIT))
+			SET_PSTATE_REPLY_OPTIONAL(param);
+		if (!strcmp(param->name, DEFAULTTIME2RETAIN))
+			SET_PSTATE_REPLY_OPTIONAL(param);
+		/*
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		 * Required for gPXE iSCSI boot client
 		 */
 		if (!strcmp(param->name, MAXCONNECTIONS))

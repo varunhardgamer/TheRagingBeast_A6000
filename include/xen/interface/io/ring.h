@@ -181,6 +181,7 @@ struct __name##_back_ring {						\
 #define RING_GET_REQUEST(_r, _idx)					\
     (&((_r)->sring->ring[((_idx) & (RING_SIZE(_r) - 1))].req))
 
+<<<<<<< HEAD
 /*
  * Get a local copy of a request.
  *
@@ -195,6 +196,8 @@ struct __name##_back_ring {						\
 	*(_req) = *(volatile typeof(_req))RING_GET_REQUEST(_r, _idx);	\
 } while (0)
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #define RING_GET_RESPONSE(_r, _idx)					\
     (&((_r)->sring->ring[((_idx) & (RING_SIZE(_r) - 1))].rsp))
 

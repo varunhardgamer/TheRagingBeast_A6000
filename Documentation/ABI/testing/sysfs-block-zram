@@ -5,21 +5,33 @@ Description:
 		The disksize file is read-write and specifies the disk size
 		which represents the limit on the *uncompressed* worth of data
 		that can be stored in this disk.
+<<<<<<< HEAD
 		Unit: bytes
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 What:		/sys/block/zram<id>/initstate
 Date:		August 2010
 Contact:	Nitin Gupta <ngupta@vflare.org>
 Description:
+<<<<<<< HEAD
 		The initstate file is read-only and shows the initialization
+=======
+		The disksize file is read-only and shows the initialization
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		state of the device.
 
 What:		/sys/block/zram<id>/reset
 Date:		August 2010
 Contact:	Nitin Gupta <ngupta@vflare.org>
 Description:
+<<<<<<< HEAD
 		The reset file is write-only and allows resetting the
 		device. The reset operation frees all the memory associated
+=======
+		The disksize file is write-only and allows resetting the
+		device. The reset operation frees all the memory assocaited
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		with this device.
 
 What:		/sys/block/zram<id>/num_reads
@@ -43,6 +55,7 @@ Description:
 		The invalid_io file is read-only and specifies the number of
 		non-page-size-aligned I/O requests issued to this device.
 
+<<<<<<< HEAD
 What:		/sys/block/zram<id>/failed_reads
 Date:		February 2014
 Contact:	Sergey Senozhatsky <sergey.senozhatsky@gmail.com>
@@ -85,6 +98,26 @@ Description:
 		implies that this disk is being used as a swap disk. The latter
 		ones are sent by filesystem mounted with discard option,
 		whenever some data blocks are getting discarded.
+=======
+What:		/sys/block/zram<id>/notify_free
+Date:		August 2010
+Contact:	Nitin Gupta <ngupta@vflare.org>
+Description:
+		The notify_free file is read-only and specifies the number of
+		swap slot free notifications received by this device. These
+		notifications are send to a swap block device when a swap slot
+		is freed. This statistic is applicable only when this disk is
+		being used as a swap disk.
+
+What:		/sys/block/zram<id>/discard
+Date:		August 2010
+Contact:	Nitin Gupta <ngupta@vflare.org>
+Description:
+		The discard file is read-only and specifies the number of
+		discard requests received by this device. These requests
+		provide information to block device regarding blocks which are
+		no longer used by filesystem.
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 What:		/sys/block/zram<id>/zero_pages
 Date:		August 2010
@@ -122,6 +155,7 @@ Description:
 		efficiency can be calculated using compr_data_size and this
 		statistic.
 		Unit: bytes
+<<<<<<< HEAD
 
 What:		/sys/block/zram<id>/mem_used_max
 Date:		August 2014
@@ -166,3 +200,5 @@ Description:
 		The mm_stat file is read-only and represents device's mm
 		statistics (orig_data_size, compr_data_size, etc.) in a format
 		similar to block layer statistics file format.
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c

@@ -487,7 +487,10 @@ static int omap_dma_terminate_all(struct omap_chan *c)
 	 * c->desc is NULL and exit.)
 	 */
 	if (c->desc) {
+<<<<<<< HEAD
 		omap_dma_desc_free(&c->desc->vd);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		c->desc = NULL;
 		/* Avoid stopping the dma twice */
 		if (!c->paused)

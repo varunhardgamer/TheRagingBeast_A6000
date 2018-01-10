@@ -18,7 +18,11 @@
 #include <linux/device.h>
 #include "wcd9xxx-regmap.h"
 
+<<<<<<< HEAD
 static const struct reg_sequence wcd9335_1_x_defaults[] = {
+=======
+static const struct reg_default wcd9335_1_x_defaults[] = {
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	{ WCD9335_CODEC_RPM_CLK_GATE                    , 0x03 },
 	{ WCD9335_CODEC_RPM_PWR_CPE_DRAM1_SHUTDOWN      , 0x1f },
 	{ WCD9335_CHIP_TIER_CTRL_CHIP_ID_BYTE0          , 0x00 },
@@ -153,7 +157,11 @@ static const struct reg_sequence wcd9335_1_x_defaults[] = {
 	{ WCD9335_TEST_DEBUG_NPL_DLY_TEST_2             , 0x00 },
 };
 
+<<<<<<< HEAD
 static const struct reg_sequence wcd9335_2_0_defaults[] = {
+=======
+static const struct reg_default wcd9335_2_0_defaults[] = {
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	{ WCD9335_CODEC_RPM_CLK_GATE                    , 0x07 },
 	{ WCD9335_CODEC_RPM_PWR_CPE_DRAM1_SHUTDOWN      , 0x3f },
 	{ WCD9335_CHIP_TIER_CTRL_CHIP_ID_BYTE0          , 0x01 },

@@ -17,6 +17,7 @@
 
 static inline void __native_flush_tlb(void)
 {
+<<<<<<< HEAD
 	/*
 	 * If current->mm == NULL then we borrow a mm which may change during a
 	 * task switch and therefore we must not be preempted while we write CR3
@@ -25,6 +26,9 @@ static inline void __native_flush_tlb(void)
 	preempt_disable();
 	native_write_cr3(native_read_cr3());
 	preempt_enable();
+=======
+	native_write_cr3(native_read_cr3());
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static inline void __native_flush_tlb_global_irq_disabled(void)

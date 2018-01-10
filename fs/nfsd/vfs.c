@@ -508,9 +508,12 @@ set_nfsv4_acl_one(struct dentry *dentry, struct posix_acl *pacl, char *key)
 	char *buf = NULL;
 	int error = 0;
 
+<<<<<<< HEAD
 	if (!pacl)
 		return vfs_setxattr(dentry, key, NULL, 0, 0);
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	buflen = posix_acl_xattr_size(pacl->a_count);
 	buf = kmalloc(buflen, GFP_KERNEL);
 	error = -ENOMEM;
@@ -1950,7 +1953,10 @@ struct buffered_dirent {
 };
 
 struct readdir_data {
+<<<<<<< HEAD
 	struct dir_context ctx;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	char		*dirent;
 	size_t		used;
 	int		full;
@@ -1982,15 +1988,24 @@ static int nfsd_buffered_filldir(void *__buf, const char *name, int namlen,
 static __be32 nfsd_buffered_readdir(struct file *file, filldir_t func,
 				    struct readdir_cd *cdp, loff_t *offsetp)
 {
+<<<<<<< HEAD
+=======
+	struct readdir_data buf;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	struct buffered_dirent *de;
 	int host_err;
 	int size;
 	loff_t offset;
+<<<<<<< HEAD
 	struct readdir_data buf = {
 		.ctx.actor = nfsd_buffered_filldir,
 		.dirent = (void *)__get_free_page(GFP_KERNEL)
 	};
 
+=======
+
+	buf.dirent = (void *)__get_free_page(GFP_KERNEL);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (!buf.dirent)
 		return nfserrno(-ENOMEM);
 
@@ -2004,7 +2019,11 @@ static __be32 nfsd_buffered_readdir(struct file *file, filldir_t func,
 		buf.used = 0;
 		buf.full = 0;
 
+<<<<<<< HEAD
 		host_err = iterate_dir(file, &buf.ctx);
+=======
+		host_err = vfs_readdir(file, nfsd_buffered_filldir, &buf);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		if (buf.full)
 			host_err = 0;
 

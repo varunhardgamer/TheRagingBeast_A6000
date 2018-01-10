@@ -365,11 +365,14 @@ static const struct pnp_device_id pnp_dev_table[] = {
 	/* Winbond CIR port, should not be probed. We should keep track
 	   of it to prevent the legacy serial driver from probing it */
 	{	"WEC1022",		CIR_PORT	},
+<<<<<<< HEAD
 	/*
 	 * SMSC IrCC SIR/FIR port, should not be probed by serial driver
 	 * as well so its own driver can bind to it.
 	 */
 	{	"SMCF010",		CIR_PORT	},
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	{	"",			0	}
 };
 

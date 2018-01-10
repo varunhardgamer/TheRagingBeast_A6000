@@ -1199,6 +1199,7 @@ again:
 	intel_pmu_lbr_read();
 
 	/*
+<<<<<<< HEAD
 	 * CondChgd bit 63 doesn't mean any overflow status. Ignore
 	 * and clear the bit.
 	 */
@@ -1208,6 +1209,8 @@ again:
 	}
 
 	/*
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	 * PEBS overflow sets bit 62 in the global status register
 	 */
 	if (__test_and_clear_bit(62, (unsigned long *)&status)) {
@@ -2088,7 +2091,10 @@ __init int intel_pmu_init(void)
 		intel_perfmon_event_map[PERF_COUNT_HW_STALLED_CYCLES_BACKEND] =
 			X86_CONFIG(.event=0xb1, .umask=0x3f, .inv=1, .cmask=1);
 
+<<<<<<< HEAD
 		intel_pmu_pebs_data_source_nhm();
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		x86_add_quirk(intel_nehalem_quirk);
 
 		pr_cont("Nehalem events, ");
@@ -2134,7 +2140,10 @@ __init int intel_pmu_init(void)
 		intel_perfmon_event_map[PERF_COUNT_HW_STALLED_CYCLES_BACKEND] =
 			X86_CONFIG(.event=0xb1, .umask=0x3f, .inv=1, .cmask=1);
 
+<<<<<<< HEAD
 		intel_pmu_pebs_data_source_nhm();
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		pr_cont("Westmere events, ");
 		break;
 
@@ -2174,9 +2183,12 @@ __init int intel_pmu_init(void)
 	case 62: /* IvyBridge EP */
 		memcpy(hw_cache_event_ids, snb_hw_cache_event_ids,
 		       sizeof(hw_cache_event_ids));
+<<<<<<< HEAD
 		/* dTLB-load-misses on IVB is different than SNB */
 		hw_cache_event_ids[C(DTLB)][C(OP_READ)][C(RESULT_MISS)] = 0x8108; /* DTLB_LOAD_MISSES.DEMAND_LD_MISS_CAUSES_A_WALK */
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		memcpy(hw_cache_extra_regs, snb_hw_cache_extra_regs,
 		       sizeof(hw_cache_extra_regs));
 
@@ -2241,6 +2253,7 @@ __init int intel_pmu_init(void)
 		 * counter, so do not extend mask to generic counters
 		 */
 		for_each_event_constraint(c, x86_pmu.event_constraints) {
+<<<<<<< HEAD
 			if (c->cmask == X86_RAW_EVENT_MASK
 			    && c->idxmsk64 == INTEL_PMC_MSK_FIXED_REF_CYCLES) {
 				c->idxmsk64 |= (1ULL << x86_pmu.num_counters) - 1;
@@ -2251,6 +2264,15 @@ __init int intel_pmu_init(void)
 				~(~0ULL << (INTEL_PMC_IDX_FIXED + x86_pmu.num_counters_fixed));
 			c->weight = hweight64(c->idxmsk64);
 
+=======
+			if (c->cmask != X86_RAW_EVENT_MASK
+			    || c->idxmsk64 == INTEL_PMC_MSK_FIXED_REF_CYCLES) {
+				continue;
+			}
+
+			c->idxmsk64 |= (1ULL << x86_pmu.num_counters) - 1;
+			c->weight += x86_pmu.num_counters;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		}
 	}
 

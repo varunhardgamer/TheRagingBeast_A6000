@@ -22,7 +22,10 @@
 #include <linux/sysrq.h>
 #include <linux/init.h>
 #include <linux/nmi.h>
+<<<<<<< HEAD
 #include <linux/console.h>
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #define CREATE_TRACE_POINTS
 #include <trace/events/exception.h>
@@ -139,8 +142,11 @@ void panic(const char *fmt, ...)
 
 	bust_spinlocks(0);
 
+<<<<<<< HEAD
 	console_flush_on_panic();
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (!panic_blink)
 		panic_blink = no_blink;
 

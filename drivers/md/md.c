@@ -1898,7 +1898,11 @@ super_1_rdev_size_change(struct md_rdev *rdev, sector_t num_sectors)
 	}
 	sb = page_address(rdev->sb_page);
 	sb->data_size = cpu_to_le64(num_sectors);
+<<<<<<< HEAD
 	sb->super_offset = cpu_to_le64(rdev->sb_start);
+=======
+	sb->super_offset = rdev->sb_start;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	sb->sb_csum = calc_sb_1_csum(sb);
 	md_super_write(rdev->mddev, rdev, rdev->sb_start, rdev->sb_size,
 		       rdev->sb_page);
@@ -5306,8 +5310,11 @@ EXPORT_SYMBOL_GPL(md_stop_writes);
 static void __md_stop(struct mddev *mddev)
 {
 	mddev->ready = 0;
+<<<<<<< HEAD
 	/* Ensure ->event_work is done */
 	flush_workqueue(md_misc_wq);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	mddev->pers->stop(mddev);
 	if (mddev->pers->sync_request && mddev->to_remove == NULL)
 		mddev->to_remove = &md_redundancy_group;
@@ -5630,9 +5637,15 @@ static int get_bitmap_file(struct mddev * mddev, void __user * arg)
 	int err = -ENOMEM;
 
 	if (md_allow_write(mddev))
+<<<<<<< HEAD
 		file = kzalloc(sizeof(*file), GFP_NOIO);
 	else
 		file = kzalloc(sizeof(*file), GFP_KERNEL);
+=======
+		file = kmalloc(sizeof(*file), GFP_NOIO);
+	else
+		file = kmalloc(sizeof(*file), GFP_KERNEL);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (!file)
 		goto out;
@@ -6223,7 +6236,11 @@ static int update_array_info(struct mddev *mddev, mdu_array_info_t *info)
 	    mddev->ctime         != info->ctime         ||
 	    mddev->level         != info->level         ||
 /*	    mddev->layout        != info->layout        || */
+<<<<<<< HEAD
 	    mddev->persistent	 != !info->not_persistent ||
+=======
+	    !mddev->persistent	 != info->not_persistent||
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	    mddev->chunk_sectors != info->chunk_size >> 9 ||
 	    /* ignore bottom 8 bits of state, and allow SB_BITMAP_PRESENT to change */
 	    ((state^info->state) & 0xfffffe00)

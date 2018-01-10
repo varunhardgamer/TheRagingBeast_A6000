@@ -423,7 +423,11 @@ struct dst_entry *inet_csk_route_req(struct sock *sk,
 			   flags,
 			   (opt && opt->opt.srr) ? opt->opt.faddr : ireq->rmt_addr,
 			   ireq->loc_addr, ireq->rmt_port, inet_sk(sk)->inet_sport,
+<<<<<<< HEAD
 			   sk->sk_uid);
+=======
+			   sock_i_uid(sk));
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	security_req_classify_flow(req, flowi4_to_flowi(fl4));
 	rt = ip_route_output_flow(net, fl4, sk);
 	if (IS_ERR(rt))
@@ -460,7 +464,11 @@ struct dst_entry *inet_csk_route_child_sock(struct sock *sk,
 			   sk->sk_protocol, inet_sk_flowi_flags(sk),
 			   (opt && opt->opt.srr) ? opt->opt.faddr : ireq->rmt_addr,
 			   ireq->loc_addr, ireq->rmt_port, inet_sk(sk)->inet_sport,
+<<<<<<< HEAD
 			   sk->sk_uid);
+=======
+			   sock_i_uid(sk));
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	security_req_classify_flow(req, flowi4_to_flowi(fl4));
 	rt = ip_route_output_flow(net, fl4, sk);
 	if (IS_ERR(rt))
@@ -690,12 +698,17 @@ struct sock *inet_csk_clone_lock(const struct sock *sk,
 		inet_sk(newsk)->inet_sport = inet_rsk(req)->loc_port;
 		newsk->sk_write_space = sk_stream_write_space;
 
+<<<<<<< HEAD
 		inet_sk(newsk)->mc_list = NULL;
 
 		newsk->sk_mark = inet_rsk(req)->ir_mark;
 
 		inet_sk(newsk)->mc_list = NULL;
 
+=======
+		newsk->sk_mark = inet_rsk(req)->ir_mark;
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		newicsk->icsk_retransmits = 0;
 		newicsk->icsk_backoff	  = 0;
 		newicsk->icsk_probes_out  = 0;

@@ -1002,10 +1002,13 @@ SYSCALL_DEFINE4(kexec_load, unsigned long, entry, unsigned long, nr_segments,
 
 		if (flags & KEXEC_PRESERVE_CONTEXT)
 			image->preserve_context = 1;
+<<<<<<< HEAD
 #ifdef CONFIG_KEXEC_HARDBOOT
 		if (flags & KEXEC_HARDBOOT)
 			image->hardboot = 1;
 #endif
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		result = machine_kexec_prepare(image);
 		if (result)
 			goto out;

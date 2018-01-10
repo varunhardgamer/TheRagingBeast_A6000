@@ -763,7 +763,11 @@ static int udp_send_skb(struct sk_buff *skb, struct flowi4 *fl4)
 	if (is_udplite)  				 /*     UDP-Lite      */
 		csum = udplite_csum(skb);
 
+<<<<<<< HEAD
 	else if (sk->sk_no_check == UDP_CSUM_NOXMIT && !skb_has_frags(skb)) {   /* UDP csum off */
+=======
+	else if (sk->sk_no_check == UDP_CSUM_NOXMIT) {   /* UDP csum disabled */
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 		skb->ip_summed = CHECKSUM_NONE;
 		goto send;
@@ -964,7 +968,11 @@ int udp_sendmsg(struct kiocb *iocb, struct sock *sk, struct msghdr *msg,
 				   RT_SCOPE_UNIVERSE, sk->sk_protocol,
 				   inet_sk_flowi_flags(sk)|FLOWI_FLAG_CAN_SLEEP,
 				   faddr, saddr, dport, inet->inet_sport,
+<<<<<<< HEAD
 				   sk->sk_uid);
+=======
+				   sock_i_uid(sk));
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 		security_sk_classify_flow(sk, flowi4_to_flowi(fl4));
 		rt = ip_route_output_flow(net, fl4, sk);
@@ -1246,7 +1254,11 @@ try_again:
 	else {
 		err = skb_copy_and_csum_datagram_iovec(skb,
 						       sizeof(struct udphdr),
+<<<<<<< HEAD
 						       msg->msg_iov, copied);
+=======
+						       msg->msg_iov);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 		if (err == -EINVAL)
 			goto csum_copy_err;
@@ -1977,6 +1989,7 @@ unsigned int udp_poll(struct file *file, struct socket *sock, poll_table *wait)
 }
 EXPORT_SYMBOL(udp_poll);
 
+<<<<<<< HEAD
 int udp_abort(struct sock *sk, int err)
 {
 	lock_sock(sk);
@@ -1991,6 +2004,8 @@ int udp_abort(struct sock *sk, int err)
 }
 EXPORT_SYMBOL_GPL(udp_abort);
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 struct proto udp_prot = {
 	.name		   = "UDP",
 	.owner		   = THIS_MODULE,
@@ -2022,7 +2037,10 @@ struct proto udp_prot = {
 	.compat_getsockopt = compat_udp_getsockopt,
 #endif
 	.clear_sk	   = sk_prot_clear_portaddr_nulls,
+<<<<<<< HEAD
 	.diag_destroy	   = udp_abort,
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 EXPORT_SYMBOL(udp_prot);
 
@@ -2168,8 +2186,11 @@ static void udp4_format_sock(struct sock *sp, struct seq_file *f,
 	__u8 state = sp->sk_state;
 	if (up->encap_rcv)
 		state |= 0xF0;
+<<<<<<< HEAD
 	else if (inet->transparent)
 		state |= 0x80;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	seq_printf(f, "%5d: %08X:%04X %08X:%04X"
 		" %02X %08X:%08X %02X:%08lX %08X %5d %8d %lu %d %pK %d",

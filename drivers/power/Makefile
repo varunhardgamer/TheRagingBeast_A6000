@@ -53,7 +53,10 @@ obj-$(CONFIG_CHARGER_BQ2415X)	+= bq2415x_charger.o
 obj-$(CONFIG_POWER_AVS)		+= avs/
 obj-$(CONFIG_SMB349_USB_CHARGER)   += smb349-charger.o
 obj-$(CONFIG_SMB350_CHARGER)   += smb350_charger.o
+<<<<<<< HEAD
 obj-$(CONFIG_SMB1351_USB_CHARGER) += smb1351-charger.o
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 obj-$(CONFIG_SMB135X_CHARGER)   += smb135x-charger.o
 obj-$(CONFIG_SMB1360_CHARGER_FG) += smb1360-charger-fg.o
 obj-$(CONFIG_SMB358_CHARGER)	+= smb358-charger.o
@@ -68,7 +71,10 @@ obj-$(CONFIG_QPNP_SMBCHARGER)	+= qpnp-smbcharger.o
 obj-$(CONFIG_CHARGER_SMB347)	+= smb347-charger.o
 obj-$(CONFIG_CHARGER_TPS65090)	+= tps65090-charger.o
 obj-$(CONFIG_BATTERY_BCL)	+= battery_current_limit.o
+<<<<<<< HEAD
 obj-$(CONFIG_QNS_SYSTEM)	+= qns_system.o
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 obj-$(CONFIG_MSM_BCL_CTL)	+= msm_bcl.o
 obj-$(CONFIG_MSM_BCL_PERIPHERAL_CTL) += bcl_peripheral.o
 obj-$(CONFIG_POWER_RESET)	+= reset/

@@ -1261,10 +1261,14 @@ int cx231xx_set_agc_analog_digital_mux_select(struct cx231xx *dev,
 				   dev->board.agc_analog_digital_select_gpio,
 				   analog_or_digital);
 
+<<<<<<< HEAD
 	if (status < 0)
 		return status;
 
 	return 0;
+=======
+	return status;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 int cx231xx_enable_i2c_port_3(struct cx231xx *dev, bool is_port_3)

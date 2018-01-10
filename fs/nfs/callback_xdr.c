@@ -464,10 +464,15 @@ static __be32 decode_cb_sequence_args(struct svc_rqst *rqstp,
 
 		for (i = 0; i < args->csa_nrclists; i++) {
 			status = decode_rc_list(xdr, &args->csa_rclists[i]);
+<<<<<<< HEAD
 			if (status) {
 				args->csa_nrclists = i;
 				goto out_free;
 			}
+=======
+			if (status)
+				goto out_free;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		}
 	}
 	status = 0;
@@ -884,7 +889,11 @@ static __be32 nfs4_callback_compound(struct svc_rqst *rqstp, void *argp, void *r
 	if (hdr_arg.minorversion == 0) {
 		cps.clp = nfs4_find_client_ident(SVC_NET(rqstp), hdr_arg.cb_ident);
 		if (!cps.clp || !check_gss_callback_principal(cps.clp, rqstp))
+<<<<<<< HEAD
 			goto out_invalidcred;
+=======
+			return rpc_drop_reply;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 
 	hdr_res.taglen = hdr_arg.taglen;
@@ -911,10 +920,13 @@ static __be32 nfs4_callback_compound(struct svc_rqst *rqstp, void *argp, void *r
 	nfs_put_client(cps.clp);
 	dprintk("%s: done, status = %u\n", __func__, ntohl(status));
 	return rpc_success;
+<<<<<<< HEAD
 
 out_invalidcred:
 	pr_warn_ratelimited("NFS: NFSv4 callback contains invalid cred\n");
 	return rpc_autherr_badcred;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 /*

@@ -1852,6 +1852,10 @@ int fcntl_setlk(unsigned int fd, struct file *filp, unsigned int cmd,
 		goto out;
 	}
 
+<<<<<<< HEAD
+=======
+again:
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	error = flock_to_posix_lock(filp, file_lock, &flock);
 	if (error)
 		goto out;
@@ -1882,6 +1886,7 @@ int fcntl_setlk(unsigned int fd, struct file *filp, unsigned int cmd,
 	 * Attempt to detect a close/fcntl race and recover by
 	 * releasing the lock that was just acquired.
 	 */
+<<<<<<< HEAD
 	if (!error && file_lock->fl_type != F_UNLCK) {
 		/*
 		 * We need that spin_lock here - it prevents reordering between
@@ -1898,6 +1903,21 @@ int fcntl_setlk(unsigned int fd, struct file *filp, unsigned int cmd,
 			error = -EBADF;
 		}
 	}
+=======
+	/*
+	 * we need that spin_lock here - it prevents reordering between
+	 * update of inode->i_flock and check for it done in close().
+	 * rcu_read_lock() wouldn't do.
+	 */
+	spin_lock(&current->files->file_lock);
+	f = fcheck(fd);
+	spin_unlock(&current->files->file_lock);
+	if (!error && f != filp && flock.l_type != F_UNLCK) {
+		flock.l_type = F_UNLCK;
+		goto again;
+	}
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 out:
 	locks_free_lock(file_lock);
 	return error;
@@ -1972,6 +1992,10 @@ int fcntl_setlk64(unsigned int fd, struct file *filp, unsigned int cmd,
 		goto out;
 	}
 
+<<<<<<< HEAD
+=======
+again:
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	error = flock64_to_posix_lock(filp, file_lock, &flock);
 	if (error)
 		goto out;
@@ -2002,6 +2026,7 @@ int fcntl_setlk64(unsigned int fd, struct file *filp, unsigned int cmd,
 	 * Attempt to detect a close/fcntl race and recover by
 	 * releasing the lock that was just acquired.
 	 */
+<<<<<<< HEAD
 	if (!error && file_lock->fl_type != F_UNLCK) {
 		/*
 		 * We need that spin_lock here - it prevents reordering between
@@ -2018,6 +2043,16 @@ int fcntl_setlk64(unsigned int fd, struct file *filp, unsigned int cmd,
 			error = -EBADF;
 		}
 	}
+=======
+	spin_lock(&current->files->file_lock);
+	f = fcheck(fd);
+	spin_unlock(&current->files->file_lock);
+	if (!error && f != filp && flock.l_type != F_UNLCK) {
+		flock.l_type = F_UNLCK;
+		goto again;
+	}
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 out:
 	locks_free_lock(file_lock);
 	return error;

@@ -313,4 +313,7 @@ module_exit(crypto_cmac_module_exit);
 
 MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION("CMAC keyed hash algorithm");
+<<<<<<< HEAD
 MODULE_ALIAS_CRYPTO("cmac");
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c

@@ -13,7 +13,10 @@
 #include <linux/kernel.h>
 #include <linux/errno.h>
 #include <linux/thread_info.h>
+<<<<<<< HEAD
 #include <linux/string.h>
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 /*
  * The fs value determines whether argument validity checking should be
@@ -939,8 +942,11 @@ extern size_t __copy_user_inatomic(void *__to, const void *__from, size_t __n);
 		might_fault();						\
 		__cu_len = __invoke_copy_from_user(__cu_to, __cu_from,	\
 						   __cu_len);		\
+<<<<<<< HEAD
 	} else {							\
 		memset(__cu_to, 0, __cu_len);				\
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}								\
 	__cu_len;							\
 })

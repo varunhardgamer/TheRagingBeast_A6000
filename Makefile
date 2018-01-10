@@ -1,8 +1,14 @@
 VERSION = 3
 PATCHLEVEL = 10
+<<<<<<< HEAD
 SUBLEVEL = 108
 EXTRAVERSION =
 NAME = END-OF-LIFE
+=======
+SUBLEVEL = 49
+EXTRAVERSION =
+NAME = TOSSUG Baby Fish
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 # *DOCUMENTATION*
 # To see a list of typical targets execute "make help"
@@ -239,10 +245,17 @@ CONFIG_SHELL := $(shell if [ -x "$$BASH" ]; then echo $$BASH; \
 	  else if [ -x /bin/bash ]; then echo /bin/bash; \
 	  else echo sh; fi ; fi)
 
+<<<<<<< HEAD
 HOSTCC       = ccache gcc
 HOSTCXX      = ccache g++
 HOSTCFLAGS   = -Wmissing-prototypes -Wstrict-prototypes -O2 -Os -fomit-frame-pointer -std=gnu89
 HOSTCXXFLAGS = -O2 -Os
+=======
+HOSTCC       = gcc
+HOSTCXX      = g++
+HOSTCFLAGS   = -Wall -Wmissing-prototypes -Wstrict-prototypes -O2 -fomit-frame-pointer
+HOSTCXXFLAGS = -O2
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 # Decide whether to build built-in, modular, or both.
 # Normally, just do built-in.
@@ -326,7 +339,11 @@ include $(srctree)/scripts/Kbuild.include
 
 AS		= $(CROSS_COMPILE)as
 LD		= $(CROSS_COMPILE)ld
+<<<<<<< HEAD
 CC		= $ ccache $(CROSS_COMPILE)gcc
+=======
+REAL_CC		= $(CROSS_COMPILE)gcc
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 CPP		= $(CC) -E
 AR		= $(CROSS_COMPILE)ar
 NM		= $(CROSS_COMPILE)nm
@@ -340,6 +357,13 @@ DEPMOD		= /sbin/depmod
 PERL		= perl
 CHECK		= sparse
 
+<<<<<<< HEAD
+=======
+# Use the wrapper for the compiler.  This wrapper scans for new
+# warnings and causes the build to stop upon encountering them.
+CC		= $(srctree)/scripts/gcc-wrapper.py $(REAL_CC)
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 CHECKFLAGS     := -D__linux__ -Dlinux -D__STDC__ -Dunix -D__unix__ \
 		  -Wbitwise -Wno-return-void $(CF)
 CFLAGS_MODULE   =
@@ -370,12 +394,20 @@ LINUXINCLUDE    := \
 
 KBUILD_CPPFLAGS := -D__KERNEL__
 
+<<<<<<< HEAD
 KBUILD_CFLAGS   := -Wundef -Wstrict-prototypes -Wno-trigraphs \
 		   -fno-strict-aliasing -fno-common \
 		   -fno-delete-null-pointer-checks \
 		   -Wno-format-security \
 		   -std=gnu89
 
+=======
+KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
+		   -fno-strict-aliasing -fno-common \
+		   -Werror-implicit-function-declaration \
+		   -Wno-format-security \
+		   -fno-delete-null-pointer-checks
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 KBUILD_AFLAGS_KERNEL :=
 KBUILD_CFLAGS_KERNEL :=
 KBUILD_AFLAGS   := -D__ASSEMBLY__
@@ -495,10 +527,13 @@ ifeq ($(config-targets),1)
 # KBUILD_DEFCONFIG may point out an alternative default configuration
 # used for 'make defconfig'
 include $(srctree)/arch/$(SRCARCH)/Makefile
+<<<<<<< HEAD
 
  # Disable incompatible-pointer-types warnings
  KBUILD_CFLAGS   += $(call cc-disable-warning,incompatible-pointer-types,)
  
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 export KBUILD_DEFCONFIG KBUILD_KCONFIG
 
 config: scripts_basic outputmakefile FORCE
@@ -576,10 +611,15 @@ endif # $(dot-config)
 # Defaults to vmlinux, but the arch makefile usually adds further targets
 all: vmlinux
 
+<<<<<<< HEAD
 KBUILD_CFLAGS	+= $(call cc-disable-warning,maybe-uninitialized,)
 
 ifdef CONFIG_CC_OPTIMIZE_FOR_SIZE
 KBUILD_CFLAGS	+= -Os
+=======
+ifdef CONFIG_CC_OPTIMIZE_FOR_SIZE
+KBUILD_CFLAGS	+= -Os $(call cc-disable-warning,maybe-uninitialized,)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 else
 KBUILD_CFLAGS	+= -O2
 endif
@@ -638,8 +678,11 @@ KBUILD_CFLAGS	+= -fomit-frame-pointer
 endif
 endif
 
+<<<<<<< HEAD
 KBUILD_CFLAGS   += $(call cc-option, -fno-var-tracking-assignments)
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 ifdef CONFIG_DEBUG_INFO
 KBUILD_CFLAGS	+= -g
 KBUILD_AFLAGS	+= -gdwarf-2
@@ -689,7 +732,11 @@ KBUILD_CFLAGS   += $(call cc-option,-fconserve-stack)
 KBUILD_ARFLAGS := $(call ar-option,D)
 
 # check for 'asm goto'
+<<<<<<< HEAD
 ifeq ($(shell $(CONFIG_SHELL) $(srctree)/scripts/gcc-goto.sh $(CC)$(KBUILD_CFLAGS)), y)
+=======
+ifeq ($(shell $(CONFIG_SHELL) $(srctree)/scripts/gcc-goto.sh $(CC)), y)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	KBUILD_CFLAGS += -DCC_HAVE_ASM_GOTO
 endif
 

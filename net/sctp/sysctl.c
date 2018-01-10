@@ -368,7 +368,12 @@ static int proc_sctp_do_auth(struct ctl_table *ctl, int write,
 		tbl.data = &net->sctp.auth_enable;
 
 	ret = proc_dointvec(&tbl, write, buffer, lenp, ppos);
+<<<<<<< HEAD
 	if (write && ret == 0) {
+=======
+
+	if (write) {
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		struct sock *sk = net->sctp.ctl_sock;
 
 		net->sctp.auth_enable = new_value;

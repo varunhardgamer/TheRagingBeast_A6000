@@ -47,11 +47,19 @@ EXPORT_SYMBOL(__cmpxchg_u64);
 EXPORT_SYMBOL(lclear_user);
 EXPORT_SYMBOL(lstrnlen_user);
 
+<<<<<<< HEAD
 /* Global fixups - defined as int to avoid creation of function pointers */
 extern int fixup_get_user_skip_1;
 extern int fixup_get_user_skip_2;
 extern int fixup_put_user_skip_1;
 extern int fixup_put_user_skip_2;
+=======
+/* Global fixups */
+extern void fixup_get_user_skip_1(void);
+extern void fixup_get_user_skip_2(void);
+extern void fixup_put_user_skip_1(void);
+extern void fixup_put_user_skip_2(void);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 EXPORT_SYMBOL(fixup_get_user_skip_1);
 EXPORT_SYMBOL(fixup_get_user_skip_2);
 EXPORT_SYMBOL(fixup_put_user_skip_1);

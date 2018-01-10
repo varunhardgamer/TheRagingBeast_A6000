@@ -27,6 +27,7 @@
 #include <soc/qcom/pm.h>
 #include "board-dt.h"
 #include "platsmp.h"
+<<<<<<< HEAD
 #ifdef CONFIG_KEXEC_HARDBOOT
 #include <asm/setup.h>
 #include <asm/memory.h>
@@ -61,6 +62,11 @@ static void __init msm8916_dt_reserve(void)
 
 	pr_info("%s:%d Dumping Memblock Stats.....\n", __func__, __LINE__);
 	__memblock_dump_all();
+=======
+
+static void __init msm8916_dt_reserve(void)
+{
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	of_scan_flat_dt(dt_scan_for_memory_reserve, NULL);
 }
 

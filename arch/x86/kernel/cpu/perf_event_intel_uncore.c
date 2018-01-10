@@ -2657,6 +2657,7 @@ static struct intel_uncore_box *uncore_event_to_box(struct perf_event *event)
 	return uncore_pmu_to_box(uncore_event_to_pmu(event), smp_processor_id());
 }
 
+<<<<<<< HEAD
 /*
  * Using uncore_pmu_event_init pmu event_init callback
  * as a detection point for uncore events.
@@ -2668,6 +2669,8 @@ static bool is_uncore_event(struct perf_event *event)
 	return event->pmu->event_init == uncore_pmu_event_init;
 }
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static int
 uncore_collect_events(struct intel_uncore_box *box, struct perf_event *leader, bool dogrp)
 {
@@ -2682,18 +2685,27 @@ uncore_collect_events(struct intel_uncore_box *box, struct perf_event *leader, b
 		return -EINVAL;
 
 	n = box->n_events;
+<<<<<<< HEAD
 
 	if (is_uncore_event(leader)) {
 		box->event_list[n] = leader;
 		n++;
 	}
 
+=======
+	box->event_list[n] = leader;
+	n++;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (!dogrp)
 		return n;
 
 	list_for_each_entry(event, &leader->sibling_list, group_entry) {
+<<<<<<< HEAD
 		if (!is_uncore_event(event) ||
 		    event->state <= PERF_EVENT_STATE_OFF)
+=======
+		if (event->state <= PERF_EVENT_STATE_OFF)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			continue;
 
 		if (n >= max_count)

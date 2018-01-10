@@ -511,6 +511,11 @@ static int mlx4_slave_cap(struct mlx4_dev *dev)
 		return -ENOSYS;
 	}
 
+<<<<<<< HEAD
+=======
+	mlx4_log_num_mgm_entry_size = hca_param.log_mc_entry_sz;
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	dev->caps.hca_core_clock = hca_param.hca_core_clock;
 
 	memset(&dev_cap, 0, sizeof(dev_cap));

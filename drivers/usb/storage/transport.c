@@ -919,6 +919,7 @@ int usb_stor_CB_transport(struct scsi_cmnd *srb, struct us_data *us)
 
 	/* COMMAND STAGE */
 	/* let's send the command via the control pipe */
+<<<<<<< HEAD
 	/*
 	 * Command is sometime (f.e. after scsi_eh_prep_cmnd) on the stack.
 	 * Stack may be vmallocated.  So no DMA for us.  Make a copy.
@@ -928,6 +929,12 @@ int usb_stor_CB_transport(struct scsi_cmnd *srb, struct us_data *us)
 				      US_CBI_ADSC, 
 				      USB_TYPE_CLASS | USB_RECIP_INTERFACE, 0, 
 				      us->ifnum, us->iobuf, srb->cmd_len);
+=======
+	result = usb_stor_ctrl_transfer(us, us->send_ctrl_pipe,
+				      US_CBI_ADSC, 
+				      USB_TYPE_CLASS | USB_RECIP_INTERFACE, 0, 
+				      us->ifnum, srb->cmnd, srb->cmd_len);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	/* check the return code for the command */
 	usb_stor_dbg(us, "Call to usb_stor_ctrl_transfer() returned %d\n",
@@ -1123,6 +1130,7 @@ int usb_stor_Bulk_transport(struct scsi_cmnd *srb, struct us_data *us)
 		 */
 		if (result == USB_STOR_XFER_LONG)
 			fake_sense = 1;
+<<<<<<< HEAD
 
 		/*
 		 * Sometimes a device will mistakenly skip the data phase
@@ -1148,6 +1156,8 @@ int usb_stor_Bulk_transport(struct scsi_cmnd *srb, struct us_data *us)
 				goto skipped_data_phase;
 			}
 		}
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 
 	/* See flow chart on pg 15 of the Bulk Only Transport spec for
@@ -1183,7 +1193,10 @@ int usb_stor_Bulk_transport(struct scsi_cmnd *srb, struct us_data *us)
 	if (result != USB_STOR_XFER_GOOD)
 		return USB_STOR_TRANSPORT_ERROR;
 
+<<<<<<< HEAD
  skipped_data_phase:
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/* check bulk status */
 	residue = le32_to_cpu(bcs->Residue);
 	usb_stor_dbg(us, "Bulk Status S 0x%x T 0x%x R %u Stat 0x%x\n",

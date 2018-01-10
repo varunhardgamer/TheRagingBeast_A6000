@@ -519,8 +519,14 @@ static noinline int hiddev_ioctl_usage(struct hiddev *hiddev, unsigned int cmd, 
 			goto inval;
 
 		else if ((cmd == HIDIOCGUSAGES || cmd == HIDIOCSUSAGES) &&
+<<<<<<< HEAD
 		    (uref_multi->num_values > HID_MAX_MULTI_USAGES ||
 		     uref->usage_index + uref_multi->num_values > field->report_count))
+=======
+			 (uref_multi->num_values > HID_MAX_MULTI_USAGES ||
+			uref->usage_index + uref_multi->num_values >
+			field->report_count))
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			goto inval;
 
 		switch (cmd) {

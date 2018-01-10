@@ -4,7 +4,11 @@
  * Data structure and helper functions for tracking pending FSF
  * requests.
  *
+<<<<<<< HEAD
  * Copyright IBM Corp. 2009, 2016
+=======
+ * Copyright IBM Corp. 2009
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  */
 
 #ifndef ZFCP_REQLIST_H
@@ -180,6 +184,7 @@ static inline void zfcp_reqlist_move(struct zfcp_reqlist *rl,
 	spin_unlock_irqrestore(&rl->lock, flags);
 }
 
+<<<<<<< HEAD
 /**
  * zfcp_reqlist_apply_for_all() - apply a function to every request.
  * @rl: the requestlist that contains the target requests.
@@ -208,4 +213,6 @@ zfcp_reqlist_apply_for_all(struct zfcp_reqlist *rl,
 	spin_unlock_irqrestore(&rl->lock, flags);
 }
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #endif /* ZFCP_REQLIST_H */

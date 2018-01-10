@@ -45,8 +45,11 @@
 #include <linux/delay.h>
 #include <linux/export.h>
 
+<<<<<<< HEAD
 #include <rdma/ib.h>
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #include "qib.h"
 #include "qib_common.h"
 #include "qib_user_sdma.h"
@@ -1979,9 +1982,12 @@ static ssize_t qib_write(struct file *fp, const char __user *data,
 	ssize_t ret = 0;
 	void *dest;
 
+<<<<<<< HEAD
 	if (WARN_ON_ONCE(!ib_safe_file_access(fp)))
 		return -EACCES;
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (count < sizeof(cmd.type)) {
 		ret = -EINVAL;
 		goto bail;

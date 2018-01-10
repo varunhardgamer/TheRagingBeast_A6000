@@ -898,7 +898,10 @@ static void qeth_l2_remove_device(struct ccwgroup_device *cgdev)
 		qeth_l2_set_offline(cgdev);
 
 	if (card->dev) {
+<<<<<<< HEAD
 		netif_napi_del(&card->napi);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		unregister_netdev(card->dev);
 		card->dev = NULL;
 	}

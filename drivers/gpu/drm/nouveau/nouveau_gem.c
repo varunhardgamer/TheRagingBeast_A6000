@@ -177,12 +177,20 @@ nouveau_gem_info(struct drm_file *file_priv, struct drm_gem_object *gem,
 	struct nouveau_bo *nvbo = nouveau_gem_object(gem);
 	struct nouveau_vma *vma;
 
+<<<<<<< HEAD
 	if (is_power_of_2(nvbo->valid_domains))
 		rep->domain = nvbo->valid_domains;
 	else if (nvbo->bo.mem.mem_type == TTM_PL_TT)
 		rep->domain = NOUVEAU_GEM_DOMAIN_GART;
 	else
 		rep->domain = NOUVEAU_GEM_DOMAIN_VRAM;
+=======
+	if (nvbo->bo.mem.mem_type == TTM_PL_TT)
+		rep->domain = NOUVEAU_GEM_DOMAIN_GART;
+	else
+		rep->domain = NOUVEAU_GEM_DOMAIN_VRAM;
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	rep->offset = nvbo->bo.offset;
 	if (cli->base.vm) {
 		vma = nouveau_bo_vma_find(nvbo, cli->base.vm);

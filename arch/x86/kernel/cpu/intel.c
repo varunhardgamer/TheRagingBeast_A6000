@@ -154,6 +154,7 @@ static void __cpuinit early_init_intel(struct cpuinfo_x86 *c)
 			setup_clear_cpu_cap(X86_FEATURE_ERMS);
 		}
 	}
+<<<<<<< HEAD
 
 	/*
 	 * Intel Quark Core DevMan_001.pdf section 6.4.11
@@ -169,6 +170,8 @@ static void __cpuinit early_init_intel(struct cpuinfo_x86 *c)
 		pr_info("Disabling PGE capability bit\n");
 		setup_clear_cpu_cap(X86_FEATURE_PGE);
 	}
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 #ifdef CONFIG_X86_32

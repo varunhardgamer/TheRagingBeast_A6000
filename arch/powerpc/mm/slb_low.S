@@ -110,12 +110,16 @@ BEGIN_FTR_SECTION
 END_MMU_FTR_SECTION_IFCLR(MMU_FTR_1T_SEGMENT)
 	b	slb_finish_load_1T
 
+<<<<<<< HEAD
 0:	/*
 	 * For userspace addresses, make sure this is region 0.
 	 */
 	cmpdi	r9, 0
 	bne	8f
 
+=======
+0:
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/* when using slices, we extract the psize off the slice bitmaps
 	 * and then we need to get the sllp encoding off the mmu_psize_defs
 	 * array.

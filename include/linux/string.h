@@ -129,7 +129,11 @@ int bprintf(u32 *bin_buf, size_t size, const char *fmt, ...) __printf(3, 4);
 #endif
 
 extern ssize_t memory_read_from_buffer(void *to, size_t count, loff_t *ppos,
+<<<<<<< HEAD
 				       const void *from, size_t available);
+=======
+			const void *from, size_t available);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 /**
  * strstarts - does @str start with @prefix?
@@ -141,8 +145,12 @@ static inline bool strstarts(const char *str, const char *prefix)
 	return strncmp(str, prefix, strlen(prefix)) == 0;
 }
 
+<<<<<<< HEAD
 size_t memweight(const void *ptr, size_t bytes);
 void memzero_explicit(void *s, size_t count);
+=======
+extern size_t memweight(const void *ptr, size_t bytes);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 /**
  * kbasename - return the last part of a pathname.

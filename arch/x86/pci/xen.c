@@ -227,6 +227,7 @@ static int xen_hvm_setup_msi_irqs(struct pci_dev *dev, int nvec, int type)
 		return 1;
 
 	list_for_each_entry(msidesc, &dev->msi_list, list) {
+<<<<<<< HEAD
 		pirq = xen_allocate_pirq_msi(dev, msidesc);
 		if (pirq < 0) {
 			irq = -ENODEV;
@@ -235,6 +236,25 @@ static int xen_hvm_setup_msi_irqs(struct pci_dev *dev, int nvec, int type)
 		xen_msi_compose_msg(dev, pirq, &msg);
 		__write_msi_msg(msidesc, &msg);
 		dev_dbg(&dev->dev, "xen: msi bound to pirq=%d\n", pirq);
+=======
+		__read_msi_msg(msidesc, &msg);
+		pirq = MSI_ADDR_EXT_DEST_ID(msg.address_hi) |
+			((msg.address_lo >> MSI_ADDR_DEST_ID_SHIFT) & 0xff);
+		if (msg.data != XEN_PIRQ_MSI_DATA ||
+		    xen_irq_from_pirq(pirq) < 0) {
+			pirq = xen_allocate_pirq_msi(dev, msidesc);
+			if (pirq < 0) {
+				irq = -ENODEV;
+				goto error;
+			}
+			xen_msi_compose_msg(dev, pirq, &msg);
+			__write_msi_msg(msidesc, &msg);
+			dev_dbg(&dev->dev, "xen: msi bound to pirq=%d\n", pirq);
+		} else {
+			dev_dbg(&dev->dev,
+				"xen: msi already bound to pirq=%d\n", pirq);
+		}
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		irq = xen_bind_pirq_msi_to_irq(dev, msidesc, pirq,
 					       (type == PCI_CAP_ID_MSIX) ?
 					       "msi-x" : "msi",

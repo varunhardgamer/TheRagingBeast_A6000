@@ -125,6 +125,7 @@ int config_ep_by_speed(struct usb_gadget *g,
 
 ep_found:
 	/* commit results */
+<<<<<<< HEAD
 	_ep->maxpacket = usb_endpoint_maxp(chosen_desc) & 0x7ff;
 	_ep->desc = chosen_desc;
 	_ep->comp_desc = NULL;
@@ -135,6 +136,13 @@ ep_found:
 				usb_endpoint_xfer_int(_ep->desc)))
 		_ep->mult = ((usb_endpoint_maxp(_ep->desc) & 0x1800) >> 11) + 1;
 
+=======
+	_ep->maxpacket = usb_endpoint_maxp(chosen_desc);
+	_ep->desc = chosen_desc;
+	_ep->comp_desc = NULL;
+	_ep->maxburst = 0;
+	_ep->mult = 0;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (!want_comp_desc)
 		return 0;
 
@@ -151,7 +159,11 @@ ep_found:
 		switch (usb_endpoint_type(_ep->desc)) {
 		case USB_ENDPOINT_XFER_ISOC:
 			/* mult: bits 1:0 of bmAttributes */
+<<<<<<< HEAD
 			_ep->mult = (comp_desc->bmAttributes & 0x3) + 1;
+=======
+			_ep->mult = comp_desc->bmAttributes & 0x3;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		case USB_ENDPOINT_XFER_BULK:
 		case USB_ENDPOINT_XFER_INT:
 			_ep->maxburst = comp_desc->bMaxBurst + 1;
@@ -635,7 +647,11 @@ static int bos_desc(struct usb_composite_dev *cdev)
 	usb_ext->bLength = USB_DT_USB_EXT_CAP_SIZE;
 	usb_ext->bDescriptorType = USB_DT_DEVICE_CAPABILITY;
 	usb_ext->bDevCapabilityType = USB_CAP_TYPE_EXT;
+<<<<<<< HEAD
 	usb_ext->bmAttributes = cpu_to_le32(USB_LPM_SUPPORT | USB_BESL_SUPPORT);
+=======
+	usb_ext->bmAttributes = cpu_to_le32(USB_LPM_SUPPORT);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (gadget_is_superspeed(cdev->gadget)) {
 		/*
@@ -1484,7 +1500,13 @@ composite_setup(struct usb_gadget *gadget, const struct usb_ctrlrequest *ctrl)
 		value = min(w_length, (u16) 1);
 		break;
 
+<<<<<<< HEAD
 	/* function drivers must handle get/set altsetting */
+=======
+	/* function drivers must handle get/set altsetting; if there's
+	 * no get() method, we know only altsetting zero works.
+	 */
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	case USB_REQ_SET_INTERFACE:
 		if (ctrl->bRequestType != USB_RECIP_INTERFACE)
 			goto unknown;
@@ -1493,6 +1515,7 @@ composite_setup(struct usb_gadget *gadget, const struct usb_ctrlrequest *ctrl)
 		f = cdev->config->interface[intf];
 		if (!f)
 			break;
+<<<<<<< HEAD
 
 		/*
 		 * If there's no get_alt() method, we know only altsetting zero
@@ -1500,6 +1523,9 @@ composite_setup(struct usb_gadget *gadget, const struct usb_ctrlrequest *ctrl)
 		 * as we check this in usb_add_function().
 		 */
 		if (w_value && !f->get_alt)
+=======
+		if (w_value && !f->set_alt)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			break;
 		/*
 		 * We put interfaces in default settings (alt 0)
@@ -1707,8 +1733,11 @@ static DEVICE_ATTR(suspended, 0444, composite_show_suspended, NULL);
 static void __composite_unbind(struct usb_gadget *gadget, bool unbind_driver)
 {
 	struct usb_composite_dev	*cdev = get_gadget_data(gadget);
+<<<<<<< HEAD
 	struct usb_gadget_strings	*gstr = cdev->driver->strings[0];
 	struct usb_string		*dev_str = gstr->strings;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	/* composite_disconnect() must already have been called
 	 * by the underlying peripheral controller driver!
@@ -1729,9 +1758,12 @@ static void __composite_unbind(struct usb_gadget *gadget, bool unbind_driver)
 
 	composite_dev_cleanup(cdev);
 
+<<<<<<< HEAD
 	if (dev_str[USB_GADGET_MANUFACTURER_IDX].s == cdev->def_manufacturer)
 		dev_str[USB_GADGET_MANUFACTURER_IDX].s = "";
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	kfree(cdev->def_manufacturer);
 	kfree(cdev);
 	set_gadget_data(gadget, NULL);

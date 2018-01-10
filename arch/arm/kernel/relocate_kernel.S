@@ -2,6 +2,7 @@
  * relocate_kernel.S - put the kernel image in place to boot
  */
 
+<<<<<<< HEAD
 #include <linux/linkage.h>
 #include <asm/kexec.h>
 
@@ -18,6 +19,12 @@
 	.align	3	/* not needed for this code, but keeps fncpy() happy */
 
 ENTRY(relocate_new_kernel)
+=======
+#include <asm/kexec.h>
+
+	.globl relocate_new_kernel
+relocate_new_kernel:
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	ldr	r0,kexec_indirection_page
 	ldr	r1,kexec_start_address
@@ -64,12 +71,15 @@ ENTRY(relocate_new_kernel)
 	b 0b
 
 2:
+<<<<<<< HEAD
 #ifdef CONFIG_KEXEC_HARDBOOT
 	ldr	r0, kexec_hardboot
 	teq	r0, #0
 	bne	hardboot
 #endif
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/* Jump to relocated kernel */
 	mov lr,r1
 	mov r0,#0
@@ -78,6 +88,7 @@ ENTRY(relocate_new_kernel)
  ARM(	mov pc, lr	)
  THUMB(	bx lr		)
 
+<<<<<<< HEAD
 #ifdef CONFIG_KEXEC_HARDBOOT
 hardboot:
 	/* Stash boot arguments in hardboot page:
@@ -124,6 +135,8 @@ loop:	b	loop
 
 	.ltorg
 #endif
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	.align
 
 	.globl kexec_start_address
@@ -143,6 +156,7 @@ kexec_mach_type:
 kexec_boot_atags:
 	.long	0x0
 
+<<<<<<< HEAD
 #ifdef CONFIG_KEXEC_HARDBOOT
 	.globl kexec_boot_atags_len
 kexec_boot_atags_len:
@@ -159,6 +173,8 @@ kexec_hardboot:
 
 ENDPROC(relocate_new_kernel)
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 relocate_new_kernel_end:
 
 	.globl relocate_new_kernel_size

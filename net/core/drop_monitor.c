@@ -80,7 +80,10 @@ static struct sk_buff *reset_per_cpu_data(struct per_cpu_dm_data *data)
 	struct nlattr *nla;
 	struct sk_buff *skb;
 	unsigned long flags;
+<<<<<<< HEAD
 	void *msg_header;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	al = sizeof(struct net_dm_alert_msg);
 	al += dm_hit_limit * sizeof(struct net_dm_drop_point);
@@ -88,6 +91,7 @@ static struct sk_buff *reset_per_cpu_data(struct per_cpu_dm_data *data)
 
 	skb = genlmsg_new(al, GFP_KERNEL);
 
+<<<<<<< HEAD
 	if (!skb)
 		goto err;
 
@@ -112,10 +116,24 @@ static struct sk_buff *reset_per_cpu_data(struct per_cpu_dm_data *data)
 err:
 	mod_timer(&data->send_timer, jiffies + HZ / 10);
 out:
+=======
+	if (skb) {
+		genlmsg_put(skb, 0, 0, &net_drop_monitor_family,
+				0, NET_DM_CMD_ALERT);
+		nla = nla_reserve(skb, NLA_UNSPEC,
+				  sizeof(struct net_dm_alert_msg));
+		msg = nla_data(nla);
+		memset(msg, 0, al);
+	} else {
+		mod_timer(&data->send_timer, jiffies + HZ / 10);
+	}
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	spin_lock_irqsave(&data->lock, flags);
 	swap(data->skb, skb);
 	spin_unlock_irqrestore(&data->lock, flags);
 
+<<<<<<< HEAD
 	if (skb) {
 		struct nlmsghdr *nlh = (struct nlmsghdr *)skb->data;
 		struct genlmsghdr *gnlh = (struct genlmsghdr *)nlmsg_data(nlh);
@@ -123,6 +141,8 @@ out:
 		genlmsg_end(skb, genlmsg_data(gnlh));
 	}
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return skb;
 }
 

@@ -17,7 +17,10 @@
 #include <linux/kernel.h>
 #include <linux/module.h>
 #include <linux/slab.h>
+<<<<<<< HEAD
 #include <linux/crypto.h>
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #include <asm/i387.h>
 
 struct crypto_fpu_ctx {
@@ -160,5 +163,8 @@ void __exit crypto_fpu_exit(void)
 {
 	crypto_unregister_template(&crypto_fpu_tmpl);
 }
+<<<<<<< HEAD
 
 MODULE_ALIAS_CRYPTO("fpu");
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c

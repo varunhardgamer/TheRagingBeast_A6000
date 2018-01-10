@@ -33,8 +33,11 @@ config ARM64
         select HAVE_ARCH_AUDITSYSCALL
 	select HAVE_ARCH_JUMP_LABEL
 	select HAVE_ARCH_KGDB
+<<<<<<< HEAD
 	select HAVE_ARCH_MMAP_RND_BITS
 	select HAVE_ARCH_MMAP_RND_COMPAT_BITS if COMPAT
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	select HAVE_ARCH_SECCOMP_FILTER
 	select HAVE_ARCH_TRACEHOOK
 	select HAVE_C_RECORDMCOUNT
@@ -84,6 +87,7 @@ config MMU
 config NO_IOPORT_MAP
 	def_bool y
 
+<<<<<<< HEAD
 config ARCH_MMAP_RND_BITS_MIN
 	default 14 if ARM64_64K_PAGES
 	default 18
@@ -108,6 +112,11 @@ config ILLEGAL_POINTER_VALUE
 	hex
 	default 0xdead000000000000
 
+=======
+config STACKTRACE_SUPPORT
+	def_bool y
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 config LOCKDEP_SUPPORT
 	def_bool y
 
@@ -440,7 +449,13 @@ config SWP_EMULATE
 
 	  If unsure, say Y.
 
+<<<<<<< HEAD
 source kernel/Kconfig.hz
+=======
+config HZ
+	int
+	default 100
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 config ARCH_HAS_HOLES_MEMORYMODEL
 	def_bool y if SPARSEMEM
@@ -600,6 +615,7 @@ config BUILD_ARM64_APPENDED_DTB_IMAGE
 	  DTBs to be built by default (instead of a standalone Image.gz.)
 	  The image will built in arch/arm64/boot/Image.gz-dtb
 
+<<<<<<< HEAD
 choice
 	prompt "Appended DTB Kernel Image name"
 	depends on BUILD_ARM64_APPENDED_DTB_IMAGE
@@ -620,6 +636,8 @@ config BUILD_ARM64_APPENDED_KERNEL_IMAGE_NAME
 	default "Image.gz-dtb" if IMG_GZ_DTB
 	default "Image-dtb" if IMG_DTB
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 config BUILD_ARM64_APPENDED_DTB_IMAGE_NAMES
 	string "Default dtb names"
 	depends on BUILD_ARM64_APPENDED_DTB_IMAGE

@@ -1026,7 +1026,11 @@ start:
 		pDevice->byERPFlag &= ~(WLAN_SET_ERP_USE_PROTECTION(1));
 	}
 
+<<<<<<< HEAD
 	if (pDevice->eCommandState == WLAN_ASSOCIATE_WAIT) {
+=======
+	{
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		pDevice->byReAssocCount++;
 		if ((pDevice->byReAssocCount > 10) && (pDevice->bLinkPass != true)) {  //10 sec timeout
 			printk("Re-association timeout!!!\n");

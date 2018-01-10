@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2012-2015, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2012-2015,2017 The Linux Foundation. All rights reserved.
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -2042,8 +2046,17 @@ static void vdd_mx_notify(struct therm_threshold *trig_thresh)
 			pr_err("Failed to remove vdd mx restriction\n");
 	}
 	mutex_unlock(&vdd_mx_mutex);
+<<<<<<< HEAD
 	sensor_mgr_set_threshold(trig_thresh->sensor_id,
 					trig_thresh->threshold);
+=======
+
+	if (trig_thresh->cur_state != trig_thresh->trip_triggered) {
+		sensor_mgr_set_threshold(trig_thresh->sensor_id,
+					trig_thresh->threshold);
+		trig_thresh->cur_state = trig_thresh->trip_triggered;
+	}
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static void msm_thermal_bite(int tsens_id, long temp)
@@ -2668,9 +2681,12 @@ static void check_temp(struct work_struct *work)
 	long temp = 0;
 	int ret = 0;
 
+<<<<<<< HEAD
 	if (!msm_thermal_probed)
 		return;
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	do_therm_reset();
 
 	ret = therm_get_temp(msm_thermal_info.sensor_id, THERM_TSENS_ID, &temp);
@@ -2729,7 +2745,11 @@ static int hotplug_notify(enum thermal_trip_type type, int temp, void *data)
 {
 	struct cpu_info *cpu_node = (struct cpu_info *)data;
 
+<<<<<<< HEAD
 	pr_info_ratelimited("%s reach temp threshold: %d\n", cpu_node->sensor_type, temp);
+=======
+	pr_info("%s reach temp threshold: %d\n", cpu_node->sensor_type, temp);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (!(msm_thermal_info.core_control_mask & BIT(cpu_node->cpu)))
 		return 0;
@@ -2927,17 +2947,27 @@ static int freq_mitigation_notify(enum thermal_trip_type type,
 	switch (type) {
 	case THERMAL_TRIP_CONFIGURABLE_HI:
 		if (!cpu_node->max_freq) {
+<<<<<<< HEAD
 			pr_info_ratelimited(
 				"Mitigating CPU%d frequency to %d\n",
 				cpu_node->cpu, msm_thermal_info.freq_limit);
+=======
+			pr_info("Mitigating CPU%d frequency to %d\n",
+				cpu_node->cpu,
+				msm_thermal_info.freq_limit);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 			cpu_node->max_freq = true;
 		}
 		break;
 	case THERMAL_TRIP_CONFIGURABLE_LOW:
 		if (cpu_node->max_freq) {
+<<<<<<< HEAD
 			pr_info_ratelimited(
 				"Removing frequency mitigation for CPU%d\n",
+=======
+			pr_info("Removing frequency mitigation for CPU%d\n",
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 				cpu_node->cpu);
 
 			cpu_node->max_freq = false;
@@ -3220,8 +3250,16 @@ static void cx_phase_ctrl_notify(struct therm_threshold *trig_thresh)
 cx_phase_unlock_exit:
 	mutex_unlock(&cx_mutex);
 cx_phase_ctrl_exit:
+<<<<<<< HEAD
 	sensor_mgr_set_threshold(trig_thresh->sensor_id,
 					trig_thresh->threshold);
+=======
+	if (trig_thresh->cur_state != trig_thresh->trip_triggered) {
+		sensor_mgr_set_threshold(trig_thresh->sensor_id,
+					trig_thresh->threshold);
+		trig_thresh->cur_state = trig_thresh->trip_triggered;
+	}
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return;
 }
 
@@ -3349,8 +3387,16 @@ static void vdd_restriction_notify(struct therm_threshold *trig_thresh)
 unlock_and_exit:
 	mutex_unlock(&vdd_rstr_mutex);
 set_and_exit:
+<<<<<<< HEAD
 	sensor_mgr_set_threshold(trig_thresh->sensor_id,
 					trig_thresh->threshold);
+=======
+	if (trig_thresh->cur_state != trig_thresh->trip_triggered) {
+		sensor_mgr_set_threshold(trig_thresh->sensor_id,
+					trig_thresh->threshold);
+		trig_thresh->cur_state = trig_thresh->trip_triggered;
+	}
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return;
 }
 
@@ -3398,8 +3444,16 @@ static void ocr_notify(struct therm_threshold *trig_thresh)
 unlock_and_exit:
 	mutex_unlock(&ocr_mutex);
 set_and_exit:
+<<<<<<< HEAD
 	sensor_mgr_set_threshold(trig_thresh->sensor_id,
 					trig_thresh->threshold);
+=======
+	if (trig_thresh->cur_state != trig_thresh->trip_triggered) {
+		sensor_mgr_set_threshold(trig_thresh->sensor_id,
+				trig_thresh->threshold);
+		trig_thresh->cur_state = trig_thresh->trip_triggered;
+	}
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return;
 }
 
@@ -3587,6 +3641,10 @@ int sensor_mgr_init_threshold(struct device *dev,
 			thresh_ptr[i].trip_triggered = -1;
 			thresh_ptr[i].parent = thresh_inp;
 			thresh_ptr[i].threshold[0].temp = high_temp;
+<<<<<<< HEAD
+=======
+			thresh_ptr[i].cur_state = -1;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			thresh_ptr[i].threshold[0].trip =
 				THERMAL_TRIP_CONFIGURABLE_HI;
 			thresh_ptr[i].threshold[1].temp = low_temp;
@@ -3605,6 +3663,10 @@ int sensor_mgr_init_threshold(struct device *dev,
 		thresh_ptr->trip_triggered = -1;
 		thresh_ptr->parent = thresh_inp;
 		thresh_ptr->threshold[0].temp = high_temp;
+<<<<<<< HEAD
+=======
+		thresh_ptr->cur_state = -1;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		thresh_ptr->threshold[0].trip =
 			THERMAL_TRIP_CONFIGURABLE_HI;
 		thresh_ptr->threshold[1].temp = low_temp;
@@ -3814,6 +3876,7 @@ static struct kernel_param_ops module_ops = {
 module_param_cb(enabled, &module_ops, &enabled, 0644);
 MODULE_PARM_DESC(enabled, "enforce thermal limit on cpu");
 
+<<<<<<< HEAD
 /* Poll ms */
 module_param_named(poll_ms, msm_thermal_info.poll_ms, uint, 0664);
 
@@ -3835,6 +3898,8 @@ module_param_named(core_control_mask, msm_thermal_info.core_control_mask,
 module_param_named(freq_mitig_control_mask,
 		   msm_thermal_info.freq_mitig_control_mask, uint, 0644);
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static ssize_t show_cc_enabled(struct kobject *kobj,
 		struct kobj_attribute *attr, char *buf)
 {
@@ -5573,3 +5638,7 @@ int __init msm_thermal_late_init(void)
 	return 0;
 }
 late_initcall(msm_thermal_late_init);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c

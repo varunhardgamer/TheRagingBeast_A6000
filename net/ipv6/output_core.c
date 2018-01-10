@@ -6,16 +6,51 @@
 #include <net/ipv6.h>
 #include <net/ip6_fib.h>
 
+<<<<<<< HEAD
+=======
+void ipv6_select_ident(struct frag_hdr *fhdr, struct rt6_info *rt)
+{
+	static atomic_t ipv6_fragmentation_id;
+	int ident;
+
+#if IS_ENABLED(CONFIG_IPV6)
+	if (rt && !(rt->dst.flags & DST_NOPEER)) {
+		struct inet_peer *peer;
+		struct net *net;
+
+		net = dev_net(rt->dst.dev);
+		peer = inet_getpeer_v6(net->ipv6.peers, &rt->rt6i_dst.addr, 1);
+		if (peer) {
+			fhdr->identification = htonl(inet_getid(peer, 0));
+			inet_putpeer(peer);
+			return;
+		}
+	}
+#endif
+	ident = atomic_inc_return(&ipv6_fragmentation_id);
+	fhdr->identification = htonl(ident);
+}
+EXPORT_SYMBOL(ipv6_select_ident);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 int ip6_find_1stfragopt(struct sk_buff *skb, u8 **nexthdr)
 {
 	u16 offset = sizeof(struct ipv6hdr);
+<<<<<<< HEAD
+=======
+	struct ipv6_opt_hdr *exthdr =
+				(struct ipv6_opt_hdr *)(ipv6_hdr(skb) + 1);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	unsigned int packet_len = skb->tail - skb->network_header;
 	int found_rhdr = 0;
 	*nexthdr = &ipv6_hdr(skb)->nexthdr;
 
+<<<<<<< HEAD
 	while (offset <= packet_len) {
 		struct ipv6_opt_hdr *exthdr;
+=======
+	while (offset + 1 <= packet_len) {
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 		switch (**nexthdr) {
 
@@ -36,6 +71,7 @@ int ip6_find_1stfragopt(struct sk_buff *skb, u8 **nexthdr)
 			return offset;
 		}
 
+<<<<<<< HEAD
 		if (offset + sizeof(struct ipv6_opt_hdr) > packet_len)
 			return -EINVAL;
 
@@ -46,5 +82,14 @@ int ip6_find_1stfragopt(struct sk_buff *skb, u8 **nexthdr)
 	}
 
 	return -EINVAL;
+=======
+		offset += ipv6_optlen(exthdr);
+		*nexthdr = &exthdr->nexthdr;
+		exthdr = (struct ipv6_opt_hdr *)(skb_network_header(skb) +
+						 offset);
+	}
+
+	return offset;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 EXPORT_SYMBOL(ip6_find_1stfragopt);

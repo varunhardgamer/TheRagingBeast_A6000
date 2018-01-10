@@ -137,7 +137,10 @@ extern unsigned long randomize_et_dyn(unsigned long base);
 
 #define SET_PERSONALITY(ex)		clear_thread_flag(TIF_32BIT);
 
+<<<<<<< HEAD
 /* update AT_VECTOR_SIZE_ARCH if the number of NEW_AUX_ENT entries changes */
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #define ARCH_DLINFO							\
 do {									\
 	NEW_AUX_ENT(AT_SYSINFO_EHDR,					\

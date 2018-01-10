@@ -123,9 +123,12 @@ static int kbtab_probe(struct usb_interface *intf, const struct usb_device_id *i
 	struct input_dev *input_dev;
 	int error = -ENOMEM;
 
+<<<<<<< HEAD
 	if (intf->cur_altsetting->desc.bNumEndpoints < 1)
 		return -ENODEV;
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	kbtab = kzalloc(sizeof(struct kbtab), GFP_KERNEL);
 	input_dev = input_allocate_device();
 	if (!kbtab || !input_dev)

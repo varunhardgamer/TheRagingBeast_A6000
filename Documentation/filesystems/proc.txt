@@ -418,7 +418,10 @@ Private_Dirty:         0 kB
 Referenced:          892 kB
 Anonymous:             0 kB
 Swap:                  0 kB
+<<<<<<< HEAD
 SwapPss:               0 kB
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 KernelPageSize:        4 kB
 MMUPageSize:           4 kB
 Locked:              374 kB
@@ -429,6 +432,7 @@ the first of these lines shows the same information as is displayed for the
 mapping in /proc/PID/maps.  The remaining lines show the size of the mapping
 (size), the amount of the mapping that is currently resident in RAM (RSS), the
 process' proportional share of this mapping (PSS), the number of clean and
+<<<<<<< HEAD
 dirty private pages in the mapping.
 
 The "proportional set size" (PSS) of a process is the count of pages it has
@@ -440,12 +444,22 @@ a single pte mapped, i.e.  is currently used by only one process, is accounted
 as private and not as shared.
 "Referenced" indicates the amount of memory currently marked as referenced or
 accessed.
+=======
+dirty private pages in the mapping.  Note that even a page which is part of a
+MAP_SHARED mapping, but has only a single pte mapped, i.e.  is currently used
+by only one process, is accounted as private and not as shared.  "Referenced"
+indicates the amount of memory currently marked as referenced or accessed.
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 "Anonymous" shows the amount of memory that does not belong to any file.  Even
 a mapping associated with a file may contain anonymous pages: when MAP_PRIVATE
 and a page is modified, the file page is replaced by a private anonymous copy.
 "Swap" shows how much would-be-anonymous memory is also used, but out on
 swap.
+<<<<<<< HEAD
 "SwapPss" shows proportional swap share of this mapping.
+=======
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 "VmFlags" field deserves a separate description. This member represents the kernel
 flags associated with the particular virtual memory area in two letter encoded
 manner. The codes are the following:

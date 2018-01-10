@@ -482,7 +482,11 @@ static int rawv6_recvmsg(struct kiocb *iocb, struct sock *sk,
 			goto csum_copy_err;
 		err = skb_copy_datagram_iovec(skb, 0, msg->msg_iov, copied);
 	} else {
+<<<<<<< HEAD
 		err = skb_copy_and_csum_datagram_iovec(skb, 0, msg->msg_iov, copied);
+=======
+		err = skb_copy_and_csum_datagram_iovec(skb, 0, msg->msg_iov);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		if (err == -EINVAL)
 			goto csum_copy_err;
 	}
@@ -578,11 +582,16 @@ static int rawv6_push_pending_frames(struct sock *sk, struct flowi6 *fl6,
 	}
 
 	offset += skb_transport_offset(skb);
+<<<<<<< HEAD
 	err = skb_copy_bits(skb, offset, &csum, 2);
 	if (err < 0) {
 		ip6_flush_pending_frames(sk);
 		goto out;
 	}
+=======
+	if (skb_copy_bits(skb, offset, &csum, 2))
+		BUG();
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	/* in case cksum was not initialized */
 	if (unlikely(csum))
@@ -763,7 +772,11 @@ static int rawv6_sendmsg(struct kiocb *iocb, struct sock *sk,
 	memset(&fl6, 0, sizeof(fl6));
 
 	fl6.flowi6_mark = sk->sk_mark;
+<<<<<<< HEAD
 	fl6.flowi6_uid = sk->sk_uid;
+=======
+	fl6.flowi6_uid = sock_i_uid(sk);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (sin6) {
 		if (addr_len < SIN6_LEN_RFC2133)
@@ -1138,7 +1151,11 @@ static int rawv6_ioctl(struct sock *sk, int cmd, unsigned long arg)
 		spin_lock_bh(&sk->sk_receive_queue.lock);
 		skb = skb_peek(&sk->sk_receive_queue);
 		if (skb != NULL)
+<<<<<<< HEAD
 			amount = skb->len;
+=======
+			amount = skb->tail - skb->transport_header;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		spin_unlock_bh(&sk->sk_receive_queue.lock);
 		return put_user(amount, (int __user *)arg);
 	}
@@ -1324,7 +1341,11 @@ void raw6_proc_exit(void)
 #endif	/* CONFIG_PROC_FS */
 
 /* Same as inet6_dgram_ops, sans udp_poll.  */
+<<<<<<< HEAD
 const struct proto_ops inet6_sockraw_ops = {
+=======
+static const struct proto_ops inet6_sockraw_ops = {
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	.family		   = PF_INET6,
 	.owner		   = THIS_MODULE,
 	.release	   = inet6_release,

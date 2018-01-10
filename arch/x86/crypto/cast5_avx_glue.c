@@ -494,4 +494,8 @@ module_exit(cast5_exit);
 
 MODULE_DESCRIPTION("Cast5 Cipher Algorithm, AVX optimized");
 MODULE_LICENSE("GPL");
+<<<<<<< HEAD
 MODULE_ALIAS_CRYPTO("cast5");
+=======
+MODULE_ALIAS("cast5");
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c

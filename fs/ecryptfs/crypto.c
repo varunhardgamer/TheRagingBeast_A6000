@@ -2102,6 +2102,10 @@ ecryptfs_decode_from_filename(unsigned char *dst, size_t *dst_size,
 			break;
 		case 2:
 			dst[dst_byte_offset++] |= (src_byte);
+<<<<<<< HEAD
+=======
+			dst[dst_byte_offset] = 0;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			current_bit_offset = 0;
 			break;
 		}

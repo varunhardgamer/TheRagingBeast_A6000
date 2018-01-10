@@ -16,7 +16,10 @@ struct lockd_net {
 	spinlock_t nsm_clnt_lock;
 	unsigned int nsm_users;
 	struct rpc_clnt *nsm_clnt;
+<<<<<<< HEAD
 	struct list_head nsm_handles;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 
 extern int lockd_net_id;

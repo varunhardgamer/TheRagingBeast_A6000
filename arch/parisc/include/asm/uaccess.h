@@ -9,8 +9,11 @@
 #include <asm/errno.h>
 #include <asm-generic/uaccess-unaligned.h>
 
+<<<<<<< HEAD
 #include <linux/string.h>
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #define VERIFY_READ 0
 #define VERIFY_WRITE 1
 
@@ -248,14 +251,22 @@ static inline unsigned long __must_check copy_from_user(void *to,
                                           unsigned long n)
 {
         int sz = __compiletime_object_size(to);
+<<<<<<< HEAD
         unsigned long ret = n;
+=======
+        int ret = -EFAULT;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
         if (likely(sz == -1 || !__builtin_constant_p(n) || sz >= n))
                 ret = __copy_from_user(to, from, n);
         else
                 copy_from_user_overflow();
+<<<<<<< HEAD
 	if (unlikely(ret))
 		memset(to + (n - ret), 0, ret);
+=======
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
         return ret;
 }
 

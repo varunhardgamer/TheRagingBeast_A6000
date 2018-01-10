@@ -278,7 +278,11 @@
 #define __NR_fsetxattr		256
 #define __NR_getxattr		257
 #define __NR_lgetxattr		258
+<<<<<<< HEAD
 #define __NR_fgetxattr		259
+=======
+#define __NR_fgetxattr		269
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #define __NR_listxattr		260
 #define __NR_llistxattr		261
 #define __NR_flistxattr		262

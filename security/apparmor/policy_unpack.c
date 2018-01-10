@@ -571,9 +571,12 @@ static struct aa_profile *unpack_profile(struct aa_ext *e)
 			error = PTR_ERR(profile->policy.dfa);
 			profile->policy.dfa = NULL;
 			goto fail;
+<<<<<<< HEAD
 		} else if (!profile->policy.dfa) {
 			error = -EPROTO;
 			goto fail;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		}
 		if (!unpack_u32(e, &profile->policy.start[0], "start"))
 			/* default start state */
@@ -655,7 +658,11 @@ static bool verify_xindex(int xindex, int table_size)
 	int index, xtype;
 	xtype = xindex & AA_X_TYPE_MASK;
 	index = xindex & AA_X_INDEX_MASK;
+<<<<<<< HEAD
 	if (xtype == AA_X_TABLE && index >= table_size)
+=======
+	if (xtype == AA_X_TABLE && index > table_size)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		return 0;
 	return 1;
 }

@@ -215,7 +215,11 @@ extern int fixup_exception(struct pt_regs *regs);
 #define __get_user_nocheck(x,ptr,size)					\
 ({									\
 	long __gu_err = 0;						\
+<<<<<<< HEAD
 	unsigned long __gu_val = 0;					\
+=======
+	unsigned long __gu_val;						\
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	might_sleep();							\
 	__get_user_size(__gu_val,(ptr),(size),__gu_err);		\
 	(x) = (__typeof__(*(ptr)))__gu_val;				\

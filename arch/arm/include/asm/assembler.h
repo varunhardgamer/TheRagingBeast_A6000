@@ -23,9 +23,12 @@
 #include <asm/ptrace.h>
 #include <asm/domain.h>
 #include <asm/opcodes-virt.h>
+<<<<<<< HEAD
 #include <asm/asm-offsets.h>
 #include <asm/page.h>
 #include <asm/thread_info.h>
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #define IOMEM(x)	(x)
 
@@ -61,10 +64,15 @@
  */
 #if __LINUX_ARM_ARCH__ >= 5
 #define PLD(code...)	code
+<<<<<<< HEAD
 #define NO_PLD(code...)
 #else
 #define PLD(code...)
 #define NO_PLD(code...) code
+=======
+#else
+#define PLD(code...)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #endif
 
 /*
@@ -164,6 +172,7 @@
 	restore_irqs_notrace \oldcpsr
 	.endm
 
+<<<<<<< HEAD
 /*
  * Get current thread_info.
  */
@@ -174,6 +183,8 @@
 	mov	\rd, \rd, lsl #THREAD_SIZE_ORDER + PAGE_SHIFT
 	.endm
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #define USER(x...)				\
 9999:	x;					\
 	.pushsection __ex_table,"a";		\

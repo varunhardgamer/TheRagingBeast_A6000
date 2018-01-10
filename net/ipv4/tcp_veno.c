@@ -144,7 +144,11 @@ static void tcp_veno_cong_avoid(struct sock *sk, u32 ack, u32 in_flight)
 
 		rtt = veno->minrtt;
 
+<<<<<<< HEAD
 		target_cwnd = (u64)tp->snd_cwnd * veno->basertt;
+=======
+		target_cwnd = (tp->snd_cwnd * veno->basertt);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		target_cwnd <<= V_PARAM_SHIFT;
 		do_div(target_cwnd, rtt);
 

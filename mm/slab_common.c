@@ -55,7 +55,10 @@ static int kmem_cache_sanity_check(struct mem_cgroup *memcg, const char *name,
 			continue;
 		}
 
+<<<<<<< HEAD
 #if !defined(CONFIG_SLUB)
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		/*
 		 * For simplicity, we won't check this in the list of memcg
 		 * caches. We have control over memcg naming, and if there
@@ -69,7 +72,10 @@ static int kmem_cache_sanity_check(struct mem_cgroup *memcg, const char *name,
 			s = NULL;
 			return -EINVAL;
 		}
+<<<<<<< HEAD
 #endif
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 
 	WARN_ON(strchr(name, ' '));	/* It confuses parsers */

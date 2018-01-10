@@ -123,7 +123,11 @@ smb2_query_path_info(const unsigned int xid, struct cifs_tcon *tcon,
 
 	*adjust_tz = false;
 
+<<<<<<< HEAD
 	smb2_data = kzalloc(sizeof(struct smb2_file_all_info) + PATH_MAX * 2,
+=======
+	smb2_data = kzalloc(sizeof(struct smb2_file_all_info) + MAX_NAME * 2,
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			    GFP_KERNEL);
 	if (smb2_data == NULL)
 		return -ENOMEM;

@@ -46,7 +46,10 @@ dtb-$(CONFIG_ARCH_MSM8909) += msm8909-sim.dtb \
 	msm8909-1gb-rcm.dtb \
 	msm8909-pm8916-1gb-rcm.dtb \
 	msm8909-pm8916-mtp.dtb \
+<<<<<<< HEAD
 	msm8909-pm8916-wear-mtp.dtb \
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	msm8909-pm8916-cdp.dtb \
 	msm8909-qhd-cdp.dtb \
 	msm8909-qhd-rcm.dtb \
@@ -79,9 +82,12 @@ dtb-$(CONFIG_ARCH_MSM8909) += msm8909-sim.dtb \
 	apq8009-mtp-wcd9326-refboard.dtb \
 	apq8009-512mb-mtp-wcd9326-refboard.dtb
 
+<<<<<<< HEAD
 ifeq ($(CONFIG_MACH_WT86518),y)
 dtb-$(CONFIG_ARCH_MSM8916) += msm8916-wt86518.dtb
 else
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 dtb-$(CONFIG_ARCH_MSM8916) += msm8916-cdp.dtb \
 	msm8916-cdp-smb1360.dtb \
 	msm8916-mtp.dtb \
@@ -129,8 +135,11 @@ dtb-$(CONFIG_ARCH_MSM8916) += msm8916-cdp.dtb \
 	msm8929-qrd-skul.dtb \
 	msm8929-qrd-skulb.dtb \
 	msm8929-cdp-jdi.dtb
+<<<<<<< HEAD
 endif
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 dtb-$(CONFIG_ARCH_MSM8226) += msm8226-sim.dtb \
 	msm8226-fluid.dtb \
 	msm8226-v1-cdp.dtb \

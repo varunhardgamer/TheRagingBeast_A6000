@@ -3504,7 +3504,10 @@ static void __exit scsi_debug_exit(void)
 	bus_unregister(&pseudo_lld_bus);
 	root_device_unregister(pseudo_primary);
 
+<<<<<<< HEAD
 	vfree(map_storep);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (dif_storep)
 		vfree(dif_storep);
 

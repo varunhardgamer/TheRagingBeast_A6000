@@ -697,6 +697,7 @@ MODULE_FIRMWARE("keyspan_pda/keyspan_pda.fw");
 MODULE_FIRMWARE("keyspan_pda/xircom_pgs.fw");
 #endif
 
+<<<<<<< HEAD
 static int keyspan_pda_attach(struct usb_serial *serial)
 {
 	unsigned char num_ports = serial->num_ports;
@@ -710,6 +711,8 @@ static int keyspan_pda_attach(struct usb_serial *serial)
 	return 0;
 }
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static int keyspan_pda_port_probe(struct usb_serial_port *port)
 {
 
@@ -787,7 +790,10 @@ static struct usb_serial_driver keyspan_pda_device = {
 	.break_ctl =		keyspan_pda_break_ctl,
 	.tiocmget =		keyspan_pda_tiocmget,
 	.tiocmset =		keyspan_pda_tiocmset,
+<<<<<<< HEAD
 	.attach =		keyspan_pda_attach,
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	.port_probe =		keyspan_pda_port_probe,
 	.port_remove =		keyspan_pda_port_remove,
 };

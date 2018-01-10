@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2012-2016, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2012-2014, The Linux Foundation. All rights reserved.
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -338,7 +342,11 @@ struct hfi_buffer_info {
 	(HFI_PROPERTY_PARAM_VENC_COMMON_START + 0x01B)
 #define HFI_PROPERTY_PARAM_VENC_LTRMODE		\
 	 (HFI_PROPERTY_PARAM_VENC_COMMON_START + 0x01C)
+<<<<<<< HEAD
 #define HFI_PROPERTY_PARAM_VENC_VIDEO_SIGNAL_INFO	\
+=======
+#define HFI_PROPERTY_PARAM_VENC_VIDEO_FULL_RANGE	\
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	(HFI_PROPERTY_PARAM_VENC_COMMON_START + 0x01D)
 #define HFI_PROPERTY_PARAM_VENC_H264_VUI_TIMING_INFO	\
 	(HFI_PROPERTY_PARAM_VENC_COMMON_START + 0x01E)
@@ -358,8 +366,11 @@ struct hfi_buffer_info {
 	(HFI_PROPERTY_PARAM_VENC_COMMON_START + 0x028)
 #define HFI_PROPERTY_PARAM_VENC_VPX_ERROR_RESILIENCE_MODE	\
 	(HFI_PROPERTY_PARAM_VENC_COMMON_START + 0x029)
+<<<<<<< HEAD
 #define HFI_PROPERTY_PARAM_VENC_CONSTRAINED_INTRA_PRED	\
 	(HFI_PROPERTY_PARAM_VENC_COMMON_START + 0x02B)
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #define HFI_PROPERTY_PARAM_VENC_HIER_B_MAX_NUM_ENH_LAYER	\
 	(HFI_PROPERTY_PARAM_VENC_COMMON_START + 0x02C)
 #define  HFI_PROPERTY_PARAM_VENC_HIER_P_HYBRID_MODE	\
@@ -628,6 +639,7 @@ struct hfi_frame_size {
 	u32 height;
 };
 
+<<<<<<< HEAD
 struct hfi_video_signal_metadata {
 	u32 enable;
 	u32 video_format;
@@ -638,6 +650,8 @@ struct hfi_video_signal_metadata {
 	u32 matrix_coeffs;
 };
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 struct hfi_h264_vui_timing_info {
 	u32 enable;
 	u32 fixed_frame_rate;

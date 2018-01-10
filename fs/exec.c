@@ -19,7 +19,11 @@
  * current->executable is only used by the procfs.  This allows a dispatch
  * table to check for several different types  of binary formats.  We keep
  * trying until we recognize the file or we run out of supported binary
+<<<<<<< HEAD
  * formats.
+=======
+ * formats. 
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  */
 
 #include <linux/slab.h>
@@ -196,6 +200,7 @@ static struct page *get_arg_page(struct linux_binprm *bprm, unsigned long pos,
 
 	if (write) {
 		unsigned long size = bprm->vma->vm_end - bprm->vma->vm_start;
+<<<<<<< HEAD
 		unsigned long ptr_size;
 		struct rlimit *rlim;
 
@@ -216,6 +221,10 @@ static struct page *get_arg_page(struct linux_binprm *bprm, unsigned long pos,
 			goto fail;
 		size += ptr_size;
 
+=======
+		struct rlimit *rlim;
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		acct_arg_size(bprm, size / PAGE_SIZE);
 
 		/*
@@ -233,6 +242,7 @@ static struct page *get_arg_page(struct linux_binprm *bprm, unsigned long pos,
 		 *    to work from.
 		 */
 		rlim = current->signal->rlim;
+<<<<<<< HEAD
 		if (size > ACCESS_ONCE(rlim[RLIMIT_STACK].rlim_cur) / 4)
 			goto fail;
 	}
@@ -242,6 +252,15 @@ static struct page *get_arg_page(struct linux_binprm *bprm, unsigned long pos,
 fail:
 	put_page(page);
 	return NULL;
+=======
+		if (size > ACCESS_ONCE(rlim[RLIMIT_STACK].rlim_cur) / 4) {
+			put_page(page);
+			return NULL;
+		}
+	}
+
+	return page;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static void put_arg_page(struct page *page)
@@ -1111,6 +1130,7 @@ int flush_old_exec(struct linux_binprm * bprm)
 	flush_thread();
 	current->personality &= ~bprm->per_clear;
 
+<<<<<<< HEAD
 	/*
 	 * We have to apply CLOEXEC before we change whether the process is
 	 * dumpable (in setup_new_exec) to avoid a race with a process in userspace
@@ -1118,6 +1138,8 @@ int flush_old_exec(struct linux_binprm * bprm)
 	 * undergoing exec(2).
 	 */
 	do_close_on_exec(current->files);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return 0;
 
 out:
@@ -1127,7 +1149,11 @@ EXPORT_SYMBOL(flush_old_exec);
 
 void would_dump(struct linux_binprm *bprm, struct file *file)
 {
+<<<<<<< HEAD
 	if (inode_permission2(file->f_path.mnt, file_inode(file), MAY_READ) < 0)
+=======
+	if (inode_permission(file_inode(file), MAY_READ) < 0)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		bprm->interp_flags |= BINPRM_FLAGS_ENFORCE_NONDUMP;
 }
 EXPORT_SYMBOL(would_dump);
@@ -1168,6 +1194,10 @@ void setup_new_exec(struct linux_binprm * bprm)
 	current->self_exec_id++;
 			
 	flush_signal_handlers(current, 0);
+<<<<<<< HEAD
+=======
+	do_close_on_exec(current->files);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 EXPORT_SYMBOL(setup_new_exec);
 
@@ -1291,6 +1321,7 @@ static int check_unsafe_exec(struct linux_binprm *bprm)
 	return res;
 }
 
+<<<<<<< HEAD
 static void bprm_fill_uid(struct linux_binprm *bprm)
 {
 	struct inode *inode;
@@ -1338,6 +1369,8 @@ static void bprm_fill_uid(struct linux_binprm *bprm)
 	}
 }
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /* 
  * Fill the binprm structure from the inode. 
  * Check permissions, then read the first 128 (BINPRM_BUF_SIZE) bytes
@@ -1346,12 +1379,48 @@ static void bprm_fill_uid(struct linux_binprm *bprm)
  */
 int prepare_binprm(struct linux_binprm *bprm)
 {
+<<<<<<< HEAD
 	int retval;
 
 	if (bprm->file->f_op == NULL)
 		return -EACCES;
 
 	bprm_fill_uid(bprm);
+=======
+	umode_t mode;
+	struct inode * inode = file_inode(bprm->file);
+	int retval;
+
+	mode = inode->i_mode;
+	if (bprm->file->f_op == NULL)
+		return -EACCES;
+
+	/* clear any previous set[ug]id data from a previous binary */
+	bprm->cred->euid = current_euid();
+	bprm->cred->egid = current_egid();
+
+	if (!(bprm->file->f_path.mnt->mnt_flags & MNT_NOSUID) &&
+	    !task_no_new_privs(current) &&
+	    kuid_has_mapping(bprm->cred->user_ns, inode->i_uid) &&
+	    kgid_has_mapping(bprm->cred->user_ns, inode->i_gid)) {
+		/* Set-uid? */
+		if (mode & S_ISUID) {
+			bprm->per_clear |= PER_CLEAR_ON_SETID;
+			bprm->cred->euid = inode->i_uid;
+		}
+
+		/* Set-gid? */
+		/*
+		 * If setgid is set but no group execute bit then this
+		 * is a candidate for mandatory locking, not a setgid
+		 * executable.
+		 */
+		if ((mode & (S_ISGID | S_IXGRP)) == (S_ISGID | S_IXGRP)) {
+			bprm->per_clear |= PER_CLEAR_ON_SETID;
+			bprm->cred->egid = inode->i_gid;
+		}
+	}
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	/* fill in binprm security blob */
 	retval = security_bprm_set_creds(bprm);
@@ -1510,7 +1579,10 @@ static int do_execve_common(const char *filename,
 	bool clear_in_exec;
 	int retval;
 	const struct cred *cred = current_cred();
+<<<<<<< HEAD
 	bool is_su;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	/*
 	 * We move the actual failure in case of RLIMIT_NPROC excess from
@@ -1587,18 +1659,24 @@ static int do_execve_common(const char *filename,
 	if (retval < 0)
 		goto out;
 
+<<<<<<< HEAD
 	/* search_binary_handler can release file and it may be freed */
 	is_su = d_is_su(file->f_dentry);
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	retval = search_binary_handler(bprm);
 	if (retval < 0)
 		goto out;
 
+<<<<<<< HEAD
 	if (is_su && capable(CAP_SYS_ADMIN)) {
 		current->flags |= PF_SU;
 		su_exec();
 	}
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/* execve succeeded */
 	current->fs->in_exec = 0;
 	current->in_execve = 0;

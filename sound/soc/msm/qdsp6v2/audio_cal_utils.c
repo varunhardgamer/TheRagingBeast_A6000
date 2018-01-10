@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2014, 2016-2017, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2014, 2016, The Linux Foundation. All rights reserved.
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -19,9 +23,12 @@
 #include <linux/ratelimit.h>
 #include <sound/audio_cal_utils.h>
 
+<<<<<<< HEAD
 static int unmap_memory(struct cal_type_data *cal_type,
 			struct cal_block_data *cal_block);
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 size_t get_cal_info_size(int32_t cal_type)
 {
@@ -59,7 +66,10 @@ size_t get_cal_info_size(int32_t cal_type)
 		size = sizeof(struct audio_cal_info_adm_top);
 		break;
 	case ADM_CUST_TOPOLOGY_CAL_TYPE:
+<<<<<<< HEAD
 	case CORE_CUSTOM_TOPOLOGIES_CAL_TYPE:
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		size = 0;
 		break;
 	case ADM_AUDPROC_CAL_TYPE:
@@ -176,7 +186,10 @@ size_t get_user_cal_type_size(int32_t cal_type)
 		size = sizeof(struct audio_cal_type_adm_top);
 		break;
 	case ADM_CUST_TOPOLOGY_CAL_TYPE:
+<<<<<<< HEAD
 	case CORE_CUSTOM_TOPOLOGIES_CAL_TYPE:
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		size = sizeof(struct audio_cal_type_basic);
 		break;
 	case ADM_AUDPROC_CAL_TYPE:
@@ -391,12 +404,25 @@ static void destroy_all_cal_blocks(struct cal_type_data *cal_type)
 		cal_block = list_entry(ptr,
 			struct cal_block_data, list);
 
+<<<<<<< HEAD
 		ret = unmap_memory(cal_type, cal_block);
 		if (ret < 0) {
 			pr_err("%s: unmap_memory failed, cal type %d, ret = %d!\n",
 				__func__,
 			       cal_type->info.reg.cal_type,
 				ret);
+=======
+		if (cal_type->info.cal_util_callbacks.unmap_cal != NULL) {
+			ret = cal_type->info.cal_util_callbacks.
+				unmap_cal(cal_type->info.reg.cal_type,
+					cal_block);
+			if (ret < 0) {
+				pr_err("%s: unmap_cal failed, cal type %d, ret = %d!\n",
+					__func__,
+				       cal_type->info.reg.cal_type,
+					ret);
+			}
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		}
 		delete_cal_block(cal_block);
 		cal_block = NULL;
@@ -642,7 +668,10 @@ static int realloc_memory(struct cal_block_data *cal_block)
 		cal_block->map_data.ion_handle);
 	cal_block->map_data.ion_client = NULL;
 	cal_block->map_data.ion_handle = NULL;
+<<<<<<< HEAD
         cal_block->cal_data.size = 0;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	ret = cal_block_ion_alloc(cal_block);
 	if (ret < 0)

@@ -543,18 +543,31 @@ static int acm_port_activate(struct tty_port *port, struct tty_struct *tty)
 	acm->control->needs_remote_wakeup = 1;
 
 	acm->ctrlurb->dev = acm->dev;
+<<<<<<< HEAD
 	retval = usb_submit_urb(acm->ctrlurb, GFP_KERNEL);
 	if (retval) {
+=======
+	if (usb_submit_urb(acm->ctrlurb, GFP_KERNEL)) {
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		dev_err(&acm->control->dev,
 			"%s - usb_submit_urb(ctrl irq) failed\n", __func__);
 		goto error_submit_urb;
 	}
 
 	acm->ctrlout = ACM_CTRL_DTR | ACM_CTRL_RTS;
+<<<<<<< HEAD
 	retval = acm_set_control(acm, acm->ctrlout);
 	if (retval < 0 && (acm->ctrl_caps & USB_CDC_CAP_LINE))
 		goto error_set_control;
 
+=======
+	if (acm_set_control(acm, acm->ctrlout) < 0 &&
+	    (acm->ctrl_caps & USB_CDC_CAP_LINE))
+		goto error_set_control;
+
+	usb_autopm_put_interface(acm->control);
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/*
 	 * Unthrottle device in case the TTY was closed while throttled.
 	 */
@@ -563,12 +576,18 @@ static int acm_port_activate(struct tty_port *port, struct tty_struct *tty)
 	acm->throttle_req = 0;
 	spin_unlock_irq(&acm->read_lock);
 
+<<<<<<< HEAD
 	retval = acm_submit_read_urbs(acm, GFP_KERNEL);
 	if (retval)
 		goto error_submit_read_urbs;
 
 	usb_autopm_put_interface(acm->control);
 
+=======
+	if (acm_submit_read_urbs(acm, GFP_KERNEL))
+		goto error_submit_read_urbs;
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	mutex_unlock(&acm->mutex);
 
 	return 0;
@@ -585,8 +604,12 @@ error_submit_urb:
 error_get_interface:
 disconnected:
 	mutex_unlock(&acm->mutex);
+<<<<<<< HEAD
 
 	return usb_translate_errors(retval);
+=======
+	return retval;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static void acm_port_destruct(struct tty_port *port)
@@ -886,12 +909,20 @@ static void acm_tty_set_termios(struct tty_struct *tty,
 	/* FIXME: Needs to clear unsupported bits in the termios */
 	acm->clocal = ((termios->c_cflag & CLOCAL) != 0);
 
+<<<<<<< HEAD
 	if (C_BAUD(tty) == B0) {
 		newline.dwDTERate = acm->line.dwDTERate;
 		newctrl &= ~ACM_CTRL_DTR;
 	} else if (termios_old && (termios_old->c_cflag & CBAUD) == B0) {
 		newctrl |=  ACM_CTRL_DTR;
 	}
+=======
+	if (!newline.dwDTERate) {
+		newline.dwDTERate = acm->line.dwDTERate;
+		newctrl &= ~ACM_CTRL_DTR;
+	} else
+		newctrl |=  ACM_CTRL_DTR;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (newctrl != acm->ctrlout)
 		acm_set_control(acm, acm->ctrlout = newctrl);
@@ -1000,9 +1031,12 @@ static int acm_probe(struct usb_interface *intf,
 	if (quirks == NO_UNION_NORMAL) {
 		data_interface = usb_ifnum_to_if(usb_dev, 1);
 		control_interface = usb_ifnum_to_if(usb_dev, 0);
+<<<<<<< HEAD
 		/* we would crash */
 		if (!data_interface || !control_interface)
 			return -ENODEV;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		goto skip_normal_probe;
 	}
 
@@ -1093,11 +1127,18 @@ next_desc:
 	} else {
 		control_interface = usb_ifnum_to_if(usb_dev, union_header->bMasterInterface0);
 		data_interface = usb_ifnum_to_if(usb_dev, (data_interface_num = union_header->bSlaveInterface0));
+<<<<<<< HEAD
 	}
 
 	if (!control_interface || !data_interface) {
 		dev_dbg(&intf->dev, "no interfaces\n");
 		return -ENODEV;
+=======
+		if (!control_interface || !data_interface) {
+			dev_dbg(&intf->dev, "no interfaces\n");
+			return -ENODEV;
+		}
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 
 	if (data_interface_num != call_interface_num)
@@ -1216,6 +1257,10 @@ made_compressed_probe:
 	spin_lock_init(&acm->write_lock);
 	spin_lock_init(&acm->read_lock);
 	mutex_init(&acm->mutex);
+<<<<<<< HEAD
+=======
+	acm->rx_endpoint = usb_rcvbulkpipe(usb_dev, epread->bEndpointAddress);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	acm->is_int_ep = usb_endpoint_xfer_int(epread);
 	if (acm->is_int_ep)
 		acm->bInterval = epread->bInterval;
@@ -1264,14 +1309,22 @@ made_compressed_probe:
 		urb->transfer_dma = rb->dma;
 		if (acm->is_int_ep) {
 			usb_fill_int_urb(urb, acm->dev,
+<<<<<<< HEAD
 					 usb_rcvintpipe(usb_dev, epread->bEndpointAddress),
+=======
+					 acm->rx_endpoint,
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 					 rb->base,
 					 acm->readsize,
 					 acm_read_bulk_callback, rb,
 					 acm->bInterval);
 		} else {
 			usb_fill_bulk_urb(urb, acm->dev,
+<<<<<<< HEAD
 					  usb_rcvbulkpipe(usb_dev, epread->bEndpointAddress),
+=======
+					  acm->rx_endpoint,
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 					  rb->base,
 					  acm->readsize,
 					  acm_read_bulk_callback, rb);
@@ -1371,7 +1424,10 @@ alloc_fail8:
 				&dev_attr_wCountryCodes);
 		device_remove_file(&acm->control->dev,
 				&dev_attr_iCountryCodeRelDate);
+<<<<<<< HEAD
 		kfree(acm->country_codes);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 	device_remove_file(&acm->control->dev, &dev_attr_bmCapabilities);
 alloc_fail7:
@@ -1596,7 +1652,10 @@ static const struct usb_device_id acm_ids[] = {
 	{ USB_DEVICE(0x0572, 0x1328), /* Shiro / Aztech USB MODEM UM-3100 */
 	.driver_info = NO_UNION_NORMAL, /* has no union descriptor */
 	},
+<<<<<<< HEAD
 	{ USB_DEVICE(0x2184, 0x001c) },	/* GW Instek AFG-2225 */
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	{ USB_DEVICE(0x22b8, 0x6425), /* Motorola MOTOMAGX phones */
 	},
 	/* Motorola H24 HSPA module: */
@@ -1731,6 +1790,7 @@ static const struct usb_device_id acm_ids[] = {
 	},
 #endif
 
+<<<<<<< HEAD
 	/*Samsung phone in firmware update mode */
 	{ USB_DEVICE(0x04e8, 0x685d),
 	.driver_info = IGNORE_DEVICE,
@@ -1741,6 +1801,8 @@ static const struct usb_device_id acm_ids[] = {
 	.driver_info = IGNORE_DEVICE,
 	},
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/* control interfaces without any protocol set */
 	{ USB_INTERFACE_INFO(USB_CLASS_COMM, USB_CDC_SUBCLASS_ACM,
 		USB_CDC_PROTO_NONE) },

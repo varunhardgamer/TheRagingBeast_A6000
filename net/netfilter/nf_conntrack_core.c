@@ -311,6 +311,7 @@ static void death_by_timeout(unsigned long ul_conntrack)
 	nf_ct_put(ct);
 }
 
+<<<<<<< HEAD
 static inline bool
 nf_ct_key_equal(struct nf_conntrack_tuple_hash *h,
 			const struct nf_conntrack_tuple *tuple,
@@ -326,6 +327,8 @@ nf_ct_key_equal(struct nf_conntrack_tuple_hash *h,
 		nf_ct_is_confirmed(ct);
 }
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /*
  * Warning :
  * - Caller must take a reference on returned object
@@ -347,7 +350,12 @@ ____nf_conntrack_find(struct net *net, u16 zone,
 	local_bh_disable();
 begin:
 	hlist_nulls_for_each_entry_rcu(h, n, &net->ct.hash[bucket], hnnode) {
+<<<<<<< HEAD
 		if (nf_ct_key_equal(h, tuple, zone)) {
+=======
+		if (nf_ct_tuple_equal(tuple, &h->tuple) &&
+		    nf_ct_zone(nf_ct_tuplehash_to_ctrack(h)) == zone) {
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			NF_CT_STAT_INC(net, found);
 			local_bh_enable();
 			return h;
@@ -394,7 +402,12 @@ begin:
 			     !atomic_inc_not_zero(&ct->ct_general.use)))
 			h = NULL;
 		else {
+<<<<<<< HEAD
 			if (unlikely(!nf_ct_key_equal(h, tuple, zone))) {
+=======
+			if (unlikely(!nf_ct_tuple_equal(tuple, &h->tuple) ||
+				     nf_ct_zone(ct) != zone)) {
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 				nf_ct_put(ct);
 				goto begin;
 			}

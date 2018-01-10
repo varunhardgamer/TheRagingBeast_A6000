@@ -12,6 +12,7 @@ config SWITCH_GPIO
 	help
 	  Say Y here to enable GPIO based switch support.
 
+<<<<<<< HEAD
 config SWITCH_ARIZONA
 	tristate "Wolfson Arizona Switch support"
 	depends on MFD_ARIZONA && INPUT && SND_SOC
@@ -20,4 +21,6 @@ config SWITCH_ARIZONA
 	  with Wolfson Arizona devices. These are audio CODECs with
 	  advanced audio accessory detection support.
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 endif # SWITCH

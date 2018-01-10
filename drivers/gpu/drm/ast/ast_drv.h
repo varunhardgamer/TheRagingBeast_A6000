@@ -296,7 +296,10 @@ int ast_framebuffer_init(struct drm_device *dev,
 int ast_fbdev_init(struct drm_device *dev);
 void ast_fbdev_fini(struct drm_device *dev);
 void ast_fbdev_set_suspend(struct drm_device *dev, int state);
+<<<<<<< HEAD
 void ast_fbdev_set_base(struct ast_private *ast, unsigned long gpu_addr);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 struct ast_bo {
 	struct ttm_buffer_object bo;

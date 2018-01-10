@@ -87,7 +87,11 @@ void
 brcms_c_stf_ss_algo_channel_get(struct brcms_c_info *wlc, u16 *ss_algo_channel,
 			    u16 chanspec)
 {
+<<<<<<< HEAD
 	struct tx_power power = { };
+=======
+	struct tx_power power;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	u8 siso_mcs_id, cdd_mcs_id, stbc_mcs_id;
 
 	/* Clear previous settings */

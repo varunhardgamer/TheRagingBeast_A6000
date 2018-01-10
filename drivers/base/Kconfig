@@ -21,11 +21,14 @@ config UEVENT_HELPER_PATH
 	  via /proc/sys/kernel/hotplug or via /sys/kernel/uevent_helper
 	  later at runtime.
 
+<<<<<<< HEAD
 config FW_CACHE
        bool "Enable firmware caching during suspend"
        depends on PM_SLEEP
        default n
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 config DEVTMPFS
 	bool "Maintain a devtmpfs filesystem to mount at /dev"
 	depends on HOTPLUG

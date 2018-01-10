@@ -6,7 +6,11 @@ ccflags-$(CONFIG_USB_GADGET_DEBUG) := -DDEBUG
 obj-$(CONFIG_USB_GADGET)	+= udc-core.o
 obj-$(CONFIG_USB_LIBCOMPOSITE)	+= libcomposite.o
 libcomposite-y			:= usbstring.o config.o epautoconf.o
+<<<<<<< HEAD
 libcomposite-y			+= composite.o functions.o
+=======
+libcomposite-y			+= composite.o functions.o configfs.o
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 obj-$(CONFIG_USB_DUMMY_HCD)	+= dummy_hcd.o
 obj-$(CONFIG_USB_NET2272)	+= net2272.o
 obj-$(CONFIG_USB_NET2280)	+= net2280.o

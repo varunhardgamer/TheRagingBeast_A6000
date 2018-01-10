@@ -744,6 +744,7 @@ void prepare_ftrace_return(unsigned long *parent, unsigned long self_addr,
 	unsigned long return_hooker = (unsigned long)
 				&return_to_handler;
 
+<<<<<<< HEAD
 	/*
 	 * When resuming from suspend-to-ram, this function can be indirectly
 	 * called from early CPU startup code while the CPU is in real mode,
@@ -756,6 +757,8 @@ void prepare_ftrace_return(unsigned long *parent, unsigned long self_addr,
 	if (unlikely((long)__builtin_frame_address(0) >= 0))
 		return;
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (unlikely(atomic_read(&current->tracing_graph_pause)))
 		return;
 

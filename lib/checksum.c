@@ -181,6 +181,7 @@ csum_partial_copy(const void *src, void *dst, int len, __wsum sum)
 EXPORT_SYMBOL(csum_partial_copy);
 
 #ifndef csum_tcpudp_nofold
+<<<<<<< HEAD
 static inline u32 from64to32(u64 x)
 {
 	/* add up 32-bit and 32-bit for 32+c bit */
@@ -190,6 +191,8 @@ static inline u32 from64to32(u64 x)
 	return (u32)x;
 }
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 __wsum csum_tcpudp_nofold(__be32 saddr, __be32 daddr,
 			unsigned short len,
 			unsigned short proto,
@@ -204,7 +207,12 @@ __wsum csum_tcpudp_nofold(__be32 saddr, __be32 daddr,
 #else
 	s += (proto + len) << 8;
 #endif
+<<<<<<< HEAD
 	return (__force __wsum)from64to32(s);
+=======
+	s += (s >> 32);
+	return (__force __wsum)s;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 EXPORT_SYMBOL(csum_tcpudp_nofold);
 #endif

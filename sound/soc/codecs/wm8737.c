@@ -494,8 +494,12 @@ static int wm8737_set_bias_level(struct snd_soc_codec *codec,
 
 			/* Fast VMID ramp at 2*2.5k */
 			snd_soc_update_bits(codec, WM8737_MISC_BIAS_CONTROL,
+<<<<<<< HEAD
 					    WM8737_VMIDSEL_MASK,
 					    2 << WM8737_VMIDSEL_SHIFT);
+=======
+					    WM8737_VMIDSEL_MASK, 0x4);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 			/* Bring VMID up */
 			snd_soc_update_bits(codec, WM8737_POWER_MANAGEMENT,
@@ -509,8 +513,12 @@ static int wm8737_set_bias_level(struct snd_soc_codec *codec,
 
 		/* VMID at 2*300k */
 		snd_soc_update_bits(codec, WM8737_MISC_BIAS_CONTROL,
+<<<<<<< HEAD
 				    WM8737_VMIDSEL_MASK,
 				    1 << WM8737_VMIDSEL_SHIFT);
+=======
+				    WM8737_VMIDSEL_MASK, 2);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 		break;
 

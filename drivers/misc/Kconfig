@@ -465,7 +465,11 @@ config ARM_CHARLCD
 	  still useful.
 
 config BMP085
+<<<<<<< HEAD
 	tristate
+=======
+	bool
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	depends on SYSFS
 
 config BMP085_I2C
@@ -619,12 +623,15 @@ config QCOM_LIQUID_DOCK
 	  This option enables support for the USB and Ethernet ports found on
 	  the docking station of various models of Qualcomm Technology's
 	  LiQUID Mobile Development Platforms.
+<<<<<<< HEAD
 
 config HARDWARE_INFO
 	tristate "Wingtech Hardware Information support"
 	help
 	  This option enables device driver to initial the hardware info module.
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 config UID_CPUTIME
 	tristate "Per-UID cpu time statistics"
 	depends on PROFILING

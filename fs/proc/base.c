@@ -140,6 +140,15 @@ struct pid_entry {
 		NULL, &proc_single_file_operations,	\
 		{ .proc_show = show } )
 
+<<<<<<< HEAD
+=======
+/* ANDROID is for special files in /proc. */
+#define ANDROID(NAME, MODE, OTYPE)			\
+	NOD(NAME, (S_IFREG|(MODE)),			\
+		&proc_##OTYPE##_inode_operations,	\
+		&proc_##OTYPE##_operations, {})
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /*
  * Count the number of hardlinks for the pid_entry table, excluding the .
  * and .. links.
@@ -240,7 +249,11 @@ out:
 
 static int proc_pid_auxv(struct task_struct *task, char *buffer)
 {
+<<<<<<< HEAD
 	struct mm_struct *mm = mm_access(task, PTRACE_MODE_READ_FSCREDS);
+=======
+	struct mm_struct *mm = mm_access(task, PTRACE_MODE_READ);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	int res = PTR_ERR(mm);
 	if (mm && !IS_ERR(mm)) {
 		unsigned int nwords = 0;
@@ -270,7 +283,11 @@ static int proc_pid_wchan(struct task_struct *task, char *buffer)
 	wchan = get_wchan(task);
 
 	if (lookup_symbol_name(wchan, symname) < 0)
+<<<<<<< HEAD
 		if (!ptrace_may_access(task, PTRACE_MODE_READ_FSCREDS))
+=======
+		if (!ptrace_may_access(task, PTRACE_MODE_READ))
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			return 0;
 		else
 			return sprintf(buffer, "%lu", wchan);
@@ -284,7 +301,11 @@ static int lock_trace(struct task_struct *task)
 	int err = mutex_lock_killable(&task->signal->cred_guard_mutex);
 	if (err)
 		return err;
+<<<<<<< HEAD
 	if (!ptrace_may_access(task, PTRACE_MODE_ATTACH_FSCREDS)) {
+=======
+	if (!ptrace_may_access(task, PTRACE_MODE_ATTACH)) {
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		mutex_unlock(&task->signal->cred_guard_mutex);
 		return -EPERM;
 	}
@@ -558,7 +579,11 @@ static int proc_fd_access_allowed(struct inode *inode)
 	 */
 	task = get_proc_task(inode);
 	if (task) {
+<<<<<<< HEAD
 		allowed = ptrace_may_access(task, PTRACE_MODE_READ_FSCREDS);
+=======
+		allowed = ptrace_may_access(task, PTRACE_MODE_READ);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		put_task_struct(task);
 	}
 	return allowed;
@@ -593,7 +618,11 @@ static bool has_pid_permissions(struct pid_namespace *pid,
 		return true;
 	if (in_group_p(pid->pid_gid))
 		return true;
+<<<<<<< HEAD
 	return ptrace_may_access(task, PTRACE_MODE_READ_FSCREDS);
+=======
+	return ptrace_may_access(task, PTRACE_MODE_READ);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 
@@ -708,7 +737,11 @@ static int __mem_open(struct inode *inode, struct file *file, unsigned int mode)
 	if (!task)
 		return -ESRCH;
 
+<<<<<<< HEAD
 	mm = mm_access(task, mode | PTRACE_MODE_FSCREDS);
+=======
+	mm = mm_access(task, mode);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	put_task_struct(task);
 
 	if (IS_ERR(mm))
@@ -1010,6 +1043,38 @@ out:
 	return err < 0 ? err : count;
 }
 
+<<<<<<< HEAD
+=======
+static int oom_adjust_permission(struct inode *inode, int mask)
+{
+	uid_t uid;
+	struct task_struct *p;
+
+	p = get_proc_task(inode);
+	if(p) {
+		uid = task_uid(p);
+		put_task_struct(p);
+	}
+
+	/*
+	 * System Server (uid == 1000) is granted access to oom_adj of all 
+	 * android applications (uid > 10000) as and services (uid >= 1000)
+	 */
+	if (p && (current_fsuid() == 1000) && (uid >= 1000)) {
+		if (inode->i_mode >> 6 & mask) {
+			return 0;
+		}
+	}
+
+	/* Fall back to default. */
+	return generic_permission(inode, mask);
+}
+
+static const struct inode_operations proc_oom_adj_inode_operations = {
+	.permission	= oom_adjust_permission,
+};
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static const struct file_operations proc_oom_adj_operations = {
 	.read		= oom_adj_read,
 	.write		= oom_adj_write,
@@ -1774,7 +1839,11 @@ static int map_files_d_revalidate(struct dentry *dentry, unsigned int flags)
 	if (!task)
 		goto out_notask;
 
+<<<<<<< HEAD
 	mm = mm_access(task, PTRACE_MODE_READ_FSCREDS);
+=======
+	mm = mm_access(task, PTRACE_MODE_READ);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (IS_ERR_OR_NULL(mm))
 		goto out;
 
@@ -1909,7 +1978,11 @@ static struct dentry *proc_map_files_lookup(struct inode *dir,
 		goto out;
 
 	result = ERR_PTR(-EACCES);
+<<<<<<< HEAD
 	if (!ptrace_may_access(task, PTRACE_MODE_READ_FSCREDS))
+=======
+	if (!ptrace_may_access(task, PTRACE_MODE_READ))
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		goto out_put_task;
 
 	result = ERR_PTR(-ENOENT);
@@ -1965,7 +2038,11 @@ proc_map_files_readdir(struct file *filp, void *dirent, filldir_t filldir)
 		goto out;
 
 	ret = -EACCES;
+<<<<<<< HEAD
 	if (!ptrace_may_access(task, PTRACE_MODE_READ_FSCREDS))
+=======
+	if (!ptrace_may_access(task, PTRACE_MODE_READ))
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		goto out_put_task;
 
 	ret = 0;
@@ -2501,7 +2578,11 @@ static int do_io_accounting(struct task_struct *task, char *buffer, int whole)
 	if (result)
 		return result;
 
+<<<<<<< HEAD
 	if (!ptrace_may_access(task, PTRACE_MODE_READ_FSCREDS)) {
+=======
+	if (!ptrace_may_access(task, PTRACE_MODE_READ)) {
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		result = -EACCES;
 		goto out_unlock;
 	}
@@ -2625,6 +2706,7 @@ static const struct file_operations proc_projid_map_operations = {
 	.llseek		= seq_lseek,
 	.release	= proc_id_map_release,
 };
+<<<<<<< HEAD
 
 static int proc_setgroups_open(struct inode *inode, struct file *file)
 {
@@ -2676,6 +2758,8 @@ static const struct file_operations proc_setgroups_operations = {
 	.llseek		= seq_lseek,
 	.release	= proc_setgroups_release,
 };
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #endif /* CONFIG_USER_NS */
 
 static int proc_pid_personality(struct seq_file *m, struct pid_namespace *ns,
@@ -2765,8 +2849,13 @@ static const struct pid_entry tgid_base_stuff[] = {
 	REG("cgroup",  S_IRUGO, proc_cgroup_operations),
 #endif
 	INF("oom_score",  S_IRUGO, proc_oom_score),
+<<<<<<< HEAD
 	REG("oom_adj",    S_IRUSR, proc_oom_adj_operations),
 	REG("oom_score_adj", S_IRUSR, proc_oom_score_adj_operations),
+=======
+	ANDROID("oom_adj", S_IRUGO|S_IWUSR, oom_adj),
+	REG("oom_score_adj", S_IRUGO|S_IWUSR, proc_oom_score_adj_operations),
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #ifdef CONFIG_AUDITSYSCALL
 	REG("loginuid",   S_IWUSR|S_IRUGO, proc_loginuid_operations),
 	REG("sessionid",  S_IRUGO, proc_sessionid_operations),
@@ -2787,7 +2876,10 @@ static const struct pid_entry tgid_base_stuff[] = {
 	REG("uid_map",    S_IRUGO|S_IWUSR, proc_uid_map_operations),
 	REG("gid_map",    S_IRUGO|S_IWUSR, proc_gid_map_operations),
 	REG("projid_map", S_IRUGO|S_IWUSR, proc_projid_map_operations),
+<<<<<<< HEAD
 	REG("setgroups",  S_IRUGO|S_IWUSR, proc_setgroups_operations),
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #endif
 #ifdef CONFIG_CHECKPOINT_RESTORE
 	REG("timers",	  S_IRUGO, proc_timers_operations),
@@ -3122,8 +3214,13 @@ static const struct pid_entry tid_base_stuff[] = {
 	REG("cgroup",  S_IRUGO, proc_cgroup_operations),
 #endif
 	INF("oom_score", S_IRUGO, proc_oom_score),
+<<<<<<< HEAD
 	REG("oom_adj",   S_IRUSR, proc_oom_adj_operations),
 	REG("oom_score_adj", S_IRUSR, proc_oom_score_adj_operations),
+=======
+	REG("oom_adj",   S_IRUGO|S_IWUSR, proc_oom_adj_operations),
+	REG("oom_score_adj", S_IRUGO|S_IWUSR, proc_oom_score_adj_operations),
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #ifdef CONFIG_AUDITSYSCALL
 	REG("loginuid",  S_IWUSR|S_IRUGO, proc_loginuid_operations),
 	REG("sessionid",  S_IRUGO, proc_sessionid_operations),
@@ -3141,7 +3238,10 @@ static const struct pid_entry tid_base_stuff[] = {
 	REG("uid_map",    S_IRUGO|S_IWUSR, proc_uid_map_operations),
 	REG("gid_map",    S_IRUGO|S_IWUSR, proc_gid_map_operations),
 	REG("projid_map", S_IRUGO|S_IWUSR, proc_projid_map_operations),
+<<<<<<< HEAD
 	REG("setgroups",  S_IRUGO|S_IWUSR, proc_setgroups_operations),
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #endif
 };
 

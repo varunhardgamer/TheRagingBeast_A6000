@@ -267,6 +267,7 @@ again:
 }
 EXPORT_SYMBOL(dst_destroy);
 
+<<<<<<< HEAD
 static void dst_destroy_rcu(struct rcu_head *head)
 {
 	struct dst_entry *dst = container_of(head, struct dst_entry, rcu_head);
@@ -276,10 +277,13 @@ static void dst_destroy_rcu(struct rcu_head *head)
 		__dst_free(dst);
 }
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 void dst_release(struct dst_entry *dst)
 {
 	if (dst) {
 		int newrefcnt;
+<<<<<<< HEAD
 		unsigned short nocache = dst->flags & DST_NOCACHE;
 
 		newrefcnt = atomic_dec_return(&dst->__refcnt);
@@ -288,6 +292,16 @@ void dst_release(struct dst_entry *dst)
 					     __func__, dst, newrefcnt);
 		if (!newrefcnt && unlikely(nocache))
 			call_rcu(&dst->rcu_head, dst_destroy_rcu);
+=======
+
+		newrefcnt = atomic_dec_return(&dst->__refcnt);
+		WARN_ON(newrefcnt < 0);
+		if (unlikely(dst->flags & DST_NOCACHE) && !newrefcnt) {
+			dst = dst_destroy(dst);
+			if (dst)
+				__dst_free(dst);
+		}
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 }
 EXPORT_SYMBOL(dst_release);

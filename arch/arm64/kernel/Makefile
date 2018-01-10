@@ -35,11 +35,14 @@ arm64-obj-$(CONFIG_EFI)			+= efi.o efi-stub.o efi-entry.o
 
 obj-$(CONFIG_SWP_EMULATE)	+= swp_emulate.o
 
+<<<<<<< HEAD
 obj-y +=alucard_hotplug.o
 obj-y +=fastchg.o
 obj-y +=autosmp.o
 obj-y +=thunderplug_quad.o
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 obj-$(CONFIG_PCI)                      += pcibios.o
 obj-y					+= $(arm64-obj-y) vdso/
 obj-m					+= $(arm64-obj-m)

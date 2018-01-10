@@ -604,6 +604,10 @@ static void emulate_load_store_insn(struct pt_regs *regs,
 	case sdc1_op:
 		die_if_kernel("Unaligned FP access in kernel code", regs);
 		BUG_ON(!used_math());
+<<<<<<< HEAD
+=======
+		BUG_ON(!is_fpu_owner());
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 		lose_fpu(1);	/* Save FPU state for the emulator. */
 		res = fpu_emulator_cop1Handler(regs, &current->thread.fpu, 1,

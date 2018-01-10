@@ -487,6 +487,7 @@ static int nf_nat_proto_remove(struct nf_conn *i, void *data)
 	return i->status & IPS_NAT_MASK ? 1 : 0;
 }
 
+<<<<<<< HEAD
 static int nf_nat_proto_clean(struct nf_conn *ct, void *data)
 {
 	struct nf_conn_nat *nat = nfct_nat(ct);
@@ -520,6 +521,8 @@ static int nf_nat_proto_clean(struct nf_conn *ct, void *data)
 	return 0;
 }
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static void nf_nat_l4proto_clean(u8 l3proto, u8 l4proto)
 {
 	struct nf_nat_proto_clean clean = {
@@ -782,7 +785,11 @@ static void __net_exit nf_nat_net_exit(struct net *net)
 {
 	struct nf_nat_proto_clean clean = {};
 
+<<<<<<< HEAD
 	nf_ct_iterate_cleanup(net, nf_nat_proto_clean, &clean);
+=======
+	nf_ct_iterate_cleanup(net, &nf_nat_proto_remove, &clean);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	synchronize_rcu();
 	nf_ct_free_hashtable(net->ct.nat_bysource, net->ct.nat_htable_size);
 }
@@ -853,8 +860,11 @@ static void __exit nf_nat_cleanup(void)
 #ifdef CONFIG_XFRM
 	RCU_INIT_POINTER(nf_nat_decode_session_hook, NULL);
 #endif
+<<<<<<< HEAD
 	synchronize_rcu();
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	for (i = 0; i < NFPROTO_NUMPROTO; i++)
 		kfree(nf_nat_l4protos[i]);
 	synchronize_net();

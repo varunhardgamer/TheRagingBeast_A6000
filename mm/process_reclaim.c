@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * Copyright (c) 2015-2016, The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2015, The Linux Foundation. All rights reserved.
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -48,10 +52,13 @@ static unsigned long pressure_max = 90;
 module_param_named(pressure_min, pressure_min, ulong, S_IRUGO | S_IWUSR);
 module_param_named(pressure_max, pressure_max, ulong, S_IRUGO | S_IWUSR);
 
+<<<<<<< HEAD
 static short min_score_adj = 360;
 module_param_named(min_score_adj, min_score_adj, short,
 	S_IRUGO | S_IWUSR);
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /*
  * Scheduling process reclaim workqueue unecessarily
  * when the reclaim efficiency is low does not make
@@ -118,6 +125,10 @@ static void swap_fn(struct work_struct *work)
 	int i;
 	int tasksize;
 	int total_sz = 0;
+<<<<<<< HEAD
+=======
+	short min_score_adj = 360;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	int total_scan = 0;
 	int total_reclaimed = 0;
 	int nr_to_reclaim;

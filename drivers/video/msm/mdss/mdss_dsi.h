@@ -124,11 +124,14 @@ enum dsi_pm_type {
 	DSI_MAX_PM
 };
 
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_WT86518
 #define STATUS_CMDS_NUM 5
 #define STATUS_VALUE_NUM 5
 #endif
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #define CTRL_STATE_UNKNOWN		0x00
 #define CTRL_STATE_PANEL_INIT		BIT(0)
 #define CTRL_STATE_MDP_ACTIVE		BIT(1)
@@ -379,6 +382,7 @@ struct mdss_dsi_ctrl_pdata {
 	struct dsi_panel_cmds post_dms_on_cmds;
 	struct dsi_panel_cmds post_panel_on_cmds;
 	struct dsi_panel_cmds off_cmds;
+<<<<<<< HEAD
 
 #ifdef CONFIG_MACH_WT86518
 	struct dsi_panel_cmds status_cmds[STATUS_CMDS_NUM];
@@ -393,6 +397,11 @@ struct mdss_dsi_ctrl_pdata {
 #else
 	u32 status_value;
 #endif
+=======
+	struct dsi_panel_cmds status_cmds;
+	u32 status_cmds_rlen;
+	u32 status_value;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	u32 status_error_count;
 
 	struct dsi_panel_cmds video2cmd;

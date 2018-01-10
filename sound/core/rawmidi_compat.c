@@ -94,6 +94,7 @@ static int snd_rawmidi_ioctl_status_compat(struct snd_rawmidi_file *rfile,
 	return 0;
 }
 
+<<<<<<< HEAD
 #ifdef CONFIG_X86_X32
 /* X32 ABI has 64bit timespec and 64bit alignment */
 struct snd_rawmidi_status_x32 {
@@ -146,6 +147,11 @@ enum {
 #ifdef CONFIG_X86_X32
 	SNDRV_RAWMIDI_IOCTL_STATUS_X32 = _IOWR('W', 0x20, struct snd_rawmidi_status_x32),
 #endif /* CONFIG_X86_X32 */
+=======
+enum {
+	SNDRV_RAWMIDI_IOCTL_PARAMS32 = _IOWR('W', 0x10, struct snd_rawmidi_params32),
+	SNDRV_RAWMIDI_IOCTL_STATUS32 = _IOWR('W', 0x20, struct snd_rawmidi_status32),
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 
 static long snd_rawmidi_ioctl_compat(struct file *file, unsigned int cmd, unsigned long arg)
@@ -164,10 +170,13 @@ static long snd_rawmidi_ioctl_compat(struct file *file, unsigned int cmd, unsign
 		return snd_rawmidi_ioctl_params_compat(rfile, argp);
 	case SNDRV_RAWMIDI_IOCTL_STATUS32:
 		return snd_rawmidi_ioctl_status_compat(rfile, argp);
+<<<<<<< HEAD
 #ifdef CONFIG_X86_X32
 	case SNDRV_RAWMIDI_IOCTL_STATUS_X32:
 		return snd_rawmidi_ioctl_status_x32(rfile, argp);
 #endif /* CONFIG_X86_X32 */
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 	return -ENOIOCTLCMD;
 }

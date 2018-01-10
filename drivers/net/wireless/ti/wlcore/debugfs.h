@@ -26,8 +26,13 @@
 
 #include "wlcore.h"
 
+<<<<<<< HEAD
 __printf(4, 5) int wl1271_format_buffer(char __user *userbuf, size_t count,
 					loff_t *ppos, char *fmt, ...);
+=======
+int wl1271_format_buffer(char __user *userbuf, size_t count,
+			 loff_t *ppos, char *fmt, ...);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 int wl1271_debugfs_init(struct wl1271 *wl);
 void wl1271_debugfs_exit(struct wl1271 *wl);

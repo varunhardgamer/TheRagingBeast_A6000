@@ -145,8 +145,12 @@ struct kvm_io_range {
 #define NR_IOBUS_DEVS 1000
 
 struct kvm_io_bus {
+<<<<<<< HEAD
 	int dev_count;
 	int ioeventfd_count;
+=======
+	int                   dev_count;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	struct kvm_io_range range[];
 };
 
@@ -163,8 +167,13 @@ int kvm_io_bus_read(struct kvm *kvm, enum kvm_bus bus_idx, gpa_t addr, int len,
 		    void *val);
 int kvm_io_bus_register_dev(struct kvm *kvm, enum kvm_bus bus_idx, gpa_t addr,
 			    int len, struct kvm_io_device *dev);
+<<<<<<< HEAD
 void kvm_io_bus_unregister_dev(struct kvm *kvm, enum kvm_bus bus_idx,
 			       struct kvm_io_device *dev);
+=======
+int kvm_io_bus_unregister_dev(struct kvm *kvm, enum kvm_bus bus_idx,
+			      struct kvm_io_device *dev);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #ifdef CONFIG_KVM_ASYNC_PF
 struct kvm_async_pf {

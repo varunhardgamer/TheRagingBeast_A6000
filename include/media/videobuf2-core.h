@@ -18,11 +18,15 @@
 #include <linux/videodev2.h>
 #include <linux/dma-buf.h>
 
+<<<<<<< HEAD
 #ifdef CONFIG_WT88047_CAMERA
 #define VB2_MAX_FRAME  32
 #else
 #define VB2_MAX_FRAME  64
 #endif
+=======
+#define VB2_MAX_FRAME  64
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 struct vb2_alloc_ctx;
 struct vb2_fileio_data;
@@ -324,9 +328,12 @@ struct v4l2_fh;
  * @done_wq:	waitqueue for processes waiting for buffers ready to be dequeued
  * @alloc_ctx:	memory type/allocator-specific contexts for each plane
  * @streaming:	current streaming state
+<<<<<<< HEAD
  * @waiting_for_buffers: used in poll() to check if vb2 is still waiting for
  *		buffers. Only set for capture queues if qbuf has not yet been
  *		called since poll() needs to return POLLERR in that situation.
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  * @fileio:	file io emulator internal data, used only if emulator is active
  */
 struct vb2_queue {
@@ -359,7 +366,10 @@ struct vb2_queue {
 	unsigned int			plane_sizes[VIDEO_MAX_PLANES];
 
 	unsigned int			streaming:1;
+<<<<<<< HEAD
 	unsigned int			waiting_for_buffers:1;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	struct vb2_fileio_data		*fileio;
 };

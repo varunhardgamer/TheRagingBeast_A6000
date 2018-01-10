@@ -1303,6 +1303,7 @@ void diag_process_hdlc(void *data, unsigned len)
 	hdlc.escaping = 0;
 
 	ret = diag_hdlc_decode(&hdlc);
+<<<<<<< HEAD
 	/*
 	 * If the message is 3 bytes or less in length then the message is
 	 * too short. A message will need 4 bytes minimum, since there are
@@ -1315,6 +1316,8 @@ void diag_process_hdlc(void *data, unsigned len)
 		mutex_unlock(&driver->diag_hdlc_mutex);
 		return;
 	}
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (ret) {
 		crc_chk = crc_check(hdlc.dest_ptr, hdlc.dest_idx);
 		if (crc_chk) {

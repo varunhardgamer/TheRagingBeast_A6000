@@ -461,15 +461,22 @@ static int usb_unbind_interface(struct device *dev)
 int usb_driver_claim_interface(struct usb_driver *driver,
 				struct usb_interface *iface, void *priv)
 {
+<<<<<<< HEAD
 	struct device *dev;
+=======
+	struct device *dev = &iface->dev;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	struct usb_device *udev;
 	int retval = 0;
 	int lpm_disable_error;
 
+<<<<<<< HEAD
 	if (!iface)
 		return -ENODEV;
 
 	dev = &iface->dev;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (dev->driver)
 		return -EBUSY;
 

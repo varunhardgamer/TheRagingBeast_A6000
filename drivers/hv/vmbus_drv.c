@@ -32,7 +32,10 @@
 #include <linux/acpi.h>
 #include <acpi/acpi_bus.h>
 #include <linux/completion.h>
+<<<<<<< HEAD
 #include <linux/cpu.h>
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #include <linux/hyperv.h>
 #include <linux/kernel_stat.h>
 #include <asm/hyperv.h>
@@ -518,6 +521,7 @@ static void vmbus_flow_handler(unsigned int irq, struct irq_desc *desc)
 	desc->action->handler(irq, desc->action->dev_id);
 }
 
+<<<<<<< HEAD
 #ifdef CONFIG_HOTPLUG_CPU
 static int hyperv_cpu_disable(void)
 {
@@ -551,6 +555,8 @@ static void hv_cpu_hotplug_quirk(bool vmbus_loaded)
 }
 #endif
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /*
  * vmbus_bus_init -Main vmbus driver initialization routine.
  *
@@ -606,7 +612,10 @@ static int vmbus_bus_init(int irq)
 	if (ret)
 		goto err_irq;
 
+<<<<<<< HEAD
 	hv_cpu_hotplug_quirk(true);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	vmbus_request_offers();
 
 	return 0;
@@ -618,7 +627,11 @@ err_unregister:
 	bus_unregister(&hv_bus);
 
 err_cleanup:
+<<<<<<< HEAD
 	hv_cleanup(false);
+=======
+	hv_cleanup();
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	return ret;
 }
@@ -721,7 +734,11 @@ int vmbus_device_register(struct hv_device *child_device_obj)
 	if (ret)
 		pr_err("Unable to register child device\n");
 	else
+<<<<<<< HEAD
 		pr_debug("child device %s registered\n",
+=======
+		pr_info("child device %s registered\n",
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			dev_name(&child_device_obj->device));
 
 	return ret;
@@ -733,14 +750,23 @@ int vmbus_device_register(struct hv_device *child_device_obj)
  */
 void vmbus_device_unregister(struct hv_device *device_obj)
 {
+<<<<<<< HEAD
 	pr_debug("child device %s unregistered\n",
 		dev_name(&device_obj->device));
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/*
 	 * Kick off the process of unregistering the device.
 	 * This will call vmbus_remove() and eventually vmbus_device_release()
 	 */
 	device_unregister(&device_obj->device);
+<<<<<<< HEAD
+=======
+
+	pr_info("child device %s unregistered\n",
+		dev_name(&device_obj->device));
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 
@@ -841,9 +867,14 @@ static void __exit vmbus_exit(void)
 	free_irq(irq, hv_acpi_dev);
 	vmbus_free_channels();
 	bus_unregister(&hv_bus);
+<<<<<<< HEAD
 	hv_cleanup(false);
 	acpi_bus_unregister_driver(&vmbus_acpi_driver);
 	hv_cpu_hotplug_quirk(false);
+=======
+	hv_cleanup();
+	acpi_bus_unregister_driver(&vmbus_acpi_driver);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 

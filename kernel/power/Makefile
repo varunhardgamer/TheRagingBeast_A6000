@@ -9,7 +9,10 @@ obj-$(CONFIG_SUSPEND)		+= suspend.o
 obj-$(CONFIG_PM_TEST_SUSPEND)	+= suspend_test.o
 obj-$(CONFIG_HIBERNATION)	+= hibernate.o snapshot.o swap.o user.o \
 				   block_io.o
+<<<<<<< HEAD
 obj-$(CONFIG_POWERSUSPEND)	+= powersuspend.o
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 obj-$(CONFIG_PM_AUTOSLEEP)	+= autosleep.o
 obj-$(CONFIG_PM_WAKELOCKS)	+= wakelock.o
 obj-$(CONFIG_SUSPEND_TIME)	+= suspend_time.o

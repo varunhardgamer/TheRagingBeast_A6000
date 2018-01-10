@@ -37,6 +37,7 @@ obj-$(CONFIG_MFD_ARIZONA)	+= arizona-core.o
 obj-$(CONFIG_MFD_ARIZONA)	+= arizona-irq.o
 obj-$(CONFIG_MFD_ARIZONA_I2C)	+= arizona-i2c.o
 obj-$(CONFIG_MFD_ARIZONA_SPI)	+= arizona-spi.o
+<<<<<<< HEAD
 ifeq ($(CONFIG_MFD_WM5102),y)
 obj-$(CONFIG_MFD_ARIZONA)	+= wm5102-tables.o
 endif
@@ -63,6 +64,13 @@ obj-$(CONFIG_MFD_ARIZONA)	+= moon-tables.o
 endif
 ifeq ($(CONFIG_MFD_CS47L15),y)
 obj-$(CONFIG_MFD_ARIZONA)	+= cs47l15-tables.o
+=======
+ifneq ($(CONFIG_MFD_WM5102),n)
+obj-$(CONFIG_MFD_ARIZONA)	+= wm5102-tables.o
+endif
+ifneq ($(CONFIG_MFD_WM5110),n)
+obj-$(CONFIG_MFD_ARIZONA)	+= wm5110-tables.o
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 endif
 obj-$(CONFIG_MFD_WM8400)	+= wm8400-core.o
 wm831x-objs			:= wm831x-core.o wm831x-irq.o wm831x-otp.o

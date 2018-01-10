@@ -1655,9 +1655,13 @@ static void __jbd2_journal_temp_unlink_buffer(struct journal_head *jh)
 
 	__blist_del_buffer(list, jh);
 	jh->b_jlist = BJ_None;
+<<<<<<< HEAD
 	if (transaction && is_journal_aborted(transaction->t_journal))
 		clear_buffer_jbddirty(bh);
 	else if (test_clear_buffer_jbddirty(bh))
+=======
+	if (test_clear_buffer_jbddirty(bh))
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		mark_buffer_dirty(bh);	/* Expose it to the VM */
 }
 
@@ -1938,7 +1942,10 @@ static int journal_unmap_buffer(journal_t *journal, struct buffer_head *bh,
 
 		if (!buffer_dirty(bh)) {
 			/* bdflush has written it.  We can drop it now */
+<<<<<<< HEAD
 			__jbd2_journal_remove_checkpoint(jh);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			goto zap_buffer;
 		}
 
@@ -1968,7 +1975,10 @@ static int journal_unmap_buffer(journal_t *journal, struct buffer_head *bh,
 				/* The orphan record's transaction has
 				 * committed.  We can cleanse this buffer */
 				clear_buffer_jbddirty(bh);
+<<<<<<< HEAD
 				__jbd2_journal_remove_checkpoint(jh);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 				goto zap_buffer;
 			}
 		}

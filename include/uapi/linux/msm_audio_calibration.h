@@ -90,6 +90,7 @@ enum {
 	AUDIO_CORE_METAINFO_CAL_TYPE,
 	SRS_TRUMEDIA_CAL_TYPE,
 
+<<<<<<< HEAD
 	CORE_CUSTOM_TOPOLOGIES_CAL_TYPE,
 	MAX_CAL_TYPES,
 };
@@ -97,6 +98,11 @@ enum {
 #define AFE_FB_SPKR_PROT_TH_VI_CAL_TYPE AFE_FB_SPKR_PROT_TH_VI_CAL_TYPE
 #define AFE_FB_SPKR_PROT_EX_VI_CAL_TYPE AFE_FB_SPKR_PROT_EX_VI_CAL_TYPE
 
+=======
+	MAX_CAL_TYPES,
+};
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 enum {
 	VERSION_0_0,
 };
@@ -272,6 +278,7 @@ struct audio_cal_info_spk_prot_cfg {
 	int32_t		r0[SP_V2_NUM_MAX_SPKRS];
 	int32_t		t0[SP_V2_NUM_MAX_SPKRS];
 	uint32_t	quick_calib_flag;
+<<<<<<< HEAD
 	uint32_t	mode;
 	/*
 	 * 0 - Start spk prot
@@ -312,6 +319,11 @@ struct audio_cal_info_sp_th_vi_param {
 	int32_t		r_dc_q24[SP_V2_NUM_MAX_SPKRS];
 	int32_t		temp_q22[SP_V2_NUM_MAX_SPKRS];
 	int32_t		status[SP_V2_NUM_MAX_SPKRS];
+=======
+	uint32_t	mode; /*0 - Start spk prot
+	1 - Start calib
+	2 - Disable spk prot*/
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 
 struct audio_cal_info_msm_spk_prot_status {
@@ -508,6 +520,7 @@ struct audio_cal_fb_spk_prot_cfg {
 	struct audio_cal_type_fb_spk_prot_cfg	cal_type;
 };
 
+<<<<<<< HEAD
 struct audio_cal_type_sp_th_vi_ftm_cfg {
 	struct audio_cal_type_header		cal_hdr;
 	struct audio_cal_data			cal_data;
@@ -529,6 +542,8 @@ struct audio_cal_sp_ex_vi_ftm_cfg {
 	struct audio_cal_header			hdr;
 	struct audio_cal_type_sp_ex_vi_ftm_cfg	cal_type;
 };
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 struct audio_cal_type_hw_delay {
 	struct audio_cal_type_header	cal_hdr;
 	struct audio_cal_data		cal_data;
@@ -640,6 +655,7 @@ struct audio_cal_fb_spk_prot_status {
 	struct audio_cal_type_fb_spk_prot_status	cal_type;
 };
 
+<<<<<<< HEAD
 struct audio_cal_type_sp_th_vi_param {
 	struct audio_cal_type_header			cal_hdr;
 	struct audio_cal_data				cal_data;
@@ -660,4 +676,6 @@ struct audio_cal_sp_ex_vi_param {
 	struct audio_cal_header				hdr;
 	struct audio_cal_type_sp_ex_vi_param		cal_type;
 };
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #endif /* _UAPI_MSM_AUDIO_CALIBRATION_H */

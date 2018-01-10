@@ -362,9 +362,12 @@ int i1480_usb_probe(struct usb_interface *iface, const struct usb_device_id *id)
 				 result);
 	}
 
+<<<<<<< HEAD
 	if (iface->cur_altsetting->desc.bNumEndpoints < 1)
 		return -ENODEV;
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	result = -ENOMEM;
 	i1480_usb = kzalloc(sizeof(*i1480_usb), GFP_KERNEL);
 	if (i1480_usb == NULL) {

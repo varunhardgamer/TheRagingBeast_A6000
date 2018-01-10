@@ -882,8 +882,13 @@ static const struct input_device_id sysrq_ids[] = {
 	{
 		.flags = INPUT_DEVICE_ID_MATCH_EVBIT |
 				INPUT_DEVICE_ID_MATCH_KEYBIT,
+<<<<<<< HEAD
 		.evbit = { [BIT_WORD(EV_KEY)] = BIT_MASK(EV_KEY) },
 		.keybit = { [BIT_WORD(KEY_LEFTALT)] = BIT_MASK(KEY_LEFTALT) },
+=======
+		.evbit = { BIT_MASK(EV_KEY) },
+		.keybit = { BIT_MASK(KEY_LEFTALT) },
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	},
 	{ },
 };

@@ -3,7 +3,10 @@
  * Copyright 2005-2006, Devicescape Software, Inc.
  * Copyright 2006-2007	Jiri Benc <jbenc@suse.cz>
  * Copyright 2007-2008	Johannes Berg <johannes@sipsolutions.net>
+<<<<<<< HEAD
  * Copyright 2015-2017	Intel Deutschland GmbH
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 as
@@ -18,7 +21,10 @@
 #include <linux/slab.h>
 #include <linux/export.h>
 #include <net/mac80211.h>
+<<<<<<< HEAD
 #include <crypto/algapi.h>
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #include <asm/unaligned.h>
 #include "ieee80211_i.h"
 #include "driver-ops.h"
@@ -466,6 +472,12 @@ int ieee80211_key_link(struct ieee80211_key *key,
 
 	pairwise = key->conf.flags & IEEE80211_KEY_FLAG_PAIRWISE;
 	idx = key->conf.keyidx;
+<<<<<<< HEAD
+=======
+	key->local = sdata->local;
+	key->sdata = sdata;
+	key->sta = sta;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	mutex_lock(&sdata->local->key_mtx);
 
@@ -476,6 +488,7 @@ int ieee80211_key_link(struct ieee80211_key *key,
 	else
 		old_key = key_mtx_dereference(sdata->local, sdata->keys[idx]);
 
+<<<<<<< HEAD
 	/*
 	 * Silently accept key re-installation without really installing the
 	 * new version of the key to avoid nonce reuse or replay issues.
@@ -491,6 +504,8 @@ int ieee80211_key_link(struct ieee80211_key *key,
 	key->sdata = sdata;
 	key->sta = sta;
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	increment_tailroom_need_count(sdata);
 
 	ieee80211_key_replace(sdata, sta, pairwise, old_key, key);
@@ -503,7 +518,10 @@ int ieee80211_key_link(struct ieee80211_key *key,
 	if (ret)
 		ieee80211_key_free(key, true);
 
+<<<<<<< HEAD
  out:
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	mutex_unlock(&sdata->local->key_mtx);
 
 	return ret;
@@ -622,7 +640,11 @@ void ieee80211_free_sta_keys(struct ieee80211_local *local,
 	int i;
 
 	mutex_lock(&local->key_mtx);
+<<<<<<< HEAD
 	for (i = 0; i < ARRAY_SIZE(sta->gtk); i++) {
+=======
+	for (i = 0; i < NUM_DEFAULT_KEYS; i++) {
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		key = key_mtx_dereference(local, sta->gtk[i]);
 		if (!key)
 			continue;

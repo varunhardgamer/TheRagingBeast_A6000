@@ -111,7 +111,11 @@ static struct console *exclusive_console;
  */
 struct console_cmdline
 {
+<<<<<<< HEAD
 	char	name[16];			/* Name of the driver	    */
+=======
+	char	name[8];			/* Name of the driver	    */
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	int	index;				/* Minor dev. to use	    */
 	char	*options;			/* Options for the driver   */
 #ifdef CONFIG_A11Y_BRAILLE_CONSOLE
@@ -1556,7 +1560,11 @@ static void call_console_drivers(int level, const char *text, size_t len)
 {
 	struct console *con;
 
+<<<<<<< HEAD
 	trace_console_rcuidle(text, len);
+=======
+	trace_console(text, len);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (level >= console_loglevel && !ignore_loglevel)
 		return;
@@ -2341,13 +2349,18 @@ void console_unlock(void)
 	static u64 seen_seq;
 	unsigned long flags;
 	bool wake_klogd = false;
+<<<<<<< HEAD
 	bool do_cond_resched, retry;
+=======
+	bool retry;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (console_suspended) {
 		up(&console_sem);
 		return;
 	}
 
+<<<<<<< HEAD
 	/*
 	 * Console drivers are called under logbuf_lock, so
 	 * @console_may_schedule should be cleared before; however, we may
@@ -2359,6 +2372,8 @@ void console_unlock(void)
 	 * messages practically incapacitating the system.
 	 */
 	do_cond_resched = console_may_schedule;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	console_may_schedule = 0;
 
 	/* flush buffered message fragment immediately to console */
@@ -2415,9 +2430,12 @@ skip:
 		call_console_drivers(level, text, len);
 		start_critical_timings();
 		local_irq_restore(flags);
+<<<<<<< HEAD
 
 		if (do_cond_resched)
 			cond_resched();
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 	console_locked = 0;
 	mutex_release(&console_lock_dep_map, 1, _RET_IP_);
@@ -2486,6 +2504,7 @@ void console_unblank(void)
 	console_unlock();
 }
 
+<<<<<<< HEAD
 /**
  * console_flush_on_panic - flush console content on panic
  *
@@ -2505,6 +2524,8 @@ void console_flush_on_panic(void)
 	console_unlock();
 }
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /*
  * Return the console tty driver structure and its associated index
  */
@@ -2631,8 +2652,11 @@ void register_console(struct console *newcon)
 	 */
 	for (i = 0; i < MAX_CMDLINECONSOLES && console_cmdline[i].name[0];
 			i++) {
+<<<<<<< HEAD
 		BUILD_BUG_ON(sizeof(console_cmdline[i].name) !=
 			     sizeof(newcon->name));
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		if (strcmp(console_cmdline[i].name, newcon->name) != 0)
 			continue;
 		if (newcon->index >= 0 &&
@@ -2828,7 +2852,11 @@ void wake_up_klogd(void)
 	preempt_enable();
 }
 
+<<<<<<< HEAD
 int printk_deferred(const char *fmt, ...)
+=======
+int printk_sched(const char *fmt, ...)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	unsigned long flags;
 	va_list args;

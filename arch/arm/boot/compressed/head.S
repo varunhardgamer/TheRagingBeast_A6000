@@ -10,10 +10,13 @@
  */
 #include <linux/linkage.h>
 #include <asm/assembler.h>
+<<<<<<< HEAD
 #ifdef CONFIG_KEXEC_HARDBOOT
     #include <asm/kexec.h>
     #include <asm/memory.h>
 #endif
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	.arch	armv7-a
 /*
@@ -146,6 +149,7 @@ start:
 		mov	r7, r1			@ save architecture ID
 		mov	r8, r2			@ save atags pointer
 
+<<<<<<< HEAD
 #ifdef CONFIG_KEXEC_HARDBOOT
                /* Check hardboot page for a kexec kernel. */
                ldr     r3, =KEXEC_HB_PAGE_ADDR
@@ -205,6 +209,8 @@ kernel_cpy:
 not_booting_other:
 #endif
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #ifndef __ARM_ARCH_2__
 		/*
 		 * Booting from Angel - need to enter SVC mode and disable
@@ -778,7 +784,11 @@ __armv7_mmu_cache_on:
 		orrne	r0, r0, #1		@ MMU enabled
 		movne	r1, #0xfffffffd		@ domain 0 = client
 		bic     r6, r6, #1 << 31        @ 32-bit translation system
+<<<<<<< HEAD
 		bic     r6, r6, #(7 << 0) | (1 << 4)	@ use only ttbr0
+=======
+		bic     r6, r6, #3 << 0         @ use only ttbr0
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		mcrne	p15, 0, r3, c2, c0, 0	@ load page table pointer
 		mcrne	p15, 0, r0, c8, c7, 0	@ flush I,D TLBs
 		mcr	p15, 0, r0, c7, c5, 4	@ ISB

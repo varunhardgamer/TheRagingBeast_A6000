@@ -29,7 +29,10 @@
 #include <linux/syscore_ops.h>
 #include <linux/tick.h>
 #include <trace/events/power.h>
+<<<<<<< HEAD
 #include <linux/pm_opp.h>
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 /**
  * The "cpufreq driver" - the arch- or hardware-dependent low
@@ -340,6 +343,7 @@ void cpufreq_notify_transition(struct cpufreq_policy *policy,
 }
 EXPORT_SYMBOL_GPL(cpufreq_notify_transition);
 
+<<<<<<< HEAD
 /**
  * cpufreq_notify_utilization - notify CPU userspace about CPU utilization
  * change
@@ -353,6 +357,8 @@ void cpufreq_notify_utilization(struct cpufreq_policy *policy,
 	if (policy)
 		policy->util = util;
 }
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 /*********************************************************************
  *                          SYSFS INTERFACE                          *
@@ -452,10 +458,13 @@ static ssize_t store_##file_name					\
 {									\
 	int ret;							\
 	struct cpufreq_policy new_policy;				\
+<<<<<<< HEAD
         int mpd = strcmp(current->comm, "mpdecision");			\
 									\
 	if (mpd == 0)							\
 		return ret;	                                        \
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 									\
 	ret = cpufreq_get_policy(&new_policy, policy->cpu);		\
 	if (ret)							\
@@ -490,11 +499,17 @@ static ssize_t show_cpuinfo_cur_freq(struct cpufreq_policy *policy,
 					char *buf)
 {
 	unsigned int cur_freq = __cpufreq_get(policy->cpu);
+<<<<<<< HEAD
 
 	if (cur_freq)
 		return sprintf(buf, "%u\n", cur_freq);
 
 	return sprintf(buf, "<unknown>\n");
+=======
+	if (!cur_freq)
+		return sprintf(buf, "<unknown>");
+	return sprintf(buf, "%u\n", cur_freq);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 /**
@@ -655,6 +670,7 @@ static ssize_t show_bios_limit(struct cpufreq_policy *policy, char *buf)
 	return sprintf(buf, "%u\n", policy->cpuinfo.max_freq);
 }
 
+<<<<<<< HEAD
 extern ssize_t vc_get_vdd(char *buf);
 
 #ifdef CONFIG_ARCH_MSM8916
@@ -673,6 +689,8 @@ static ssize_t store_UV_mV_table(struct cpufreq_policy *policy,
 }
 #endif
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 cpufreq_freq_attr_ro_perm(cpuinfo_cur_freq, 0400);
 cpufreq_freq_attr_ro(cpuinfo_min_freq);
 cpufreq_freq_attr_ro(cpuinfo_max_freq);
@@ -687,9 +705,12 @@ cpufreq_freq_attr_rw(scaling_min_freq);
 cpufreq_freq_attr_rw(scaling_max_freq);
 cpufreq_freq_attr_rw(scaling_governor);
 cpufreq_freq_attr_rw(scaling_setspeed);
+<<<<<<< HEAD
 #ifdef CONFIG_ARCH_MSM8916
 cpufreq_freq_attr_rw(UV_mV_table);
 #endif
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 static struct attribute *default_attrs[] = {
 	&cpuinfo_min_freq.attr,
@@ -703,9 +724,12 @@ static struct attribute *default_attrs[] = {
 	&scaling_driver.attr,
 	&scaling_available_governors.attr,
 	&scaling_setspeed.attr,
+<<<<<<< HEAD
 #ifdef CONFIG_ARCH_MSM8916
 	&UV_mV_table.attr,
 #endif
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	NULL
 };
 
@@ -1158,7 +1182,11 @@ static int __cpufreq_add_dev(struct device *dev, struct subsys_interface *sif,
 	gov = __find_governor(per_cpu(cpufreq_policy_save, cpu).gov);
 	if (gov) {
 		policy->governor = gov;
+<<<<<<< HEAD
 		pr_info("Restoring governor %s for cpu %d\n",
+=======
+		pr_debug("Restoring governor %s for cpu %d\n",
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		       policy->governor->name, cpu);
 	}
 	if (per_cpu(cpufreq_policy_save, cpu).min) {
@@ -1169,7 +1197,11 @@ static int __cpufreq_add_dev(struct device *dev, struct subsys_interface *sif,
 		policy->max = per_cpu(cpufreq_policy_save, cpu).max;
 		policy->user_policy.max = policy->max;
 	}
+<<<<<<< HEAD
 	pr_info("Restoring CPU%d user policy min %d and max %d\n", cpu,
+=======
+	pr_debug("Restoring CPU%d user policy min %d and max %d\n", cpu,
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		 policy->min, policy->max);
 #endif
 
@@ -1458,6 +1490,7 @@ static void cpufreq_out_of_sync(unsigned int cpu, unsigned int old_freq,
 }
 
 /**
+<<<<<<< HEAD
  * cpufreq_quick_get_util - get the CPU utilization from policy->util
  * @cpu: CPU number
  *
@@ -1479,6 +1512,8 @@ unsigned int cpufreq_quick_get_util(unsigned int cpu)
 EXPORT_SYMBOL(cpufreq_quick_get_util);
 
 /**
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  * cpufreq_quick_get - get the CPU frequency (in kHz) from policy->cur
  * @cpu: CPU number
  *
@@ -1883,6 +1918,7 @@ EXPORT_SYMBOL_GPL(cpufreq_driver_target);
  * when "event" is CPUFREQ_GOV_LIMITS
  */
 
+<<<<<<< HEAD
 int __cpufreq_driver_getavg(struct cpufreq_policy *policy, unsigned int cpu)
 {
     int ret = 0;
@@ -1899,6 +1935,8 @@ int __cpufreq_driver_getavg(struct cpufreq_policy *policy, unsigned int cpu)
 }
 EXPORT_SYMBOL_GPL(__cpufreq_driver_getavg);
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static int __cpufreq_governor(struct cpufreq_policy *policy,
 					unsigned int event)
 {

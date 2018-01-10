@@ -31,7 +31,11 @@ int msm_camera_fill_vreg_params(struct camera_vreg_t *cam_vreg,
 
 	/* Validate input parameters */
 	if (!cam_vreg || !power_setting) {
+<<<<<<< HEAD
 		pr_err("%s:%d failed: cam_vreg %pK power_setting %pK", __func__,
+=======
+		pr_err("%s:%d failed: cam_vreg %p power_setting %p", __func__,
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			__LINE__,  cam_vreg, power_setting);
 		return -EINVAL;
 	}
@@ -1224,7 +1228,11 @@ int msm_camera_power_up(struct msm_camera_power_ctrl_t *ctrl,
 
 	CDBG("%s:%d\n", __func__, __LINE__);
 	if (!ctrl || !sensor_i2c_client) {
+<<<<<<< HEAD
 		pr_err("failed ctrl %pK sensor_i2c_client %pK\n", ctrl,
+=======
+		pr_err("failed ctrl %p sensor_i2c_client %p\n", ctrl,
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			sensor_i2c_client);
 		return -EINVAL;
 	}
@@ -1443,7 +1451,11 @@ int msm_camera_power_down(struct msm_camera_power_ctrl_t *ctrl,
 
 	CDBG("%s:%d\n", __func__, __LINE__);
 	if (!ctrl || !sensor_i2c_client) {
+<<<<<<< HEAD
 		pr_err("failed ctrl %pK sensor_i2c_client %pK\n", ctrl,
+=======
+		pr_err("failed ctrl %p sensor_i2c_client %p\n", ctrl,
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			sensor_i2c_client);
 		return -EINVAL;
 	}

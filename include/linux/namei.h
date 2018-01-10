@@ -74,7 +74,10 @@ extern int vfs_path_lookup(struct dentry *, struct vfsmount *,
 			   const char *, unsigned int, struct path *);
 
 extern struct dentry *lookup_one_len(const char *, struct dentry *, int);
+<<<<<<< HEAD
 extern struct dentry *lookup_one_len2(const char *, struct vfsmount *mnt, struct dentry *, int);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 extern int follow_down_one(struct path *);
 extern int follow_down(struct path *);

@@ -186,13 +186,20 @@ enum bcl_threshold_state {
 static struct bcl_context *gbcl;
 static enum bcl_threshold_state bcl_vph_state = BCL_THRESHOLD_DISABLED,
 		bcl_ibat_state = BCL_THRESHOLD_DISABLED;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static DEFINE_MUTEX(bcl_notify_mutex);
 static uint32_t bcl_hotplug_request, bcl_hotplug_mask;
 static struct work_struct bcl_hotplug_work;
 static DEFINE_MUTEX(bcl_hotplug_mutex);
+<<<<<<< HEAD
 static bool bcl_hotplug_enabled = 1;
 module_param(bcl_hotplug_enabled, uint, 0664);
+=======
+static bool bcl_hotplug_enabled;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #ifdef CONFIG_SMP
 static void __ref bcl_handle_hotplug(struct work_struct *work)

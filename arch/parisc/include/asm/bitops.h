@@ -6,7 +6,11 @@
 #endif
 
 #include <linux/compiler.h>
+<<<<<<< HEAD
 #include <asm/types.h>
+=======
+#include <asm/types.h>		/* for BITS_PER_LONG/SHIFT_PER_LONG */
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #include <asm/byteorder.h>
 #include <linux/atomic.h>
 
@@ -16,12 +20,15 @@
  * to include/asm-i386/bitops.h or kerneldoc
  */
 
+<<<<<<< HEAD
 #if __BITS_PER_LONG == 64
 #define SHIFT_PER_LONG 6
 #else
 #define SHIFT_PER_LONG 5
 #endif
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #define CHOP_SHIFTCOUNT(x) (((unsigned long) (x)) & (BITS_PER_LONG - 1))
 
 

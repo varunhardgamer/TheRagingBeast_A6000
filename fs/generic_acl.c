@@ -82,13 +82,17 @@ generic_acl_set(struct dentry *dentry, const char *name, const void *value,
 			return PTR_ERR(acl);
 	}
 	if (acl) {
+<<<<<<< HEAD
 		struct posix_acl *old_acl;
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		error = posix_acl_valid(acl);
 		if (error)
 			goto failed;
 		switch (type) {
 		case ACL_TYPE_ACCESS:
+<<<<<<< HEAD
 			old_acl = acl;
 			error = posix_acl_update_mode(inode, &inode->i_mode,
 						      &acl);
@@ -97,6 +101,16 @@ generic_acl_set(struct dentry *dentry, const char *name, const void *value,
 			if (!acl)
 				posix_acl_release(old_acl);
 			inode->i_ctime = CURRENT_TIME;
+=======
+			error = posix_acl_equiv_mode(acl, &inode->i_mode);
+			if (error < 0)
+				goto failed;
+			inode->i_ctime = CURRENT_TIME;
+			if (error == 0) {
+				posix_acl_release(acl);
+				acl = NULL;
+			}
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			break;
 		case ACL_TYPE_DEFAULT:
 			if (!S_ISDIR(inode->i_mode)) {

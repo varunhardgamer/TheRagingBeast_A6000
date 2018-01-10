@@ -1442,8 +1442,14 @@ static int vortex_wtdma_bufshift(vortex_t * vortex, int wtdma)
 	int page, p, pp, delta, i;
 
 	page =
+<<<<<<< HEAD
 	    (hwread(vortex->mmio, VORTEX_WTDMA_STAT + (wtdma << 2))
 	     >> WT_SUBBUF_SHIFT) & WT_SUBBUF_MASK;
+=======
+	    (hwread(vortex->mmio, VORTEX_WTDMA_STAT + (wtdma << 2)) &
+	     WT_SUBBUF_MASK)
+	    >> WT_SUBBUF_SHIFT;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (dma->nr_periods >= 4)
 		delta = (page - dma->period_real) & 3;
 	else {

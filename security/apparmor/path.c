@@ -25,6 +25,10 @@
 #include "include/path.h"
 #include "include/policy.h"
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /* modified from dcache.c */
 static int prepend(char **buffer, int buflen, const char *str, int namelen)
 {
@@ -38,6 +42,7 @@ static int prepend(char **buffer, int buflen, const char *str, int namelen)
 
 #define CHROOT_NSCONNECT (PATH_CHROOT_REL | PATH_CHROOT_NSCONNECT)
 
+<<<<<<< HEAD
 /* If the path is not connected to the expected root,
  * check if it is a sysctl and handle specially else remove any
  * leading / that __d_path may have returned.
@@ -70,6 +75,8 @@ static int disconnect(const struct path *path, char *buf, char **name,
 	return error;
 }
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /**
  * d_namespace_path - lookup a name associated with a given path
  * @path: path to lookup  (NOT NULL)
@@ -105,8 +112,12 @@ static int d_namespace_path(struct path *path, char *buf, int buflen,
 			 * control instead of hard coded /proc
 			 */
 			return prepend(name, *name - buf, "/proc", 5);
+<<<<<<< HEAD
 		} else
 			return disconnect(path, buf, name, flags);
+=======
+		}
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		return 0;
 	}
 
@@ -152,8 +163,34 @@ static int d_namespace_path(struct path *path, char *buf, int buflen,
 			goto out;
 	}
 
+<<<<<<< HEAD
 	if (!connected)
 		error = disconnect(path, buf, name, flags);
+=======
+	/* If the path is not connected to the expected root,
+	 * check if it is a sysctl and handle specially else remove any
+	 * leading / that __d_path may have returned.
+	 * Unless
+	 *     specifically directed to connect the path,
+	 * OR
+	 *     if in a chroot and doing chroot relative paths and the path
+	 *     resolves to the namespace root (would be connected outside
+	 *     of chroot) and specifically directed to connect paths to
+	 *     namespace root.
+	 */
+	if (!connected) {
+		if (!(flags & PATH_CONNECT_PATH) &&
+			   !(((flags & CHROOT_NSCONNECT) == CHROOT_NSCONNECT) &&
+			     our_mnt(path->mnt))) {
+			/* disconnected path, don't return pathname starting
+			 * with '/'
+			 */
+			error = -EACCES;
+			if (*res == '/')
+				*name = res + 1;
+		}
+	}
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 out:
 	return error;

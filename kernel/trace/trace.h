@@ -428,7 +428,10 @@ enum {
 
 	TRACE_CONTROL_BIT,
 
+<<<<<<< HEAD
 	TRACE_BRANCH_BIT,
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /*
  * Abuse of the trace_recursion.
  * As we need a way to maintain state if we are tracing the function
@@ -654,6 +657,10 @@ static inline void __trace_stack(struct trace_array *tr, unsigned long flags,
 extern cycle_t ftrace_now(int cpu);
 
 extern void trace_find_cmdline(int pid, char comm[]);
+<<<<<<< HEAD
+=======
+extern int trace_find_tgid(int pid);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #ifdef CONFIG_DYNAMIC_FTRACE
 extern unsigned long ftrace_update_tot_cnt;
@@ -867,6 +874,10 @@ enum trace_iterator_flags {
 	TRACE_ITER_IRQ_INFO		= 0x800000,
 	TRACE_ITER_MARKERS		= 0x1000000,
 	TRACE_ITER_FUNCTION		= 0x2000000,
+<<<<<<< HEAD
+=======
+	TRACE_ITER_TGID 		= 0x4000000,
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 
 /*

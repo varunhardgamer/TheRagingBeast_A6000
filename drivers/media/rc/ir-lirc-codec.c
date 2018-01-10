@@ -42,6 +42,7 @@ static int ir_lirc_decode(struct rc_dev *dev, struct ir_raw_event ev)
 		return -EINVAL;
 
 	/* Packet start */
+<<<<<<< HEAD
 	if (ev.reset) {
 		/* Userspace expects a long space event before the start of
 		 * the signal to use as a sync.  This may be done with repeat
@@ -53,6 +54,13 @@ static int ir_lirc_decode(struct rc_dev *dev, struct ir_raw_event ev)
 
 	/* Carrier reports */
 	} else if (ev.carrier_report) {
+=======
+	if (ev.reset)
+		return 0;
+
+	/* Carrier reports */
+	if (ev.carrier_report) {
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		sample = LIRC_FREQUENCY(ev.carrier);
 		IR_dprintk(2, "carrier report (freq: %d)\n", sample);
 

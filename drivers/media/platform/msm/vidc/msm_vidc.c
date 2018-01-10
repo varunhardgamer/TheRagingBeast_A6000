@@ -259,11 +259,17 @@ struct buffer_info *get_registered_buf(struct msm_vidc_inst *inst,
 	list_for_each_entry(temp, &inst->registeredbufs.list, list) {
 		for (i = 0; (i < temp->num_planes)
 			&& (i < VIDEO_MAX_PLANES); i++) {
+<<<<<<< HEAD
 			bool ion_hndl_matches = temp->handle[i] ?
 						msm_smem_compare_buffers(inst->mem_client, fd,
 						temp->handle[i]->smem_priv) : false;
 			if (temp &&
 				(device_addr == temp->device_addr[i] || ion_hndl_matches) &&
+=======
+			if (temp &&
+				((fd == temp->fd[i]) ||
+				(device_addr == temp->device_addr[i])) &&
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 				(CONTAINS(temp->buff_off[i],
 				temp->size[i], buff_off)
 				|| CONTAINS(buff_off,
@@ -361,6 +367,7 @@ err_invalid_input:
 static inline void populate_buf_info(struct buffer_info *binfo,
 			struct v4l2_buffer *b, u32 i)
 {
+<<<<<<< HEAD
         if (i < VIDEO_MAX_PLANES) {
 		binfo->type = b->type;
 		binfo->fd[i] = b->m.planes[i].reserved[0];
@@ -378,6 +385,20 @@ static inline void populate_buf_info(struct buffer_info *binfo,
 		dprintk(VIDC_ERR,
                         "Invalid plane number");
         }
+=======
+	binfo->type = b->type;
+	binfo->fd[i] = b->m.planes[i].reserved[0];
+	binfo->buff_off[i] = b->m.planes[i].reserved[1];
+	binfo->size[i] = b->m.planes[i].length;
+	binfo->uvaddr[i] = b->m.planes[i].m.userptr;
+	binfo->num_planes = b->length;
+	binfo->memory = b->memory;
+	binfo->v4l2_index = b->index;
+	binfo->timestamp.tv_sec = b->timestamp.tv_sec;
+	binfo->timestamp.tv_usec = b->timestamp.tv_usec;
+	dprintk(VIDC_DBG, "%s: fd[%d] = %d b->index = %d",
+			__func__, i, binfo->fd[0], b->index);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static inline void repopulate_v4l2_buffer(struct v4l2_buffer *b,
@@ -474,17 +495,23 @@ int map_and_register_buf(struct msm_vidc_inst *inst, struct v4l2_buffer *b)
 	int plane = 0;
 	int i = 0, rc = 0;
 	struct msm_smem *same_fd_handle = NULL;
+<<<<<<< HEAD
 	bool check_same_fd_handle;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (!b || !inst) {
 		dprintk(VIDC_ERR, "%s: invalid input\n", __func__);
 		return -EINVAL;
 	}
 
+<<<<<<< HEAD
 	check_same_fd_handle = !is_dynamic_output_buffer_mode(b, inst) &&
 		!( inst->session_type == MSM_VIDC_ENCODER &&
 			b->type == V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE);
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	binfo = kzalloc(sizeof(*binfo), GFP_KERNEL);
 	if (!binfo) {
 		dprintk(VIDC_ERR, "Out of memory\n");
@@ -542,8 +569,12 @@ int map_and_register_buf(struct msm_vidc_inst *inst, struct v4l2_buffer *b)
 		if (rc < 0)
 			goto exit;
 
+<<<<<<< HEAD
 		//if (!is_dynamic_output_buffer_mode(b, inst))
 		if (check_same_fd_handle)
+=======
+		if (!is_dynamic_output_buffer_mode(b, inst))
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			same_fd_handle = get_same_fd_buffer(
 						&inst->registeredbufs,
 						b->m.planes[i].reserved[0]);

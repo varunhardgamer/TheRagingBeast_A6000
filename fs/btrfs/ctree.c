@@ -2769,7 +2769,11 @@ done:
 	 */
 	if (!p->leave_spinning)
 		btrfs_set_path_blocking(p);
+<<<<<<< HEAD
 	if (ret < 0 && !p->skip_release_on_error)
+=======
+	if (ret < 0)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		btrfs_release_path(p);
 	return ret;
 }

@@ -27,6 +27,7 @@
 #include <linux/ftrace.h>
 #include <linux/rtc.h>
 #include <trace/events/power.h>
+<<<<<<< HEAD
 #include <linux/moduleparam.h>
 
 #include "power.h"
@@ -38,6 +39,16 @@ struct pm_sleep_state pm_states[PM_SUSPEND_MAX] = {
 };
 bool drop_caches_suspend = true;
 module_param_named(drop_caches_on_suspend, drop_caches_suspend, bool, 0664);
+=======
+
+#include "power.h"
+
+const char *const pm_states[PM_SUSPEND_MAX] = {
+	[PM_SUSPEND_FREEZE]	= "freeze",
+	[PM_SUSPEND_STANDBY]	= "standby",
+	[PM_SUSPEND_MEM]	= "mem",
+};
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 static const struct platform_suspend_ops *suspend_ops;
 
@@ -66,6 +77,7 @@ void freeze_wake(void)
 }
 EXPORT_SYMBOL_GPL(freeze_wake);
 
+<<<<<<< HEAD
 static bool valid_state(suspend_state_t state)
 {
 	/*
@@ -76,12 +88,15 @@ static bool valid_state(suspend_state_t state)
 	return suspend_ops && suspend_ops->valid && suspend_ops->valid(state);
 }
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /**
  * suspend_set_ops - Set the global suspend method table.
  * @ops: Suspend operations to use.
  */
 void suspend_set_ops(const struct platform_suspend_ops *ops)
 {
+<<<<<<< HEAD
 	suspend_state_t i;
 
 	lock_system_sleep();
@@ -90,10 +105,41 @@ void suspend_set_ops(const struct platform_suspend_ops *ops)
 	for (i = PM_SUSPEND_STANDBY; i <= PM_SUSPEND_MEM; i++)
 		pm_states[i].state = valid_state(i) ? i : 0;
 
+=======
+	lock_system_sleep();
+	suspend_ops = ops;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	unlock_system_sleep();
 }
 EXPORT_SYMBOL_GPL(suspend_set_ops);
 
+<<<<<<< HEAD
+=======
+bool valid_state(suspend_state_t state)
+{
+	if (state == PM_SUSPEND_FREEZE) {
+#ifdef CONFIG_PM_DEBUG
+		if (pm_test_level != TEST_NONE &&
+		    pm_test_level != TEST_FREEZER &&
+		    pm_test_level != TEST_DEVICES &&
+		    pm_test_level != TEST_PLATFORM) {
+			printk(KERN_WARNING "Unsupported pm_test mode for "
+					"freeze state, please choose "
+					"none/freezer/devices/platform.\n");
+			return false;
+		}
+#endif
+			return true;
+	}
+	/*
+	 * PM_SUSPEND_STANDBY and PM_SUSPEND_MEMORY states need lowlevel
+	 * support and need to be valid to the lowlevel
+	 * implementation, no valid callback implies that none are valid.
+	 */
+	return suspend_ops && suspend_ops->valid && suspend_ops->valid(state);
+}
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /**
  * suspend_valid_only_mem - Generic memory-only valid callback.
  *
@@ -254,9 +300,12 @@ int suspend_devices_and_enter(suspend_state_t state)
 	if (need_suspend_ops(state) && !suspend_ops)
 		return -ENOSYS;
 
+<<<<<<< HEAD
         if (drop_caches_suspend)
 		drop_pagecache();
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	trace_machine_suspend(state);
 	if (need_suspend_ops(state) && suspend_ops->begin) {
 		error = suspend_ops->begin(state);
@@ -323,6 +372,7 @@ static int enter_state(suspend_state_t state)
 {
 	int error;
 
+<<<<<<< HEAD
 	if (state == PM_SUSPEND_FREEZE) {
 #ifdef CONFIG_PM_DEBUG
 		if (pm_test_level != TEST_NONE && pm_test_level <= TEST_CPUS) {
@@ -334,6 +384,11 @@ static int enter_state(suspend_state_t state)
 	} else if (!valid_state(state)) {
 		return -EINVAL;
 	}
+=======
+	if (!valid_state(state))
+		return -ENODEV;
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (!mutex_trylock(&pm_mutex))
 		return -EBUSY;
 
@@ -344,7 +399,11 @@ static int enter_state(suspend_state_t state)
 	sys_sync();
 	printk("done.\n");
 
+<<<<<<< HEAD
 	pr_debug("PM: Preparing system for %s sleep\n", pm_states[state].label);
+=======
+	pr_debug("PM: Preparing system for %s sleep\n", pm_states[state]);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	error = suspend_prepare(state);
 	if (error)
 		goto Unlock;
@@ -352,7 +411,11 @@ static int enter_state(suspend_state_t state)
 	if (suspend_test(TEST_FREEZER))
 		goto Finish;
 
+<<<<<<< HEAD
 	pr_debug("PM: Entering %s sleep\n", pm_states[state].label);
+=======
+	pr_debug("PM: Entering %s sleep\n", pm_states[state]);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	pm_restrict_gfp_mask();
 	error = suspend_devices_and_enter(state);
 	pm_restore_gfp_mask();

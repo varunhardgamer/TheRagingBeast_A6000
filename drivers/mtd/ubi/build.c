@@ -1088,9 +1088,12 @@ int ubi_attach_mtd_dev(struct mtd_info *mtd, int ubi_num,
 			goto out_detach;
 	}
 
+<<<<<<< HEAD
 	/* Make device "available" before it becomes accessible via sysfs */
 	ubi_devices[ubi_num] = ubi;
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	err = uif_init(ubi, &ref);
 	if (err)
 		goto out_detach;
@@ -1139,6 +1142,10 @@ int ubi_attach_mtd_dev(struct mtd_info *mtd, int ubi_num,
 	wake_up_process(ubi->bgt_thread);
 	spin_unlock(&ubi->wl_lock);
 
+<<<<<<< HEAD
+=======
+	ubi_devices[ubi_num] = ubi;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	ubi_notify_all(ubi, UBI_VOLUME_ADDED, NULL);
 	return ubi_num;
 
@@ -1149,7 +1156,10 @@ out_uif:
 	ubi_assert(ref);
 	uif_close(ubi);
 out_detach:
+<<<<<<< HEAD
 	ubi_devices[ubi_num] = NULL;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	ubi_wl_close(ubi);
 	ubi_free_internal_volumes(ubi);
 	vfree(ubi->vtbl);

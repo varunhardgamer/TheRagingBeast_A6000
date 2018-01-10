@@ -1,6 +1,9 @@
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_WT86518
 #include "msmb_pproc_wt86518.h"
 #else
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #ifndef __MSMB_PPROC_H
 #define __MSMB_PPROC_H
 
@@ -430,4 +433,7 @@ struct msm_camera_v4l2_ioctl32_t {
 #endif
 
 #endif /* __MSMB_PPROC_H */
+<<<<<<< HEAD
 #endif /* CONFIG_MACH_WT86518 */
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c

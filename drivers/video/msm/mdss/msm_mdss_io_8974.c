@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2012-2016, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2012-2015, The Linux Foundation. All rights reserved.
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -633,6 +637,12 @@ int mdss_dsi_clk_div_config(struct mdss_panel_info *panel_info,
 	if (ctrl_pdata->refresh_clk_rate || (frame_rate !=
 	     panel_info->mipi.frame_rate) ||
 	    (!panel_info->clk_rate)) {
+<<<<<<< HEAD
+=======
+		h_period += panel_info->lcdc.xres_pad;
+		v_period += panel_info->lcdc.yres_pad;
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		if (lanes > 0) {
 			panel_info->clk_rate =
 			((h_period * v_period *

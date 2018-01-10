@@ -506,7 +506,10 @@ static int mdss_mdp_video_stop(struct mdss_mdp_ctl *ctl, int panel_power_state)
 	intfs_num = ctl->intf_num - MDSS_MDP_INTF0;
 	ret = mdss_mdp_video_intfs_stop(ctl, ctl->panel_data, intfs_num);
 	if (IS_ERR_VALUE(ret)) {
+<<<<<<< HEAD
 		mutex_unlock(&ctl->offlock);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		pr_err("unable to stop video interface: %d\n", ret);
 		return ret;
 	}
@@ -1198,14 +1201,21 @@ static int mdss_mdp_video_intfs_setup(struct mdss_mdp_ctl *ctl,
 
 	dst_bpp = pinfo->fbc.enabled ? (pinfo->fbc.target_bpp) : (pinfo->bpp);
 
+<<<<<<< HEAD
 	itp.width = mult_frac((pinfo->xres + pinfo->lcdc.border_left +
 			pinfo->lcdc.border_right), dst_bpp, pinfo->bpp);
 	itp.height = pinfo->yres + pinfo->lcdc.border_top +
 					pinfo->lcdc.border_bottom;
+=======
+	itp.width = mult_frac((pinfo->xres + pinfo->lcdc.xres_pad),
+				dst_bpp, pinfo->bpp);
+	itp.height = pinfo->yres + pinfo->lcdc.yres_pad;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	itp.border_clr = pinfo->lcdc.border_clr;
 	itp.underflow_clr = pinfo->lcdc.underflow_clr;
 	itp.hsync_skew = pinfo->lcdc.hsync_skew;
 
+<<<<<<< HEAD
 	/* tg active area is not work, hence yres should equal to height */
 	itp.xres = mult_frac((pinfo->xres + pinfo->lcdc.border_left +
 			pinfo->lcdc.border_right), dst_bpp, pinfo->bpp);
@@ -1213,6 +1223,10 @@ static int mdss_mdp_video_intfs_setup(struct mdss_mdp_ctl *ctl,
 	itp.yres = pinfo->yres + pinfo->lcdc.border_top +
 				pinfo->lcdc.border_bottom;
 
+=======
+	itp.xres = mult_frac(pinfo->xres, dst_bpp, pinfo->bpp);
+	itp.yres = pinfo->yres;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	itp.h_back_porch = pinfo->lcdc.h_back_porch;
 	itp.h_front_porch = pinfo->lcdc.h_front_porch;
 	itp.v_back_porch = pinfo->lcdc.v_back_porch;

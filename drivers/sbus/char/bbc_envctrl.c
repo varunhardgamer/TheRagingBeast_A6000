@@ -452,9 +452,12 @@ static void attach_one_temp(struct bbc_i2c_bus *bp, struct platform_device *op,
 	if (!tp)
 		return;
 
+<<<<<<< HEAD
 	INIT_LIST_HEAD(&tp->bp_list);
 	INIT_LIST_HEAD(&tp->glob_list);
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	tp->client = bbc_i2c_attach(bp, op);
 	if (!tp->client) {
 		kfree(tp);
@@ -500,9 +503,12 @@ static void attach_one_fan(struct bbc_i2c_bus *bp, struct platform_device *op,
 	if (!fp)
 		return;
 
+<<<<<<< HEAD
 	INIT_LIST_HEAD(&fp->bp_list);
 	INIT_LIST_HEAD(&fp->glob_list);
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	fp->client = bbc_i2c_attach(bp, op);
 	if (!fp->client) {
 		kfree(fp);

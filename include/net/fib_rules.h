@@ -8,11 +8,14 @@
 #include <net/flow.h>
 #include <net/rtnetlink.h>
 
+<<<<<<< HEAD
 struct fib_kuid_range {
 	kuid_t start;
 	kuid_t end;
 };
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 struct fib_rule {
 	struct list_head	list;
 	atomic_t		refcnt;
@@ -28,7 +31,12 @@ struct fib_rule {
 	struct fib_rule __rcu	*ctarget;
 	char			iifname[IFNAMSIZ];
 	char			oifname[IFNAMSIZ];
+<<<<<<< HEAD
 	struct fib_kuid_range	uid_range;
+=======
+	uid_t			uid_start;
+	uid_t			uid_end;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	struct rcu_head		rcu;
 	struct net *		fr_net;
 };
@@ -87,7 +95,12 @@ struct fib_rules_ops {
 	[FRA_FWMASK]	= { .type = NLA_U32 }, \
 	[FRA_TABLE]     = { .type = NLA_U32 }, \
 	[FRA_GOTO]	= { .type = NLA_U32 }, \
+<<<<<<< HEAD
 	[FRA_UID_RANGE]	= { .len = sizeof(struct fib_rule_uid_range) }
+=======
+	[FRA_UID_START]	= { .type = NLA_U32 }, \
+	[FRA_UID_END]	= { .type = NLA_U32 }
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 static inline void fib_rule_get(struct fib_rule *rule)
 {

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2010-2015, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2010-2014, The Linux Foundation. All rights reserved.
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -98,7 +102,11 @@ bool msm_mpm_gpio_irqs_detectable(bool from_idle);
  * Low power management code calls into this API to configure the MPM to
  * monitor the active irqs before going to sleep.
  */
+<<<<<<< HEAD
 void msm_mpm_enter_sleep(uint64_t sclk_count, bool from_idle,
+=======
+void msm_mpm_enter_sleep(uint32_t sclk_count, bool from_idle,
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		const struct cpumask *cpumask);
 /**
  * msm_mpm_exit_sleep() -Called from PM code after resuming from low power mode
@@ -140,7 +148,11 @@ static inline bool msm_mpm_irqs_detectable(bool from_idle)
 { return false; }
 static inline bool msm_mpm_gpio_irqs_detectable(bool from_idle)
 { return false; }
+<<<<<<< HEAD
 static inline void msm_mpm_enter_sleep(uint64_t sclk_count, bool from_idle,
+=======
+static inline void msm_mpm_enter_sleep(uint32_t sclk_count, bool from_idle,
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		const struct cpumask *cpumask) {}
 static inline void msm_mpm_exit_sleep(bool from_idle) {}
 static inline void __init of_mpm_init(void) {}

@@ -1219,6 +1219,7 @@ skip_cudev_init:
 						     "%s%d", rmnet_dev_names[i],
 						     n);
 			if (IS_ERR(dev->devicep)) {
+<<<<<<< HEAD
                                 struct device *deviceptr = dev->devicep;
 				pr_err("%s: device_create() returned %ld\n",
 					__func__, PTR_ERR(deviceptr));
@@ -1226,6 +1227,14 @@ skip_cudev_init:
 				free_rmnet_ctrl_udev(dev->cudev);
 				kfree(dev);
 				return PTR_ERR(deviceptr);
+=======
+				pr_err("%s: device_create() returned %ld\n",
+					__func__, PTR_ERR(dev->devicep));
+				cdev_del(&dev->cdev);
+				free_rmnet_ctrl_udev(dev->cudev);
+				kfree(dev);
+				return PTR_ERR(dev->devicep);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			}
 
 			/*create /sys/class/hsicctl/hsicctlx/modem_wait*/

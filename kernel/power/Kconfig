@@ -26,6 +26,7 @@ config WAKELOCK
 	bool
 	default y
 
+<<<<<<< HEAD
 config POWERSUSPEND
 	bool "Power suspend"
 	default y
@@ -38,6 +39,8 @@ config	BOEFFLA_WL_BLOCKER
 		depends on PM
 		default y
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 config HIBERNATE_CALLBACKS
 	bool
 
@@ -282,6 +285,7 @@ config PM_GENERIC_DOMAINS
 	bool
 	depends on PM
 
+<<<<<<< HEAD
 config WQ_POWER_EFFICIENT_DEFAULT
 	bool "Enable workqueue power-efficient mode by default"
 	depends on PM
@@ -302,6 +306,8 @@ config WQ_POWER_EFFICIENT_DEFAULT
 
 	  If in doubt, say N.
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 config PM_GENERIC_DOMAINS_SLEEP
 	def_bool y
 	depends on PM_SLEEP && PM_GENERIC_DOMAINS
@@ -314,10 +320,13 @@ config CPU_PM
 	bool
 	depends on SUSPEND || CPU_IDLE
 
+<<<<<<< HEAD
 config CONFIG_QUICK_WAKEUP
         bool "quick wakeup"
         default y
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 config SUSPEND_TIME
 	bool "Log time spent in suspend"
 	---help---

@@ -101,7 +101,11 @@
 #define AD7795_CH_AIN1M_AIN1M	8 /* AIN1(-) - AIN1(-) */
 
 /* ID Register Bit Designations (AD7793_REG_ID) */
+<<<<<<< HEAD
 #define AD7785_ID		0x3
+=======
+#define AD7785_ID		0xB
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #define AD7792_ID		0xA
 #define AD7793_ID		0xB
 #define AD7794_ID		0xF

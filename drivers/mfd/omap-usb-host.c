@@ -445,7 +445,11 @@ static unsigned omap_usbhs_rev1_hostconfig(struct usbhs_hcd_omap *omap,
 
 		for (i = 0; i < omap->nports; i++) {
 			if (is_ehci_phy_mode(pdata->port_mode[i])) {
+<<<<<<< HEAD
 				reg &= ~OMAP_UHH_HOSTCONFIG_ULPI_BYPASS;
+=======
+				reg &= OMAP_UHH_HOSTCONFIG_ULPI_BYPASS;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 				break;
 			}
 		}

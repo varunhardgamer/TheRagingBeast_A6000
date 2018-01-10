@@ -1796,7 +1796,11 @@ static int __domain_mapping(struct dmar_domain *domain, unsigned long iov_pfn,
 	struct dma_pte *first_pte = NULL, *pte = NULL;
 	phys_addr_t uninitialized_var(pteval);
 	int addr_width = agaw_to_width(domain->agaw) - VTD_PAGE_SHIFT;
+<<<<<<< HEAD
 	unsigned long sg_res = 0;
+=======
+	unsigned long sg_res;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	unsigned int largepage_lvl = 0;
 	unsigned long lvl_pages = 0;
 
@@ -1807,8 +1811,15 @@ static int __domain_mapping(struct dmar_domain *domain, unsigned long iov_pfn,
 
 	prot &= DMA_PTE_READ | DMA_PTE_WRITE | DMA_PTE_SNP;
 
+<<<<<<< HEAD
 	if (!sg) {
 		sg_res = nr_pages;
+=======
+	if (sg)
+		sg_res = 0;
+	else {
+		sg_res = nr_pages + 1;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		pteval = ((phys_addr_t)phys_pfn << VTD_PAGE_SHIFT) | prot;
 	}
 

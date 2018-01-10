@@ -1,8 +1,12 @@
+<<<<<<< HEAD
 #include <errno.h>
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
 #include <unistd.h>
+<<<<<<< HEAD
 #include <sys/ioctl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -63,6 +67,11 @@ static int get_immutable(const char *path)
 		return 1;
 	return 0;
 }
+=======
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 int main(int argc, char **argv)
 {
@@ -85,7 +94,11 @@ int main(int argc, char **argv)
 	buf[4] = 0;
 
 	/* create a test variable */
+<<<<<<< HEAD
 	fd = open(path, O_WRONLY | O_CREAT, 0600);
+=======
+	fd = open(path, O_WRONLY | O_CREAT);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (fd < 0) {
 		perror("open(O_WRONLY)");
 		return EXIT_FAILURE;
@@ -99,6 +112,7 @@ int main(int argc, char **argv)
 
 	close(fd);
 
+<<<<<<< HEAD
 	rc = get_immutable(path);
 	if (rc < 0) {
 		perror("ioctl(FS_IOC_GETFLAGS)");
@@ -111,6 +125,8 @@ int main(int argc, char **argv)
 		}
 	}
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	fd = open(path, O_RDONLY);
 	if (fd < 0) {
 		perror("open");

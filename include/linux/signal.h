@@ -247,6 +247,10 @@ extern int sigprocmask(int, sigset_t *, sigset_t *);
 extern void set_current_blocked(sigset_t *);
 extern void __set_current_blocked(const sigset_t *);
 extern int show_unhandled_signals;
+<<<<<<< HEAD
+=======
+extern int sigsuspend(sigset_t *);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 struct sigaction {
 #ifndef __ARCH_HAS_IRIX_SIGACTION

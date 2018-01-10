@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2015-2016, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2015, The Linux Foundation. All rights reserved.
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -10,8 +14,13 @@
  * GNU General Public License for more details.
  */
 
+<<<<<<< HEAD
 #ifndef __NQ_NCI_H
 #define __NQ_NCI_H
+=======
+#ifndef __NFC_NCI_H
+#define __NFC_NCI_H
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #include <linux/i2c.h>
 #include <linux/types.h>
@@ -23,14 +32,24 @@
 #include <linux/ioctl.h>
 #include <linux/miscdevice.h>
 
+<<<<<<< HEAD
 #define NFC_SET_PWR			_IOW(0xE9, 0x01, unsigned int)
 #define ESE_SET_PWR			_IOW(0xE9, 0x02, unsigned int)
 #define ESE_GET_PWR			_IOR(0xE9, 0x03, unsigned int)
 #define SET_RX_BLOCK			_IOW(0xE9, 0x04, unsigned int)
+=======
+#define NFC_SET_PWR	_IOW(0xE9, 0x01, unsigned int)
+#define SET_RX_BLOCK	_IOW(0xE9, 0x04, unsigned int)
+#define NFC_CLK_REQ	_IOW(0xE9, 0x02, unsigned int)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #define SET_EMULATOR_TEST_POINT		_IOW(0xE9, 0x05, unsigned int)
 #define NFCC_INITIAL_CORE_RESET_NTF	_IOW(0xE9, 0x10, unsigned int)
 
 #define NFC_RX_BUFFER_CNT_START		(0x0)
+<<<<<<< HEAD
+=======
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #define PAYLOAD_HEADER_LENGTH		(0x3)
 #define PAYLOAD_LENGTH_MAX		(256)
 #define BYTE				(0x8)

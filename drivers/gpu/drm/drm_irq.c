@@ -934,7 +934,11 @@ static void drm_update_vblank_count(struct drm_device *dev, int crtc)
 		vblanktimestamp(dev, crtc, tslot) = t_vblank;
 	}
 
+<<<<<<< HEAD
 	smp_mb__before_atomic();
+=======
+	smp_mb__before_atomic_inc();
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	atomic_add(diff, &dev->_vblank_count[crtc]);
 	smp_mb__after_atomic();
 }
@@ -1400,7 +1404,11 @@ bool drm_handle_vblank(struct drm_device *dev, int crtc)
 		/* Increment cooked vblank count. This also atomically commits
 		 * the timestamp computed above.
 		 */
+<<<<<<< HEAD
 		smp_mb__before_atomic();
+=======
+		smp_mb__before_atomic_inc();
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		atomic_inc(&dev->_vblank_count[crtc]);
 		smp_mb__after_atomic();
 	} else {

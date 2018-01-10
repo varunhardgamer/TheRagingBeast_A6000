@@ -417,7 +417,11 @@ int msm_sensor_power_down(struct msm_sensor_ctrl_t *s_ctrl)
 	struct msm_camera_i2c_client *sensor_i2c_client;
 
 	if (!s_ctrl) {
+<<<<<<< HEAD
 		pr_err("%s:%d failed: s_ctrl %pK\n",
+=======
+		pr_err("%s:%d failed: s_ctrl %p\n",
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			__func__, __LINE__, s_ctrl);
 		return -EINVAL;
 	}
@@ -427,7 +431,11 @@ int msm_sensor_power_down(struct msm_sensor_ctrl_t *s_ctrl)
 	sensor_i2c_client = s_ctrl->sensor_i2c_client;
 
 	if (!power_info || !sensor_i2c_client) {
+<<<<<<< HEAD
 		pr_err("%s:%d failed: power_info %pK sensor_i2c_client %pK\n",
+=======
+		pr_err("%s:%d failed: power_info %p sensor_i2c_client %p\n",
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			__func__, __LINE__, power_info, sensor_i2c_client);
 		return -EINVAL;
 	}
@@ -445,7 +453,11 @@ int msm_sensor_power_up(struct msm_sensor_ctrl_t *s_ctrl)
 	uint32_t retry = 0;
 
 	if (!s_ctrl) {
+<<<<<<< HEAD
 		pr_err("%s:%d failed: %pK\n",
+=======
+		pr_err("%s:%d failed: %p\n",
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			__func__, __LINE__, s_ctrl);
 		return -EINVAL;
 	}
@@ -457,7 +469,11 @@ int msm_sensor_power_up(struct msm_sensor_ctrl_t *s_ctrl)
 
 	if (!power_info || !sensor_i2c_client || !slave_info ||
 		!sensor_name) {
+<<<<<<< HEAD
 		pr_err("%s:%d failed: %pK %pK %pK %pK\n",
+=======
+		pr_err("%s:%d failed: %p %p %p %p\n",
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			__func__, __LINE__, power_info,
 			sensor_i2c_client, slave_info, sensor_name);
 		return -EINVAL;
@@ -494,7 +510,11 @@ int msm_sensor_match_id(struct msm_sensor_ctrl_t *s_ctrl)
 	const char *sensor_name;
 
 	if (!s_ctrl) {
+<<<<<<< HEAD
 		pr_err("%s:%d failed: %pK\n",
+=======
+		pr_err("%s:%d failed: %p\n",
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			__func__, __LINE__, s_ctrl);
 		return -EINVAL;
 	}
@@ -503,7 +523,11 @@ int msm_sensor_match_id(struct msm_sensor_ctrl_t *s_ctrl)
 	sensor_name = s_ctrl->sensordata->sensor_name;
 
 	if (!sensor_i2c_client || !slave_info || !sensor_name) {
+<<<<<<< HEAD
 		pr_err("%s:%d failed: %pK %pK %pK\n",
+=======
+		pr_err("%s:%d failed: %p %p %p\n",
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			__func__, __LINE__, sensor_i2c_client, slave_info,
 			sensor_name);
 		return -EINVAL;
@@ -1419,7 +1443,11 @@ int32_t msm_sensor_platform_probe(struct platform_device *pdev,
 	uint32_t session_id;
 	unsigned long mount_pos = 0;
 	s_ctrl->pdev = pdev;
+<<<<<<< HEAD
 	CDBG("%s called data %pK\n", __func__, data);
+=======
+	CDBG("%s called data %p\n", __func__, data);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	CDBG("%s pdev name %s\n", __func__, pdev->id_entry->name);
 	if (pdev->dev.of_node) {
 		rc = msm_sensor_get_dt_data(pdev->dev.of_node, s_ctrl);
@@ -1640,13 +1668,21 @@ int32_t msm_sensor_init_default_params(struct msm_sensor_ctrl_t *s_ctrl)
 
 	/* Validate input parameters */
 	if (!s_ctrl) {
+<<<<<<< HEAD
 		pr_err("%s:%d failed: invalid params s_ctrl %pK\n", __func__,
+=======
+		pr_err("%s:%d failed: invalid params s_ctrl %p\n", __func__,
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			__LINE__, s_ctrl);
 		return -EINVAL;
 	}
 
 	if (!s_ctrl->sensor_i2c_client) {
+<<<<<<< HEAD
 		pr_err("%s:%d failed: invalid params sensor_i2c_client %pK\n",
+=======
+		pr_err("%s:%d failed: invalid params sensor_i2c_client %p\n",
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			__func__, __LINE__, s_ctrl->sensor_i2c_client);
 		return -EINVAL;
 	}
@@ -1655,7 +1691,11 @@ int32_t msm_sensor_init_default_params(struct msm_sensor_ctrl_t *s_ctrl)
 	s_ctrl->sensor_i2c_client->cci_client = kzalloc(sizeof(
 		struct msm_camera_cci_client), GFP_KERNEL);
 	if (!s_ctrl->sensor_i2c_client->cci_client) {
+<<<<<<< HEAD
 		pr_err("%s:%d failed: no memory cci_client %pK\n", __func__,
+=======
+		pr_err("%s:%d failed: no memory cci_client %p\n", __func__,
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			__LINE__, s_ctrl->sensor_i2c_client->cci_client);
 		return -ENOMEM;
 	}
@@ -1689,7 +1729,11 @@ int32_t msm_sensor_init_default_params(struct msm_sensor_ctrl_t *s_ctrl)
 	/* Initialize clock info */
 	clk_info = kzalloc(sizeof(cam_8974_clk_info), GFP_KERNEL);
 	if (!clk_info) {
+<<<<<<< HEAD
 		pr_err("%s:%d failed no memory clk_info %pK\n", __func__,
+=======
+		pr_err("%s:%d failed no memory clk_info %p\n", __func__,
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			__LINE__, clk_info);
 		rc = -ENOMEM;
 		goto FREE_CCI_CLIENT;

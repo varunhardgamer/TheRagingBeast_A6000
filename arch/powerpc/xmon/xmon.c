@@ -288,11 +288,18 @@ static inline void disable_surveillance(void)
 	args.token = rtas_token("set-indicator");
 	if (args.token == RTAS_UNKNOWN_SERVICE)
 		return;
+<<<<<<< HEAD
 	args.token = cpu_to_be32(args.token);
 	args.nargs = cpu_to_be32(3);
 	args.nret = cpu_to_be32(1);
 	args.rets = &args.args[3];
 	args.args[0] = cpu_to_be32(SURVEILLANCE_TOKEN);
+=======
+	args.nargs = 3;
+	args.nret = 1;
+	args.rets = &args.args[3];
+	args.args[0] = SURVEILLANCE_TOKEN;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	args.args[1] = 0;
 	args.args[2] = 0;
 	enter_rtas(__pa(&args));

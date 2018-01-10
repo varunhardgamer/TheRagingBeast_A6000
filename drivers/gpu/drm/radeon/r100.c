@@ -743,10 +743,13 @@ int r100_irq_set(struct radeon_device *rdev)
 		tmp |= RADEON_FP2_DETECT_MASK;
 	}
 	WREG32(RADEON_GEN_INT_CNTL, tmp);
+<<<<<<< HEAD
 
 	/* read back to post the write */
 	RREG32(RADEON_GEN_INT_CNTL);
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return 0;
 }
 

@@ -1369,8 +1369,12 @@ int ubi_eba_init(struct ubi_device *ubi, struct ubi_attach_info *ai)
 				 * during re-size.
 				 */
 				ubi_move_aeb_to_list(av, aeb, &ai->erase);
+<<<<<<< HEAD
 			else
 				vol->eba_tbl[aeb->lnum] = aeb->pnum;
+=======
+			vol->eba_tbl[aeb->lnum] = aeb->pnum;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		}
 	}
 

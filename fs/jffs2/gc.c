@@ -1296,6 +1296,7 @@ static int jffs2_garbage_collect_dnode(struct jffs2_sb_info *c, struct jffs2_era
 		BUG_ON(start > orig_start);
 	}
 
+<<<<<<< HEAD
 	/* The rules state that we must obtain the page lock *before* f->sem, so
 	 * drop f->sem temporarily. Since we also hold c->alloc_sem, nothing's
 	 * actually going to *change* so we're safe; we only allow reading.
@@ -1307,6 +1308,16 @@ static int jffs2_garbage_collect_dnode(struct jffs2_sb_info *c, struct jffs2_era
 	mutex_unlock(&f->sem);
 	pg_ptr = jffs2_gc_fetch_page(c, f, start, &pg);
 	mutex_lock(&f->sem);
+=======
+	/* First, use readpage() to read the appropriate page into the page cache */
+	/* Q: What happens if we actually try to GC the _same_ page for which commit_write()
+	 *    triggered garbage collection in the first place?
+	 * A: I _think_ it's OK. read_cache_page shouldn't deadlock, we'll write out the
+	 *    page OK. We'll actually write it out again in commit_write, which is a little
+	 *    suboptimal, but at least we're correct.
+	 */
+	pg_ptr = jffs2_gc_fetch_page(c, f, start, &pg);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (IS_ERR(pg_ptr)) {
 		pr_warn("read_cache_page() returned error: %ld\n",

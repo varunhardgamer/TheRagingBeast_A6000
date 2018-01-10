@@ -361,6 +361,7 @@ static int ext4_valid_extent(struct inode *inode, struct ext4_extent *ext)
 	ext4_fsblk_t block = ext4_ext_pblock(ext);
 	int len = ext4_ext_get_actual_len(ext);
 	ext4_lblk_t lblock = le32_to_cpu(ext->ee_block);
+<<<<<<< HEAD
 
 	/*
 	 * We allow neither:
@@ -368,6 +369,11 @@ static int ext4_valid_extent(struct inode *inode, struct ext4_extent *ext)
 	 *  - overflow/wrap-around
 	 */
 	if (lblock + len <= lblock)
+=======
+	ext4_lblk_t last = lblock + len - 1;
+
+	if (lblock > last)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		return 0;
 	return ext4_data_block_valid(EXT4_SB(inode->i_sb), block, len);
 }
@@ -458,10 +464,13 @@ static int __ext4_ext_check(const char *function, unsigned int line,
 		error_msg = "invalid extent entries";
 		goto corrupted;
 	}
+<<<<<<< HEAD
 	if (unlikely(depth > 32)) {
 		error_msg = "too large eh_depth";
 		goto corrupted;
 	}
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/* Verify checksum on non-root extent tree nodes */
 	if (ext_depth(inode) != depth &&
 	    !ext4_extent_block_csum_verify(inode, eh)) {
@@ -1730,8 +1739,12 @@ static void ext4_ext_try_to_merge_up(handle_t *handle,
 
 	brelse(path[1].p_bh);
 	ext4_free_blocks(handle, inode, NULL, blk, 1,
+<<<<<<< HEAD
 			 EXT4_FREE_BLOCKS_METADATA | EXT4_FREE_BLOCKS_FORGET |
 			 EXT4_FREE_BLOCKS_RESERVE);
+=======
+			 EXT4_FREE_BLOCKS_METADATA | EXT4_FREE_BLOCKS_FORGET);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 /*
@@ -2990,12 +3003,24 @@ static int ext4_ext_zeroout(struct inode *inode, struct ext4_extent *ex)
 {
 	ext4_fsblk_t ee_pblock;
 	unsigned int ee_len;
+<<<<<<< HEAD
+=======
+	int ret;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	ee_len    = ext4_ext_get_actual_len(ex);
 	ee_pblock = ext4_ext_pblock(ex);
 
+<<<<<<< HEAD
 	return ext4_issue_zeroout(inode, le32_to_cpu(ex->ee_block), ee_pblock,
 				  ee_len);
+=======
+	ret = sb_issue_zeroout(inode->i_sb, ee_pblock, ee_len, GFP_NOFS);
+	if (ret > 0)
+		ret = 0;
+
+	return ret;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 /*

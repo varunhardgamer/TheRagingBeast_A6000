@@ -296,6 +296,7 @@ enum rtattr_type_t {
 	RTA_MP_ALGO, /* no longer used */
 	RTA_TABLE,
 	RTA_MARK,
+<<<<<<< HEAD
 	RTA_MFC_STATS,
 	RTA_VIA,
 	RTA_NEWDST,
@@ -305,6 +306,10 @@ enum rtattr_type_t {
 	RTA_EXPIRES,
 	RTA_PAD,
 	RTA_UID,
+=======
+	RTA_UID,
+	RTA_MFC_STATS,
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	__RTA_MAX
 };
 

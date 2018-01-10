@@ -258,7 +258,12 @@ static int __init xen_guest_init(void)
 	 * for secondary CPUs as they are brought up.
 	 * For uniformity we use VCPUOP_register_vcpu_info even on cpu0.
 	 */
+<<<<<<< HEAD
 	xen_vcpu_info = alloc_percpu(struct vcpu_info);
+=======
+	xen_vcpu_info = __alloc_percpu(sizeof(struct vcpu_info),
+			                       sizeof(struct vcpu_info));
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (xen_vcpu_info == NULL)
 		return -ENOMEM;
 

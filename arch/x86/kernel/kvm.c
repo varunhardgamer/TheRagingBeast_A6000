@@ -159,8 +159,13 @@ void kvm_async_pf_task_wait(u32 token)
 			 */
 			rcu_irq_exit();
 			native_safe_halt();
+<<<<<<< HEAD
 			local_irq_disable();
 			rcu_irq_enter();
+=======
+			rcu_irq_enter();
+			local_irq_disable();
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		}
 	}
 	if (!n.halted)
@@ -279,6 +284,7 @@ do_async_page_fault(struct pt_regs *regs, unsigned long error_code)
 static void __init paravirt_ops_setup(void)
 {
 	pv_info.name = "KVM";
+<<<<<<< HEAD
 
 	/*
 	 * KVM isn't paravirt in the sense of paravirt_enabled.  A KVM
@@ -287,6 +293,9 @@ static void __init paravirt_ops_setup(void)
 	 * missing.
 	 */
 	pv_info.paravirt_enabled = 0;
+=======
+	pv_info.paravirt_enabled = 1;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (kvm_para_has_feature(KVM_FEATURE_NOP_IO_DELAY))
 		pv_cpu_ops.io_delay = kvm_io_delay;

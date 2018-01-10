@@ -1030,6 +1030,7 @@ source_ok:
 	if (!fld.daddr) {
 		fld.daddr = fld.saddr;
 
+<<<<<<< HEAD
 		if (dev_out)
 			dev_put(dev_out);
 		err = -EINVAL;
@@ -1037,6 +1038,12 @@ source_ok:
 		if (!dev_out->dn_ptr)
 			goto out;
 		err = -EADDRNOTAVAIL;
+=======
+		err = -EADDRNOTAVAIL;
+		if (dev_out)
+			dev_put(dev_out);
+		dev_out = init_net.loopback_dev;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		dev_hold(dev_out);
 		if (!fld.daddr) {
 			fld.daddr =
@@ -1109,8 +1116,11 @@ source_ok:
 		if (dev_out == NULL)
 			goto out;
 		dn_db = rcu_dereference_raw(dev_out->dn_ptr);
+<<<<<<< HEAD
 		if (!dn_db)
 			goto e_inval;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		/* Possible improvement - check all devices for local addr */
 		if (dn_dev_islocal(dev_out, fld.daddr)) {
 			dev_put(dev_out);
@@ -1152,8 +1162,11 @@ select_source:
 			dev_put(dev_out);
 		dev_out = init_net.loopback_dev;
 		dev_hold(dev_out);
+<<<<<<< HEAD
 		if (!dev_out->dn_ptr)
 			goto e_inval;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		fld.flowidn_oif = dev_out->ifindex;
 		if (res.fi)
 			dn_fib_info_put(res.fi);

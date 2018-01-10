@@ -2020,7 +2020,11 @@ megasas_release_fusion(struct megasas_instance *instance)
 
 	iounmap(instance->reg_set);
 
+<<<<<<< HEAD
 	pci_release_selected_regions(instance->pdev, 1<<instance->bar);
+=======
+	pci_release_selected_regions(instance->pdev, instance->bar);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 /**

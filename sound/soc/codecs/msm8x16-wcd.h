@@ -51,11 +51,14 @@
 
 #define NUM_DECIMATORS	4
 #define MSM89XX_VDD_SPKDRV_NAME "cdc-vdd-spkdrv"
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_WT86518
 #define EXT_SPK_AMP_GPIO    (902+119)
 //#define EXT_SPK_AMP_GPIO_1    (902+117)
 #define EXT_SPK_AMP_HEADSET_GPIO    (902+120)
 #endif
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #define DEFAULT_MULTIPLIER 800
 #define DEFAULT_GAIN 9
@@ -231,7 +234,10 @@ struct msm8916_asoc_mach_data {
 	struct mutex wsa_mclk_mutex;
 	struct delayed_work disable_mclk_work;
 	struct afe_digital_clk_cfg digital_cdc_clk;
+<<<<<<< HEAD
 	struct afe_clk_set digital_cdc_core_clk;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	void __iomem *vaddr_gpio_mux_spkr_ctl;
 	void __iomem *vaddr_gpio_mux_mic_ctl;
 	void __iomem *vaddr_gpio_mux_quin_ctl;

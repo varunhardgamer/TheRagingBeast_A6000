@@ -3926,11 +3926,14 @@ _scsih_setup_direct_io(struct MPT2SAS_ADAPTER *ioc, struct scsi_cmnd *scmd,
 	}
 }
 
+<<<<<<< HEAD
 static inline bool ata_12_16_cmd(struct scsi_cmnd *scmd)
 {
 	return (scmd->cmnd[0] == ATA_12 || scmd->cmnd[0] == ATA_16);
 }
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /**
  * _scsih_qcmd - main scsi request entry point
  * @scmd: pointer to scsi command object
@@ -3953,6 +3956,7 @@ _scsih_qcmd_lck(struct scsi_cmnd *scmd, void (*done)(struct scsi_cmnd *))
 	u32 mpi_control;
 	u16 smid;
 
+<<<<<<< HEAD
 	/**
 	* Lock the device for any subsequent command until
 	* command is done.
@@ -3960,6 +3964,8 @@ _scsih_qcmd_lck(struct scsi_cmnd *scmd, void (*done)(struct scsi_cmnd *))
 	if (ata_12_16_cmd(scmd))
 		scsi_internal_device_block(scmd->device);
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	scmd->scsi_done = done;
 	sas_device_priv_data = scmd->device->hostdata;
 	if (!sas_device_priv_data || !sas_device_priv_data->sas_target) {
@@ -4466,9 +4472,12 @@ _scsih_io_done(struct MPT2SAS_ADAPTER *ioc, u16 smid, u8 msix_index, u32 reply)
 	if (scmd == NULL)
 		return 1;
 
+<<<<<<< HEAD
 	if (ata_12_16_cmd(scmd))
 		scsi_internal_device_unblock(scmd->device, SDEV_RUNNING);
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	mpi_request = mpt2sas_base_get_msg_frame(ioc, smid);
 
 	if (mpi_reply == NULL) {

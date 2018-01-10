@@ -128,10 +128,14 @@ static void br_stp_start(struct net_bridge *br)
 	char *argv[] = { BR_STP_PROG, br->dev->name, "start", NULL };
 	char *envp[] = { NULL };
 
+<<<<<<< HEAD
 	if (net_eq(dev_net(br->dev), &init_net))
 		r = call_usermodehelper(BR_STP_PROG, argv, envp, UMH_WAIT_PROC);
 	else
 		r = -ENOENT;
+=======
+	r = call_usermodehelper(BR_STP_PROG, argv, envp, UMH_WAIT_PROC);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	spin_lock_bh(&br->lock);
 
@@ -244,13 +248,20 @@ bool br_stp_recalculate_bridge_id(struct net_bridge *br)
 	return true;
 }
 
+<<<<<<< HEAD
 /* Acquires and releases bridge lock */
+=======
+/* called under bridge lock */
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 void br_stp_set_bridge_priority(struct net_bridge *br, u16 newprio)
 {
 	struct net_bridge_port *p;
 	int wasroot;
 
+<<<<<<< HEAD
 	spin_lock_bh(&br->lock);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	wasroot = br_is_root_bridge(br);
 
 	list_for_each_entry(p, &br->port_list, list) {
@@ -268,7 +279,10 @@ void br_stp_set_bridge_priority(struct net_bridge *br, u16 newprio)
 	br_port_state_selection(br);
 	if (br_is_root_bridge(br) && !wasroot)
 		br_become_root_bridge(br);
+<<<<<<< HEAD
 	spin_unlock_bh(&br->lock);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 /* called under bridge lock */

@@ -1145,8 +1145,11 @@ static int alsa_device_init(struct saa7134_dev *dev)
 
 static int alsa_device_exit(struct saa7134_dev *dev)
 {
+<<<<<<< HEAD
 	if (!snd_saa7134_cards[dev->nr])
 		return 1;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	snd_card_free(snd_saa7134_cards[dev->nr]);
 	snd_saa7134_cards[dev->nr] = NULL;
@@ -1196,8 +1199,12 @@ static void saa7134_alsa_exit(void)
 	int idx;
 
 	for (idx = 0; idx < SNDRV_CARDS; idx++) {
+<<<<<<< HEAD
 		if (snd_saa7134_cards[idx])
 			snd_card_free(snd_saa7134_cards[idx]);
+=======
+		snd_card_free(snd_saa7134_cards[idx]);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 
 	saa7134_dmasound_init = NULL;

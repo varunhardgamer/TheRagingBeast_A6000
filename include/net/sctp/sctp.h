@@ -540,11 +540,14 @@ static inline void sctp_assoc_pending_pmtu(struct sock *sk, struct sctp_associat
 	asoc->pmtu_pending = 0;
 }
 
+<<<<<<< HEAD
 static inline bool sctp_chunk_pending(const struct sctp_chunk *chunk)
 {
 	return !list_empty(&chunk->list);
 }
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /* Walk through a list of TLV parameters.  Don't trust the
  * individual parameter lengths and instead depend on
  * the chunk length to indicate when to stop.  Make sure
@@ -555,8 +558,11 @@ _sctp_walk_params((pos), (chunk), ntohs((chunk)->chunk_hdr.length), member)
 
 #define _sctp_walk_params(pos, chunk, end, member)\
 for (pos.v = chunk->member;\
+<<<<<<< HEAD
      (pos.v + offsetof(struct sctp_paramhdr, length) + sizeof(pos.p->length) <=\
       (void *)chunk + end) &&\
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
      pos.v <= (void *)chunk + end - ntohs(pos.p->length) &&\
      ntohs(pos.p->length) >= sizeof(sctp_paramhdr_t);\
      pos.v += WORD_ROUND(ntohs(pos.p->length)))
@@ -567,8 +573,11 @@ _sctp_walk_errors((err), (chunk_hdr), ntohs((chunk_hdr)->length))
 #define _sctp_walk_errors(err, chunk_hdr, end)\
 for (err = (sctp_errhdr_t *)((void *)chunk_hdr + \
 	    sizeof(sctp_chunkhdr_t));\
+<<<<<<< HEAD
      ((void *)err + offsetof(sctp_errhdr_t, length) + sizeof(err->length) <=\
       (void *)chunk_hdr + end) &&\
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
      (void *)err <= (void *)chunk_hdr + end - ntohs(err->length) &&\
      ntohs(err->length) >= sizeof(sctp_errhdr_t); \
      err = (sctp_errhdr_t *)((void *)err + WORD_ROUND(ntohs(err->length))))

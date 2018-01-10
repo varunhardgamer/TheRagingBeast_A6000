@@ -23,7 +23,12 @@ static struct dentry *regmap_debugfs_root;
 /* Calculate the length of a fixed format  */
 static size_t regmap_calc_reg_len(int max_val, char *buf, size_t buf_size)
 {
+<<<<<<< HEAD
 	return snprintf(NULL, 0, "%x", max_val);
+=======
+	snprintf(buf, buf_size, "%x", max_val);
+	return strlen(buf);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static ssize_t regmap_name_read_file(struct file *file,
@@ -144,7 +149,11 @@ static unsigned int regmap_debugfs_get_dump_start(struct regmap *map,
 			reg_offset = fpos_offset / map->debugfs_tot_len;
 			*pos = c->min + (reg_offset * map->debugfs_tot_len);
 			mutex_unlock(&map->cache_lock);
+<<<<<<< HEAD
 			return c->base_reg + (reg_offset * map->reg_stride);
+=======
+			return c->base_reg + reg_offset;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		}
 
 		*pos = c->max;
@@ -417,7 +426,11 @@ static ssize_t regmap_access_read_file(struct file *file,
 		/* If we're in the region the user is trying to read */
 		if (p >= *ppos) {
 			/* ...but not beyond it */
+<<<<<<< HEAD
 			if (buf_pos + tot_len + 1 >= count)
+=======
+			if (buf_pos >= count - 1 - tot_len)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 				break;
 
 			/* Format the register */

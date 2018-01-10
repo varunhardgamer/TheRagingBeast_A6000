@@ -208,6 +208,7 @@ static inline bool static_key_enabled(struct static_key *key)
 	return (atomic_read(&key->enabled) > 0);
 }
 
+<<<<<<< HEAD
 static inline void static_key_enable(struct static_key *key)
 {
 	int count = atomic_read(&key->enabled);
@@ -224,4 +225,6 @@ static inline void static_key_disable(struct static_key *key)
 		static_key_slow_dec(key);
 }
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #endif	/* _LINUX_JUMP_LABEL_H */

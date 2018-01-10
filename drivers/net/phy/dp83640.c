@@ -45,7 +45,11 @@
 #define PSF_TX		0x1000
 #define EXT_EVENT	1
 #define CAL_EVENT	7
+<<<<<<< HEAD
 #define CAL_TRIGGER	1
+=======
+#define CAL_TRIGGER	7
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #define PER_TRIGGER	6
 
 #define MII_DP83640_MICR 0x11

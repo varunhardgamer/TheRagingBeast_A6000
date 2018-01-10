@@ -1459,7 +1459,10 @@ static void usbvision_release(struct usb_usbvision *usbvision)
 
 	usbvision_remove_sysfs(usbvision->vdev);
 	usbvision_unregister_video(usbvision);
+<<<<<<< HEAD
 	kfree(usbvision->alt_max_pkt_size);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	usb_free_urb(usbvision->ctrl_urb);
 
@@ -1521,7 +1524,11 @@ static int usbvision_probe(struct usb_interface *intf,
 	const struct usb_host_interface *interface;
 	struct usb_usbvision *usbvision = NULL;
 	const struct usb_endpoint_descriptor *endpoint;
+<<<<<<< HEAD
 	int model, i, ret;
+=======
+	int model, i;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	PDEBUG(DBG_PROBE, "VID=%#04x, PID=%#04x, ifnum=%u",
 				dev->descriptor.idVendor,
@@ -1530,14 +1537,19 @@ static int usbvision_probe(struct usb_interface *intf,
 	model = devid->driver_info;
 	if (model < 0 || model >= usbvision_device_data_size) {
 		PDEBUG(DBG_PROBE, "model out of bounds %d", model);
+<<<<<<< HEAD
 		ret = -ENODEV;
 		goto err_usb;
+=======
+		return -ENODEV;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 	printk(KERN_INFO "%s: %s found\n", __func__,
 				usbvision_device_data[model].model_string);
 
 	if (usbvision_device_data[model].interface >= 0)
 		interface = &dev->actconfig->interface[usbvision_device_data[model].interface]->altsetting[0];
+<<<<<<< HEAD
 	else if (ifnum < dev->actconfig->desc.bNumInterfaces)
 		interface = &dev->actconfig->interface[ifnum]->altsetting[0];
 	else {
@@ -1555,26 +1567,43 @@ static int usbvision_probe(struct usb_interface *intf,
 	}
 	endpoint = &interface->endpoint[1].desc;
 
+=======
+	else
+		interface = &dev->actconfig->interface[ifnum]->altsetting[0];
+	endpoint = &interface->endpoint[1].desc;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (!usb_endpoint_xfer_isoc(endpoint)) {
 		dev_err(&intf->dev, "%s: interface %d. has non-ISO endpoint!\n",
 		    __func__, ifnum);
 		dev_err(&intf->dev, "%s: Endpoint attributes %d",
 		    __func__, endpoint->bmAttributes);
+<<<<<<< HEAD
 		ret = -ENODEV;
 		goto err_usb;
+=======
+		return -ENODEV;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 	if (usb_endpoint_dir_out(endpoint)) {
 		dev_err(&intf->dev, "%s: interface %d. has ISO OUT endpoint!\n",
 		    __func__, ifnum);
+<<<<<<< HEAD
 		ret = -ENODEV;
 		goto err_usb;
+=======
+		return -ENODEV;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 
 	usbvision = usbvision_alloc(dev, intf);
 	if (usbvision == NULL) {
 		dev_err(&intf->dev, "%s: couldn't allocate USBVision struct\n", __func__);
+<<<<<<< HEAD
 		ret = -ENOMEM;
 		goto err_usb;
+=======
+		return -ENOMEM;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 
 	if (dev->descriptor.bNumConfigurations > 1)
@@ -1593,8 +1622,12 @@ static int usbvision_probe(struct usb_interface *intf,
 	usbvision->alt_max_pkt_size = kmalloc(32 * usbvision->num_alt, GFP_KERNEL);
 	if (usbvision->alt_max_pkt_size == NULL) {
 		dev_err(&intf->dev, "usbvision: out of memory!\n");
+<<<<<<< HEAD
 		ret = -ENOMEM;
 		goto err_pkt;
+=======
+		return -ENOMEM;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 
 	for (i = 0; i < usbvision->num_alt; i++) {
@@ -1629,12 +1662,15 @@ static int usbvision_probe(struct usb_interface *intf,
 
 	PDEBUG(DBG_PROBE, "success");
 	return 0;
+<<<<<<< HEAD
 
 err_pkt:
 	usbvision_release(usbvision);
 err_usb:
 	usb_put_dev(dev);
 	return ret;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 

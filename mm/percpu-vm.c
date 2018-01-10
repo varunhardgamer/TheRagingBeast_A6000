@@ -108,7 +108,11 @@ static int pcpu_alloc_pages(struct pcpu_chunk *chunk,
 			    int page_start, int page_end)
 {
 	const gfp_t gfp = GFP_KERNEL | __GFP_HIGHMEM | __GFP_COLD;
+<<<<<<< HEAD
 	unsigned int cpu, tcpu;
+=======
+	unsigned int cpu;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	int i;
 
 	for_each_possible_cpu(cpu) {
@@ -116,6 +120,7 @@ static int pcpu_alloc_pages(struct pcpu_chunk *chunk,
 			struct page **pagep = &pages[pcpu_page_idx(cpu, i)];
 
 			*pagep = alloc_pages_node(cpu_to_node(cpu), gfp, 0);
+<<<<<<< HEAD
 			if (!*pagep)
 				goto err;
 		}
@@ -133,6 +138,16 @@ err:
 			__free_page(pages[pcpu_page_idx(tcpu, i)]);
 	}
 	return -ENOMEM;
+=======
+			if (!*pagep) {
+				pcpu_free_pages(chunk, pages, populated,
+						page_start, page_end);
+				return -ENOMEM;
+			}
+		}
+	}
+	return 0;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 /**
@@ -272,7 +287,10 @@ err:
 		__pcpu_unmap_pages(pcpu_chunk_addr(chunk, tcpu, page_start),
 				   page_end - page_start);
 	}
+<<<<<<< HEAD
 	pcpu_post_unmap_tlb_flush(chunk, page_start, page_end);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return err;
 }
 

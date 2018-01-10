@@ -1213,7 +1213,10 @@ void sctp_assoc_update(struct sctp_association *asoc,
 	asoc->c = new->c;
 	asoc->peer.rwnd = new->peer.rwnd;
 	asoc->peer.sack_needed = new->peer.sack_needed;
+<<<<<<< HEAD
 	asoc->peer.auth_capable = new->peer.auth_capable;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	asoc->peer.i = new->peer.i;
 	sctp_tsnmap_init(&asoc->peer.tsn_map, SCTP_TSN_MAP_INITIAL,
 			 asoc->peer.i.initial_tsn, GFP_ATOMIC);
@@ -1297,10 +1300,15 @@ void sctp_assoc_update(struct sctp_association *asoc,
 	asoc->peer.peer_hmacs = new->peer.peer_hmacs;
 	new->peer.peer_hmacs = NULL;
 
+<<<<<<< HEAD
+=======
+	sctp_auth_key_put(asoc->asoc_shared_key);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	sctp_auth_asoc_init_active_key(asoc, GFP_ATOMIC);
 }
 
 /* Update the retran path for sending a retransmitted packet.
+<<<<<<< HEAD
  * See also RFC4960, 6.4. Multi-Homed SCTP Endpoints:
  *
  *   When there is outbound data to send and the primary path
@@ -1395,17 +1403,93 @@ void sctp_assoc_update_retran_path(struct sctp_association *asoc)
 struct sctp_transport *
 sctp_assoc_choose_alter_transport(struct sctp_association *asoc,
 				  struct sctp_transport *last_sent_to)
+=======
+ * Round-robin through the active transports, else round-robin
+ * through the inactive transports as this is the next best thing
+ * we can try.
+ */
+void sctp_assoc_update_retran_path(struct sctp_association *asoc)
+{
+	struct sctp_transport *t, *next;
+	struct list_head *head = &asoc->peer.transport_addr_list;
+	struct list_head *pos;
+
+	if (asoc->peer.transport_count == 1)
+		return;
+
+	/* Find the next transport in a round-robin fashion. */
+	t = asoc->peer.retran_path;
+	pos = &t->transports;
+	next = NULL;
+
+	while (1) {
+		/* Skip the head. */
+		if (pos->next == head)
+			pos = head->next;
+		else
+			pos = pos->next;
+
+		t = list_entry(pos, struct sctp_transport, transports);
+
+		/* We have exhausted the list, but didn't find any
+		 * other active transports.  If so, use the next
+		 * transport.
+		 */
+		if (t == asoc->peer.retran_path) {
+			t = next;
+			break;
+		}
+
+		/* Try to find an active transport. */
+
+		if ((t->state == SCTP_ACTIVE) ||
+		    (t->state == SCTP_UNKNOWN)) {
+			break;
+		} else {
+			/* Keep track of the next transport in case
+			 * we don't find any active transport.
+			 */
+			if (t->state != SCTP_UNCONFIRMED && !next)
+				next = t;
+		}
+	}
+
+	if (t)
+		asoc->peer.retran_path = t;
+	else
+		t = asoc->peer.retran_path;
+
+	SCTP_DEBUG_PRINTK_IPADDR("sctp_assoc_update_retran_path:association"
+				 " %p addr: ",
+				 " port: %d\n",
+				 asoc,
+				 (&t->ipaddr),
+				 ntohs(t->ipaddr.v4.sin_port));
+}
+
+/* Choose the transport for sending retransmit packet.  */
+struct sctp_transport *sctp_assoc_choose_alter_transport(
+	struct sctp_association *asoc, struct sctp_transport *last_sent_to)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	/* If this is the first time packet is sent, use the active path,
 	 * else use the retran path. If the last packet was sent over the
 	 * retran path, update the retran path and use it.
 	 */
+<<<<<<< HEAD
 	if (last_sent_to == NULL) {
 		return asoc->peer.active_path;
 	} else {
 		if (last_sent_to == asoc->peer.retran_path)
 			sctp_assoc_update_retran_path(asoc);
 
+=======
+	if (!last_sent_to)
+		return asoc->peer.active_path;
+	else {
+		if (last_sent_to == asoc->peer.retran_path)
+			sctp_assoc_update_retran_path(asoc);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		return asoc->peer.retran_path;
 	}
 }
@@ -1687,8 +1771,11 @@ struct sctp_chunk *sctp_assoc_lookup_asconf_ack(
 	 * ack chunk whose serial number matches that of the request.
 	 */
 	list_for_each_entry(ack, &asoc->asconf_ack_list, transmitted_list) {
+<<<<<<< HEAD
 		if (sctp_chunk_pending(ack))
 			continue;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		if (ack->subh.addip_hdr->serial == serial) {
 			sctp_chunk_hold(ack);
 			return ack;

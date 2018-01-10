@@ -124,7 +124,11 @@ static int i82860_process_error_info(struct mem_ctl_info *mci,
 				     dimm->location[0], dimm->location[1], -1,
 				     "i82860 UE", "");
 	else
+<<<<<<< HEAD
 		edac_mc_handle_error(HW_EVENT_ERR_CORRECTED, mci, 1,
+=======
+		edac_mc_handle_error(HW_EVENT_ERR_UNCORRECTED, mci, 1,
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 				     info->eap, 0, info->derrsyn,
 				     dimm->location[0], dimm->location[1], -1,
 				     "i82860 CE", "");

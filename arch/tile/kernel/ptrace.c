@@ -110,7 +110,11 @@ static int tile_gpr_set(struct task_struct *target,
 			  const void *kbuf, const void __user *ubuf)
 {
 	int ret;
+<<<<<<< HEAD
 	struct pt_regs regs = *task_pt_regs(target);
+=======
+	struct pt_regs regs;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	ret = user_regset_copyin(&pos, &count, &kbuf, &ubuf, &regs, 0,
 				 sizeof(regs));

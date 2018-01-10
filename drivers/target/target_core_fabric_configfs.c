@@ -84,11 +84,14 @@ static int target_fabric_mappedlun_link(
 				"_tpg does not exist\n");
 		return -EINVAL;
 	}
+<<<<<<< HEAD
 	if (lun->lun_shutdown) {
 		pr_err("Unable to create mappedlun symlink because"
 			" lun->lun_shutdown=true\n");
 		return -EINVAL;
 	}
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	se_tpg = lun->lun_sep->sep_tpg;
 
 	nacl_ci = &lun_acl_ci->ci_parent->ci_group->cg_item;

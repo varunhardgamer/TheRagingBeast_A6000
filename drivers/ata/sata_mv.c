@@ -4097,9 +4097,12 @@ static int mv_platform_probe(struct platform_device *pdev)
 	host->iomap = NULL;
 	hpriv->base = devm_ioremap(&pdev->dev, res->start,
 				   resource_size(res));
+<<<<<<< HEAD
 	if (!hpriv->base)
 		return -ENOMEM;
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	hpriv->base -= SATAHC0_REG_BASE;
 
 #if defined(CONFIG_HAVE_CLK)

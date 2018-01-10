@@ -1,7 +1,10 @@
 #include <linux/slab.h>
 #include <linux/file.h>
 #include <linux/fdtable.h>
+<<<<<<< HEAD
 #include <linux/freezer.h>
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #include <linux/mm.h>
 #include <linux/stat.h>
 #include <linux/fcntl.h>
@@ -300,7 +303,11 @@ static int zap_threads(struct task_struct *tsk, struct mm_struct *mm,
 	if (unlikely(nr < 0))
 		return nr;
 
+<<<<<<< HEAD
 	tsk->flags |= PF_DUMPCORE;
+=======
+	tsk->flags = PF_DUMPCORE;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (atomic_read(&mm->mm_users) == nr + 1)
 		goto done;
 	/*
@@ -376,9 +383,13 @@ static int coredump_wait(int exit_code, struct core_state *core_state)
 	if (core_waiters > 0) {
 		struct core_thread *ptr;
 
+<<<<<<< HEAD
 		freezer_do_not_count();
 		wait_for_completion(&core_state->startup);
 		freezer_count();
+=======
+		wait_for_completion(&core_state->startup);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		/*
 		 * Wait for all the threads to become inactive, so that
 		 * all the thread context (extended register state, like
@@ -494,10 +505,17 @@ void do_coredump(siginfo_t *siginfo)
 	const struct cred *old_cred;
 	struct cred *cred;
 	int retval = 0;
+<<<<<<< HEAD
 	int ispipe;
 	struct files_struct *displaced;
 	/* require nonrelative corefile path and be extra careful */
 	bool need_suid_safe = false;
+=======
+	int flag = 0;
+	int ispipe;
+	struct files_struct *displaced;
+	bool need_nonrelative = false;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	bool core_dumped = false;
 	static atomic_t core_dump_count = ATOMIC_INIT(0);
 	struct coredump_params cprm = {
@@ -531,8 +549,14 @@ void do_coredump(siginfo_t *siginfo)
 	 */
 	if (__get_dumpable(cprm.mm_flags) == SUID_DUMP_ROOT) {
 		/* Setuid core dump mode */
+<<<<<<< HEAD
 		cred->fsuid = GLOBAL_ROOT_UID;	/* Dump root private */
 		need_suid_safe = true;
+=======
+		flag = O_EXCL;		/* Stop rewrite attacks */
+		cred->fsuid = GLOBAL_ROOT_UID;	/* Dump root private */
+		need_nonrelative = true;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 
 	retval = coredump_wait(siginfo->si_signo, &core_state);
@@ -613,7 +637,11 @@ void do_coredump(siginfo_t *siginfo)
 		if (cprm.limit < binfmt->min_coredump)
 			goto fail_unlock;
 
+<<<<<<< HEAD
 		if (need_suid_safe && cn.corename[0] != '/') {
+=======
+		if (need_nonrelative && cn.corename[0] != '/') {
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			printk(KERN_WARNING "Pid %d(%s) can only dump core "\
 				"to fully qualified path!\n",
 				task_tgid_vnr(current), current->comm);
@@ -621,6 +649,7 @@ void do_coredump(siginfo_t *siginfo)
 			goto fail_unlock;
 		}
 
+<<<<<<< HEAD
 		/*
 		 * Unlink the file if it exists unless this is a SUID
 		 * binary - in that case, we're running around with root
@@ -650,6 +679,10 @@ void do_coredump(siginfo_t *siginfo)
 		cprm.file = filp_open(cn.corename,
 				 O_CREAT | 2 | O_NOFOLLOW |
 				 O_LARGEFILE | O_EXCL,
+=======
+		cprm.file = filp_open(cn.corename,
+				 O_CREAT | 2 | O_NOFOLLOW | O_LARGEFILE | flag,
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 				 0600);
 		if (IS_ERR(cprm.file))
 			goto fail_unlock;
@@ -673,7 +706,11 @@ void do_coredump(siginfo_t *siginfo)
 			goto close_fail;
 		if (!cprm.file->f_op || !cprm.file->f_op->write)
 			goto close_fail;
+<<<<<<< HEAD
 		if (do_truncate2(cprm.file->f_path.mnt, cprm.file->f_path.dentry, 0, 0, cprm.file))
+=======
+		if (do_truncate(cprm.file->f_path.dentry, 0, 0, cprm.file))
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			goto close_fail;
 	}
 

@@ -126,7 +126,11 @@ affs_fix_dcache(struct inode *inode, u32 entry_ino)
 {
 	struct dentry *dentry;
 	spin_lock(&inode->i_lock);
+<<<<<<< HEAD
 	hlist_for_each_entry(dentry, &inode->i_dentry, d_u.d_alias) {
+=======
+	hlist_for_each_entry(dentry, &inode->i_dentry, d_alias) {
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		if (entry_ino == (u32)(long)dentry->d_fsdata) {
 			dentry->d_fsdata = (void *)inode->i_ino;
 			break;

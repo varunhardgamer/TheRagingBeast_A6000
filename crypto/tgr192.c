@@ -676,9 +676,14 @@ static void __exit tgr192_mod_fini(void)
 	crypto_unregister_shashes(tgr_algs, ARRAY_SIZE(tgr_algs));
 }
 
+<<<<<<< HEAD
 MODULE_ALIAS_CRYPTO("tgr192");
 MODULE_ALIAS_CRYPTO("tgr160");
 MODULE_ALIAS_CRYPTO("tgr128");
+=======
+MODULE_ALIAS("tgr160");
+MODULE_ALIAS("tgr128");
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 module_init(tgr192_mod_init);
 module_exit(tgr192_mod_fini);

@@ -44,7 +44,11 @@
 #define __ARM_NR_compat_cacheflush	(__ARM_NR_COMPAT_BASE+2)
 #define __ARM_NR_compat_set_tls		(__ARM_NR_COMPAT_BASE+5)
 
+<<<<<<< HEAD
 #define __NR_compat_syscalls		385
+=======
+#define __NR_compat_syscalls		384
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #endif
 
 #define __ARCH_WANT_SYS_CLONE

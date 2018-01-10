@@ -43,7 +43,11 @@ int adis_update_scan_mode(struct iio_dev *indio_dev,
 		return -ENOMEM;
 
 	rx = adis->buffer;
+<<<<<<< HEAD
 	tx = rx + scan_count;
+=======
+	tx = rx + indio_dev->scan_bytes;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	spi_message_init(&adis->msg);
 

@@ -244,8 +244,11 @@ struct fuse_file_lock {
 #define FUSE_ASYNC_DIO		(1 << 15)
 #define FUSE_WRITEBACK_CACHE	(1 << 16)
 
+<<<<<<< HEAD
 #define FUSE_SHORTCIRCUIT	(1 << 31)
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /**
  * CUSE INIT request/reply flags
  *
@@ -352,7 +355,10 @@ enum fuse_opcode {
 	FUSE_BATCH_FORGET  = 42,
 	FUSE_FALLOCATE     = 43,
 	FUSE_READDIRPLUS   = 44,
+<<<<<<< HEAD
 	FUSE_CANONICAL_PATH= 2016,
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	/* CUSE specific operations */
 	CUSE_INIT          = 4096,
@@ -469,7 +475,11 @@ struct fuse_create_in {
 struct fuse_open_out {
 	uint64_t	fh;
 	uint32_t	open_flags;
+<<<<<<< HEAD
 	int32_t         lower_fd;/* lower layer file descriptor */
+=======
+	uint32_t	padding;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 
 struct fuse_release_in {

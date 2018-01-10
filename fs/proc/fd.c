@@ -302,6 +302,7 @@ static struct dentry *proc_lookupfd(struct inode *dir, struct dentry *dentry,
  */
 int proc_fd_permission(struct inode *inode, int mask)
 {
+<<<<<<< HEAD
 	struct task_struct *p;
 	int rv;
 
@@ -315,6 +316,13 @@ int proc_fd_permission(struct inode *inode, int mask)
 		rv = 0;
 	rcu_read_unlock();
 
+=======
+	int rv = generic_permission(inode, mask);
+	if (rv == 0)
+		return 0;
+	if (task_pid(current) == proc_pid(inode))
+		rv = 0;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return rv;
 }
 

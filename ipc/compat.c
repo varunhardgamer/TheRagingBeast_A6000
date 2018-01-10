@@ -381,7 +381,11 @@ COMPAT_SYSCALL_DEFINE6(ipc, u32, call, int, first, int, second,
 			uptr = compat_ptr(ipck.msgp);
 			fifth = ipck.msgtyp;
 		}
+<<<<<<< HEAD
 		return do_msgrcv(first, uptr, second, (s32)fifth, third,
+=======
+		return do_msgrcv(first, uptr, second, fifth, third,
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 				 compat_do_msg_fill);
 	}
 	case MSGGET:

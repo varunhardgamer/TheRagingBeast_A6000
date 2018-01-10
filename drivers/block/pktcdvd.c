@@ -712,7 +712,10 @@ static int pkt_generic_packet(struct pktcdvd_device *pd, struct packet_command *
 
 	rq = blk_get_request(q, (cgc->data_direction == CGC_DATA_WRITE) ?
 			     WRITE : READ, __GFP_WAIT);
+<<<<<<< HEAD
 	blk_rq_set_block_pc(rq);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (cgc->buflen) {
 		if (blk_rq_map_kern(q, rq, cgc->buffer, cgc->buflen, __GFP_WAIT))
@@ -723,6 +726,10 @@ static int pkt_generic_packet(struct pktcdvd_device *pd, struct packet_command *
 	memcpy(rq->cmd, cgc->cmd, CDROM_PACKET_SIZE);
 
 	rq->timeout = 60*HZ;
+<<<<<<< HEAD
+=======
+	rq->cmd_type = REQ_TYPE_BLOCK_PC;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (cgc->quiet)
 		rq->cmd_flags |= REQ_QUIET;
 

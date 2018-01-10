@@ -353,8 +353,11 @@ mm_fault_error(struct pt_regs *regs, unsigned long error_code,
 	} else {
 		if (fault & VM_FAULT_SIGBUS)
 			do_sigbus(regs, error_code, address);
+<<<<<<< HEAD
 		else if (fault & VM_FAULT_SIGSEGV)
 			bad_area(regs, error_code, address);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		else
 			BUG();
 	}

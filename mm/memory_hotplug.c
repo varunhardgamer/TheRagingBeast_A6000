@@ -1058,10 +1058,13 @@ static pg_data_t __ref *hotadd_new_pgdat(int nid, u64 start)
 			return NULL;
 
 		arch_refresh_nodedata(nid, pgdat);
+<<<<<<< HEAD
 	} else {
 		/* Reset the nr_zones and classzone_idx to 0 before reuse */
 		pgdat->nr_zones = 0;
 		pgdat->classzone_idx = 0;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 
 	/* we can use NODE_DATA(nid) from here */
@@ -1272,6 +1275,7 @@ int is_mem_section_removable(unsigned long start_pfn, unsigned long nr_pages)
 }
 
 /*
+<<<<<<< HEAD
  * Confirm all pages in a range [start, end) belong to the same zone.
  */
 static int test_pages_in_a_zone(unsigned long start_pfn, unsigned long end_pfn)
@@ -1306,6 +1310,31 @@ static int test_pages_in_a_zone(unsigned long start_pfn, unsigned long end_pfn)
 		return 1;
 	else
 		return 0;
+=======
+ * Confirm all pages in a range [start, end) is belongs to the same zone.
+ */
+static int test_pages_in_a_zone(unsigned long start_pfn, unsigned long end_pfn)
+{
+	unsigned long pfn;
+	struct zone *zone = NULL;
+	struct page *page;
+	int i;
+	for (pfn = start_pfn;
+	     pfn < end_pfn;
+	     pfn += MAX_ORDER_NR_PAGES) {
+		i = 0;
+		/* This is just a CONFIG_HOLES_IN_ZONE check.*/
+		while ((i < MAX_ORDER_NR_PAGES) && !pfn_valid_within(pfn + i))
+			i++;
+		if (i == MAX_ORDER_NR_PAGES)
+			continue;
+		page = pfn_to_page(pfn + i);
+		if (zone && page_zone(page) != zone)
+			return 0;
+		zone = page_zone(page);
+	}
+	return 1;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 /*
@@ -1888,11 +1917,26 @@ void try_offline_node(int nid)
 		 * wait_table may be allocated from boot memory,
 		 * here only free if it's allocated by vmalloc.
 		 */
+<<<<<<< HEAD
 		if (is_vmalloc_addr(zone->wait_table)) {
 			vfree(zone->wait_table);
 			zone->wait_table = NULL;
 		}
 	}
+=======
+		if (is_vmalloc_addr(zone->wait_table))
+			vfree(zone->wait_table);
+	}
+
+	/*
+	 * Since there is no way to guarentee the address of pgdat/zone is not
+	 * on stack of any kernel threads or used by other kernel objects
+	 * without reference counting or other symchronizing method, do not
+	 * reset node_data and free pgdat here. Just reset it to 0 and reuse
+	 * the memory when the node is online again.
+	 */
+	memset(pgdat, 0, sizeof(*pgdat));
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 EXPORT_SYMBOL(try_offline_node);
 

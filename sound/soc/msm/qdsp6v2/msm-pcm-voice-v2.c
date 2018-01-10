@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2012-2016, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2012-2014, The Linux Foundation. All rights reserved.
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -84,6 +88,7 @@ static bool is_vowlan(struct msm_voice *pvowlan)
 		return false;
 }
 
+<<<<<<< HEAD
 static bool is_voicemmode1(struct msm_voice *pvoicemmode1)
 {
 	if (pvoicemmode1 == &voice_info[VOICEMMODE1_INDEX])
@@ -100,6 +105,8 @@ static bool is_voicemmode2(struct msm_voice *pvoicemmode2)
 		return false;
 }
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static uint32_t get_session_id(struct msm_voice *pvoc)
 {
 	uint32_t session_id = 0;
@@ -112,10 +119,13 @@ static uint32_t get_session_id(struct msm_voice *pvoc)
 		session_id = voc_get_session_id(QCHAT_SESSION_NAME);
 	else if (is_vowlan(pvoc))
 		session_id = voc_get_session_id(VOWLAN_SESSION_NAME);
+<<<<<<< HEAD
 	else if (is_voicemmode1(pvoc))
 		session_id = voc_get_session_id(VOICEMMODE1_NAME);
 	else if (is_voicemmode2(pvoc))
 		session_id = voc_get_session_id(VOICEMMODE2_NAME);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	else
 		session_id = voc_get_session_id(VOICE_SESSION_NAME);
 
@@ -169,6 +179,7 @@ static int msm_pcm_open(struct snd_pcm_substream *substream)
 		voice = &voice_info[VOWLAN_SESSION_INDEX];
 		pr_debug("%s: Open VoWLAN Substream Id=%s\n",
 			 __func__, substream->pcm->id);
+<<<<<<< HEAD
 	} else if (!strncmp("VoiceMMode1", substream->pcm->id, 11)) {
 		voice = &voice_info[VOICEMMODE1_INDEX];
 		pr_debug("%s: Open VoiceMMode1 Substream Id=%s\n",
@@ -177,6 +188,8 @@ static int msm_pcm_open(struct snd_pcm_substream *substream)
 		voice = &voice_info[VOICEMMODE2_INDEX];
 		pr_debug("%s: Open VoiceMMode2 Substream Id=%s\n",
 			 __func__, substream->pcm->id);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	} else {
 		voice = &voice_info[VOICE_SESSION_INDEX];
 		pr_debug("%s: Open VOICE Substream Id=%s\n",
@@ -518,8 +531,11 @@ static int msm_voice_tty_mode_put(struct snd_kcontrol *kcontrol,
 	voc_set_tty_mode(voc_get_session_id(VOICE2_SESSION_NAME), tty_mode);
 	voc_set_tty_mode(voc_get_session_id(VOLTE_SESSION_NAME), tty_mode);
 	voc_set_tty_mode(voc_get_session_id(VOWLAN_SESSION_NAME), tty_mode);
+<<<<<<< HEAD
 	voc_set_tty_mode(voc_get_session_id(VOICEMMODE1_NAME), tty_mode);
 	voc_set_tty_mode(voc_get_session_id(VOICEMMODE2_NAME), tty_mode);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	return 0;
 }

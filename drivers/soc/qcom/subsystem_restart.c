@@ -40,10 +40,13 @@
 
 #include <asm/current.h>
 
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_WT86518
 #define WT_SUBSYSTEM_REASTART_LEVEL "RELATED"
 #endif
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #define DISABLE_SSR 0x9889deed
 /* If set to 0x9889deed, call to subsystem_restart_dev() returns immediately */
 static uint disable_restart_work;
@@ -1446,6 +1449,7 @@ struct subsys_device *subsys_register(struct subsys_desc *desc)
 	subsys->notif_state = -1;
 	subsys->desc->sysmon_pid = -1;
 
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_WT86518
         if(0 == strncmp(WT_SUBSYSTEM_REASTART_LEVEL, "SYSTEM", 6)) {
                 printk("XXX::restartlevel system\r\n");
@@ -1457,6 +1461,8 @@ struct subsys_device *subsys_register(struct subsys_desc *desc)
                 subsys->restart_level = RESET_SUBSYS_COUPLED;
         }
 #endif
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	subsys->notify = subsys_notif_add_subsys(desc->name);
 
 	snprintf(subsys->wlname, sizeof(subsys->wlname), "ssr(%s)", desc->name);

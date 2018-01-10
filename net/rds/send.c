@@ -955,6 +955,7 @@ int rds_sendmsg(struct kiocb *iocb, struct socket *sock, struct msghdr *msg,
 		release_sock(sk);
 	}
 
+<<<<<<< HEAD
 	lock_sock(sk);
 	if (daddr == 0 || rs->rs_bound_addr == 0) {
 		release_sock(sk);
@@ -962,6 +963,13 @@ int rds_sendmsg(struct kiocb *iocb, struct socket *sock, struct msghdr *msg,
 		goto out;
 	}
 	release_sock(sk);
+=======
+	/* racing with another thread binding seems ok here */
+	if (daddr == 0 || rs->rs_bound_addr == 0) {
+		ret = -ENOTCONN; /* XXX not a great errno */
+		goto out;
+	}
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	/* size of rm including all sgs */
 	ret = rds_rm_size(msg, payload_len);

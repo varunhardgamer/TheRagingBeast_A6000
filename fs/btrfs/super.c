@@ -779,6 +779,7 @@ find_root:
 	if (btrfs_root_refs(&new_root->root_item) == 0)
 		return ERR_PTR(-ENOENT);
 
+<<<<<<< HEAD
 	if (!(sb->s_flags & MS_RDONLY)) {
 		int ret;
 		down_read(&fs_info->cleanup_work_sem);
@@ -788,6 +789,8 @@ find_root:
 			return ERR_PTR(ret);
 	}
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	dir_id = btrfs_root_dirid(&new_root->root_item);
 setup_root:
 	location.objectid = dir_id;

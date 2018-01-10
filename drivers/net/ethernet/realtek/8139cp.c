@@ -899,7 +899,11 @@ out_unlock:
 
 	return NETDEV_TX_OK;
 out_dma_error:
+<<<<<<< HEAD
 	dev_kfree_skb_any(skb);
+=======
+	kfree_skb(skb);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	cp->dev->stats.tx_dropped++;
 	goto out_unlock;
 }

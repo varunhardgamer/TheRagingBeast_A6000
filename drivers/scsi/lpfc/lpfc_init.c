@@ -2684,7 +2684,11 @@ lpfc_online(struct lpfc_hba *phba)
 	}
 
 	vports = lpfc_create_vport_work_array(phba);
+<<<<<<< HEAD
 	if (vports != NULL) {
+=======
+	if (vports != NULL)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		for (i = 0; i <= phba->max_vports && vports[i] != NULL; i++) {
 			struct Scsi_Host *shost;
 			shost = lpfc_shost_from_vport(vports[i]);
@@ -2701,8 +2705,12 @@ lpfc_online(struct lpfc_hba *phba)
 			}
 			spin_unlock_irq(shost->host_lock);
 		}
+<<<<<<< HEAD
 	}
 	lpfc_destroy_vport_work_array(phba, vports);
+=======
+		lpfc_destroy_vport_work_array(phba, vports);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	lpfc_unblock_mgmt_io(phba);
 	return 0;
@@ -10909,7 +10917,10 @@ static struct pci_driver lpfc_driver = {
 	.id_table	= lpfc_id_table,
 	.probe		= lpfc_pci_probe_one,
 	.remove		= lpfc_pci_remove_one,
+<<<<<<< HEAD
 	.shutdown	= lpfc_pci_remove_one,
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	.suspend        = lpfc_pci_suspend_one,
 	.resume		= lpfc_pci_resume_one,
 	.err_handler    = &lpfc_err_handler,

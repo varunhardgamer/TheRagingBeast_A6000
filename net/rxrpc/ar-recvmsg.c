@@ -87,7 +87,11 @@ int rxrpc_recvmsg(struct kiocb *iocb, struct socket *sock,
 		if (!skb) {
 			/* nothing remains on the queue */
 			if (copied &&
+<<<<<<< HEAD
 			    (flags & MSG_PEEK || timeo == 0))
+=======
+			    (msg->msg_flags & MSG_PEEK || timeo == 0))
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 				goto out;
 
 			/* wait for a message to turn up */
@@ -185,8 +189,12 @@ int rxrpc_recvmsg(struct kiocb *iocb, struct socket *sock,
 						      msg->msg_iov, copy);
 		} else {
 			ret = skb_copy_and_csum_datagram_iovec(skb, offset,
+<<<<<<< HEAD
 							       msg->msg_iov,
 							       copy);
+=======
+							       msg->msg_iov);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			if (ret == -EINVAL)
 				goto csum_copy_error;
 		}

@@ -7,9 +7,13 @@ obj-$(CONFIG_MSM_VIDC_V4L2)     += vidc/
 obj-$(CONFIG_MSM_WFD) += wfd/
 obj-y += broadcast/
 obj-$(CONFIG_DVB_MPQ) += dvb/
+<<<<<<< HEAD
 ifeq ($(CONFIG_MACH_WT86518),y)
 obj-$(CONFIG_MSMB_CAMERA) += camera_wt86518_v2/
 else
 obj-$(CONFIG_MSMB_CAMERA) += camera_v2/
 endif
+=======
+obj-$(CONFIG_MSMB_CAMERA) += camera_v2/
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 obj-$(CONFIG_MSM_VPU) += vpu/

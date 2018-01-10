@@ -253,7 +253,11 @@ static int nf_log_proc_dostring(ctl_table *table, int write,
 	size_t size = *lenp;
 	int r = 0;
 	int tindex = (unsigned long)table->extra1;
+<<<<<<< HEAD
 	struct net *net = table->extra2;
+=======
+	struct net *net = current->nsproxy->net_ns;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (write) {
 		if (size > sizeof(buf))
@@ -306,6 +310,10 @@ static int netfilter_log_sysctl_init(struct net *net)
 				 3, "%d", i);
 			nf_log_sysctl_table[i].procname	=
 				nf_log_sysctl_fnames[i];
+<<<<<<< HEAD
+=======
+			nf_log_sysctl_table[i].data = NULL;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			nf_log_sysctl_table[i].maxlen =
 				NFLOGGER_NAME_LEN * sizeof(char);
 			nf_log_sysctl_table[i].mode = 0644;
@@ -316,9 +324,12 @@ static int netfilter_log_sysctl_init(struct net *net)
 		}
 	}
 
+<<<<<<< HEAD
 	for (i = NFPROTO_UNSPEC; i < NFPROTO_NUMPROTO; i++)
 		table[i].extra2 = net;
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	net->nf.nf_log_dir_header = register_net_sysctl(net,
 						"net/netfilter/nf_log",
 						table);

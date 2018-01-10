@@ -23,6 +23,7 @@
 #include "arizona.h"
 
 static int arizona_i2c_probe(struct i2c_client *i2c,
+<<<<<<< HEAD
 			     const struct i2c_device_id *id)
 {
 	struct arizona *arizona;
@@ -37,11 +38,21 @@ static int arizona_i2c_probe(struct i2c_client *i2c,
 		type = id->driver_data;
 
 	switch (type) {
+=======
+					  const struct i2c_device_id *id)
+{
+	struct arizona *arizona;
+	const struct regmap_config *regmap_config;
+	int ret;
+
+	switch (id->driver_data) {
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #ifdef CONFIG_MFD_WM5102
 	case WM5102:
 		regmap_config = &wm5102_i2c_regmap;
 		break;
 #endif
+<<<<<<< HEAD
 #ifdef CONFIG_MFD_FLORIDA
 	case WM8280:
 	case WM5110:
@@ -87,6 +98,16 @@ static int arizona_i2c_probe(struct i2c_client *i2c,
 #endif
 	default:
 		dev_err(&i2c->dev, "Unknown device type %ld\n", type);
+=======
+#ifdef CONFIG_MFD_WM5110
+	case WM5110:
+		regmap_config = &wm5110_i2c_regmap;
+		break;
+#endif
+	default:
+		dev_err(&i2c->dev, "Unknown device type %ld\n",
+			id->driver_data);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		return -EINVAL;
 	}
 
@@ -102,6 +123,7 @@ static int arizona_i2c_probe(struct i2c_client *i2c,
 		return ret;
 	}
 
+<<<<<<< HEAD
 	if (regmap_32bit_config) {
 		arizona->regmap_32bit = devm_regmap_init_i2c(i2c,
 							   regmap_32bit_config);
@@ -115,6 +137,9 @@ static int arizona_i2c_probe(struct i2c_client *i2c,
 	}
 
 	arizona->type = type;
+=======
+	arizona->type = id->driver_data;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	arizona->dev = &i2c->dev;
 	arizona->irq = i2c->irq;
 
@@ -130,6 +155,7 @@ static int arizona_i2c_remove(struct i2c_client *i2c)
 
 static const struct i2c_device_id arizona_i2c_id[] = {
 	{ "wm5102", WM5102 },
+<<<<<<< HEAD
 	{ "wm8280", WM8280 },
 	{ "wm8281", WM8280 },
 	{ "wm5110", WM5110 },
@@ -143,6 +169,9 @@ static const struct i2c_device_id arizona_i2c_id[] = {
 	{ "cs47l85", WM8285 },
 	{ "cs47l90", CS47L90 },
 	{ "cs47l91", CS47L91 },
+=======
+	{ "wm5110", WM5110 },
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	{ }
 };
 MODULE_DEVICE_TABLE(i2c, arizona_i2c_id);
@@ -152,7 +181,10 @@ static struct i2c_driver arizona_i2c_driver = {
 		.name	= "arizona",
 		.owner	= THIS_MODULE,
 		.pm	= &arizona_pm_ops,
+<<<<<<< HEAD
 		.of_match_table	= of_match_ptr(arizona_of_match),
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	},
 	.probe		= arizona_i2c_probe,
 	.remove		= arizona_i2c_remove,

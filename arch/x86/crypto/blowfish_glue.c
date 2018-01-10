@@ -465,5 +465,10 @@ module_exit(fini);
 
 MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION("Blowfish Cipher Algorithm, asm optimized");
+<<<<<<< HEAD
 MODULE_ALIAS_CRYPTO("blowfish");
 MODULE_ALIAS_CRYPTO("blowfish-asm");
+=======
+MODULE_ALIAS("blowfish");
+MODULE_ALIAS("blowfish-asm");
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c

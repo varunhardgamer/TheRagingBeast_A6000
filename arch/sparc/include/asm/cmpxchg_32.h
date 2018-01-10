@@ -11,14 +11,30 @@
 #ifndef __ARCH_SPARC_CMPXCHG__
 #define __ARCH_SPARC_CMPXCHG__
 
+<<<<<<< HEAD
 extern unsigned long __xchg_u32(volatile u32 *m, u32 new);
+=======
+static inline unsigned long xchg_u32(__volatile__ unsigned long *m, unsigned long val)
+{
+	__asm__ __volatile__("swap [%2], %0"
+			     : "=&r" (val)
+			     : "0" (val), "r" (m)
+			     : "memory");
+	return val;
+}
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 extern void __xchg_called_with_bad_pointer(void);
 
 static inline unsigned long __xchg(unsigned long x, __volatile__ void * ptr, int size)
 {
 	switch (size) {
 	case 4:
+<<<<<<< HEAD
 		return __xchg_u32(ptr, x);
+=======
+		return xchg_u32(ptr, x);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 	__xchg_called_with_bad_pointer();
 	return x;

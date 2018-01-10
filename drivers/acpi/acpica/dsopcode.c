@@ -446,7 +446,11 @@ acpi_ds_eval_region_operands(struct acpi_walk_state *walk_state,
 
 	ACPI_DEBUG_PRINT((ACPI_DB_EXEC, "RgnObj %p Addr %8.8X%8.8X Len %X\n",
 			  obj_desc,
+<<<<<<< HEAD
 			  ACPI_FORMAT_UINT64(obj_desc->region.address),
+=======
+			  ACPI_FORMAT_NATIVE_UINT(obj_desc->region.address),
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			  obj_desc->region.length));
 
 	/* Now the address and length are valid for this opregion */
@@ -539,12 +543,21 @@ acpi_ds_eval_table_region_operands(struct acpi_walk_state *walk_state,
 		return_ACPI_STATUS(AE_NOT_EXIST);
 	}
 
+<<<<<<< HEAD
 	obj_desc->region.address = ACPI_PTR_TO_PHYSADDR(table);
+=======
+	obj_desc->region.address =
+	    (acpi_physical_address) ACPI_TO_INTEGER(table);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	obj_desc->region.length = table->length;
 
 	ACPI_DEBUG_PRINT((ACPI_DB_EXEC, "RgnObj %p Addr %8.8X%8.8X Len %X\n",
 			  obj_desc,
+<<<<<<< HEAD
 			  ACPI_FORMAT_UINT64(obj_desc->region.address),
+=======
+			  ACPI_FORMAT_NATIVE_UINT(obj_desc->region.address),
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			  obj_desc->region.length));
 
 	/* Now the address and length are valid for this opregion */

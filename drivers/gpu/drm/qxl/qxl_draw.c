@@ -114,8 +114,11 @@ static int qxl_palette_create_1bit(struct qxl_bo **palette_bo,
 				    palette_bo);
 
 	ret = qxl_bo_kmap(*palette_bo, (void **)&pal);
+<<<<<<< HEAD
 	if (ret)
 		return ret;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	pal->num_ents = 2;
 	pal->unique = unique++;
 	if (visual == FB_VISUAL_TRUECOLOR || visual == FB_VISUAL_DIRECTCOLOR) {

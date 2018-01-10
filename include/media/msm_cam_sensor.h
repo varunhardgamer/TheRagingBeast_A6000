@@ -1,6 +1,9 @@
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_WT86518
 #include "msm_cam_sensor_wt86518.h"
 #else
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #ifndef __LINUX_MSM_CAM_SENSOR_H
 #define __LINUX_MSM_CAM_SENSOR_H
 
@@ -780,4 +783,7 @@ struct msm_flash_cfg_data_t32 {
 #endif
 
 #endif /* __LINUX_MSM_CAM_SENSOR_H */
+<<<<<<< HEAD
 #endif /* CONFIG_MACH_WT86518 */
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c

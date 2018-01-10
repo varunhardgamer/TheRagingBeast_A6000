@@ -44,7 +44,14 @@ static inline int compute_return_epc(struct pt_regs *regs)
 			return __microMIPS_compute_return_epc(regs);
 		if (cpu_has_mips16)
 			return __MIPS16e_compute_return_epc(regs);
+<<<<<<< HEAD
 	} else if (!delay_slot(regs)) {
+=======
+		return regs->cp0_epc;
+	}
+
+	if (!delay_slot(regs)) {
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		regs->cp0_epc += 4;
 		return 0;
 	}

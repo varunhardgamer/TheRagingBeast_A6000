@@ -67,6 +67,10 @@ int mvebu_mbus_add_window(const char *devname, phys_addr_t base,
 int mvebu_mbus_del_window(phys_addr_t base, size_t size);
 int mvebu_mbus_init(const char *soc, phys_addr_t mbus_phys_base,
 		    size_t mbus_size, phys_addr_t sdram_phys_base,
+<<<<<<< HEAD
 		    size_t sdram_size, int is_coherent);
+=======
+		    size_t sdram_size);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #endif /* __LINUX_MBUS_H */

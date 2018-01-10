@@ -578,8 +578,11 @@
 
 	qcom,pm@8600664 {
 		compatible = "qcom,pm";
+<<<<<<< HEAD
 		#address-cells = <1>;
 		#size-cells = <1>;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		ranges;
 		reg = <0x8600664 0x80>;
 		clock-names =

@@ -176,7 +176,11 @@ int rds_info_getsockopt(struct socket *sock, int optname, char __user *optval,
 
 	/* check for all kinds of wrapping and the like */
 	start = (unsigned long)optval;
+<<<<<<< HEAD
 	if (len < 0 || len > INT_MAX - PAGE_SIZE + 1 || start + len < start) {
+=======
+	if (len < 0 || len + PAGE_SIZE - 1 < len || start + len < start) {
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		ret = -EINVAL;
 		goto out;
 	}

@@ -26,7 +26,10 @@
 #include <linux/seqlock.h>
 #include <linux/mutex.h>
 #include <linux/timer.h>
+<<<<<<< HEAD
 #include <linux/version.h>
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #include <linux/wait.h>
 #include <linux/blockgroup_lock.h>
 #include <linux/percpu_counter.h>
@@ -246,7 +249,10 @@ struct ext4_io_submit {
 #define	EXT4_MAX_BLOCK_SIZE		65536
 #define EXT4_MIN_BLOCK_LOG_SIZE		10
 #define EXT4_MAX_BLOCK_LOG_SIZE		16
+<<<<<<< HEAD
 #define EXT4_MAX_CLUSTER_LOG_SIZE	30
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #ifdef __KERNEL__
 # define EXT4_BLOCK_SIZE(s)		((s)->s_blocksize)
 #else
@@ -591,7 +597,10 @@ enum {
 #define EXT4_FREE_BLOCKS_NO_QUOT_UPDATE	0x0008
 #define EXT4_FREE_BLOCKS_NOFREE_FIRST_CLUSTER	0x0010
 #define EXT4_FREE_BLOCKS_NOFREE_LAST_CLUSTER	0x0020
+<<<<<<< HEAD
 #define EXT4_FREE_BLOCKS_RESERVE		0x0040
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 /*
  * Flags used by ext4_discard_partial_page_buffers
@@ -730,6 +739,7 @@ struct move_extent {
 	<= (EXT4_GOOD_OLD_INODE_SIZE +			\
 	    (einode)->i_extra_isize))			\
 
+<<<<<<< HEAD
 /*
  * We use an encoding that preserves the times for extra epoch "00":
  *
@@ -756,10 +766,18 @@ static inline __le32 ext4_encode_extra_time(struct timespec *time)
 	u32 extra = sizeof(time->tv_sec) > 4 ?
 		((time->tv_sec - (s32)time->tv_sec) >> 32) & EXT4_EPOCH_MASK : 0;
 	return cpu_to_le32(extra | (time->tv_nsec << EXT4_EPOCH_BITS));
+=======
+static inline __le32 ext4_encode_extra_time(struct timespec *time)
+{
+       return cpu_to_le32((sizeof(time->tv_sec) > 4 ?
+			   (time->tv_sec >> 32) & EXT4_EPOCH_MASK : 0) |
+                          ((time->tv_nsec << EXT4_EPOCH_BITS) & EXT4_NSEC_MASK));
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static inline void ext4_decode_extra_time(struct timespec *time, __le32 extra)
 {
+<<<<<<< HEAD
 	if (unlikely(sizeof(time->tv_sec) > 4 &&
 			(extra & cpu_to_le32(EXT4_EPOCH_MASK)))) {
 #if LINUX_VERSION_CODE < KERNEL_VERSION(4,20,0)
@@ -779,6 +797,12 @@ static inline void ext4_decode_extra_time(struct timespec *time, __le32 extra)
 #endif
 	}
 	time->tv_nsec = (le32_to_cpu(extra) & EXT4_NSEC_MASK) >> EXT4_EPOCH_BITS;
+=======
+       if (sizeof(time->tv_sec) > 4)
+	       time->tv_sec |= (__u64)(le32_to_cpu(extra) & EXT4_EPOCH_MASK)
+			       << 32;
+       time->tv_nsec = (le32_to_cpu(extra) & EXT4_NSEC_MASK) >> EXT4_EPOCH_BITS;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 #define EXT4_INODE_SET_XTIME(xtime, inode, raw_inode)			       \
@@ -852,6 +876,7 @@ do {									       \
 #include "extents_status.h"
 
 /*
+<<<<<<< HEAD
  * Lock subclasses for i_data_sem in the ext4_inode_info structure.
  *
  * These are needed to avoid lockdep false positives when we need to
@@ -875,6 +900,8 @@ enum {
 
 
 /*
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  * fourth extended file system inode data in memory
  */
 struct ext4_inode_info {
@@ -2150,7 +2177,10 @@ int do_journal_get_write_access(handle_t *handle,
 #define CONVERT_INLINE_DATA	 2
 
 extern struct inode *ext4_iget(struct super_block *, unsigned long);
+<<<<<<< HEAD
 extern struct inode *ext4_iget_normal(struct super_block *, unsigned long);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 extern int  ext4_write_inode(struct inode *, struct writeback_control *);
 extern int  ext4_setattr(struct dentry *, struct iattr *);
 extern int  ext4_getattr(struct vfsmount *mnt, struct dentry *dentry,
@@ -2178,8 +2208,11 @@ extern int ext4_page_mkwrite(struct vm_area_struct *vma, struct vm_fault *vmf);
 extern qsize_t *ext4_get_reserved_space(struct inode *inode);
 extern void ext4_da_update_reserve_space(struct inode *inode,
 					int used, int quota_claim);
+<<<<<<< HEAD
 extern int ext4_issue_zeroout(struct inode *inode, ext4_lblk_t lblk,
 			      ext4_fsblk_t pblk, ext4_lblk_t len);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 /* indirect.c */
 extern int ext4_ind_map_blocks(handle_t *handle, struct inode *inode,
@@ -2325,8 +2358,13 @@ extern int ext4_register_li_request(struct super_block *sb,
 static inline int ext4_has_group_desc_csum(struct super_block *sb)
 {
 	return EXT4_HAS_RO_COMPAT_FEATURE(sb,
+<<<<<<< HEAD
 					  EXT4_FEATURE_RO_COMPAT_GDT_CSUM) ||
 	       (EXT4_SB(sb)->s_chksum_driver != NULL);
+=======
+					  EXT4_FEATURE_RO_COMPAT_GDT_CSUM |
+					  EXT4_FEATURE_RO_COMPAT_METADATA_CSUM);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static inline ext4_fsblk_t ext4_blocks_count(struct ext4_super_block *es)

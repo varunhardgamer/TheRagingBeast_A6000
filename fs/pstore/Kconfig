@@ -19,6 +19,7 @@ config PSTORE_CONSOLE
 	  When the option is enabled, pstore will log all kernel
 	  messages, even if no oops or panic happened.
 
+<<<<<<< HEAD
 config PSTORE_PMSG
 	bool "Log user space messages"
 	depends on PSTORE
@@ -29,6 +30,8 @@ config PSTORE_PMSG
 
 	  If unsure, say N.
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 config PSTORE_FTRACE
 	bool "Persistent function tracer"
 	depends on PSTORE

@@ -826,9 +826,14 @@ static struct kobject *get_device_parent(struct device *dev,
 		return &parent->kobj;
 	return NULL;
 }
+<<<<<<< HEAD
 
 static inline bool live_in_glue_dir(struct kobject *kobj,
 				    struct device *dev)
+=======
+static inline bool live_in_glue_dir(struct kobject *kobj,
+					struct device *dev)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	if (!kobj || !dev->class ||
 	    kobj->kset != &dev->class->p->glue_dirs)
@@ -838,6 +843,7 @@ static inline bool live_in_glue_dir(struct kobject *kobj,
 
 static inline struct kobject *get_glue_dir(struct device *dev)
 {
+<<<<<<< HEAD
 	return dev->kobj.parent;
 }
 
@@ -846,6 +852,17 @@ static inline struct kobject *get_glue_dir(struct device *dev)
  * sure .release handler of kobject is run with holding the
  * global lock
  */
+=======
+	if (live_in_glue_dir(&dev->kobj, dev))
+		return dev->kobj.parent;
+	return NULL;
+}
+/*
+* make sure cleaning up dir as the last step, we need to make
+* sure .release handler of kobject is run with holding the
+* global lock
+*/
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static void cleanup_glue_dir(struct device *dev, struct kobject *glue_dir)
 {
 	/* see if we live in a "glue" directory */
@@ -1019,8 +1036,13 @@ int device_add(struct device *dev)
 	struct device *parent = NULL;
 	struct kobject *kobj;
 	struct class_interface *class_intf;
+<<<<<<< HEAD
 	int error = -EINVAL;
 	struct kobject *glue_dir = NULL;
+=======
+	struct kobject *glue_dir = NULL;
+	int error = -EINVAL;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	dev = get_device(dev);
 	if (!dev)
@@ -1161,7 +1183,12 @@ done:
 	kobject_del(&dev->kobj);
  Error:
 	cleanup_glue_dir(dev, glue_dir);
+<<<<<<< HEAD
 	put_device(parent);
+=======
+	if (parent)
+		put_device(parent);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 name_error:
 	kfree(dev->p);
 	dev->p = NULL;

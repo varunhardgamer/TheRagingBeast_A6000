@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2012-2017, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2012-2014, The Linux Foundation. All rights reserved.
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -102,8 +106,12 @@ static struct snd_soc_dai_driver msm_fe_dais[] = {
 			.rates = (SNDRV_PCM_RATE_8000_48000|
 					SNDRV_PCM_RATE_KNOT),
 			.formats = (SNDRV_PCM_FMTBIT_S16_LE |
+<<<<<<< HEAD
 				    SNDRV_PCM_FMTBIT_S24_LE |
 				    SNDRV_PCM_FMTBIT_S24_3LE),
+=======
+				    SNDRV_PCM_FMTBIT_S24_LE),
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			.channels_min = 1,
 			.channels_max = 4,
 			.rate_min =     8000,
@@ -228,10 +236,15 @@ static struct snd_soc_dai_driver msm_fe_dais[] = {
 			.aif_name = "MM_UL4",
 			.rates = (SNDRV_PCM_RATE_8000_48000|
 					SNDRV_PCM_RATE_KNOT),
+<<<<<<< HEAD
 			.formats = (SNDRV_PCM_FMTBIT_S16_LE |
 				    SNDRV_PCM_FMTBIT_S24_LE |
 				    SNDRV_PCM_FMTBIT_S24_3LE),
 			.channels_min = 0,
+=======
+			.formats = SNDRV_PCM_FMTBIT_S16_LE,
+			.channels_min = 1,
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			.channels_max = 8,
 			.rate_min =     8000,
 			.rate_max =	48000,
@@ -259,9 +272,13 @@ static struct snd_soc_dai_driver msm_fe_dais[] = {
 			.aif_name = "MM_UL5",
 			.rates = (SNDRV_PCM_RATE_8000_48000|
 					SNDRV_PCM_RATE_KNOT),
+<<<<<<< HEAD
 			.formats = (SNDRV_PCM_FMTBIT_S16_LE |
 				    SNDRV_PCM_FMTBIT_S24_LE |
 				    SNDRV_PCM_FMTBIT_S24_3LE),
+=======
+			.formats = SNDRV_PCM_FMTBIT_S16_LE,
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			.channels_min = 1,
 			.channels_max = 8,
 			.rate_min =     8000,
@@ -1205,6 +1222,7 @@ static struct snd_soc_dai_driver msm_fe_dais[] = {
 		.name = "MultiMedia16",
 		.probe = fe_dai_probe,
 	},
+<<<<<<< HEAD
 	{
 		.playback = {
 			.stream_name = "VoiceMMode1 Playback",
@@ -1312,6 +1330,8 @@ static struct snd_soc_dai_driver msm_fe_dais[] = {
 		.name = "MultiMedia19",
 		.probe = fe_dai_probe,
 	},
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 
 static int msm_fe_dai_dev_probe(struct platform_device *pdev)

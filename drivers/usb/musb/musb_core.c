@@ -133,7 +133,11 @@ static inline struct musb *dev_to_musb(struct device *dev)
 /*-------------------------------------------------------------------------*/
 
 #ifndef CONFIG_BLACKFIN
+<<<<<<< HEAD
 static int musb_ulpi_read(struct usb_phy *phy, u32 reg)
+=======
+static int musb_ulpi_read(struct usb_phy *phy, u32 offset)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	void __iomem *addr = phy->io_priv;
 	int	i = 0;
@@ -152,7 +156,11 @@ static int musb_ulpi_read(struct usb_phy *phy, u32 reg)
 	 * ULPICarKitControlDisableUTMI after clearing POWER_SUSPENDM.
 	 */
 
+<<<<<<< HEAD
 	musb_writeb(addr, MUSB_ULPI_REG_ADDR, (u8)reg);
+=======
+	musb_writeb(addr, MUSB_ULPI_REG_ADDR, (u8)offset);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	musb_writeb(addr, MUSB_ULPI_REG_CONTROL,
 			MUSB_ULPI_REG_REQ | MUSB_ULPI_RDN_WR);
 
@@ -177,7 +185,11 @@ out:
 	return ret;
 }
 
+<<<<<<< HEAD
 static int musb_ulpi_write(struct usb_phy *phy, u32 val, u32 reg)
+=======
+static int musb_ulpi_write(struct usb_phy *phy, u32 offset, u32 data)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	void __iomem *addr = phy->io_priv;
 	int	i = 0;
@@ -192,8 +204,13 @@ static int musb_ulpi_write(struct usb_phy *phy, u32 val, u32 reg)
 	power &= ~MUSB_POWER_SUSPENDM;
 	musb_writeb(addr, MUSB_POWER, power);
 
+<<<<<<< HEAD
 	musb_writeb(addr, MUSB_ULPI_REG_ADDR, (u8)reg);
 	musb_writeb(addr, MUSB_ULPI_REG_DATA, (u8)val);
+=======
+	musb_writeb(addr, MUSB_ULPI_REG_ADDR, (u8)offset);
+	musb_writeb(addr, MUSB_ULPI_REG_DATA, (u8)data);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	musb_writeb(addr, MUSB_ULPI_REG_CONTROL, MUSB_ULPI_REG_REQ);
 
 	while (!(musb_readb(addr, MUSB_ULPI_REG_CONTROL)

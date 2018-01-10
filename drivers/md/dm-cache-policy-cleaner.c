@@ -434,7 +434,11 @@ static struct dm_cache_policy *wb_create(dm_cblock_t cache_size,
 static struct dm_cache_policy_type wb_policy_type = {
 	.name = "cleaner",
 	.version = {1, 0, 0},
+<<<<<<< HEAD
 	.hint_size = 4,
+=======
+	.hint_size = 0,
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	.owner = THIS_MODULE,
 	.create = wb_create
 };

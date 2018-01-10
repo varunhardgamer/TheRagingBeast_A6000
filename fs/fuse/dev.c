@@ -7,14 +7,20 @@
 */
 
 #include "fuse_i.h"
+<<<<<<< HEAD
 #include "fuse_shortcircuit.h"
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #include <linux/init.h>
 #include <linux/module.h>
 #include <linux/poll.h>
 #include <linux/uio.h>
 #include <linux/miscdevice.h>
+<<<<<<< HEAD
 #include <linux/namei.h>
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #include <linux/pagemap.h>
 #include <linux/file.h>
 #include <linux/slab.h>
@@ -1876,6 +1882,7 @@ static ssize_t fuse_dev_do_write(struct fuse_conn *fc,
 	spin_unlock(&fc->lock);
 
 	err = copy_out_args(cs, &req->out, nbytes);
+<<<<<<< HEAD
 	if (req->in.h.opcode == FUSE_CANONICAL_PATH) {
 		req->out.h.error = kern_path((char *)req->out.args[0].value, 0,
 							req->canonical_path);
@@ -1884,6 +1891,10 @@ static ssize_t fuse_dev_do_write(struct fuse_conn *fc,
 
 	fuse_setup_shortcircuit(fc, req);
 
+=======
+	fuse_copy_finish(cs);
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	spin_lock(&fc->lock);
 	req->locked = 0;
 	if (!err) {

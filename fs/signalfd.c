@@ -121,9 +121,14 @@ static int signalfd_copyinfo(struct signalfd_siginfo __user *uinfo,
 		 * Other callers might not initialize the si_lsb field,
 		 * so check explicitly for the right codes here.
 		 */
+<<<<<<< HEAD
 		if (kinfo->si_signo == SIGBUS &&
 		    (kinfo->si_code == BUS_MCEERR_AR ||
 		     kinfo->si_code == BUS_MCEERR_AO))
+=======
+		if (kinfo->si_code == BUS_MCEERR_AR ||
+		    kinfo->si_code == BUS_MCEERR_AO)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			err |= __put_user((short) kinfo->si_addr_lsb,
 					  &uinfo->ssi_addr_lsb);
 #endif

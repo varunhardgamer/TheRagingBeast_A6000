@@ -93,7 +93,11 @@ SYSCALL_DEFINE5(add_key, const char __user *, _type,
 	payload = NULL;
 
 	vm = false;
+<<<<<<< HEAD
 	if (plen) {
+=======
+	if (_payload) {
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		ret = -ENOMEM;
 		payload = kmalloc(plen, GFP_KERNEL | __GFP_NOWARN);
 		if (!payload) {
@@ -271,8 +275,12 @@ error:
  * Create and join an anonymous session keyring or join a named session
  * keyring, creating it if necessary.  A named session keyring must have Search
  * permission for it to be joined.  Session keyrings without this permit will
+<<<<<<< HEAD
  * be skipped over.  It is not permitted for userspace to create or join
  * keyrings whose name begin with a dot.
+=======
+ * be skipped over.
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  *
  * If successful, the ID of the joined session keyring will be returned.
  */
@@ -289,16 +297,24 @@ long keyctl_join_session_keyring(const char __user *_name)
 			ret = PTR_ERR(name);
 			goto error;
 		}
+<<<<<<< HEAD
 
 		ret = -EPERM;
 		if (name[0] == '.')
 			goto error_name;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 
 	/* join the session */
 	ret = join_session_keyring(name);
+<<<<<<< HEAD
 error_name:
 	kfree(name);
+=======
+	kfree(name);
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 error:
 	return ret;
 }
@@ -327,7 +343,11 @@ long keyctl_update_key(key_serial_t id,
 
 	/* pull the payload in if one was supplied */
 	payload = NULL;
+<<<<<<< HEAD
 	if (plen) {
+=======
+	if (_payload) {
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		ret = -ENOMEM;
 		payload = kmalloc(plen, GFP_KERNEL);
 		if (!payload)
@@ -749,6 +769,7 @@ long keyctl_read_key(key_serial_t keyid, char __user *buffer, size_t buflen)
 
 	/* the key is probably readable - now try to read it */
 can_read_key:
+<<<<<<< HEAD
 	ret = -EOPNOTSUPP;
 	if (key->type->read) {
 		/* Read the data with the semaphore held (since we might sleep)
@@ -759,6 +780,18 @@ can_read_key:
 		if (ret == 0)
 			ret = key->type->read(key, buffer, buflen);
 		up_read(&key->sem);
+=======
+	ret = key_validate(key);
+	if (ret == 0) {
+		ret = -EOPNOTSUPP;
+		if (key->type->read) {
+			/* read the data with the semaphore held (since we
+			 * might sleep) */
+			down_read(&key->sem);
+			ret = key->type->read(key, buffer, buflen);
+			up_read(&key->sem);
+		}
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 
 error2:
@@ -1245,8 +1278,13 @@ error:
  * Read or set the default keyring in which request_key() will cache keys and
  * return the old setting.
  *
+<<<<<<< HEAD
  * If a thread or process keyring is specified then it will be created if it
  * doesn't yet exist.  The old setting will be returned if successful.
+=======
+ * If a process keyring is specified then this will be created if it doesn't
+ * yet exist.  The old setting will be returned if successful.
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  */
 long keyctl_set_reqkey_keyring(int reqkey_defl)
 {
@@ -1271,8 +1309,16 @@ long keyctl_set_reqkey_keyring(int reqkey_defl)
 
 	case KEY_REQKEY_DEFL_PROCESS_KEYRING:
 		ret = install_process_keyring_to_cred(new);
+<<<<<<< HEAD
 		if (ret < 0)
 			goto error;
+=======
+		if (ret < 0) {
+			if (ret != -EEXIST)
+				goto error;
+			ret = 0;
+		}
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		goto set;
 
 	case KEY_REQKEY_DEFL_DEFAULT:

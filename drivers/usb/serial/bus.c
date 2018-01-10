@@ -76,7 +76,11 @@ static int usb_serial_device_probe(struct device *dev)
 	retval = device_create_file(dev, &dev_attr_port_number);
 	if (retval) {
 		if (driver->port_remove)
+<<<<<<< HEAD
 			driver->port_remove(port);
+=======
+			retval = driver->port_remove(port);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		goto exit_with_autopm;
 	}
 

@@ -84,9 +84,14 @@ static long decode(unsigned char **cpp);
 static unsigned char * put16(unsigned char *cp, unsigned short x);
 static unsigned short pull16(unsigned char **cpp);
 
+<<<<<<< HEAD
 /* Allocate compression data structure
  *	slots must be in range 0 to 255 (zero meaning no compression)
  * Returns pointer to structure or ERR_PTR() on error.
+=======
+/* Initialize compression data structure
+ *	slots must be in range 0 to 255 (zero meaning no compression)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  */
 struct slcompress *
 slhc_init(int rslots, int tslots)
@@ -95,14 +100,21 @@ slhc_init(int rslots, int tslots)
 	register struct cstate *ts;
 	struct slcompress *comp;
 
+<<<<<<< HEAD
 	if (rslots < 0 || rslots > 255 || tslots < 0 || tslots > 255)
 		return ERR_PTR(-EINVAL);
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	comp = kzalloc(sizeof(struct slcompress), GFP_KERNEL);
 	if (! comp)
 		goto out_fail;
 
+<<<<<<< HEAD
 	if (rslots > 0) {
+=======
+	if ( rslots > 0  &&  rslots < 256 ) {
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		size_t rsize = rslots * sizeof(struct cstate);
 		comp->rstate = kzalloc(rsize, GFP_KERNEL);
 		if (! comp->rstate)
@@ -110,7 +122,11 @@ slhc_init(int rslots, int tslots)
 		comp->rslot_limit = rslots - 1;
 	}
 
+<<<<<<< HEAD
 	if (tslots > 0) {
+=======
+	if ( tslots > 0  &&  tslots < 256 ) {
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		size_t tsize = tslots * sizeof(struct cstate);
 		comp->tstate = kzalloc(tsize, GFP_KERNEL);
 		if (! comp->tstate)
@@ -145,7 +161,11 @@ out_free2:
 out_free:
 	kfree(comp);
 out_fail:
+<<<<<<< HEAD
 	return ERR_PTR(-ENOMEM);
+=======
+	return NULL;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 

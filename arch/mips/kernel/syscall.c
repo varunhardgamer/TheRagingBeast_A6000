@@ -140,7 +140,11 @@ static inline int mips_atomic_set(unsigned long addr, unsigned long new)
 		"1:	ll	%[old], (%[addr])			\n"
 		"	move	%[tmp], %[new]				\n"
 		"2:	sc	%[tmp], (%[addr])			\n"
+<<<<<<< HEAD
 		"	beqz	%[tmp], 4f				\n"
+=======
+		"	bnez	%[tmp], 4f				\n"
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		"3:							\n"
 		"	.subsection 2					\n"
 		"4:	b	1b					\n"

@@ -262,11 +262,19 @@ if ($arch eq "x86_64") {
     # force flags for this arch
     $ld .= " -m shlelf_linux";
     $objcopy .= " -O elf32-sh-linux";
+<<<<<<< HEAD
 
 } elsif ($arch eq "powerpc") {
     $local_regex = "^[0-9a-fA-F]+\\s+t\\s+(\\.?\\S+)";
     # See comment in the sparc64 section for why we use '\w'.
     $function_regex = "^([0-9a-fA-F]+)\\s+<(\\.?\\w*?)>:";
+=======
+    $cc .= " -m32";
+
+} elsif ($arch eq "powerpc") {
+    $local_regex = "^[0-9a-fA-F]+\\s+t\\s+(\\.?\\S+)";
+    $function_regex = "^([0-9a-fA-F]+)\\s+<(\\.?.*?)>:";
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
     $mcount_regex = "^\\s*([0-9a-fA-F]+):.*\\s\\.?_mcount\$";
 
     if ($bits == 64) {

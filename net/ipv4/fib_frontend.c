@@ -813,9 +813,12 @@ void fib_del_ifaddr(struct in_ifaddr *ifa, struct in_ifaddr *iprim)
 		subnet = 1;
 	}
 
+<<<<<<< HEAD
 	if (in_dev->dead)
 		goto no_promotions;
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/* Deletion is more complicated than add.
 	 * We should take care of not to delete too much :-)
 	 *
@@ -891,7 +894,10 @@ void fib_del_ifaddr(struct in_ifaddr *ifa, struct in_ifaddr *iprim)
 		}
 	}
 
+<<<<<<< HEAD
 no_promotions:
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (!(ok & BRD_OK))
 		fib_magic(RTM_DELROUTE, RTN_BROADCAST, ifa->ifa_broadcast, 32, prim);
 	if (subnet && ifa->ifa_prefixlen < 31) {
@@ -962,8 +968,12 @@ static void nl_fib_input(struct sk_buff *skb)
 
 	net = sock_net(skb->sk);
 	nlh = nlmsg_hdr(skb);
+<<<<<<< HEAD
 	if (skb->len < nlmsg_total_size(sizeof(*frn)) ||
 	    skb->len < nlh->nlmsg_len ||
+=======
+	if (skb->len < NLMSG_HDRLEN || skb->len < nlh->nlmsg_len ||
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	    nlmsg_len(nlh) < sizeof(*frn))
 		return;
 
@@ -1175,6 +1185,7 @@ static struct pernet_operations fib_net_ops = {
 
 void __init ip_fib_init(void)
 {
+<<<<<<< HEAD
 	fib_trie_init();
 
 	register_pernet_subsys(&fib_net_ops);
@@ -1185,4 +1196,15 @@ void __init ip_fib_init(void)
 	rtnl_register(PF_INET, RTM_NEWROUTE, inet_rtm_newroute, NULL, NULL);
 	rtnl_register(PF_INET, RTM_DELROUTE, inet_rtm_delroute, NULL, NULL);
 	rtnl_register(PF_INET, RTM_GETROUTE, NULL, inet_dump_fib, NULL);
+=======
+	rtnl_register(PF_INET, RTM_NEWROUTE, inet_rtm_newroute, NULL, NULL);
+	rtnl_register(PF_INET, RTM_DELROUTE, inet_rtm_delroute, NULL, NULL);
+	rtnl_register(PF_INET, RTM_GETROUTE, NULL, inet_dump_fib, NULL);
+
+	register_pernet_subsys(&fib_net_ops);
+	register_netdevice_notifier(&fib_netdev_notifier);
+	register_inetaddr_notifier(&fib_inetaddr_notifier);
+
+	fib_trie_init();
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }

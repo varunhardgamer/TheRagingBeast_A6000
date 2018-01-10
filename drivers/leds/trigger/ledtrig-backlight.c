@@ -36,6 +36,7 @@ static int fb_notifier_callback(struct notifier_block *p,
 					struct bl_trig_notifier, notifier);
 	struct led_classdev *led = n->led;
 	struct fb_event *fb_event = data;
+<<<<<<< HEAD
 	int *blank;
 	int new_status;
 
@@ -58,6 +59,28 @@ static int fb_notifier_callback(struct notifier_block *p,
 
 	n->old_status = new_status;
 
+=======
+	int *blank = fb_event->data;
+	int new_status = *blank ? BLANK : UNBLANK;
+
+	switch (event) {
+	case FB_EVENT_BLANK:
+		if (new_status == n->old_status)
+			break;
+
+		if ((n->old_status == UNBLANK) ^ n->invert) {
+			n->brightness = led->brightness;
+			__led_set_brightness(led, LED_OFF);
+		} else {
+			__led_set_brightness(led, n->brightness);
+		}
+
+		n->old_status = new_status;
+
+		break;
+	}
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return 0;
 }
 

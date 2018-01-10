@@ -1538,7 +1538,11 @@ struct cal_mem {
 	void *buf;
 };
 
+<<<<<<< HEAD
 #define MAX_VOC_SESSIONS 8
+=======
+#define MAX_VOC_SESSIONS 6
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 struct common_data {
 	/* these default values are for all devices */
@@ -1629,8 +1633,11 @@ enum {
 #define VOC_PATH_VOICE2_PASSIVE 3
 #define VOC_PATH_QCHAT_PASSIVE 4
 #define VOC_PATH_VOWLAN_PASSIVE 5
+<<<<<<< HEAD
 #define VOC_PATH_VOICEMMODE1_PASSIVE 6
 #define VOC_PATH_VOICEMMODE2_PASSIVE 7
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #define MAX_SESSION_NAME_LEN 32
 #define VOICE_SESSION_NAME   "Voice session"
@@ -1639,6 +1646,7 @@ enum {
 #define VOICE2_SESSION_NAME  "Voice2 session"
 #define QCHAT_SESSION_NAME   "QCHAT session"
 #define VOWLAN_SESSION_NAME  "VoWLAN session"
+<<<<<<< HEAD
 #define VOICEMMODE1_NAME     "VoiceMMode1"
 #define VOICEMMODE2_NAME     "VoiceMMode2"
 
@@ -1657,6 +1665,31 @@ enum {
 #define VOICEMMODE2_VSID             0x11DC5000
 #define ALL_SESSION_VSID             0xFFFFFFFF
 #define VSID_MAX                     ALL_SESSION_VSID
+=======
+
+#define VOICE2_SESSION_VSID_STR "10DC1000"
+#define QCHAT_SESSION_VSID_STR "10803000"
+#define VOWLAN_SESSION_VSID_STR "10002000"
+#define VOICE_SESSION_VSID  0x10C01000
+#define VOICE2_SESSION_VSID 0x10DC1000
+#define VOLTE_SESSION_VSID  0x10C02000
+#define VOIP_SESSION_VSID   0x10004000
+#define QCHAT_SESSION_VSID  0x10803000
+#define VOWLAN_SESSION_VSID 0x10002000
+#define ALL_SESSION_VSID    0xFFFFFFFF
+#define VSID_MAX            ALL_SESSION_VSID
+
+#define APP_ID_MASK         0x3F000
+#define APP_ID_SHIFT		12
+enum vsid_app_type {
+	VSID_APP_NONE = 0,
+	VSID_APP_CS_VOICE = 1,
+	VSID_APP_IMS = 2, /* IMS voice services covering VoLTE etc */
+	VSID_APP_QCHAT = 3,
+	VSID_APP_VOIP = 4, /* VoIP on AP HLOS without modem processor */
+	VSID_APP_MAX,
+};
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 /* called  by alsa driver */
 int voc_set_pp_enable(uint32_t session_id, uint32_t module_id,

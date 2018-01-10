@@ -1955,11 +1955,16 @@ int drm_mode_setcrtc(struct drm_device *dev, void *data,
 	if (!drm_core_check_feature(dev, DRIVER_MODESET))
 		return -EINVAL;
 
+<<<<<<< HEAD
 	/*
 	 * Universal plane src offsets are only 16.16, prevent havoc for
 	 * drivers using universal plane code internally.
 	 */
 	if (crtc_req->x & 0xffff0000 || crtc_req->y & 0xffff0000)
+=======
+	/* For some reason crtc x/y offsets are signed internally. */
+	if (crtc_req->x > INT_MAX || crtc_req->y > INT_MAX)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		return -ERANGE;
 
 	drm_modeset_lock_all(dev);
@@ -3422,9 +3427,12 @@ int drm_mode_page_flip_ioctl(struct drm_device *dev,
 	int hdisplay, vdisplay;
 	int ret = -EINVAL;
 
+<<<<<<< HEAD
 	if (!drm_core_check_feature(dev, DRIVER_MODESET))
 		return -EINVAL;
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (page_flip->flags & ~DRM_MODE_PAGE_FLIP_FLAGS ||
 	    page_flip->reserved != 0)
 		return -EINVAL;

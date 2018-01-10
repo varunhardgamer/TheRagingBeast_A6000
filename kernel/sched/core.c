@@ -114,6 +114,7 @@ do {							\
 	local_irq_restore(dflags);			\
 } while (0)
 
+<<<<<<< HEAD
 static atomic_t __su_instances;
 
 int su_instances(void)
@@ -146,6 +147,8 @@ void su_exit(void)
 	atomic_dec(&__su_instances);
 }
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 const char *task_event_names[] = {"PUT_PREV_TASK", "PICK_NEXT_TASK",
 				  "TASK_WAKE", "TASK_MIGRATE", "TASK_UPDATE",
 				"IRQ_UPDATE"};
@@ -192,8 +195,11 @@ void start_bandwidth_timer(struct hrtimer *period_timer, ktime_t period)
 DEFINE_MUTEX(sched_domains_mutex);
 DEFINE_PER_CPU_SHARED_ALIGNED(struct rq, runqueues);
 
+<<<<<<< HEAD
 DEFINE_PER_CPU_SHARED_ALIGNED(struct nr_stats_s, runqueue_stats);
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static void update_rq_clock_task(struct rq *rq, s64 delta);
 
 void update_rq_clock(struct rq *rq)
@@ -261,12 +267,22 @@ struct static_key sched_feat_keys[__SCHED_FEAT_NR] = {
 
 static void sched_feat_disable(int i)
 {
+<<<<<<< HEAD
 	static_key_disable(&sched_feat_keys[i]);
+=======
+	if (static_key_enabled(&sched_feat_keys[i]))
+		static_key_slow_dec(&sched_feat_keys[i]);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static void sched_feat_enable(int i)
 {
+<<<<<<< HEAD
 	static_key_enable(&sched_feat_keys[i]);
+=======
+	if (!static_key_enabled(&sched_feat_keys[i]))
+		static_key_slow_inc(&sched_feat_keys[i]);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 #else
 static void sched_feat_disable(int i) { };
@@ -590,6 +606,7 @@ static inline void init_hrtick(void)
 }
 #endif	/* CONFIG_SCHED_HRTICK */
 
+<<<<<<< HEAD
 void wake_q_add(struct wake_q_head *head, struct task_struct *task)
 {
 	struct wake_q_node *node = &task->wake_q;
@@ -638,6 +655,10 @@ void wake_up_q(struct wake_q_head *head)
 
 /*
  * resched_curr - mark rq's current task 'to be rescheduled now'.
+=======
+/*
+ * resched_task - mark a task 'to be rescheduled now'.
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  *
  * On UP this means the setting of the need_resched flag, on SMP it
  * might also involve a cross-CPU call to trigger the scheduler on
@@ -1305,6 +1326,11 @@ __read_mostly unsigned int sched_ravg_window = 10000000;
 unsigned int __read_mostly sched_disable_window_stats;
 
 static unsigned int sync_cpu;
+<<<<<<< HEAD
+=======
+static u64 sched_init_jiffy;
+static u64 sched_clock_at_init_jiffy;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #define EXITING_TASK_MARKER	0xdeaddead
 
@@ -1985,17 +2011,35 @@ static inline void mark_task_starting(struct task_struct *p)
 	p->ravg.mark_start = wallclock;
 }
 
+<<<<<<< HEAD
+=======
+static int update_alignment;
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static inline void set_window_start(struct rq *rq)
 {
 	int cpu = cpu_of(rq);
 	struct rq *sync_rq = cpu_rq(sync_cpu);
 
+<<<<<<< HEAD
 	if (rq->window_start || !sched_enable_hmp ||
 	    !sched_clock_initialized() || !sched_clock_cpu(cpu))
 		return;
 
 	if (cpu == sync_cpu) {
 		rq->window_start = sched_clock();
+=======
+	if (cpu == sync_cpu && !update_alignment) {
+		sched_init_jiffy = get_jiffies_64();
+		sched_clock_at_init_jiffy = sched_clock();
+	}
+
+	if (rq->window_start || !sched_enable_hmp)
+		return;
+
+	if (cpu == sync_cpu) {
+		rq->window_start = sched_clock_at_init_jiffy;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	} else {
 		raw_spin_unlock(&rq->lock);
 		double_rq_lock(rq, sync_rq);
@@ -2244,15 +2288,20 @@ void sched_set_io_is_busy(int val)
 
 int sched_set_window(u64 window_start, unsigned int window_size)
 {
+<<<<<<< HEAD
 	u64 now, cur_jiffies, jiffy_sched_clock;
 	s64 ws;
 	unsigned long flags;
+=======
+	u64 ws, now;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (sched_use_pelt ||
 		 (window_size * TICK_NSEC <  MIN_SCHED_RAVG_WINDOW))
 			return -EINVAL;
 
 	mutex_lock(&policy_mutex);
+<<<<<<< HEAD
 
 	/* Get a consistent view of sched_clock, jiffies, and the time
 	 * since the last jiffy (based on last_jiffies_update). */
@@ -2267,6 +2316,15 @@ int sched_set_window(u64 window_start, unsigned int window_size)
 
 	/* roll back calculated window start so that it is in
 	 * the past (window stats must have a current window) */
+=======
+	update_alignment = 1;
+
+	ws = (window_start - sched_init_jiffy); /* jiffy difference */
+	ws *= TICK_NSEC;
+	ws += sched_clock_at_init_jiffy;
+
+	now = sched_clock();
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	while (ws > now)
 		ws -= (window_size * TICK_NSEC);
 
@@ -2909,7 +2967,11 @@ out:
 		 * leave kernel.
 		 */
 		if (p->mm && printk_ratelimit()) {
+<<<<<<< HEAD
 			printk_deferred("process %d (%s) no longer affine to cpu%d\n",
+=======
+			printk_sched("process %d (%s) no longer affine to cpu%d\n",
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 					task_pid_nr(p), p->comm, cpu);
 		}
 	}
@@ -3017,11 +3079,18 @@ ttwu_do_wakeup(struct rq *rq, struct task_struct *p, int wake_flags)
 		u64 delta = rq->clock - rq->idle_stamp;
 		u64 max = 2*sysctl_sched_migration_cost;
 
+<<<<<<< HEAD
 		update_avg(&rq->avg_idle, delta);
 
 		if (rq->avg_idle > max)
 			rq->avg_idle = max;
 
+=======
+		if (delta > max)
+			rq->avg_idle = max;
+		else
+			update_avg(&rq->avg_idle, delta);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		rq->idle_stamp = 0;
 	}
 #endif
@@ -3183,9 +3252,12 @@ try_to_wake_up(struct task_struct *p, unsigned int state, int wake_flags)
 	struct rq *rq;
 	u64 wallclock;
 #endif
+<<<<<<< HEAD
 	bool freq_notif_allowed = !(wake_flags & WF_NO_NOTIFIER);
 
 	wake_flags &= ~WF_NO_NOTIFIER;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	/*
 	 * If we are going to wake up a thread waiting for CONDITION we
@@ -3202,6 +3274,7 @@ try_to_wake_up(struct task_struct *p, unsigned int state, int wake_flags)
 
 	success = 1; /* we're going to change ->state */
 
+<<<<<<< HEAD
 	/*
 	 * Ensure we load p->on_rq _after_ p->state, otherwise it would
 	 * be possible to, falsely, observe p->on_rq == 0 and get stuck
@@ -3224,11 +3297,14 @@ try_to_wake_up(struct task_struct *p, unsigned int state, int wake_flags)
 	 * current.
 	 */
 	smp_rmb();
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (p->on_rq && ttwu_remote(p, wake_flags))
 		goto stat;
 
 #ifdef CONFIG_SMP
 	/*
+<<<<<<< HEAD
 	 * Ensure we load p->on_cpu _after_ p->on_rq, otherwise it would be
 	 * possible to, falsely, observe p->on_cpu == 0.
 	 *
@@ -3248,6 +3324,8 @@ try_to_wake_up(struct task_struct *p, unsigned int state, int wake_flags)
 	smp_rmb();
 
 	/*
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	 * If the owning (remote) cpu is still in the middle of schedule() with
 	 * this task as prev, wait until its done referencing the task.
 	 */
@@ -3311,6 +3389,7 @@ out:
 		atomic_notifier_call_chain(&migration_notifier_head,
 					   0, (void *)&mnd);
 
+<<<<<<< HEAD
 	if (freq_notif_allowed) {
 		if (!same_freq_domain(src_cpu, cpu)) {
 			check_for_freq_change(cpu_rq(cpu));
@@ -3319,6 +3398,13 @@ out:
 			check_for_freq_change(cpu_rq(cpu));
 		}
 	}
+=======
+	if (!same_freq_domain(src_cpu, cpu)) {
+		check_for_freq_change(cpu_rq(cpu));
+		check_for_freq_change(cpu_rq(src_cpu));
+	} else if (heavy_task)
+		check_for_freq_change(cpu_rq(cpu));
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	return success;
 }
@@ -3336,7 +3422,11 @@ static void try_to_wake_up_local(struct task_struct *p)
 	struct rq *rq = task_rq(p);
 
 	if (rq != this_rq() || p == current) {
+<<<<<<< HEAD
 		printk_deferred("%s: Failed to wakeup task %d (%s), rq = %p, this_rq = %p, p = %p, current = %p\n",
+=======
+		printk_sched("%s: Failed to wakeup task %d (%s), rq = %p, this_rq = %p, p = %p, current = %p\n",
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			__func__, task_pid_nr(p), p->comm, rq,
 			this_rq(), p, current);
 		return;
@@ -3381,10 +3471,15 @@ out:
  */
 int wake_up_process(struct task_struct *p)
 {
+<<<<<<< HEAD
+=======
+	WARN_ON(task_is_stopped_or_traced(p));
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return try_to_wake_up(p, TASK_NORMAL, 0);
 }
 EXPORT_SYMBOL(wake_up_process);
 
+<<<<<<< HEAD
 /**
  * wake_up_process_no_notif - Wake up a specific process without notifying
  * governor
@@ -3405,6 +3500,8 @@ int wake_up_process_no_notif(struct task_struct *p)
 }
 EXPORT_SYMBOL(wake_up_process_no_notif);
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 int wake_up_state(struct task_struct *p, unsigned int state)
 {
 	return try_to_wake_up(p, state, 0);
@@ -3915,6 +4012,7 @@ unsigned long this_cpu_load(void)
 	return this->cpu_load[0];
 }
 
+<<<<<<< HEAD
 u64 nr_running_integral(unsigned int cpu)
 {
 	unsigned int seqcnt;
@@ -3937,6 +4035,8 @@ u64 nr_running_integral(unsigned int cpu)
 	}
 	return integral;
 }
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 /*
  * Global load-average calculations
@@ -3985,6 +4085,7 @@ u64 nr_running_integral(unsigned int cpu)
  *  This covers the NO_HZ=n code, for extra head-aches, see the comment below.
  */
 
+<<<<<<< HEAD
 unsigned long avg_nr_running(void)
 {
 	unsigned long i, sum = 0;
@@ -4040,6 +4141,8 @@ unsigned long avg_cpu_nr_running(unsigned int cpu)
 }
 EXPORT_SYMBOL(avg_cpu_nr_running);
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /* Variables and functions for calc_load */
 static atomic_long_t calc_load_tasks;
 static unsigned long calc_load_update;
@@ -4082,6 +4185,7 @@ static long calc_load_fold_active(struct rq *this_rq)
 static unsigned long
 calc_load(unsigned long load, unsigned long exp, unsigned long active)
 {
+<<<<<<< HEAD
         unsigned long newload;
 
 	newload = load * exp + active * (FIXED_1 - exp);
@@ -4089,6 +4193,12 @@ calc_load(unsigned long load, unsigned long exp, unsigned long active)
 		newload += FIXED_1-1;
 
 	return newload / FIXED_1;
+=======
+	load *= exp;
+	load += active * (FIXED_1 - exp);
+	load += 1UL << (FSHIFT - 1);
+	return load >> FSHIFT;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 #ifdef CONFIG_NO_HZ_COMMON
@@ -4183,9 +4293,14 @@ void calc_load_exit_idle(void)
 	struct rq *this_rq = this_rq();
 
 	/*
+<<<<<<< HEAD
 	 * If we're still before the pending sample window, we're done.
 	 */
         this_rq->calc_load_update = calc_load_update;
+=======
+	 * If we're still before the sample window, we're done.
+	 */
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (time_before(jiffies, this_rq->calc_load_update))
 		return;
 
@@ -4194,6 +4309,10 @@ void calc_load_exit_idle(void)
 	 * accounted through the nohz accounting, so skip the entire deal and
 	 * sync up for the next window.
 	 */
+<<<<<<< HEAD
+=======
+	this_rq->calc_load_update = calc_load_update;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (time_before(jiffies, this_rq->calc_load_update + 10))
 		this_rq->calc_load_update += LOAD_FREQ;
 }
@@ -6262,7 +6381,11 @@ static int sched_read_attr(struct sched_attr __user *uattr,
 		attr->size = usize;
 	}
 
+<<<<<<< HEAD
 	ret = copy_to_user(uattr, attr, attr->size);
+=======
+	ret = copy_to_user(uattr, attr, usize);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (ret)
 		return -EFAULT;
 
@@ -6868,8 +6991,12 @@ void show_state_filter(unsigned long state_filter)
 	touch_all_softlockup_watchdogs();
 
 #ifdef CONFIG_SYSRQ_SCHED_DEBUG
+<<<<<<< HEAD
 	if (!state_filter)
 		sysrq_sched_debug_show();
+=======
+	sysrq_sched_debug_show();
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #endif
 	rcu_read_unlock();
 	/*
@@ -7406,8 +7533,11 @@ migration_call(struct notifier_block *nfb, unsigned long action, void *hcpu)
 		set_window_start(rq);
 		raw_spin_unlock_irqrestore(&rq->lock, flags);
 		rq->calc_load_update = calc_load_update;
+<<<<<<< HEAD
                 rq->next_balance = jiffies;
 		account_reset_rq(rq);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		break;
 
 	case CPU_ONLINE:
@@ -7940,8 +8070,11 @@ static const struct cpumask *cpu_cpu_mask(int cpu)
 	return cpumask_of_node(cpu_to_node(cpu));
 }
 
+<<<<<<< HEAD
 int sched_smt_power_savings = 0, sched_mc_power_savings = 4;
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 struct sd_data {
 	struct sched_domain **__percpu sd;
 	struct sched_group **__percpu sg;
@@ -9969,6 +10102,26 @@ static void cpu_cgroup_css_offline(struct cgroup *cgrp)
 	sched_offline_group(tg);
 }
 
+<<<<<<< HEAD
+=======
+static int
+cpu_cgroup_allow_attach(struct cgroup *cgrp, struct cgroup_taskset *tset)
+{
+	const struct cred *cred = current_cred(), *tcred;
+	struct task_struct *task;
+
+	cgroup_taskset_for_each(task, cgrp, tset) {
+		tcred = __task_cred(task);
+
+		if ((current != task) && !capable(CAP_SYS_NICE) &&
+		    cred->euid != tcred->uid && cred->euid != tcred->suid)
+			return -EACCES;
+	}
+
+	return 0;
+}
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static int cpu_cgroup_can_attach(struct cgroup *cgrp,
 				 struct cgroup_taskset *tset)
 {
@@ -10358,7 +10511,11 @@ struct cgroup_subsys cpu_cgroup_subsys = {
 	.css_offline	= cpu_cgroup_css_offline,
 	.can_attach	= cpu_cgroup_can_attach,
 	.attach		= cpu_cgroup_attach,
+<<<<<<< HEAD
 	.allow_attach	= subsys_cgroup_allow_attach,
+=======
+	.allow_attach	= cpu_cgroup_allow_attach,
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	.exit		= cpu_cgroup_exit,
 	.subsys_id	= cpu_cgroup_subsys_id,
 	.base_cftypes	= cpu_files,

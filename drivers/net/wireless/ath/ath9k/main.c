@@ -195,6 +195,7 @@ static bool ath_prepare_reset(struct ath_softc *sc)
 	ath9k_debug_samp_bb_mac(sc);
 	ath9k_hw_disable_interrupts(ah);
 
+<<<<<<< HEAD
 	if (AR_SREV_9300_20_OR_LATER(ah)) {
 		ret &= ath_stoprecv(sc);
 		ret &= ath_drain_all_txq(sc);
@@ -202,6 +203,13 @@ static bool ath_prepare_reset(struct ath_softc *sc)
 		ret &= ath_drain_all_txq(sc);
 		ret &= ath_stoprecv(sc);
 	}
+=======
+	if (!ath_drain_all_txq(sc))
+		ret = false;
+
+	if (!ath_stoprecv(sc))
+		ret = false;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	return ret;
 }

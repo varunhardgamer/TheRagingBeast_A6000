@@ -77,10 +77,18 @@ int copy_to_user(void __user *dst, const void *src, unsigned size)
 }
 
 static __always_inline __must_check
+<<<<<<< HEAD
 int __copy_from_user_nocheck(void *dst, const void __user *src, unsigned size)
 {
 	int ret = 0;
 
+=======
+int __copy_from_user(void *dst, const void __user *src, unsigned size)
+{
+	int ret = 0;
+
+	might_fault();
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (!__builtin_constant_p(size))
 		return copy_user_generic(dst, (__force void *)src, size);
 	switch (size) {
@@ -120,6 +128,7 @@ int __copy_from_user_nocheck(void *dst, const void __user *src, unsigned size)
 }
 
 static __always_inline __must_check
+<<<<<<< HEAD
 int __copy_from_user(void *dst, const void __user *src, unsigned size)
 {
 	might_fault();
@@ -131,6 +140,13 @@ int __copy_to_user_nocheck(void __user *dst, const void *src, unsigned size)
 {
 	int ret = 0;
 
+=======
+int __copy_to_user(void __user *dst, const void *src, unsigned size)
+{
+	int ret = 0;
+
+	might_fault();
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (!__builtin_constant_p(size))
 		return copy_user_generic((__force void *)dst, src, size);
 	switch (size) {
@@ -170,6 +186,7 @@ int __copy_to_user_nocheck(void __user *dst, const void *src, unsigned size)
 }
 
 static __always_inline __must_check
+<<<<<<< HEAD
 int __copy_to_user(void __user *dst, const void *src, unsigned size)
 {
 	might_fault();
@@ -177,6 +194,8 @@ int __copy_to_user(void __user *dst, const void *src, unsigned size)
 }
 
 static __always_inline __must_check
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 int __copy_in_user(void __user *dst, const void __user *src, unsigned size)
 {
 	int ret = 0;
@@ -232,13 +251,21 @@ int __copy_in_user(void __user *dst, const void __user *src, unsigned size)
 static __must_check __always_inline int
 __copy_from_user_inatomic(void *dst, const void __user *src, unsigned size)
 {
+<<<<<<< HEAD
 	return __copy_from_user_nocheck(dst, (__force const void *)src, size);
+=======
+	return copy_user_generic(dst, (__force const void *)src, size);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static __must_check __always_inline int
 __copy_to_user_inatomic(void __user *dst, const void *src, unsigned size)
 {
+<<<<<<< HEAD
 	return __copy_to_user_nocheck((__force void *)dst, src, size);
+=======
+	return copy_user_generic((__force void *)dst, src, size);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 extern long __copy_user_nocache(void *dst, const void __user *src,

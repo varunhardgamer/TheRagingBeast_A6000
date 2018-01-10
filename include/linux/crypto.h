@@ -26,6 +26,7 @@
 #include <linux/uaccess.h>
 
 /*
+<<<<<<< HEAD
  * Autoloaded crypto modules should only use a prefixed name to avoid allowing
  * arbitrary modules to be loaded. Loading from userspace may still need the
  * unprefixed names, so retains those aliases as well.
@@ -39,6 +40,8 @@
 		__MODULE_INFO(alias, alias_crypto, "crypto-" name)
 
 /*
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  * Algorithm masks and types.
  */
 #define CRYPTO_ALG_TYPE_MASK		0x0000000f
@@ -354,7 +357,10 @@ struct ablkcipher_tfm {
 
 	unsigned int ivsize;
 	unsigned int reqsize;
+<<<<<<< HEAD
 	bool has_setkey;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 
 struct aead_tfm {
@@ -665,6 +671,7 @@ static inline int crypto_ablkcipher_setkey(struct crypto_ablkcipher *tfm,
 	return crt->setkey(crt->base, key, keylen);
 }
 
+<<<<<<< HEAD
 static inline bool crypto_ablkcipher_has_setkey(struct crypto_ablkcipher *tfm)
 {
 	struct ablkcipher_tfm *crt = crypto_ablkcipher_crt(tfm);
@@ -672,6 +679,8 @@ static inline bool crypto_ablkcipher_has_setkey(struct crypto_ablkcipher *tfm)
 	return crt->has_setkey;
 }
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static inline struct crypto_ablkcipher *crypto_ablkcipher_reqtfm(
 	struct ablkcipher_request *req)
 {

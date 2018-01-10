@@ -45,6 +45,7 @@ DEFINE_PER_CPU(struct tick_sched, tick_cpu_sched);
  */
 static ktime_t last_jiffies_update;
 
+<<<<<<< HEAD
 /*
  * Conversion from ktime to sched_clock is error prone. Use this
  * as a safetly margin when calculating the sched_clock value at
@@ -77,6 +78,8 @@ u64 jiffy_to_sched_clock(u64 *now, u64 *jiffy_sched_clock)
 	return cur_jiffies;
 }
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 struct tick_sched *tick_get_tick_sched(int cpu)
 {
 	return &per_cpu(tick_cpu_sched, cpu);
@@ -456,7 +459,11 @@ update_ts_time_stats(int cpu, struct tick_sched *ts, ktime_t now, u64 *last_upda
 {
 	ktime_t delta;
 
+<<<<<<< HEAD
 	if (ts->idle_active && cpu_online(cpu)) {
+=======
+	if (ts->idle_active) {
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		delta = ktime_sub(now, ts->idle_entrytime);
 		if (nr_iowait_cpu(cpu) > 0)
 			ts->iowait_sleeptime = ktime_add(ts->iowait_sleeptime, delta);
@@ -515,7 +522,11 @@ u64 get_cpu_idle_time_us(int cpu, u64 *last_update_time)
 		update_ts_time_stats(cpu, ts, now, last_update_time);
 		idle = ts->idle_sleeptime;
 	} else {
+<<<<<<< HEAD
 		if (ts->idle_active && !nr_iowait_cpu(cpu) && cpu_online(cpu))  {
+=======
+		if (ts->idle_active && !nr_iowait_cpu(cpu)) {
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			ktime_t delta = ktime_sub(now, ts->idle_entrytime);
 
 			idle = ktime_add(ts->idle_sleeptime, delta);
@@ -556,7 +567,11 @@ u64 get_cpu_iowait_time_us(int cpu, u64 *last_update_time)
 		update_ts_time_stats(cpu, ts, now, last_update_time);
 		iowait = ts->iowait_sleeptime;
 	} else {
+<<<<<<< HEAD
 		if (ts->idle_active && nr_iowait_cpu(cpu) > 0 && cpu_online(cpu)) {
+=======
+		if (ts->idle_active && nr_iowait_cpu(cpu) > 0) {
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			ktime_t delta = ktime_sub(now, ts->idle_entrytime);
 
 			iowait = ktime_add(ts->iowait_sleeptime, delta);

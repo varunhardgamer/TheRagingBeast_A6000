@@ -778,39 +778,59 @@ static int usb_serial_probe(struct usb_interface *interface,
 		if (usb_endpoint_is_bulk_in(endpoint)) {
 			/* we found a bulk in endpoint */
 			dev_dbg(ddev, "found bulk in on endpoint %d\n", i);
+<<<<<<< HEAD
 			if (num_bulk_in < MAX_NUM_PORTS) {
 				bulk_in_endpoint[num_bulk_in] = endpoint;
 				++num_bulk_in;
 			}
+=======
+			bulk_in_endpoint[num_bulk_in] = endpoint;
+			++num_bulk_in;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		}
 
 		if (usb_endpoint_is_bulk_out(endpoint)) {
 			/* we found a bulk out endpoint */
 			dev_dbg(ddev, "found bulk out on endpoint %d\n", i);
+<<<<<<< HEAD
 			if (num_bulk_out < MAX_NUM_PORTS) {
 				bulk_out_endpoint[num_bulk_out] = endpoint;
 				++num_bulk_out;
 			}
+=======
+			bulk_out_endpoint[num_bulk_out] = endpoint;
+			++num_bulk_out;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		}
 
 		if (usb_endpoint_is_int_in(endpoint)) {
 			/* we found a interrupt in endpoint */
 			dev_dbg(ddev, "found interrupt in on endpoint %d\n", i);
+<<<<<<< HEAD
 			if (num_interrupt_in < MAX_NUM_PORTS) {
 				interrupt_in_endpoint[num_interrupt_in] =
 						endpoint;
 				++num_interrupt_in;
 			}
+=======
+			interrupt_in_endpoint[num_interrupt_in] = endpoint;
+			++num_interrupt_in;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		}
 
 		if (usb_endpoint_is_int_out(endpoint)) {
 			/* we found an interrupt out endpoint */
 			dev_dbg(ddev, "found interrupt out on endpoint %d\n", i);
+<<<<<<< HEAD
 			if (num_interrupt_out < MAX_NUM_PORTS) {
 				interrupt_out_endpoint[num_interrupt_out] =
 						endpoint;
 				++num_interrupt_out;
 			}
+=======
+			interrupt_out_endpoint[num_interrupt_out] = endpoint;
+			++num_interrupt_out;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		}
 	}
 
@@ -833,10 +853,15 @@ static int usb_serial_probe(struct usb_interface *interface,
 				if (usb_endpoint_is_int_in(endpoint)) {
 					/* we found a interrupt in endpoint */
 					dev_dbg(ddev, "found interrupt in for Prolific device on separate interface\n");
+<<<<<<< HEAD
 					if (num_interrupt_in < MAX_NUM_PORTS) {
 						interrupt_in_endpoint[num_interrupt_in] = endpoint;
 						++num_interrupt_in;
 					}
+=======
+					interrupt_in_endpoint[num_interrupt_in] = endpoint;
+					++num_interrupt_in;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 				}
 			}
 		}
@@ -876,11 +901,14 @@ static int usb_serial_probe(struct usb_interface *interface,
 			num_ports = type->num_ports;
 	}
 
+<<<<<<< HEAD
 	if (num_ports > MAX_NUM_PORTS) {
 		dev_warn(ddev, "too many ports requested: %d\n", num_ports);
 		num_ports = MAX_NUM_PORTS;
 	}
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	serial->num_ports = num_ports;
 	serial->num_bulk_in = num_bulk_in;
 	serial->num_bulk_out = num_bulk_out;
@@ -1444,7 +1472,11 @@ int usb_serial_register_drivers(struct usb_serial_driver *const serial_drivers[]
 
 	rc = usb_register(udriver);
 	if (rc)
+<<<<<<< HEAD
 		goto failed_usb_register;
+=======
+		return rc;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	for (sd = serial_drivers; *sd; ++sd) {
 		(*sd)->usb_driver = udriver;
@@ -1462,8 +1494,11 @@ int usb_serial_register_drivers(struct usb_serial_driver *const serial_drivers[]
 	while (sd-- > serial_drivers)
 		usb_serial_deregister(*sd);
 	usb_deregister(udriver);
+<<<<<<< HEAD
 failed_usb_register:
 	kfree(udriver);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return rc;
 }
 EXPORT_SYMBOL_GPL(usb_serial_register_drivers);

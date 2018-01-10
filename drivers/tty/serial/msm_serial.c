@@ -1163,7 +1163,10 @@ static struct dev_pm_ops msm_serial_dev_pm_ops = {
 	.runtime_suspend = msm_serial_runtime_suspend,
 	.runtime_resume = msm_serial_runtime_resume,
 };
+<<<<<<< HEAD
 MODULE_DEVICE_TABLE(of, msm_match_table);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 static struct platform_driver msm_platform_driver = {
 	.remove = msm_serial_remove,

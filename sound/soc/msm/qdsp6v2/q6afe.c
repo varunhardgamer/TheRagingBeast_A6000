@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2012-2017, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2012-2016, The Linux Foundation. All rights reserved.
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -824,6 +828,7 @@ fail_cmd:
 	return ret;
 }
 
+<<<<<<< HEAD
 static int remap_cal_data(struct cal_block_data *cal_block, int cal_index)
 {
 	int ret = 0;
@@ -835,6 +840,12 @@ static int remap_cal_data(struct cal_block_data *cal_block, int cal_index)
 		goto done;
 	}
 
+=======
+static void remap_cal_data(struct cal_block_data *cal_block, int cal_index)
+{
+	int ret = 0;
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if ((cal_block->map_data.map_size > 0) &&
 		(cal_block->map_data.q6map_handle == 0)) {
 		atomic_set(&this_afe.mem_map_cal_index, cal_index);
@@ -855,7 +866,11 @@ static int remap_cal_data(struct cal_block_data *cal_block, int cal_index)
 			mem_map_cal_handles[cal_index]);
 	}
 done:
+<<<<<<< HEAD
 	return ret;
+=======
+	return;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static void send_afe_cal_type(int cal_index, int port_id)
@@ -879,6 +894,7 @@ static void send_afe_cal_type(int cal_index, int port_id)
 
 	pr_debug("%s: Sending cal_index cal %d\n", __func__, cal_index);
 
+<<<<<<< HEAD
 	ret = remap_cal_data(cal_block, cal_index);
 	if (ret) {
 		pr_err("%s: Remap_cal_data failed for cal %d!\n",
@@ -886,6 +902,9 @@ static void send_afe_cal_type(int cal_index, int port_id)
 		goto done;
 	}
 
+=======
+	remap_cal_data(cal_block, cal_index);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	ret = afe_send_cal_block(port_id, cal_block);
 	if (ret < 0)
 		pr_debug("%s: No cal sent for cal_index %d, port_id = 0x%x! ret %d\n",
@@ -2532,9 +2551,14 @@ int q6afe_audio_client_buf_alloc_contiguous(unsigned int dir,
 	struct afe_audio_buffer *buf;
 	size_t len;
 
+<<<<<<< HEAD
 	if (!(ac) || !(bufsz) || ((dir != IN) && (dir != OUT))) {
 		pr_err("%s: ac %pK bufsz %d dir %d\n", __func__, ac, bufsz,
 			dir);
+=======
+	if (!(ac) || ((dir != IN) && (dir != OUT))) {
+		pr_err("%s: ac %pK dir %d\n", __func__, ac, dir);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		return -EINVAL;
 	}
 
@@ -3799,6 +3823,7 @@ fail_cmd:
 	return ret;
 }
 
+<<<<<<< HEAD
 int afe_set_lpass_clk_cfg(int index, struct afe_clk_set *cfg)
 {
 	struct afe_lpass_clk_config_command_v2 clk_cfg;
@@ -3906,6 +3931,8 @@ int afe_set_lpass_clock_v2(u16 port_id, struct afe_clk_set *cfg)
 	return ret;
 }
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 int afe_set_lpass_internal_digital_codec_clock(u16 port_id,
 			struct afe_digital_clk_cfg *cfg)
 {
@@ -4451,6 +4478,7 @@ static int afe_unmap_cal_data(int32_t cal_type,
 		goto done;
 	}
 
+<<<<<<< HEAD
 	if (cal_block == NULL) {
 		pr_err("%s: Cal block is NULL!\n",
 						__func__);
@@ -4462,6 +4490,8 @@ static int afe_unmap_cal_data(int32_t cal_type,
 				__func__);
 		goto done;
 	}
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	atomic_set(&this_afe.mem_map_cal_handles[cal_index],
 		cal_block->map_data.q6map_handle);

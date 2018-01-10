@@ -40,6 +40,7 @@ int __atomic_add_return(int i, atomic_t *v)
 }
 EXPORT_SYMBOL(__atomic_add_return);
 
+<<<<<<< HEAD
 int atomic_xchg(atomic_t *v, int new)
 {
 	int ret;
@@ -53,6 +54,8 @@ int atomic_xchg(atomic_t *v, int new)
 }
 EXPORT_SYMBOL(atomic_xchg);
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 int atomic_cmpxchg(atomic_t *v, int old, int new)
 {
 	int ret;
@@ -145,6 +148,7 @@ unsigned long __cmpxchg_u32(volatile u32 *ptr, u32 old, u32 new)
 	return (unsigned long)prev;
 }
 EXPORT_SYMBOL(__cmpxchg_u32);
+<<<<<<< HEAD
 
 unsigned long __xchg_u32(volatile u32 *ptr, u32 new)
 {
@@ -159,3 +163,5 @@ unsigned long __xchg_u32(volatile u32 *ptr, u32 new)
 	return (unsigned long)prev;
 }
 EXPORT_SYMBOL(__xchg_u32);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c

@@ -110,6 +110,7 @@ extern void rt_mutex_proxy_unlock(struct rt_mutex *lock,
 				  struct task_struct *proxy_owner);
 extern int rt_mutex_start_proxy_lock(struct rt_mutex *lock,
 				     struct rt_mutex_waiter *waiter,
+<<<<<<< HEAD
 				     struct task_struct *task);
 extern int rt_mutex_finish_proxy_lock(struct rt_mutex *lock,
 				      struct hrtimer_sleeper *to,
@@ -118,6 +119,14 @@ extern int rt_mutex_timed_futex_lock(struct rt_mutex *l, struct hrtimer_sleeper 
 extern bool rt_mutex_futex_unlock(struct rt_mutex *lock,
 				  struct wake_q_head *wqh);
 extern void rt_mutex_adjust_prio(struct task_struct *task);
+=======
+				     struct task_struct *task,
+				     int detect_deadlock);
+extern int rt_mutex_finish_proxy_lock(struct rt_mutex *lock,
+				      struct hrtimer_sleeper *to,
+				      struct rt_mutex_waiter *waiter,
+				      int detect_deadlock);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #ifdef CONFIG_DEBUG_RT_MUTEXES
 # include "rtmutex-debug.h"

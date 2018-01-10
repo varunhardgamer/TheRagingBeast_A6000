@@ -265,6 +265,10 @@ void __init kvmclock_init(void)
 #endif
 	kvm_get_preset_lpj();
 	clocksource_register_hz(&kvm_clock, NSEC_PER_SEC);
+<<<<<<< HEAD
+=======
+	pv_info.paravirt_enabled = 1;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	pv_info.name = "KVM";
 
 	if (kvm_para_has_feature(KVM_FEATURE_CLOCKSOURCE_STABLE_BIT))

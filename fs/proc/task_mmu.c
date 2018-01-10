@@ -214,7 +214,11 @@ static void *m_start(struct seq_file *m, loff_t *pos)
 	if (!priv->task)
 		return ERR_PTR(-ESRCH);
 
+<<<<<<< HEAD
 	mm = mm_access(priv->task, PTRACE_MODE_READ_FSCREDS);
+=======
+	mm = mm_access(priv->task, PTRACE_MODE_READ);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (!mm || IS_ERR(mm))
 		return mm;
 	down_read(&mm->mmap_sem);
@@ -322,7 +326,15 @@ show_map_vma(struct seq_file *m, struct vm_area_struct *vma, int is_pid)
 
 	/* We don't show the stack guard page in /proc/maps */
 	start = vma->vm_start;
+<<<<<<< HEAD
 	end = vma->vm_end;
+=======
+	if (stack_guard_page_start(vma, start))
+		start += PAGE_SIZE;
+	end = vma->vm_end;
+	if (stack_guard_page_end(vma, end))
+		end -= PAGE_SIZE;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	seq_setwidth(m, 25 + sizeof(void *) * 6 - 1);
 	seq_printf(m, "%08lx-%08lx %c%c%c%c %08llx %02x:%02x %lu ",
@@ -487,7 +499,10 @@ struct mem_size_stats {
 	unsigned long swap;
 	unsigned long nonlinear;
 	u64 pss;
+<<<<<<< HEAD
 	u64 swap_pss;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 
 
@@ -505,6 +520,7 @@ static void smaps_pte_entry(pte_t ptent, unsigned long addr,
 	} else if (is_swap_pte(ptent)) {
 		swp_entry_t swpent = pte_to_swp_entry(ptent);
 
+<<<<<<< HEAD
 		if (!non_swap_entry(swpent)) {
 			int mapcount;
 
@@ -519,6 +535,11 @@ static void smaps_pte_entry(pte_t ptent, unsigned long addr,
 				mss->swap_pss += (u64)PAGE_SIZE << PSS_SHIFT;
 			}
 		} else if (is_migration_entry(swpent))
+=======
+		if (!non_swap_entry(swpent))
+			mss->swap += ptent_size;
+		else if (is_migration_entry(swpent))
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			page = migration_entry_to_page(swpent);
 	} else if (pte_file(ptent)) {
 		if (pte_to_pgoff(ptent) != pgoff)
@@ -667,7 +688,10 @@ static int show_smap(struct seq_file *m, void *v, int is_pid)
 		   "Anonymous:      %8lu kB\n"
 		   "AnonHugePages:  %8lu kB\n"
 		   "Swap:           %8lu kB\n"
+<<<<<<< HEAD
 		   "SwapPss:        %8lu kB\n"
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		   "KernelPageSize: %8lu kB\n"
 		   "MMUPageSize:    %8lu kB\n"
 		   "Locked:         %8lu kB\n",
@@ -682,7 +706,10 @@ static int show_smap(struct seq_file *m, void *v, int is_pid)
 		   mss.anonymous >> 10,
 		   mss.anonymous_thp >> 10,
 		   mss.swap >> 10,
+<<<<<<< HEAD
 		   (unsigned long)(mss.swap_pss >> (10 + PSS_SHIFT)),
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		   vma_kernel_pagesize(vma) >> 10,
 		   vma_mmu_pagesize(vma) >> 10,
 		   (vma->vm_flags & VM_LOCKED) ?
@@ -1110,7 +1137,11 @@ static ssize_t pagemap_read(struct file *file, char __user *buf,
 	if (!pm.buffer)
 		goto out_task;
 
+<<<<<<< HEAD
 	mm = mm_access(task, PTRACE_MODE_READ_FSCREDS);
+=======
+	mm = mm_access(task, PTRACE_MODE_READ);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	ret = PTR_ERR(mm);
 	if (!mm || IS_ERR(mm))
 		goto out_free;
@@ -1176,6 +1207,7 @@ out:
 	return ret;
 }
 
+<<<<<<< HEAD
 static int pagemap_open(struct inode *inode, struct file *file)
 {
 	/* do not disclose physical addresses to unprivileged
@@ -1189,6 +1221,11 @@ const struct file_operations proc_pagemap_operations = {
 	.llseek		= mem_lseek, /* borrow this */
 	.read		= pagemap_read,
 	.open		= pagemap_open,
+=======
+const struct file_operations proc_pagemap_operations = {
+	.llseek		= mem_lseek, /* borrow this */
+	.read		= pagemap_read,
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 #endif /* CONFIG_PROC_PAGE_MONITOR */
 

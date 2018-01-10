@@ -1440,7 +1440,11 @@ void notrace __ppc64_runlatch_off(void)
 unsigned long arch_align_stack(unsigned long sp)
 {
 	if (!(current->personality & ADDR_NO_RANDOMIZE) && randomize_va_space)
+<<<<<<< HEAD
 		sp -= get_random_long() & ~PAGE_MASK;
+=======
+		sp -= get_random_int() & ~PAGE_MASK;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return sp & ~0xf;
 }
 
@@ -1450,9 +1454,15 @@ static inline unsigned long brk_rnd(void)
 
 	/* 8MB for 32bit, 1GB for 64bit */
 	if (is_32bit_task())
+<<<<<<< HEAD
 		rnd = (get_random_long() % (1UL<<(23-PAGE_SHIFT)));
 	else
 		rnd = (get_random_long() % (1UL<<(30-PAGE_SHIFT)));
+=======
+		rnd = (long)(get_random_int() % (1<<(23-PAGE_SHIFT)));
+	else
+		rnd = (long)(get_random_int() % (1<<(30-PAGE_SHIFT)));
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	return rnd << PAGE_SHIFT;
 }

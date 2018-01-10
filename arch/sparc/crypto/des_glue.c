@@ -429,7 +429,10 @@ static struct crypto_alg algs[] = { {
 		.blkcipher = {
 			.min_keysize	= DES_KEY_SIZE,
 			.max_keysize	= DES_KEY_SIZE,
+<<<<<<< HEAD
 			.ivsize		= DES_BLOCK_SIZE,
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			.setkey		= des_set_key,
 			.encrypt	= cbc_encrypt,
 			.decrypt	= cbc_decrypt,
@@ -486,7 +489,10 @@ static struct crypto_alg algs[] = { {
 		.blkcipher = {
 			.min_keysize	= DES3_EDE_KEY_SIZE,
 			.max_keysize	= DES3_EDE_KEY_SIZE,
+<<<<<<< HEAD
 			.ivsize		= DES3_EDE_BLOCK_SIZE,
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			.setkey		= des3_ede_set_key,
 			.encrypt	= cbc3_encrypt,
 			.decrypt	= cbc3_decrypt,
@@ -534,6 +540,10 @@ module_exit(des_sparc64_mod_fini);
 MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION("DES & Triple DES EDE Cipher Algorithms, sparc64 des opcode accelerated");
 
+<<<<<<< HEAD
 MODULE_ALIAS_CRYPTO("des");
+=======
+MODULE_ALIAS("des");
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #include "crop_devid.c"

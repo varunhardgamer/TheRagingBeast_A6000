@@ -12,7 +12,10 @@
 
 	__CPUINIT
 	.arch	armv7-a
+<<<<<<< HEAD
 	.arm
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 ENTRY(secondary_trampoline)
 	movw	r2, #:lower16:cpu1start_addr

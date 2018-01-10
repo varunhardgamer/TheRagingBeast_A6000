@@ -242,6 +242,7 @@ static efi_status_t __init phys_efi_set_virtual_address_map(
 	efi_memory_desc_t *virtual_map)
 {
 	efi_status_t status;
+<<<<<<< HEAD
 	unsigned long flags;
 
 	efi_call_phys_prelog();
@@ -255,6 +256,14 @@ static efi_status_t __init phys_efi_set_virtual_address_map(
 
 	efi_call_phys_epilog();
 
+=======
+
+	efi_call_phys_prelog();
+	status = efi_call_phys4(efi_phys.set_virtual_address_map,
+				memory_map_size, descriptor_size,
+				descriptor_version, virtual_map);
+	efi_call_phys_epilog();
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return status;
 }
 

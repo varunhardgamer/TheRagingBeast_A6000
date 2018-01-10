@@ -299,8 +299,11 @@ qla2x00_sysfs_write_optrom_ctl(struct file *filp, struct kobject *kobj,
 		return -EINVAL;
 	if (start > ha->optrom_size)
 		return -EINVAL;
+<<<<<<< HEAD
 	if (size > ha->optrom_size - start)
 		size = ha->optrom_size - start;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	switch (val) {
 	case 0:
@@ -322,7 +325,12 @@ qla2x00_sysfs_write_optrom_ctl(struct file *filp, struct kobject *kobj,
 			return -EINVAL;
 
 		ha->optrom_region_start = start;
+<<<<<<< HEAD
 		ha->optrom_region_size = start + size;
+=======
+		ha->optrom_region_size = start + size > ha->optrom_size ?
+		    ha->optrom_size - start : size;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 		ha->optrom_state = QLA_SREADING;
 		ha->optrom_buffer = vmalloc(ha->optrom_region_size);
@@ -389,7 +397,12 @@ qla2x00_sysfs_write_optrom_ctl(struct file *filp, struct kobject *kobj,
 		}
 
 		ha->optrom_region_start = start;
+<<<<<<< HEAD
 		ha->optrom_region_size = start + size;
+=======
+		ha->optrom_region_size = start + size > ha->optrom_size ?
+		    ha->optrom_size - start : size;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 		ha->optrom_state = QLA_SWRITING;
 		ha->optrom_buffer = vmalloc(ha->optrom_region_size);

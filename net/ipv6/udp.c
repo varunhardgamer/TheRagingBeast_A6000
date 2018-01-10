@@ -411,8 +411,12 @@ try_again:
 		err = skb_copy_datagram_iovec(skb, sizeof(struct udphdr),
 					      msg->msg_iov, copied);
 	else {
+<<<<<<< HEAD
 		err = skb_copy_and_csum_datagram_iovec(skb, sizeof(struct udphdr),
 						       msg->msg_iov, copied);
+=======
+		err = skb_copy_and_csum_datagram_iovec(skb, sizeof(struct udphdr), msg->msg_iov);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		if (err == -EINVAL)
 			goto csum_copy_err;
 	}
@@ -842,9 +846,17 @@ int __udp6_lib_rcv(struct sk_buff *skb, struct udp_table *udptable,
 		int ret = udpv6_queue_rcv_skb(sk, skb);
 		sock_put(sk);
 
+<<<<<<< HEAD
 		/* a return value > 0 means to resubmit the input */
 		if (ret > 0)
 			return ret;
+=======
+		/* a return value > 0 means to resubmit the input, but
+		 * it wants the return to be -protocol, or 0
+		 */
+		if (ret > 0)
+			return -ret;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 		return 0;
 	}
@@ -1149,7 +1161,11 @@ do_udp_sendmsg:
 		fl6.flowi6_oif = np->sticky_pktinfo.ipi6_ifindex;
 
 	fl6.flowi6_mark = sk->sk_mark;
+<<<<<<< HEAD
 	fl6.flowi6_uid = sk->sk_uid;
+=======
+	fl6.flowi6_uid = sock_i_uid(sk);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (msg->msg_controllen) {
 		opt = &opt_space;
@@ -1371,17 +1387,23 @@ static void udp6_sock_seq_show(struct seq_file *seq, struct sock *sp, int bucket
 	struct inet_sock *inet = inet_sk(sp);
 	struct ipv6_pinfo *np = inet6_sk(sp);
 	const struct in6_addr *dest, *src;
+<<<<<<< HEAD
 	__u8 state = sp->sk_state;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	__u16 destp, srcp;
 
 	dest  = &np->daddr;
 	src   = &np->rcv_saddr;
 	destp = ntohs(inet->inet_dport);
 	srcp  = ntohs(inet->inet_sport);
+<<<<<<< HEAD
 
 	if (inet->transparent)
 		state |= 0x80;
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	seq_printf(seq,
 		   "%5d: %08X%08X%08X%08X:%04X %08X%08X%08X%08X:%04X "
 		   "%02X %08X:%08X %02X:%08lX %08X %5d %8d %lu %d %pK %d\n",
@@ -1390,7 +1412,11 @@ static void udp6_sock_seq_show(struct seq_file *seq, struct sock *sp, int bucket
 		   src->s6_addr32[2], src->s6_addr32[3], srcp,
 		   dest->s6_addr32[0], dest->s6_addr32[1],
 		   dest->s6_addr32[2], dest->s6_addr32[3], destp,
+<<<<<<< HEAD
 		   state,
+=======
+		   sp->sk_state,
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		   sk_wmem_alloc_get(sp),
 		   sk_rmem_alloc_get(sp),
 		   0, 0L, 0,
@@ -1485,7 +1511,10 @@ struct proto udpv6_prot = {
 	.compat_getsockopt = compat_udpv6_getsockopt,
 #endif
 	.clear_sk	   = udp_v6_clear_sk,
+<<<<<<< HEAD
 	.diag_destroy      = udp_abort,
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 
 static struct inet_protosw udpv6_protosw = {

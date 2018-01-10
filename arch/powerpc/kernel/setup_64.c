@@ -142,6 +142,7 @@ static void check_smt_enabled(void)
 			of_node_put(dn);
 		}
 	}
+<<<<<<< HEAD
 
 	/*
 	 * Fixup HFSCR:TM based on CPU features. The bit is set by our
@@ -151,6 +152,8 @@ static void check_smt_enabled(void)
 	 */
 	if (cpu_has_feature(CPU_FTR_HVMODE) && !cpu_has_feature(CPU_FTR_TM_COMP))
 		mtspr(SPRN_HFSCR, mfspr(SPRN_HFSCR) & ~HFSCR_TM);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 /* Look for smt-enabled= cmdline option */

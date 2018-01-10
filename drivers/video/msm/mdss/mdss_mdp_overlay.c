@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2012-2016, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2012-2015, The Linux Foundation. All rights reserved.
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -44,8 +48,11 @@
 #define IS_RIGHT_MIXER_OV(flags, dst_x, left_lm_w)	\
 	((flags & MDSS_MDP_RIGHT_MIXER) || (dst_x >= left_lm_w))
 
+<<<<<<< HEAD
 #define PIPE_CLEANUP_TIMEOUT_US 100000
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static int mdss_mdp_overlay_free_fb_pipe(struct msm_fb_data_type *mfd);
 static int mdss_mdp_overlay_fb_parse_dt(struct msm_fb_data_type *mfd);
 static int mdss_mdp_overlay_off(struct msm_fb_data_type *mfd);
@@ -572,6 +579,7 @@ static inline void __mdss_mdp_overlay_set_chroma_sample(
 		pipe->chroma_sample_v = 0;
 }
 
+<<<<<<< HEAD
 static int mdss_mdp_wait4pipe_helper(struct mdss_mdp_ctl *ctl,
 							u32 pipe_type)
 {
@@ -662,6 +670,8 @@ static struct mdss_mdp_pipe *mdss_mdp_wait4pipe(struct msm_fb_data_type *mfd,
 			left_blend_pipe);
 }
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 int mdss_mdp_overlay_pipe_setup(struct msm_fb_data_type *mfd,
 	struct mdp_overlay *req, struct mdss_mdp_pipe **ppipe,
 	struct mdss_mdp_pipe *left_blend_pipe, bool is_single_layer)
@@ -775,10 +785,13 @@ int mdss_mdp_overlay_pipe_setup(struct msm_fb_data_type *mfd,
 
 		pipe = mdss_mdp_pipe_alloc(mixer, pipe_type, left_blend_pipe);
 
+<<<<<<< HEAD
 		if (IS_ERR_OR_NULL(pipe) && (PTR_ERR(pipe) != -EBADSLT))
 			pipe = mdss_mdp_wait4pipe(mfd, mixer, pipe_type,
 						left_blend_pipe);
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		/* RGB pipes can be used instead of DMA */
 		if ((req->pipe_type == PIPE_TYPE_AUTO) && !pipe &&
 		    (pipe_type == MDSS_MDP_PIPE_TYPE_DMA)) {
@@ -904,11 +917,14 @@ int mdss_mdp_overlay_pipe_setup(struct msm_fb_data_type *mfd,
 	pipe->dst.w = req->dst_rect.w;
 	pipe->dst.h = req->dst_rect.h;
 
+<<<<<<< HEAD
 	if (mixer->ctl) {
 		pipe->dst.x += mixer->ctl->border_x_off;
 		pipe->dst.y += mixer->ctl->border_y_off;
 	}
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	pipe->horz_deci = req->horz_deci;
 	pipe->vert_deci = req->vert_deci;
 
@@ -1192,7 +1208,12 @@ static void __mdss_mdp_overlay_free_list_add(struct msm_fb_data_type *mfd,
  * Goes through destroy_pipes list and ensures they are ready to be destroyed
  * and cleaned up. Also cleanup of any pipe buffers after flip.
  */
+<<<<<<< HEAD
 static void mdss_mdp_overlay_cleanup(struct msm_fb_data_type *mfd)
+=======
+static void mdss_mdp_overlay_cleanup(struct msm_fb_data_type *mfd,
+		struct list_head *destroy_pipes)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	struct mdss_mdp_pipe *pipe, *tmp;
 	struct mdss_overlay_private *mdp5_data = mfd_to_mdp5_data(mfd);
@@ -1200,7 +1221,11 @@ static void mdss_mdp_overlay_cleanup(struct msm_fb_data_type *mfd)
 	bool recovery_mode = false;
 
 	mutex_lock(&mdp5_data->list_lock);
+<<<<<<< HEAD
 	list_for_each_entry(pipe, &mdp5_data->pipes_destroy, list) {
+=======
+	list_for_each_entry(pipe, destroy_pipes, list) {
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		/* make sure pipe fetch has been halted before freeing buffer */
 		if (mdss_mdp_pipe_fetch_halt(pipe)) {
 			/*
@@ -1235,7 +1260,11 @@ static void mdss_mdp_overlay_cleanup(struct msm_fb_data_type *mfd)
 		}
 	}
 
+<<<<<<< HEAD
 	list_for_each_entry_safe(pipe, tmp, &mdp5_data->pipes_destroy, list) {
+=======
+	list_for_each_entry_safe(pipe, tmp, destroy_pipes, list) {
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		/*
 		 * in case of secure UI, the buffer needs to be released as
 		 * soon as session is closed.
@@ -1258,13 +1287,37 @@ static void mdss_mdp_overlay_cleanup(struct msm_fb_data_type *mfd)
 void mdss_mdp_handoff_cleanup_pipes(struct msm_fb_data_type *mfd,
 	u32 type)
 {
+<<<<<<< HEAD
 	u32 i, npipes = 0;
 	struct mdss_mdp_pipe *pipes = NULL;
+=======
+	u32 i, npipes;
+	struct mdss_mdp_pipe *pipes;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	struct mdss_mdp_pipe *pipe;
 	struct mdss_overlay_private *mdp5_data = mfd_to_mdp5_data(mfd);
 	struct mdss_data_type *mdata = mfd_to_mdata(mfd);
 
+<<<<<<< HEAD
 	npipes = mdss_mdp_get_pipe_info(mdata, type, &pipes);
+=======
+	switch (type) {
+	case MDSS_MDP_PIPE_TYPE_VIG:
+		pipes = mdata->vig_pipes;
+		npipes = mdata->nvig_pipes;
+		break;
+	case MDSS_MDP_PIPE_TYPE_RGB:
+		pipes = mdata->rgb_pipes;
+		npipes = mdata->nrgb_pipes;
+		break;
+	case MDSS_MDP_PIPE_TYPE_DMA:
+		pipes = mdata->dma_pipes;
+		npipes = mdata->ndma_pipes;
+		break;
+	default:
+		return;
+	}
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	for (i = 0; i < npipes; i++) {
 		pipe = &pipes[i];
@@ -1309,10 +1362,13 @@ int mdss_mdp_overlay_start(struct msm_fb_data_type *mfd)
 					mfd->index);
 			return 0;
 		}
+<<<<<<< HEAD
 	} else if (mdata->handoff_pending) {
 		pr_warn("fb%d: commit while splash handoff pending\n",
 				mfd->index);
 		return -EPERM;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 
 	pr_debug("starting fb%d overlay\n", mfd->index);
@@ -1531,6 +1587,10 @@ int mdss_mdp_overlay_kickoff(struct msm_fb_data_type *mfd,
 	int sd_in_pipe = 0;
 	bool need_cleanup = false;
 	struct mdss_mdp_commit_cb commit_cb;
+<<<<<<< HEAD
+=======
+	LIST_HEAD(destroy_pipes);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	ATRACE_BEGIN(__func__);
 	if (ctl->shared_lock) {
@@ -1609,7 +1669,11 @@ int mdss_mdp_overlay_kickoff(struct msm_fb_data_type *mfd,
 		mdss_mdp_pipe_queue_data(pipe, NULL);
 		mdss_mdp_mixer_pipe_unstage(pipe, pipe->mixer_left);
 		mdss_mdp_mixer_pipe_unstage(pipe, pipe->mixer_right);
+<<<<<<< HEAD
 		list_move(&pipe->list, &mdp5_data->pipes_destroy);
+=======
+		list_move(&pipe->list, &destroy_pipes);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		need_cleanup = true;
 	}
 
@@ -1672,7 +1736,11 @@ int mdss_mdp_overlay_kickoff(struct msm_fb_data_type *mfd,
 	mdss_fb_update_notify_update(mfd);
 commit_fail:
 	ATRACE_BEGIN("overlay_cleanup");
+<<<<<<< HEAD
 	mdss_mdp_overlay_cleanup(mfd);
+=======
+	mdss_mdp_overlay_cleanup(mfd, &destroy_pipes);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	ATRACE_END("overlay_cleanup");
 	mdss_mdp_clk_ctrl(MDP_BLOCK_POWER_OFF);
 	mdss_mdp_ctl_notify(ctl, MDP_NOTIFY_FRAME_FLUSHED);
@@ -2064,6 +2132,7 @@ static void mdss_mdp_overlay_pan_display(struct msm_fb_data_type *mfd)
 		       offset, fbi->fix.smem_len);
 		goto pan_display_error;
 	}
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_WT86518
 	//+BUG,mahao.wt,MOD,2015.6.17,Resolve blue screen flicker in poweroff charging mode
 	 ret = mdss_mdp_overlay_get_fb_pipe(mfd, &pipe, MDSS_MDP_MIXER_MUX_LEFT);
@@ -2097,6 +2166,9 @@ static void mdss_mdp_overlay_pan_display(struct msm_fb_data_type *mfd)
 		goto pan_display_error;
 	}
 #else
+=======
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	ret = mdss_mdp_overlay_get_fb_pipe(mfd, &pipe,
 					MDSS_MDP_MIXER_MUX_LEFT);
 	if (ret) {
@@ -2120,7 +2192,10 @@ static void mdss_mdp_overlay_pan_display(struct msm_fb_data_type *mfd)
 		pr_err("IOMMU attach failed\n");
 		goto pan_display_error;
 	}
+<<<<<<< HEAD
 #endif
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	buf = &pipe->back_buf;
 	if (mdata->mdss_util->iommu_attached()) {
@@ -4266,7 +4341,10 @@ int mdss_mdp_overlay_init(struct msm_fb_data_type *mfd)
 
 	INIT_LIST_HEAD(&mdp5_data->pipes_used);
 	INIT_LIST_HEAD(&mdp5_data->pipes_cleanup);
+<<<<<<< HEAD
 	INIT_LIST_HEAD(&mdp5_data->pipes_destroy);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	INIT_LIST_HEAD(&mdp5_data->rot_proc_list);
 	mutex_init(&mdp5_data->list_lock);
 	mutex_init(&mdp5_data->ov_lock);

@@ -466,5 +466,9 @@ module_exit(crypto_ctr_module_exit);
 
 MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION("CTR Counter block mode");
+<<<<<<< HEAD
 MODULE_ALIAS_CRYPTO("rfc3686");
 MODULE_ALIAS_CRYPTO("ctr");
+=======
+MODULE_ALIAS("rfc3686");
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c

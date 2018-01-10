@@ -774,8 +774,12 @@ out:
 	 */
 	if (sdio->boundary) {
 		ret = dio_send_cur_page(dio, sdio, map_bh);
+<<<<<<< HEAD
 		if (sdio->bio)
 			dio_bio_submit(dio, sdio);
+=======
+		dio_bio_submit(dio, sdio);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		page_cache_release(sdio->cur_page);
 		sdio->cur_page = NULL;
 	}
@@ -949,7 +953,10 @@ do_holes:
 						i_size_aligned >> blkbits) {
 					/* We hit eof */
 					page_cache_release(page);
+<<<<<<< HEAD
 					dio_cleanup(dio, sdio);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 					goto out;
 				}
 				zero_user(page, block_in_page << blkbits,

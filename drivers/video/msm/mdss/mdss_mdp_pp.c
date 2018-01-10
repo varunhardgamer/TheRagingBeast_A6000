@@ -394,8 +394,11 @@ struct mdss_pp_res_type {
 	struct pp_sts_type pp_disp_sts[MDSS_MAX_MIXER_DISP_NUM];
 	/* physical info */
 	struct pp_hist_col_info *dspp_hist;
+<<<<<<< HEAD
 	struct mdp_pcc_cfg_data raw_pcc_disp_cfg[MDSS_BLOCK_DISP_NUM];
 	struct mdp_pcc_cfg_data user_pcc_disp_cfg[MDSS_BLOCK_DISP_NUM];
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 
 static DEFINE_MUTEX(mdss_pp_mutex);
@@ -2704,6 +2707,7 @@ static void pp_update_pcc_regs(char __iomem *addr,
 	writel_relaxed(cfg_ptr->b.rgb_1, addr + 8);
 }
 
+<<<<<<< HEAD
 static u32 pcc_rescale(u32 raw, u32 user)
 {
 	int val = 0;
@@ -2799,6 +2803,8 @@ int mdss_mdp_user_pcc_config(struct mdp_pcc_cfg_data *config)
 }
 
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 int mdss_mdp_pcc_config(struct mdp_pcc_cfg_data *config,
 					u32 *copyback)
 {
@@ -2834,10 +2840,14 @@ int mdss_mdp_pcc_config(struct mdp_pcc_cfg_data *config,
 		*copyback = 1;
 		mdss_mdp_clk_ctrl(MDP_BLOCK_POWER_OFF);
 	} else {
+<<<<<<< HEAD
 		mdss_pp_res->raw_pcc_disp_cfg[disp_num] = *config;
 		pcc_combine(&mdss_pp_res->raw_pcc_disp_cfg[disp_num],
 					&mdss_pp_res->user_pcc_disp_cfg[disp_num],
 					&mdss_pp_res->pcc_disp_cfg[disp_num]);
+=======
+		mdss_pp_res->pcc_disp_cfg[disp_num] = *config;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		mdss_pp_res->pp_disp_flags[disp_num] |= PP_FLAGS_DIRTY_PCC;
 	}
 
@@ -3533,11 +3543,14 @@ int mdss_mdp_gamut_config(struct mdp_gamut_cfg_data *config,
 		*copyback = 1;
 		mdss_mdp_clk_ctrl(MDP_BLOCK_POWER_OFF);
 	} else {
+<<<<<<< HEAD
 		if (pp_gm_has_invalid_lut_size(config)) {
 			pr_err("invalid lut size for gamut\n");
 			ret = -EINVAL;
 			goto gamut_config_exit;
 		}
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		local_cfg = *config;
 		tbl_off = mdss_pp_res->gamut_tbl[disp_num];
 		for (i = 0; i < MDP_GAMUT_TABLE_NUM; i++) {
@@ -3753,6 +3766,7 @@ static int pp_hist_disable(struct pp_hist_col_info *hist_info)
 		ret = -EINVAL;
 		goto exit;
 	}
+<<<<<<< HEAD
 	spin_unlock_irqrestore(&hist_info->hist_lock, flag);
 	mdss_mdp_hist_intr_req(&mdata->hist_intr,
 				intr_mask << hist_info->intr_shift, false);
@@ -3760,6 +3774,13 @@ static int pp_hist_disable(struct pp_hist_col_info *hist_info)
 	hist_info->col_en = false;
 	hist_info->col_state = HIST_UNKNOWN;
 	spin_unlock_irqrestore(&hist_info->hist_lock, flag);
+=======
+	hist_info->col_en = false;
+	hist_info->col_state = HIST_UNKNOWN;
+	spin_unlock_irqrestore(&hist_info->hist_lock, flag);
+	mdss_mdp_hist_intr_req(&mdata->hist_intr,
+				intr_mask << hist_info->intr_shift, false);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	complete_all(&hist_info->first_kick);
 	complete_all(&hist_info->comp);
 	/* if hist v2, make sure HW is unlocked */
@@ -4425,7 +4446,10 @@ void mdss_mdp_hist_intr_done(u32 isr)
 	bool need_complete = false;
 	u32 isr_mask = (is_hist_v2) ? HIST_V2_INTR_BIT_MASK :
 			HIST_V1_INTR_BIT_MASK;
+<<<<<<< HEAD
 	u32 intr_mask = is_hist_v2 ? 1 : 3;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	isr &= isr_mask;
 	while (isr != 0) {
@@ -4460,6 +4484,7 @@ void mdss_mdp_hist_intr_done(u32 isr)
 			 * Histogram collection is disabled yet we got an
 			 * interrupt somehow.
 			 */
+<<<<<<< HEAD
 			if (mdata->mdp_hist_irq_mask ==
 					(intr_mask << hist_info->intr_shift)) {
 				mdss_mdp_hist_intr_req(&mdata->hist_intr,
@@ -4470,6 +4495,9 @@ void mdss_mdp_hist_intr_done(u32 isr)
 			} else {
 				pr_err("hist Done interrupt, col_en=false!\n");
 			}
+=======
+			pr_err("hist Done interrupt, col_en=false!\n");
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		}
 		/* Histogram Reset Done Interrupt */
 		if (hist_info && is_hist_reset_done && (hist_info->col_en)) {

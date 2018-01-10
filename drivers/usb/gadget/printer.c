@@ -975,6 +975,7 @@ unknown:
 		break;
 	}
 	/* host either stalls (value < 0) or reports success */
+<<<<<<< HEAD
 	if (value >= 0) {
 		req->length = value;
 		req->zero = value < wLength;
@@ -984,6 +985,8 @@ unknown:
 			req->status = 0;
 		}
 	}
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return value;
 }
 

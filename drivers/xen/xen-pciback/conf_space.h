@@ -64,8 +64,11 @@ struct config_field_entry {
 	void *data;
 };
 
+<<<<<<< HEAD
 extern bool xen_pcibk_permissive;
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #define OFFSET(cfg_entry) ((cfg_entry)->base_offset+(cfg_entry)->field->offset)
 
 /* Add fields to a device - the add_fields macro expects to get a pointer to

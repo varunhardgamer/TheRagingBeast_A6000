@@ -519,7 +519,11 @@ extern struct hv_context hv_context;
 
 extern int hv_init(void);
 
+<<<<<<< HEAD
 extern void hv_cleanup(bool crash);
+=======
+extern void hv_cleanup(void);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 extern int hv_post_message(union hv_connection_id connection_id,
 			 enum hv_message_type message_type,

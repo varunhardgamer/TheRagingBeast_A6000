@@ -372,6 +372,7 @@ config SMB350_CHARGER
 	  The driver reports the charger status via the power supply framework.
 	  A charger status change triggers an IRQ via the device STAT pin.
 
+<<<<<<< HEAD
 config SMB1351_USB_CHARGER
 	tristate "smb1351 usb charger (with VBUS detection)"
 	depends on I2C
@@ -382,6 +383,8 @@ config SMB1351_USB_CHARGER
 	 notification support. The driver controls SMB1351 via I2C and
 	 supports device-tree interface.
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 config SMB135X_CHARGER
 	tristate "SMB135X Battery Charger"
 	depends on I2C
@@ -553,6 +556,7 @@ config MSM_BCL_PERIPHERAL_CTL
 	  provides routines to configure and monitor the BCL
 	  PMIC peripheral.
 
+<<<<<<< HEAD
 config MSM_BCL_SOMC_CTL
 	bool "BCL driver to control with new condition"
 	depends on BATTERY_BCL
@@ -568,6 +572,8 @@ config QNS_SYSTEM
 	  kernel driver for a battery charging.
 	  This adds sysfs interface which enables QNS daemon to access it.
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 source "drivers/power/reset/Kconfig"
 
 endif # POWER_SUPPLY

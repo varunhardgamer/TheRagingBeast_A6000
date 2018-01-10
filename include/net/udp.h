@@ -179,7 +179,10 @@ extern int udp_get_port(struct sock *sk, unsigned short snum,
 			int (*saddr_cmp)(const struct sock *,
 					 const struct sock *));
 extern void udp_err(struct sk_buff *, u32);
+<<<<<<< HEAD
 int udp_abort(struct sock *sk, int err);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 extern int udp_sendmsg(struct kiocb *iocb, struct sock *sk,
 			    struct msghdr *msg, size_t len);
 extern int udp_push_pending_frames(struct sock *sk);

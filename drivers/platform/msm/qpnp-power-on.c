@@ -259,11 +259,15 @@ int qpnp_pon_set_restart_reason(enum pon_restart_reason reason)
 		return 0;
 
 	rc = qpnp_pon_masked_write(pon, QPNP_PON_SOFT_RB_SPARE(pon->base),
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_WT86518
 					PON_MASK(7, 5), (reason << 5));
 #else
 					PON_MASK(7, 2), (reason << 2));
 #endif
+=======
+					PON_MASK(7, 2), (reason << 2));
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (rc)
 		dev_err(&pon->spmi->dev,
 				"Unable to write to addr=%x, rc(%d)\n",
@@ -1683,6 +1687,7 @@ static int qpnp_pon_probe(struct spmi_device *spmi)
 		return rc;
 	}
 
+<<<<<<< HEAD
 	if (of_property_read_bool(spmi->dev.of_node,
 					"qcom,pon-reset-off")) {
 		rc = qpnp_pon_trigger_config(PON_CBLPWR_N, false);
@@ -1692,6 +1697,8 @@ static int qpnp_pon_probe(struct spmi_device *spmi)
 		}
 	}
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/* config whether store the hard reset reason */
 	pon->store_hard_reset_reason = of_property_read_bool(
 					spmi->dev.of_node,

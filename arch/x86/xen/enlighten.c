@@ -33,10 +33,13 @@
 #include <linux/memblock.h>
 #include <linux/edd.h>
 
+<<<<<<< HEAD
 #ifdef CONFIG_KEXEC
 #include <linux/kexec.h>
 #endif
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #include <xen/xen.h>
 #include <xen/events.h>
 #include <xen/interface/xen.h>
@@ -485,7 +488,10 @@ static void set_aliased_prot(void *v, pgprot_t prot)
 	pte_t pte;
 	unsigned long pfn;
 	struct page *page;
+<<<<<<< HEAD
 	unsigned char dummy;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	ptep = lookup_address((unsigned long)v, &level);
 	BUG_ON(ptep == NULL);
@@ -495,6 +501,7 @@ static void set_aliased_prot(void *v, pgprot_t prot)
 
 	pte = pfn_pte(pfn, prot);
 
+<<<<<<< HEAD
 	/*
 	 * Careful: update_va_mapping() will fail if the virtual address
 	 * we're poking isn't populated in the page tables.  We don't
@@ -521,6 +528,8 @@ static void set_aliased_prot(void *v, pgprot_t prot)
 	__get_user(dummy, (unsigned char __user __force *)v);
 	pagefault_enable();
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (HYPERVISOR_update_va_mapping((unsigned long)v, pte, 0))
 		BUG();
 
@@ -532,8 +541,11 @@ static void set_aliased_prot(void *v, pgprot_t prot)
 				BUG();
 	} else
 		kmap_flush_unused();
+<<<<<<< HEAD
 
 	preempt_enable();
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static void xen_alloc_ldt(struct desc_struct *ldt, unsigned entries)
@@ -541,6 +553,7 @@ static void xen_alloc_ldt(struct desc_struct *ldt, unsigned entries)
 	const unsigned entries_per_page = PAGE_SIZE / LDT_ENTRY_SIZE;
 	int i;
 
+<<<<<<< HEAD
 	/*
 	 * We need to mark the all aliases of the LDT pages RO.  We
 	 * don't need to call vm_flush_aliases(), though, since that's
@@ -552,6 +565,8 @@ static void xen_alloc_ldt(struct desc_struct *ldt, unsigned entries)
 	 * LDT is faulted in due to subsequent descriptor access.
 	 */
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	for(i = 0; i < entries; i += entries_per_page)
 		set_aliased_prot(ldt + i, PAGE_KERNEL_RO);
 }
@@ -952,7 +967,11 @@ static void xen_load_sp0(struct tss_struct *tss,
 	xen_mc_issue(PARAVIRT_LAZY_CPU);
 }
 
+<<<<<<< HEAD
 void xen_set_iopl_mask(unsigned mask)
+=======
+static void xen_set_iopl_mask(unsigned mask)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	struct physdev_set_iopl set_iopl;
 
@@ -1748,6 +1767,7 @@ static struct notifier_block xen_hvm_cpu_notifier __cpuinitdata = {
 	.notifier_call	= xen_hvm_cpu_notify,
 };
 
+<<<<<<< HEAD
 #ifdef CONFIG_KEXEC
 static void xen_hvm_shutdown(void)
 {
@@ -1763,6 +1783,8 @@ static void xen_hvm_crash_shutdown(struct pt_regs *regs)
 }
 #endif
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static void __init xen_hvm_guest_init(void)
 {
 	init_hvm_pv_info();
@@ -1777,10 +1799,13 @@ static void __init xen_hvm_guest_init(void)
 	x86_init.irqs.intr_init = xen_init_IRQ;
 	xen_hvm_init_time_ops();
 	xen_hvm_init_mmu_ops();
+<<<<<<< HEAD
 #ifdef CONFIG_KEXEC
 	machine_ops.shutdown = xen_hvm_shutdown;
 	machine_ops.crash_shutdown = xen_hvm_crash_shutdown;
 #endif
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static bool __init xen_hvm_platform(void)

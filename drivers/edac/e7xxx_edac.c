@@ -226,7 +226,11 @@ static void process_ce(struct mem_ctl_info *mci, struct e7xxx_error_info *info)
 static void process_ce_no_info(struct mem_ctl_info *mci)
 {
 	edac_dbg(3, "\n");
+<<<<<<< HEAD
 	edac_mc_handle_error(HW_EVENT_ERR_CORRECTED, mci, 1, 0, 0, 0, -1, -1, -1,
+=======
+	edac_mc_handle_error(HW_EVENT_ERR_UNCORRECTED, mci, 1, 0, 0, 0, -1, -1, -1,
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			     "e7xxx CE log register overflow", "");
 }
 

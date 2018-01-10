@@ -192,12 +192,19 @@ extern long __must_check strnlen_user(const char __user *src, long count);
 
 #define strlen_user(str) strnlen_user(str, 32767)
 
+<<<<<<< HEAD
 extern unsigned long raw_copy_from_user(void *to, const void __user *from,
 					unsigned long n);
+=======
+extern unsigned long __must_check __copy_user_zeroing(void *to,
+						      const void __user *from,
+						      unsigned long n);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 static inline unsigned long
 copy_from_user(void *to, const void __user *from, unsigned long n)
 {
+<<<<<<< HEAD
 	unsigned long res = n;
 	if (likely(access_ok(VERIFY_READ, from, n)))
 		res = raw_copy_from_user(to, from, n);
@@ -207,6 +214,14 @@ copy_from_user(void *to, const void __user *from, unsigned long n)
 }
 
 #define __copy_from_user(to, from, n) raw_copy_from_user(to, from, n)
+=======
+	if (access_ok(VERIFY_READ, from, n))
+		return __copy_user_zeroing(to, from, n);
+	return n;
+}
+
+#define __copy_from_user(to, from, n) __copy_user_zeroing(to, from, n)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #define __copy_from_user_inatomic __copy_from_user
 
 extern unsigned long __must_check __copy_user(void __user *to,

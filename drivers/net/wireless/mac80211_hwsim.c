@@ -1931,7 +1931,10 @@ static int hwsim_tx_info_frame_received_nl(struct sk_buff *skb_2,
 	if (!info->attrs[HWSIM_ATTR_ADDR_TRANSMITTER] ||
 	   !info->attrs[HWSIM_ATTR_FLAGS] ||
 	   !info->attrs[HWSIM_ATTR_COOKIE] ||
+<<<<<<< HEAD
 	   !info->attrs[HWSIM_ATTR_SIGNAL] ||
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	   !info->attrs[HWSIM_ATTR_TX_INFO])
 		goto out;
 

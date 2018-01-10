@@ -1439,9 +1439,13 @@ clock_set:
 			goto ret;
 		}
 		timeout--;
+<<<<<<< HEAD
 		spin_unlock_irq(&host->lock);
 		udelay(1);
 		spin_lock_irq(&host->lock);
+=======
+		udelay(1);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 
 	clk |= SDHCI_CLOCK_CARD_EN;

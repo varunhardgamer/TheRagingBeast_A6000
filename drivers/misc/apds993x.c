@@ -1629,7 +1629,11 @@ static ssize_t apds993x_show_ch0data(struct device *dev,
 			CMD_WORD|APDS993X_CH0DATAL_REG);
 	mutex_unlock(&data->update_lock);
 
+<<<<<<< HEAD
 	return snprintf(buf, PAGE_SIZE , "%d\n", ch0data);
+=======
+	return sprintf(buf, "%d\n", ch0data);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static DEVICE_ATTR(ch0data, S_IRUGO, apds993x_show_ch0data, NULL);
@@ -1646,7 +1650,11 @@ static ssize_t apds993x_show_ch1data(struct device *dev,
 			CMD_WORD|APDS993X_CH1DATAL_REG);
 	mutex_unlock(&data->update_lock);
 
+<<<<<<< HEAD
 	return snprintf(buf, PAGE_SIZE, "%d\n", ch1data);
+=======
+	return sprintf(buf, "%d\n", ch1data);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static DEVICE_ATTR(ch1data, S_IRUGO, apds993x_show_ch1data, NULL);
@@ -1665,7 +1673,11 @@ static ssize_t apds993x_show_pdata(struct device *dev,
 			CMD_WORD|APDS993X_PDATAH_REG) << 8;
 	mutex_unlock(&data->update_lock);
 
+<<<<<<< HEAD
 	return snprintf(buf, PAGE_SIZE , "%d\n", pdata);
+=======
+	return sprintf(buf, "%d\n", pdata);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static DEVICE_ATTR(pdata, S_IRUGO, apds993x_show_pdata, NULL);
@@ -1687,7 +1699,11 @@ static ssize_t apds993x_show_status(struct device *dev,
 	pr_info("%s: APDS993x_ENABLE_REG=%2d APDS993x_STATUS_REG=%2d\n",
 			__func__, rdata, status);
 
+<<<<<<< HEAD
 	return snprintf(buf, PAGE_SIZE , "%d\n", status);
+=======
+	return sprintf(buf, "%d\n", status);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static DEVICE_ATTR(status, S_IRUSR | S_IRGRP, apds993x_show_status, NULL);
@@ -1698,7 +1714,11 @@ static ssize_t apds993x_show_ps_run_calibration(struct device *dev,
 	struct i2c_client *client = to_i2c_client(dev);
 	struct apds993x_data *data = i2c_get_clientdata(client);
 
+<<<<<<< HEAD
 	return snprintf(buf, PAGE_SIZE , "%d\n", data->avg_cross_talk);
+=======
+	return sprintf(buf, "%d\n", data->avg_cross_talk);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static ssize_t apds993x_store_ps_run_calibration(struct device *dev,
@@ -1734,7 +1754,11 @@ static DEVICE_ATTR(ps_run_calibration,  S_IWUSR | S_IWGRP | S_IRUGO,
 static ssize_t apds993x_show_ps_default_crosstalk(struct device *dev,
 		struct device_attribute *attr, char *buf)
 {
+<<<<<<< HEAD
 	return snprintf(buf, PAGE_SIZE ,  "%d\n", DEFAULT_CROSS_TALK);
+=======
+	return sprintf(buf, "%d\n", DEFAULT_CROSS_TALK);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static ssize_t apds993x_store_ps_default_crosstalk(struct device *dev,
@@ -1766,7 +1790,11 @@ static ssize_t apds993x_show_ps_cal_result(struct device *dev,
 	struct i2c_client *client = to_i2c_client(dev);
 	struct apds993x_data *data = i2c_get_clientdata(client);
 
+<<<<<<< HEAD
 	return snprintf(buf, PAGE_SIZE , "%d\n", data->ps_cal_result);
+=======
+	return sprintf(buf, "%d\n", data->ps_cal_result);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static DEVICE_ATTR(ps_cal_result, S_IRUGO, apds993x_show_ps_cal_result, NULL);
@@ -1779,7 +1807,11 @@ static ssize_t apds993x_show_enable_ps_sensor(struct device *dev,
 	struct i2c_client *client = to_i2c_client(dev);
 	struct apds993x_data *data = i2c_get_clientdata(client);
 
+<<<<<<< HEAD
 	return snprintf(buf, PAGE_SIZE ,  "%d\n", data->enable_ps_sensor);
+=======
+	return sprintf(buf, "%d\n", data->enable_ps_sensor);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static ssize_t apds993x_store_enable_ps_sensor(struct device *dev,
@@ -1810,7 +1842,11 @@ static ssize_t apds993x_show_enable_als_sensor(struct device *dev,
 	struct i2c_client *client = to_i2c_client(dev);
 	struct apds993x_data *data = i2c_get_clientdata(client);
 
+<<<<<<< HEAD
 	return snprintf(buf, PAGE_SIZE , "%d\n", data->enable_als_sensor);
+=======
+	return sprintf(buf, "%d\n", data->enable_als_sensor);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static ssize_t apds993x_store_enable_als_sensor(struct device *dev,

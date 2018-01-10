@@ -181,7 +181,11 @@ static struct ext4_new_flex_group_data *alloc_flex_gd(unsigned long flexbg_size)
 	if (flex_gd == NULL)
 		goto out3;
 
+<<<<<<< HEAD
 	if (flexbg_size >= UINT_MAX / sizeof(struct ext4_new_group_data))
+=======
+	if (flexbg_size >= UINT_MAX / sizeof(struct ext4_new_flex_group_data))
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		goto out2;
 	flex_gd->count = flexbg_size;
 
@@ -1025,7 +1029,11 @@ exit_free:
  * do not copy the full number of backups at this time.  The resize
  * which changed s_groups_count will backup again.
  */
+<<<<<<< HEAD
 static void update_backups(struct super_block *sb, sector_t blk_off, char *data,
+=======
+static void update_backups(struct super_block *sb, int blk_off, char *data,
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			   int size, int meta_bg)
 {
 	struct ext4_sb_info *sbi = EXT4_SB(sb);
@@ -1050,7 +1058,11 @@ static void update_backups(struct super_block *sb, sector_t blk_off, char *data,
 		group = ext4_list_backups(sb, &three, &five, &seven);
 		last = sbi->s_groups_count;
 	} else {
+<<<<<<< HEAD
 		group = ext4_get_group_number(sb, blk_off) + 1;
+=======
+		group = ext4_meta_bg_first_group(sb, group) + 1;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		last = (ext4_group_t)(group + EXT4_DESC_PER_BLOCK(sb) - 2);
 	}
 
@@ -1066,7 +1078,11 @@ static void update_backups(struct super_block *sb, sector_t blk_off, char *data,
 			break;
 
 		if (meta_bg == 0)
+<<<<<<< HEAD
 			backup_block = ((ext4_fsblk_t)group) * bpg + blk_off;
+=======
+			backup_block = group * bpg + blk_off;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		else
 			backup_block = (ext4_group_first_block_no(sb, group) +
 					ext4_bg_has_super(sb, group));
@@ -1911,8 +1927,12 @@ retry:
 			n_desc_blocks = o_desc_blocks +
 				le16_to_cpu(es->s_reserved_gdt_blocks);
 			n_group = n_desc_blocks * EXT4_DESC_PER_BLOCK(sb);
+<<<<<<< HEAD
 			n_blocks_count = (ext4_fsblk_t)n_group *
 				EXT4_BLOCKS_PER_GROUP(sb);
+=======
+			n_blocks_count = n_group * EXT4_BLOCKS_PER_GROUP(sb);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			n_group--; /* set to last group number */
 		}
 

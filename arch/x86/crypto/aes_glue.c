@@ -66,5 +66,10 @@ module_exit(aes_fini);
 
 MODULE_DESCRIPTION("Rijndael (AES) Cipher Algorithm, asm optimized");
 MODULE_LICENSE("GPL");
+<<<<<<< HEAD
 MODULE_ALIAS_CRYPTO("aes");
 MODULE_ALIAS_CRYPTO("aes-asm");
+=======
+MODULE_ALIAS("aes");
+MODULE_ALIAS("aes-asm");
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c

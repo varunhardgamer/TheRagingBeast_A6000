@@ -50,14 +50,21 @@
 
 struct receiver {
 	struct hlist_node list;
+<<<<<<< HEAD
+=======
+	struct rcu_head rcu;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	canid_t can_id;
 	canid_t mask;
 	unsigned long matches;
 	void (*func)(struct sk_buff *, void *);
 	void *data;
 	char *ident;
+<<<<<<< HEAD
 	struct sock *sk;
 	struct rcu_head rcu;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 
 enum { RX_ERR, RX_ALL, RX_FIL, RX_INV, RX_EFF, RX_MAX };

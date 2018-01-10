@@ -152,6 +152,32 @@ static const char *const vp8_profile_level[] = {
 	"2.0",
 	"3.0",
 };
+<<<<<<< HEAD
+=======
+
+static const char *const mpeg_video_vidc_extradata[] = {
+	"Extradata none",
+	"Extradata MB Quantization",
+	"Extradata Interlace Video",
+	"Extradata VC1 Framedisp",
+	"Extradata VC1 Seqdisp",
+	"Extradata timestamp",
+	"Extradata S3D Frame Packing",
+	"Extradata Frame Rate",
+	"Extradata Panscan Window",
+	"Extradata Recovery point SEI",
+	"Extradata Closed Caption UD",
+	"Extradata AFD UD",
+	"Extradata Multislice info",
+	"Extradata number of concealed MB",
+	"Extradata metadata filler",
+	"Extradata input crop",
+	"Extradata digital zoom",
+	"Extradata aspect ratio",
+	"Extradata macroblock metadata",
+};
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static const char *const perf_level[] = {
 	"Nominal",
 	"Performance",
@@ -1060,6 +1086,7 @@ static struct msm_vidc_ctrl msm_venc_ctrls[] = {
 		.step = 1,
 		.qmenu = NULL,
 	},
+<<<<<<< HEAD
 	{
 		.id = V4L2_CID_MPEG_VIDC_VIDEO_COLOR_SPACE,
 		.name = "Set Color space",
@@ -1109,6 +1136,8 @@ static struct msm_vidc_ctrl msm_venc_ctrls[] = {
 		.step = 1,
 	},
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 
 #define NUM_CTRLS ARRAY_SIZE(msm_venc_ctrls)
@@ -1189,8 +1218,11 @@ static struct msm_vidc_format venc_formats[] = {
 	},
 };
 
+<<<<<<< HEAD
 static int msm_venc_set_csc(struct msm_vidc_inst *inst);
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static int msm_venc_queue_setup(struct vb2_queue *q,
 				const struct v4l2_format *fmt,
 				unsigned int *num_buffers,
@@ -1865,7 +1897,10 @@ static int try_set_ctrl(struct msm_vidc_inst *inst, struct v4l2_ctrl *ctrl)
 	struct hal_hybrid_hierp hyb_hierp;
 	u32 hier_p_layers = 0, hier_b_layers = 0;
 	struct hal_venc_perf_mode venc_mode;
+<<<<<<< HEAD
 	struct hal_video_signal_info signal_info = {0};
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (!inst || !inst->core || !inst->core->device) {
 		dprintk(VIDC_ERR, "%s invalid parameters\n", __func__);
@@ -2376,12 +2411,16 @@ static int try_set_ctrl(struct msm_vidc_inst *inst, struct v4l2_ctrl *ctrl)
 	}
 	case V4L2_CID_MPEG_VIDC_VIDEO_INTRA_REFRESH_MODE: {
 		struct v4l2_ctrl *air_mbs, *air_ref, *cir_mbs;
+<<<<<<< HEAD
 		bool is_cont_intra_supported = false;
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		air_mbs = TRY_GET_CTRL(V4L2_CID_MPEG_VIDC_VIDEO_AIR_MBS);
 		air_ref = TRY_GET_CTRL(V4L2_CID_MPEG_VIDC_VIDEO_AIR_REF);
 		cir_mbs = TRY_GET_CTRL(V4L2_CID_MPEG_VIDC_VIDEO_CIR_MBS);
 
+<<<<<<< HEAD
 		is_cont_intra_supported =
 		(inst->fmts[CAPTURE_PORT]->fourcc == V4L2_PIX_FMT_H264) ||
 		(inst->fmts[CAPTURE_PORT]->fourcc == V4L2_PIX_FMT_HEVC);
@@ -2404,6 +2443,10 @@ static int try_set_ctrl(struct msm_vidc_inst *inst, struct v4l2_ctrl *ctrl)
 		}
 
 		property_id = HAL_PARAM_VENC_INTRA_REFRESH;
+=======
+		property_id =
+			HAL_PARAM_VENC_INTRA_REFRESH;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 		intra_refresh.mode = ctrl->val;
 		intra_refresh.air_mbs = air_mbs->val;
@@ -2748,6 +2791,7 @@ static int try_set_ctrl(struct msm_vidc_inst *inst, struct v4l2_ctrl *ctrl)
 	case V4L2_CID_MPEG_VIDC_VIDEO_OPERATING_RATE:
 		property_id = 0;
 		break;
+<<<<<<< HEAD
 	case V4L2_CID_MPEG_VIDC_VIDEO_COLOR_SPACE:
 	{
 		signal_info.color_space = ctrl->val;
@@ -2813,6 +2857,8 @@ static int try_set_ctrl(struct msm_vidc_inst *inst, struct v4l2_ctrl *ctrl)
 				dprintk(VIDC_ERR, "fail to set csc: %d\n", rc);
 		}
 		break;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	default:
 		dprintk(VIDC_ERR, "Unsupported index: %x\n", ctrl->id);
 		rc = -ENOTSUPP;
@@ -3146,7 +3192,10 @@ int msm_venc_s_parm(struct msm_vidc_inst *inst, struct v4l2_streamparm *a)
 	u64 us_per_frame = 0;
 	void *pdata;
 	int rc = 0, fps = 0;
+<<<<<<< HEAD
 	u64 base_fps = 0;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	struct hal_frame_rate frame_rate;
 	struct hfi_device *hdev;
 
@@ -3182,10 +3231,15 @@ int msm_venc_s_parm(struct msm_vidc_inst *inst, struct v4l2_streamparm *a)
 		goto exit;
 	}
 
+<<<<<<< HEAD
 	base_fps = USEC_PER_SEC;
 	do_div(base_fps, us_per_frame);
 
 	fps = (int)base_fps;
+=======
+	fps = USEC_PER_SEC;
+	do_div(fps, us_per_frame);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if ((fps % 15 == 14) || (fps % 24 == 23))
 		fps = fps + 1;
@@ -3213,7 +3267,11 @@ exit:
 	return rc;
 }
 
+<<<<<<< HEAD
 static int msm_venc_set_csc(struct msm_vidc_inst *inst)
+=======
+int msm_venc_set_csc(struct msm_vidc_inst *inst)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	int rc = 0;
 	int count = 0;
@@ -3256,6 +3314,13 @@ int msm_venc_s_fmt(struct msm_vidc_inst *inst, struct v4l2_format *f)
 	}
 	hdev = inst->core->device;
 
+<<<<<<< HEAD
+=======
+	if (msm_vidc_vpe_csc_601_to_709) {
+		msm_venc_set_csc(inst);
+	}
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (f->type == V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE) {
 		fmt = msm_comm_get_pixel_fmt_fourcc(venc_formats,
 			ARRAY_SIZE(venc_formats), f->fmt.pix_mp.pixelformat,
@@ -3711,11 +3776,16 @@ static struct v4l2_ctrl **get_super_cluster(struct msm_vidc_inst *inst,
 	struct v4l2_ctrl **cluster = kmalloc(sizeof(struct v4l2_ctrl *) *
 			NUM_CTRLS, GFP_KERNEL);
 
+<<<<<<< HEAD
 	if (!size || !cluster || !inst) {
 		if (cluster)
 			kfree(cluster);
 		return NULL;
 	}
+=======
+	if (!size || !cluster || !inst)
+		return NULL;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	for (c = 0; c < NUM_CTRLS; c++)
 		cluster[sz++] =  inst->ctrls[c];

@@ -459,7 +459,11 @@ static int wm8958_put_mbc_enum(struct snd_kcontrol *kcontrol,
 	struct snd_soc_codec *codec = snd_kcontrol_chip(kcontrol);
 	struct wm8994_priv *wm8994 = snd_soc_codec_get_drvdata(codec);
 	struct wm8994 *control = wm8994->wm8994;
+<<<<<<< HEAD
 	int value = ucontrol->value.enumerated.item[0];
+=======
+	int value = ucontrol->value.integer.value[0];
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	int reg;
 
 	/* Don't allow on the fly reconfiguration */
@@ -549,7 +553,11 @@ static int wm8958_put_vss_enum(struct snd_kcontrol *kcontrol,
 	struct snd_soc_codec *codec = snd_kcontrol_chip(kcontrol);
 	struct wm8994_priv *wm8994 = snd_soc_codec_get_drvdata(codec);
 	struct wm8994 *control = wm8994->wm8994;
+<<<<<<< HEAD
 	int value = ucontrol->value.enumerated.item[0];
+=======
+	int value = ucontrol->value.integer.value[0];
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	int reg;
 
 	/* Don't allow on the fly reconfiguration */
@@ -582,7 +590,11 @@ static int wm8958_put_vss_hpf_enum(struct snd_kcontrol *kcontrol,
 	struct snd_soc_codec *codec = snd_kcontrol_chip(kcontrol);
 	struct wm8994_priv *wm8994 = snd_soc_codec_get_drvdata(codec);
 	struct wm8994 *control = wm8994->wm8994;
+<<<<<<< HEAD
 	int value = ucontrol->value.enumerated.item[0];
+=======
+	int value = ucontrol->value.integer.value[0];
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	int reg;
 
 	/* Don't allow on the fly reconfiguration */
@@ -749,7 +761,11 @@ static int wm8958_put_enh_eq_enum(struct snd_kcontrol *kcontrol,
 	struct snd_soc_codec *codec = snd_kcontrol_chip(kcontrol);
 	struct wm8994_priv *wm8994 = snd_soc_codec_get_drvdata(codec);
 	struct wm8994 *control = wm8994->wm8994;
+<<<<<<< HEAD
 	int value = ucontrol->value.enumerated.item[0];
+=======
+	int value = ucontrol->value.integer.value[0];
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	int reg;
 
 	/* Don't allow on the fly reconfiguration */

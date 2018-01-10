@@ -46,7 +46,11 @@ static unsigned long key_gc_flags;
  * immediately unlinked.
  */
 struct key_type key_type_dead = {
+<<<<<<< HEAD
 	.name = ".dead",
+=======
+	.name = "dead",
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 
 /*
@@ -207,7 +211,11 @@ static noinline void key_gc_unused_keys(struct list_head *keys)
 		if (test_bit(KEY_FLAG_INSTANTIATED, &key->flags))
 			atomic_dec(&key->user->nikeys);
 
+<<<<<<< HEAD
 		key_user_put(key->user);
+=======
+                key_user_put(key->user);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 		kfree(key->description);
 

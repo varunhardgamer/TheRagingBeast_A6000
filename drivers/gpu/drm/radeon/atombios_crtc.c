@@ -257,8 +257,11 @@ void atombios_crtc_dpms(struct drm_crtc *crtc, int mode)
 			atombios_enable_crtc_memreq(crtc, ATOM_ENABLE);
 		atombios_blank_crtc(crtc, ATOM_DISABLE);
 		drm_vblank_post_modeset(dev, radeon_crtc->crtc_id);
+<<<<<<< HEAD
 		/* Make sure vblank interrupt is still enabled if needed */
 		radeon_irq_set(rdev);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		radeon_crtc_load_lut(crtc);
 		break;
 	case DRM_MODE_DPMS_STANDBY:
@@ -314,10 +317,15 @@ atombios_set_crtc_dtd_timing(struct drm_crtc *crtc,
 		misc |= ATOM_COMPOSITESYNC;
 	if (mode->flags & DRM_MODE_FLAG_INTERLACE)
 		misc |= ATOM_INTERLACE;
+<<<<<<< HEAD
 	if (mode->flags & DRM_MODE_FLAG_DBLCLK)
 		misc |= ATOM_DOUBLE_CLOCK_MODE;
 	if (mode->flags & DRM_MODE_FLAG_DBLSCAN)
 		misc |= ATOM_H_REPLICATIONBY2 | ATOM_V_REPLICATIONBY2;
+=======
+	if (mode->flags & DRM_MODE_FLAG_DBLSCAN)
+		misc |= ATOM_DOUBLE_CLOCK_MODE;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	args.susModeMiscInfo.usAccess = cpu_to_le16(misc);
 	args.ucCRTC = radeon_crtc->crtc_id;
@@ -360,10 +368,15 @@ static void atombios_crtc_set_timing(struct drm_crtc *crtc,
 		misc |= ATOM_COMPOSITESYNC;
 	if (mode->flags & DRM_MODE_FLAG_INTERLACE)
 		misc |= ATOM_INTERLACE;
+<<<<<<< HEAD
 	if (mode->flags & DRM_MODE_FLAG_DBLCLK)
 		misc |= ATOM_DOUBLE_CLOCK_MODE;
 	if (mode->flags & DRM_MODE_FLAG_DBLSCAN)
 		misc |= ATOM_H_REPLICATIONBY2 | ATOM_V_REPLICATIONBY2;
+=======
+	if (mode->flags & DRM_MODE_FLAG_DBLSCAN)
+		misc |= ATOM_DOUBLE_CLOCK_MODE;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	args.susModeMiscInfo.usAccess = cpu_to_le16(misc);
 	args.ucCRTC = radeon_crtc->crtc_id;

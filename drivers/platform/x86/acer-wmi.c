@@ -572,6 +572,7 @@ static const struct dmi_system_id video_vendor_dmi_table[] = {
 			DMI_MATCH(DMI_PRODUCT_NAME, "Aspire 5750"),
 		},
 	},
+<<<<<<< HEAD
 	{
 		/*
 		 * Note no video_set_backlight_video_vendor, we must use the
@@ -583,6 +584,8 @@ static const struct dmi_system_id video_vendor_dmi_table[] = {
 			DMI_MATCH(DMI_PRODUCT_NAME, "KAV80"),
 		},
 	},
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	{}
 };
 
@@ -1860,6 +1863,7 @@ static int acer_wmi_enable_lm(void)
 	return status;
 }
 
+<<<<<<< HEAD
 #define ACER_WMID_ACCEL_HID	"BST0001"
 
 static acpi_status __init acer_wmi_get_handle_cb(acpi_handle ah, u32 level,
@@ -1878,6 +1882,13 @@ static acpi_status __init acer_wmi_get_handle_cb(acpi_handle ah, u32 level,
 	*(acpi_handle *)retval = ah;
 
 	return AE_CTRL_TERMINATE;
+=======
+static acpi_status __init acer_wmi_get_handle_cb(acpi_handle ah, u32 level,
+						void *ctx, void **retval)
+{
+	*(acpi_handle *)retval = ah;
+	return AE_OK;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static int __init acer_wmi_get_handle(const char *name, const char *prop,
@@ -1891,7 +1902,12 @@ static int __init acer_wmi_get_handle(const char *name, const char *prop,
 	handle = NULL;
 	status = acpi_get_devices(prop, acer_wmi_get_handle_cb,
 					(void *)name, &handle);
+<<<<<<< HEAD
 	if (ACPI_SUCCESS(status) && handle) {
+=======
+
+	if (ACPI_SUCCESS(status)) {
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		*ah = handle;
 		return 0;
 	} else {
@@ -1903,7 +1919,11 @@ static int __init acer_wmi_accel_setup(void)
 {
 	int err;
 
+<<<<<<< HEAD
 	err = acer_wmi_get_handle("SENR", ACER_WMID_ACCEL_HID, &gsensor_handle);
+=======
+	err = acer_wmi_get_handle("SENR", "BST0001", &gsensor_handle);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (err)
 		return err;
 
@@ -2274,11 +2294,18 @@ static int __init acer_wmi_init(void)
 		err = acer_wmi_input_setup();
 		if (err)
 			return err;
+<<<<<<< HEAD
 		err = acer_wmi_accel_setup();
 		if (err && err != -ENODEV)
 			pr_warn("Cannot enable accelerometer\n");
 	}
 
+=======
+	}
+
+	acer_wmi_accel_setup();
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	err = platform_driver_register(&acer_platform_driver);
 	if (err) {
 		pr_err("Unable to register platform driver\n");

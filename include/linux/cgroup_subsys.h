@@ -83,8 +83,11 @@ SUBSYS(hugetlb)
 SUBSYS(bcache)
 #endif
 
+<<<<<<< HEAD
 #if IS_SUBSYS_ENABLED(CONFIG_CGROUP_BFQIO)
 SUBSYS(bfqio)
 #endif
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /* */

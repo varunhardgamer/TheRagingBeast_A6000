@@ -55,12 +55,15 @@ struct sched_param {
 
 #include <asm/processor.h>
 
+<<<<<<< HEAD
 int  su_instances(void);
 bool su_running(void);
 bool su_visible(void);
 void su_exec(void);
 void su_exit(void);
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #define SCHED_ATTR_SIZE_VER0	48	/* sizeof first published struct */
 
 /*
@@ -150,10 +153,17 @@ extern void get_avenrun(unsigned long *loads, unsigned long offset, int shift);
 
 #define FSHIFT		11		/* nr of bits of precision */
 #define FIXED_1		(1<<FSHIFT)	/* 1.0 as fixed-point */
+<<<<<<< HEAD
 #define LOAD_FREQ      (4*HZ+61)       /* 4.61 sec intervals */
 #define EXP_1          1896            /* 1/exp(4.61sec/1min) as fixed-point */
 #define EXP_5          2017            /* 1/exp(4.61sec/5min) */
 #define EXP_15         2038            /* 1/exp(4.61sec/15min) */
+=======
+#define LOAD_FREQ	(5*HZ+1)	/* 5 sec intervals */
+#define EXP_1		1884		/* 1/exp(5sec/1min) as fixed-point */
+#define EXP_5		2014		/* 1/exp(5sec/5min) */
+#define EXP_15		2037		/* 1/exp(5sec/15min) */
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #define CALC_LOAD(load,exp,n) \
 	load *= exp; \
@@ -169,8 +179,13 @@ extern unsigned long nr_iowait(void);
 extern unsigned long nr_iowait_cpu(int cpu);
 extern unsigned long this_cpu_load(void);
 
+<<<<<<< HEAD
 extern void sched_update_nr_prod(int cpu, long delta, bool inc);
 extern void sched_get_nr_running_avg(int *avg, int *iowait_avg, int *big_avg);
+=======
+extern void sched_update_nr_prod(int cpu, unsigned long nr, bool inc);
+extern void sched_get_nr_running_avg(int *avg, int *iowait_avg);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 extern void calc_global_load(unsigned long ticks);
 extern void update_cpu_load_nohz(void);
@@ -338,6 +353,12 @@ extern void show_regs(struct pt_regs *);
  */
 extern void show_stack(struct task_struct *task, unsigned long *sp);
 
+<<<<<<< HEAD
+=======
+void io_schedule(void);
+long io_schedule_timeout(long timeout);
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 extern void cpu_init (void);
 extern void trap_init(void);
 extern void update_process_times(int user);
@@ -386,8 +407,11 @@ extern signed long schedule_timeout_uninterruptible(signed long timeout);
 asmlinkage void schedule(void);
 extern void schedule_preempt_disabled(void);
 
+<<<<<<< HEAD
 extern long io_schedule_timeout(long timeout);
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 struct nsproxy;
 struct user_namespace;
 
@@ -746,8 +770,11 @@ struct user_struct {
 	unsigned long mq_bytes;	/* How many bytes can be allocated to mqueue? */
 #endif
 	unsigned long locked_shm; /* How many pages of mlocked shm ? */
+<<<<<<< HEAD
 	unsigned long unix_inflight;	/* How many files in flight in unix sockets */
 	atomic_long_t pipe_bufs;  /* how many pages are allocated in pipe buffers */
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #ifdef CONFIG_KEYS
 	struct key *uid_keyring;	/* UID specific keyring */
@@ -846,6 +873,7 @@ enum cpu_idle_type {
 #define SCHED_POWER_SCALE	(1L << SCHED_POWER_SHIFT)
 
 /*
+<<<<<<< HEAD
  * Wake-queues are lists of tasks with a pending wakeup, whose
  * callers have already marked the task as woken internally,
  * and can thus carry on. A common use case is being able to
@@ -890,6 +918,8 @@ extern void wake_q_add(struct wake_q_head *head,
 extern void wake_up_q(struct wake_q_head *head);
 
 /*
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  * sched-domains (multiprocessor balancing) declarations:
  */
 #ifdef CONFIG_SMP
@@ -1411,8 +1441,11 @@ struct task_struct {
 	/* Protection of the PI data structures: */
 	raw_spinlock_t pi_lock;
 
+<<<<<<< HEAD
 	struct wake_q_node wake_q;
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #ifdef CONFIG_RT_MUTEXES
 	/* PI waiters blocked on a rt_mutex held by this task */
 	struct plist_head pi_waiters;
@@ -1575,12 +1608,15 @@ struct task_struct {
 		unsigned long memsw_nr_pages; /* uncharged mem+swap usage */
 	} memcg_batch;
 	unsigned int memcg_kmem_skip_account;
+<<<<<<< HEAD
 	struct memcg_oom_info {
 		struct mem_cgroup *memcg;
 		gfp_t gfp_mask;
 		int order;
 		unsigned int may_oom:1;
 	} memcg_oom;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #endif
 #ifdef CONFIG_HAVE_HW_BREAKPOINT
 	atomic_t ptrace_bp_refcnt;
@@ -1834,8 +1870,11 @@ static inline void sched_set_io_is_busy(int val) {};
 #define PF_FREEZER_SKIP	0x40000000	/* Freezer should not count it as freezable */
 #define PF_WAKE_UP_IDLE 0x80000000	/* try to wake up on an idle CPU */
 
+<<<<<<< HEAD
 #define PF_SU		0x00000002      /* task is su */
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /*
  * Only the _current_ task can read/write to tsk->flags, but other
  * tasks can access tsk->flags in readonly mode for example
@@ -1861,6 +1900,7 @@ static inline void sched_set_io_is_busy(int val) {};
 #define tsk_used_math(p) ((p)->flags & PF_USED_MATH)
 #define used_math() tsk_used_math(current)
 
+<<<<<<< HEAD
 /* __GFP_IO isn't allowed if PF_MEMALLOC_NOIO is set in current->flags
  * __GFP_FS is also cleared as it implies __GFP_IO.
  */
@@ -1868,6 +1908,13 @@ static inline gfp_t memalloc_noio_flags(gfp_t flags)
 {
 	if (unlikely(current->flags & PF_MEMALLOC_NOIO))
 		flags &= ~(__GFP_IO | __GFP_FS);
+=======
+/* __GFP_IO isn't allowed if PF_MEMALLOC_NOIO is set in current->flags */
+static inline gfp_t memalloc_noio_flags(gfp_t flags)
+{
+	if (unlikely(current->flags & PF_MEMALLOC_NOIO))
+		flags &= ~__GFP_IO;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return flags;
 }
 
@@ -2035,7 +2082,10 @@ extern u64 sched_clock_cpu(int cpu);
 
 
 extern void sched_clock_init(void);
+<<<<<<< HEAD
 extern int sched_clock_initialized(void);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #ifndef CONFIG_HAVE_UNSTABLE_SCHED_CLOCK
 static inline void sched_clock_tick(void)
@@ -2210,7 +2260,10 @@ extern void xtime_update(unsigned long ticks);
 
 extern int wake_up_state(struct task_struct *tsk, unsigned int state);
 extern int wake_up_process(struct task_struct *tsk);
+<<<<<<< HEAD
 extern int wake_up_process_no_notif(struct task_struct *tsk);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 extern void wake_up_new_task(struct task_struct *tsk);
 #ifdef CONFIG_SMP
  extern void kick_process(struct task_struct *tsk);
@@ -2433,6 +2486,7 @@ static inline bool thread_group_leader(struct task_struct *p)
  * all we care about is that we have a task with the appropriate
  * pid, we don't actually care if we have the right task.
  */
+<<<<<<< HEAD
 static inline bool has_group_leader_pid(struct task_struct *p)
 {
 	return task_pid(p) == p->signal->leader_pid;
@@ -2442,6 +2496,17 @@ static inline
 bool same_thread_group(struct task_struct *p1, struct task_struct *p2)
 {
 	return p1->signal == p2->signal;
+=======
+static inline int has_group_leader_pid(struct task_struct *p)
+{
+	return p->pid == p->tgid;
+}
+
+static inline
+int same_thread_group(struct task_struct *p1, struct task_struct *p2)
+{
+	return p1->tgid == p2->tgid;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static inline struct task_struct *next_thread(const struct task_struct *p)

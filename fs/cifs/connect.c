@@ -52,9 +52,12 @@
 #include "nterr.h"
 #include "rfc1002pdu.h"
 #include "fscache.h"
+<<<<<<< HEAD
 #ifdef CONFIG_CIFS_SMB2
 #include "smb2proto.h"
 #endif
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #define CIFS_PORT 445
 #define RFC1001_PORT 139
@@ -411,9 +414,13 @@ cifs_echo_request(struct work_struct *work)
 	 * server->ops->need_neg() == true. Also, no need to ping if
 	 * we got a response recently.
 	 */
+<<<<<<< HEAD
 
 	if (server->tcpStatus == CifsNeedReconnect ||
 	    server->tcpStatus == CifsExiting || server->tcpStatus == CifsNew ||
+=======
+	if (!server->ops->need_neg || server->ops->need_neg(server) ||
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	    (server->ops->can_echo && !server->ops->can_echo(server)) ||
 	    time_before(jiffies, server->lstrp + SMB_ECHO_INTERVAL - HZ))
 		goto requeue_echo;
@@ -2073,8 +2080,13 @@ cifs_find_tcp_session(struct smb_vol *vol)
 	return NULL;
 }
 
+<<<<<<< HEAD
 void
 cifs_put_tcp_session(struct TCP_Server_Info *server, int from_reconnect)
+=======
+static void
+cifs_put_tcp_session(struct TCP_Server_Info *server)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	struct task_struct *task;
 
@@ -2091,6 +2103,7 @@ cifs_put_tcp_session(struct TCP_Server_Info *server, int from_reconnect)
 
 	cancel_delayed_work_sync(&server->echo);
 
+<<<<<<< HEAD
 #ifdef CONFIG_CIFS_SMB2
 	if (from_reconnect)
 		/*
@@ -2104,6 +2117,8 @@ cifs_put_tcp_session(struct TCP_Server_Info *server, int from_reconnect)
 		cancel_delayed_work_sync(&server->reconnect);
 #endif
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	spin_lock(&GlobalMid_Lock);
 	server->tcpStatus = CifsExiting;
 	spin_unlock(&GlobalMid_Lock);
@@ -2174,10 +2189,13 @@ cifs_get_tcp_session(struct smb_vol *volume_info)
 	INIT_LIST_HEAD(&tcp_ses->tcp_ses_list);
 	INIT_LIST_HEAD(&tcp_ses->smb_ses_list);
 	INIT_DELAYED_WORK(&tcp_ses->echo, cifs_echo_request);
+<<<<<<< HEAD
 #ifdef CONFIG_CIFS_SMB2
 	INIT_DELAYED_WORK(&tcp_ses->reconnect, smb2_reconnect_server);
 	mutex_init(&tcp_ses->reconnect_mutex);
 #endif
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	memcpy(&tcp_ses->srcaddr, &volume_info->srcaddr,
 	       sizeof(tcp_ses->srcaddr));
 	memcpy(&tcp_ses->dstaddr, &volume_info->dstaddr,
@@ -2308,7 +2326,11 @@ cifs_put_smb_ses(struct cifs_ses *ses)
 		_free_xid(xid);
 	}
 	sesInfoFree(ses);
+<<<<<<< HEAD
 	cifs_put_tcp_session(server, 0);
+=======
+	cifs_put_tcp_session(server);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 #ifdef CONFIG_KEYS
@@ -2481,7 +2503,11 @@ cifs_get_smb_ses(struct TCP_Server_Info *server, struct smb_vol *volume_info)
 		mutex_unlock(&ses->session_mutex);
 
 		/* existing SMB ses has a server reference already */
+<<<<<<< HEAD
 		cifs_put_tcp_session(server, 0);
+=======
+		cifs_put_tcp_session(server);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		free_xid(xid);
 		return ses;
 	}
@@ -2570,7 +2596,11 @@ cifs_find_tcon(struct cifs_ses *ses, const char *unc)
 	return NULL;
 }
 
+<<<<<<< HEAD
 void
+=======
+static void
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 cifs_put_tcon(struct cifs_tcon *tcon)
 {
 	unsigned int xid;
@@ -2735,6 +2765,7 @@ compare_mount_options(struct super_block *sb, struct cifs_mnt_data *mnt_data)
 	return 1;
 }
 
+<<<<<<< HEAD
 static int
 match_prepath(struct super_block *sb, struct cifs_mnt_data *mnt_data)
 {
@@ -2753,6 +2784,8 @@ match_prepath(struct super_block *sb, struct cifs_mnt_data *mnt_data)
 	return 0;
 }
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 int
 cifs_match_super(struct super_block *sb, void *data)
 {
@@ -2780,8 +2813,12 @@ cifs_match_super(struct super_block *sb, void *data)
 
 	if (!match_server(tcp_srv, volume_info) ||
 	    !match_session(ses, volume_info) ||
+<<<<<<< HEAD
 	    !match_tcon(tcon, volume_info->UNC) ||
 	    !match_prepath(sb, mnt_data)) {
+=======
+	    !match_tcon(tcon, volume_info->UNC)) {
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		rc = 0;
 		goto out;
 	}
@@ -3197,7 +3234,11 @@ void reset_cifs_unix_caps(unsigned int xid, struct cifs_tcon *tcon,
 	}
 }
 
+<<<<<<< HEAD
 int cifs_setup_cifs_sb(struct smb_vol *pvolume_info,
+=======
+void cifs_setup_cifs_sb(struct smb_vol *pvolume_info,
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			struct cifs_sb_info *cifs_sb)
 {
 	INIT_DELAYED_WORK(&cifs_sb->prune_tlinks, cifs_prune_tlinks);
@@ -3279,6 +3320,7 @@ int cifs_setup_cifs_sb(struct smb_vol *pvolume_info,
 
 	if ((pvolume_info->cifs_acl) && (pvolume_info->dynperm))
 		cifs_dbg(VFS, "mount option dynperm ignored if cifsacl mount option supported\n");
+<<<<<<< HEAD
 
 
 	if (pvolume_info->prepath) {
@@ -3288,6 +3330,8 @@ int cifs_setup_cifs_sb(struct smb_vol *pvolume_info,
 	}
 
 	return 0;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static void
@@ -3458,6 +3502,7 @@ cifs_get_volume_info(char *mount_data, const char *devname)
 	return volume_info;
 }
 
+<<<<<<< HEAD
 static int
 cifs_are_all_path_components_accessible(struct TCP_Server_Info *server,
 					unsigned int xid,
@@ -3496,6 +3541,8 @@ cifs_are_all_path_components_accessible(struct TCP_Server_Info *server,
 	return rc;
 }
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 int
 cifs_mount(struct cifs_sb_info *cifs_sb, struct smb_vol *volume_info)
 {
@@ -3622,6 +3669,7 @@ remote_path_check:
 			kfree(full_path);
 			goto mount_fail_check;
 		}
+<<<<<<< HEAD
 		if (rc != -EREMOTE) {
 			rc = cifs_are_all_path_components_accessible(server,
 								     xid, tcon, cifs_sb,
@@ -3633,6 +3681,8 @@ remote_path_check:
 				rc = 0;
 			}
 		}
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		kfree(full_path);
 	}
 
@@ -3696,7 +3746,11 @@ mount_fail_check:
 		else if (ses)
 			cifs_put_smb_ses(ses);
 		else
+<<<<<<< HEAD
 			cifs_put_tcp_session(server, 0);
+=======
+			cifs_put_tcp_session(server);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		bdi_destroy(&cifs_sb->bdi);
 	}
 
@@ -3890,7 +3944,10 @@ cifs_umount(struct cifs_sb_info *cifs_sb)
 
 	bdi_destroy(&cifs_sb->bdi);
 	kfree(cifs_sb->mountdata);
+<<<<<<< HEAD
 	kfree(cifs_sb->prepath);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	unload_nls(cifs_sb->local_nls);
 	kfree(cifs_sb);
 }
@@ -4030,7 +4087,11 @@ cifs_construct_tcon(struct cifs_sb_info *cifs_sb, kuid_t fsuid)
 	ses = cifs_get_smb_ses(master_tcon->ses->server, vol_info);
 	if (IS_ERR(ses)) {
 		tcon = (struct cifs_tcon *)ses;
+<<<<<<< HEAD
 		cifs_put_tcp_session(master_tcon->ses->server, 0);
+=======
+		cifs_put_tcp_session(master_tcon->ses->server);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		goto out;
 	}
 

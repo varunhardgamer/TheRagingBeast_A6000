@@ -15,6 +15,7 @@
 #include <linux/seq_file.h>
 #include <linux/debugfs.h>
 #include <trace/events/power.h>
+<<<<<<< HEAD
 #include <linux/moduleparam.h>
 
 /* Fix up No Deepsleep Issue */
@@ -52,6 +53,8 @@ static bool enable_PowerManagerServiceDisplay_ws = false;
 module_param(enable_PowerManagerServiceDisplay_ws, bool, 0644);
 static bool enable_PowerManagerServiceWakelocks_ws = false;
 module_param(enable_PowerManagerServiceWakelocks_ws, bool, 0644);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #include "power.h"
 
@@ -159,6 +162,7 @@ void wakeup_source_destroy(struct wakeup_source *ws)
 EXPORT_SYMBOL_GPL(wakeup_source_destroy);
 
 /**
+<<<<<<< HEAD
  * wakeup_source_destroy_cb
  * defer processing until all rcu references have expired
  */
@@ -168,6 +172,8 @@ static void wakeup_source_destroy_cb(struct rcu_head *head)
 }
 
 /**
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  * wakeup_source_add - Add given object to the list of wakeup sources.
  * @ws: Wakeup source object to add to the list.
  */
@@ -208,6 +214,7 @@ void wakeup_source_remove(struct wakeup_source *ws)
 EXPORT_SYMBOL_GPL(wakeup_source_remove);
 
 /**
+<<<<<<< HEAD
  * wakeup_source_remove_async - Remove given object from the wakeup sources
  * list.
  * @ws: Wakeup source object to remove from the list.
@@ -228,6 +235,8 @@ static void wakeup_source_remove_async(struct wakeup_source *ws)
 }
 
 /**
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  * wakeup_source_register - Create wakeup source and add it to the list.
  * @name: Name of the wakeup source to register.
  */
@@ -250,8 +259,13 @@ EXPORT_SYMBOL_GPL(wakeup_source_register);
 void wakeup_source_unregister(struct wakeup_source *ws)
 {
 	if (ws) {
+<<<<<<< HEAD
 		wakeup_source_remove_async(ws);
 		call_rcu(&ws->rcu, wakeup_source_destroy_cb);
+=======
+		wakeup_source_remove(ws);
+		wakeup_source_destroy(ws);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 }
 EXPORT_SYMBOL_GPL(wakeup_source_unregister);
@@ -408,6 +422,7 @@ int device_set_wakeup_enable(struct device *dev, bool enable)
 }
 EXPORT_SYMBOL_GPL(device_set_wakeup_enable);
 
+<<<<<<< HEAD
 #ifdef CONFIG_PM_AUTOSLEEP
 static void update_prevent_sleep_time(struct wakeup_source *ws, ktime_t now)
 {
@@ -527,6 +542,8 @@ static bool wakeup_source_blocker(struct wakeup_source *ws)
 	return false;
 }
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /*
  * The functions below use the observation that each wakeup event starts a
  * period in which the system should not be suspended.  The moment this period
@@ -572,6 +589,10 @@ static void wakeup_source_activate(struct wakeup_source *ws)
 	 * out of PM_SUSPEND_FREEZE state
 	 */
 	freeze_wake();
+<<<<<<< HEAD
+=======
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	ws->active = true;
 	ws->active_count++;
 	ws->last_time = ktime_get();
@@ -590,6 +611,7 @@ static void wakeup_source_activate(struct wakeup_source *ws)
  */
 static void wakeup_source_report_event(struct wakeup_source *ws)
 {
+<<<<<<< HEAD
 	if (!wakeup_source_blocker(ws)) {
 		ws->event_count++;
 		/* This is racy, but the counter is approximate anyway. */
@@ -599,6 +621,15 @@ static void wakeup_source_report_event(struct wakeup_source *ws)
 	if (!ws->active)
 			wakeup_source_activate(ws);
 	}
+=======
+	ws->event_count++;
+	/* This is racy, but the counter is approximate anyway. */
+	if (events_check_enabled)
+		ws->wakeup_count++;
+
+	if (!ws->active)
+		wakeup_source_activate(ws);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 /**
@@ -648,6 +679,76 @@ void pm_stay_awake(struct device *dev)
 }
 EXPORT_SYMBOL_GPL(pm_stay_awake);
 
+<<<<<<< HEAD
+=======
+#ifdef CONFIG_PM_AUTOSLEEP
+static void update_prevent_sleep_time(struct wakeup_source *ws, ktime_t now)
+{
+	ktime_t delta = ktime_sub(now, ws->start_prevent_time);
+	ws->prevent_sleep_time = ktime_add(ws->prevent_sleep_time, delta);
+}
+#else
+static inline void update_prevent_sleep_time(struct wakeup_source *ws,
+					     ktime_t now) {}
+#endif
+
+/**
+ * wakup_source_deactivate - Mark given wakeup source as inactive.
+ * @ws: Wakeup source to handle.
+ *
+ * Update the @ws' statistics and notify the PM core that the wakeup source has
+ * become inactive by decrementing the counter of wakeup events being processed
+ * and incrementing the counter of registered wakeup events.
+ */
+static void wakeup_source_deactivate(struct wakeup_source *ws)
+{
+	unsigned int cnt, inpr, cec;
+	ktime_t duration;
+	ktime_t now;
+
+	ws->relax_count++;
+	/*
+	 * __pm_relax() may be called directly or from a timer function.
+	 * If it is called directly right after the timer function has been
+	 * started, but before the timer function calls __pm_relax(), it is
+	 * possible that __pm_stay_awake() will be called in the meantime and
+	 * will set ws->active.  Then, ws->active may be cleared immediately
+	 * by the __pm_relax() called from the timer function, but in such a
+	 * case ws->relax_count will be different from ws->active_count.
+	 */
+	if (ws->relax_count != ws->active_count) {
+		ws->relax_count--;
+		return;
+	}
+
+	ws->active = false;
+
+	now = ktime_get();
+	duration = ktime_sub(now, ws->last_time);
+	ws->total_time = ktime_add(ws->total_time, duration);
+	if (ktime_to_ns(duration) > ktime_to_ns(ws->max_time))
+		ws->max_time = duration;
+
+	ws->last_time = now;
+	del_timer(&ws->timer);
+	ws->timer_expires = 0;
+
+	if (ws->autosleep_enabled)
+		update_prevent_sleep_time(ws, now);
+
+	/*
+	 * Increment the counter of registered wakeup events and decrement the
+	 * couter of wakeup events in progress simultaneously.
+	 */
+	cec = atomic_add_return(MAX_IN_PROGRESS, &combined_event_count);
+	trace_wakeup_source_deactivate(ws->name, cec);
+
+	split_counters(&cnt, &inpr);
+	if (!inpr && waitqueue_active(&wakeup_count_wait_queue))
+		wake_up(&wakeup_count_wait_queue);
+}
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /**
  * __pm_relax - Notify the PM core that processing of a wakeup event has ended.
  * @ws: Wakeup source object associated with the source of the event.
@@ -961,7 +1062,11 @@ static int print_wakeup_source_stats(struct seq_file *m,
 		active_time = ktime_set(0, 0);
 	}
 
+<<<<<<< HEAD
 	ret = seq_printf(m, "%-32s\t%lu\t\t%lu\t\t%lu\t\t%lu\t\t"
+=======
+	ret = seq_printf(m, "%-12s\t%lu\t\t%lu\t\t%lu\t\t%lu\t\t"
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			"%lld\t\t%lld\t\t%lld\t\t%lld\t\t%lld\n",
 			ws->name, active_count, ws->event_count,
 			ws->wakeup_count, ws->expire_count,
@@ -982,7 +1087,11 @@ static int wakeup_sources_stats_show(struct seq_file *m, void *unused)
 {
 	struct wakeup_source *ws;
 
+<<<<<<< HEAD
 	seq_puts(m, "name\t\t\t\t\tactive_count\tevent_count\twakeup_count\t"
+=======
+	seq_puts(m, "name\t\tactive_count\tevent_count\twakeup_count\t"
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		"expire_count\tactive_since\ttotal_time\tmax_time\t"
 		"last_change\tprevent_suspend_time\n");
 

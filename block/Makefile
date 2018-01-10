@@ -15,6 +15,7 @@ obj-$(CONFIG_BLK_DEV_THROTTLING)	+= blk-throttle.o
 obj-$(CONFIG_IOSCHED_NOOP)	+= noop-iosched.o
 obj-$(CONFIG_IOSCHED_DEADLINE)	+= deadline-iosched.o
 obj-$(CONFIG_IOSCHED_ROW)	+= row-iosched.o
+<<<<<<< HEAD
 obj-$(CONFIG_IOSCHED_SIO)	+= sio-iosched.o
 obj-$(CONFIG_IOSCHED_CFQ)	+= cfq-iosched.o
 obj-$(CONFIG_IOSCHED_BFQ)	+= bfq-iosched.o
@@ -24,6 +25,10 @@ obj-$(CONFIG_IOSCHED_ZEN)       += zen-iosched.o
 obj-$(CONFIG_IOSCHED_TRIPNDROID)        += tripndroid-iosched.o
 obj-$(CONFIG_IOSCHED_VR)	+= vr-iosched.o 
 obj-$(CONFIG_IOSCHED_FIFO)	+= fifo-iosched.o
+=======
+obj-$(CONFIG_IOSCHED_CFQ)	+= cfq-iosched.o
+obj-$(CONFIG_IOSCHED_TEST)	+= test-iosched.o
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 obj-$(CONFIG_BLOCK_COMPAT)	+= compat_ioctl.o
 obj-$(CONFIG_BLK_DEV_INTEGRITY)	+= blk-integrity.o

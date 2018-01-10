@@ -24,7 +24,10 @@
 #include <linux/cdev.h>
 #include <linux/regulator/consumer.h>
 #include <linux/mm.h>
+<<<<<<< HEAD
 #include <linux/kthread.h>
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 /* The number of memstore arrays limits the number of contexts allowed.
  * If more contexts are needed, update multiple for MEMSTORE_SIZE
@@ -95,8 +98,11 @@ struct kgsl_driver {
 		unsigned int mapped_max;
 	} stats;
 	unsigned int full_cache_threshold;
+<<<<<<< HEAD
 	struct kthread_worker worker;
 	struct task_struct *worker_thread;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 
 extern struct kgsl_driver kgsl_driver;
@@ -223,7 +229,11 @@ struct kgsl_event {
 	void *priv;
 	struct list_head node;
 	unsigned int created;
+<<<<<<< HEAD
 	struct kthread_work work;
+=======
+	struct work_struct work;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	int result;
 	struct kgsl_event_group *group;
 };
@@ -319,6 +329,23 @@ extern const struct dev_pm_ops kgsl_pm_ops;
 int kgsl_suspend_driver(struct platform_device *pdev, pm_message_t state);
 int kgsl_resume_driver(struct platform_device *pdev);
 
+<<<<<<< HEAD
+=======
+#ifdef CONFIG_MSM_KGSL_DRM
+extern int kgsl_drm_init(struct platform_device *dev);
+extern void kgsl_drm_exit(void);
+#else
+static inline int kgsl_drm_init(struct platform_device *dev)
+{
+	return 0;
+}
+
+static inline void kgsl_drm_exit(void)
+{
+}
+#endif
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static inline int kgsl_gpuaddr_in_memdesc(const struct kgsl_memdesc *memdesc,
 				unsigned int gpuaddr, size_t size)
 {
@@ -386,16 +413,24 @@ static inline int timestamp_cmp(unsigned int a, unsigned int b)
 static inline int
 kgsl_mem_entry_get(struct kgsl_mem_entry *entry)
 {
+<<<<<<< HEAD
 	if (entry)
 		return kref_get_unless_zero(&entry->refcount);
 	return 0;
+=======
+	return kref_get_unless_zero(&entry->refcount);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static inline void
 kgsl_mem_entry_put(struct kgsl_mem_entry *entry)
 {
+<<<<<<< HEAD
 	if (entry)
 		kref_put(&entry->refcount, kgsl_mem_entry_destroy);
+=======
+	kref_put(&entry->refcount, kgsl_mem_entry_destroy);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 /*

@@ -168,7 +168,10 @@ struct tfp410_connector {
 static void tfp410_connector_destroy(struct drm_connector *connector)
 {
 	struct tfp410_connector *tfp410_connector = to_tfp410_connector(connector);
+<<<<<<< HEAD
 	drm_sysfs_connector_remove(connector);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	drm_connector_cleanup(connector);
 	kfree(tfp410_connector);
 }

@@ -21,7 +21,11 @@
 
 extern int __atomic_add_return(int, atomic_t *);
 extern int atomic_cmpxchg(atomic_t *, int, int);
+<<<<<<< HEAD
 extern int atomic_xchg(atomic_t *, int);
+=======
+#define atomic_xchg(v, new) (xchg(&((v)->counter), new))
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 extern int __atomic_add_unless(atomic_t *, int, int);
 extern void atomic_set(atomic_t *, int);
 

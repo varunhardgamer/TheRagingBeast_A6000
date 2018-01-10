@@ -257,25 +257,41 @@ void msm_delete_stream(unsigned int session_id, unsigned int stream_id)
 		return;
 
 	while (1) {
+<<<<<<< HEAD
 
+=======
+		unsigned long wl_flags;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		if (try_count > 5) {
 			pr_err("%s : not able to delete stream %d\n",
 				__func__, __LINE__);
 			break;
 		}
 
+<<<<<<< HEAD
 		write_lock(&session->stream_rwlock);
+=======
+		write_lock_irqsave(&session->stream_rwlock, wl_flags);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		try_count++;
 		stream = msm_queue_find(&session->stream_q, struct msm_stream,
 			list, __msm_queue_find_stream, &stream_id);
 
 		if (!stream) {
+<<<<<<< HEAD
 			write_unlock(&session->stream_rwlock);
+=======
+			write_unlock_irqrestore(&session->stream_rwlock, wl_flags);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			return;
 		}
 
 		if (msm_vb2_get_stream_state(stream) != 1) {
+<<<<<<< HEAD
 			write_unlock(&session->stream_rwlock);
+=======
+			write_unlock_irqrestore(&session->stream_rwlock, wl_flags);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			continue;
 		}
 
@@ -285,7 +301,11 @@ void msm_delete_stream(unsigned int session_id, unsigned int stream_id)
 		kfree(stream);
 		stream = NULL;
 		spin_unlock_irqrestore(&(session->stream_q.lock), flags);
+<<<<<<< HEAD
 		write_unlock(&session->stream_rwlock);
+=======
+		write_unlock_irqrestore(&session->stream_rwlock, wl_flags);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		break;
 	}
 
@@ -622,6 +642,19 @@ static long msm_private_ioctl(struct file *file, void *fh,
 	unsigned long spin_flags = 0;
 	struct msm_sd_subdev *msm_sd;
 
+<<<<<<< HEAD
+=======
+	switch (cmd) {
+	case MSM_CAM_V4L2_IOCTL_NOTIFY:
+	case MSM_CAM_V4L2_IOCTL_CMD_ACK:
+	case MSM_CAM_V4L2_IOCTL_NOTIFY_FREEZE:
+	case MSM_CAM_V4L2_IOCTL_NOTIFY_ERROR:
+		break;
+	default:
+		return -ENOTTY;
+	}
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	session_id = event_data->session_id;
 	stream_id = event_data->stream_id;
 

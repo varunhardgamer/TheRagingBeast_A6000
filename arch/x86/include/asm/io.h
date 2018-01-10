@@ -296,13 +296,21 @@ static inline unsigned type in##bwl##_p(int port)			\
 static inline void outs##bwl(int port, const void *addr, unsigned long count) \
 {									\
 	asm volatile("rep; outs" #bwl					\
+<<<<<<< HEAD
 		     : "+S"(addr), "+c"(count) : "d"(port) : "memory");	\
+=======
+		     : "+S"(addr), "+c"(count) : "d"(port));		\
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }									\
 									\
 static inline void ins##bwl(int port, void *addr, unsigned long count)	\
 {									\
 	asm volatile("rep; ins" #bwl					\
+<<<<<<< HEAD
 		     : "+D"(addr), "+c"(count) : "d"(port) : "memory");	\
+=======
+		     : "+D"(addr), "+c"(count) : "d"(port));		\
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 BUILDIO(b, b, char)

@@ -150,18 +150,29 @@ void ping_hash(struct sock *sk)
 void ping_unhash(struct sock *sk)
 {
 	struct inet_sock *isk = inet_sk(sk);
+<<<<<<< HEAD
 
 	pr_debug("ping_unhash(isk=%p,isk->num=%u)\n", isk, isk->inet_num);
 	write_lock_bh(&ping_table.lock);
 	if (sk_hashed(sk)) {
+=======
+	pr_debug("ping_unhash(isk=%p,isk->num=%u)\n", isk, isk->inet_num);
+	if (sk_hashed(sk)) {
+		write_lock_bh(&ping_table.lock);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		hlist_nulls_del(&sk->sk_nulls_node);
 		sk_nulls_node_init(&sk->sk_nulls_node);
 		sock_put(sk);
 		isk->inet_num = 0;
 		isk->inet_sport = 0;
 		sock_prot_inuse_add(sock_net(sk), sk->sk_prot, -1);
+<<<<<<< HEAD
 	}
 	write_unlock_bh(&ping_table.lock);
+=======
+		write_unlock_bh(&ping_table.lock);
+	}
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 EXPORT_SYMBOL_GPL(ping_unhash);
 
@@ -640,8 +651,11 @@ static int ping_v4_push_pending_frames(struct sock *sk, struct pingfakehdr *pfh,
 {
 	struct sk_buff *skb = skb_peek(&sk->sk_write_queue);
 
+<<<<<<< HEAD
 	if (!skb)
 		return 0;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	pfh->wcheck = csum_partial((char *)&pfh->icmph,
 		sizeof(struct icmphdr), pfh->wcheck);
 	pfh->icmph.checksum = csum_fold(pfh->wcheck);
@@ -657,10 +671,13 @@ int ping_common_sendmsg(int family, struct msghdr *msg, size_t len,
 	if (len > 0xFFFF || len < icmph_len)
 		return -EMSGSIZE;
 
+<<<<<<< HEAD
 	/* Must have at least a full ICMP header. */
 	if (len < icmph_len)
 		return -EINVAL;
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/*
 	 *	Check the flags.
 	 */
@@ -790,7 +807,11 @@ int ping_v4_sendmsg(struct kiocb *iocb, struct sock *sk, struct msghdr *msg,
 	flowi4_init_output(&fl4, ipc.oif, sk->sk_mark, tos,
 			   RT_SCOPE_UNIVERSE, sk->sk_protocol,
 			   inet_sk_flowi_flags(sk), faddr, saddr, 0, 0,
+<<<<<<< HEAD
 			   sk->sk_uid);
+=======
+			   sock_i_uid(sk));
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	security_sk_classify_flow(sk, flowi4_to_flowi(&fl4));
 	rt = ip_route_output_flow(net, &fl4, sk);
@@ -985,11 +1006,16 @@ void ping_rcv(struct sk_buff *skb)
 
 	sk = ping_lookup(net, skb, ntohs(icmph->un.echo.id));
 	if (sk != NULL) {
+<<<<<<< HEAD
 		struct sk_buff *skb2 = skb_clone(skb, GFP_ATOMIC);
 
 		pr_debug("rcv on socket %p\n", sk);
 		if (skb2)
 			ping_queue_rcv_skb(sk, skb2);
+=======
+		pr_debug("rcv on socket %p\n", sk);
+		ping_queue_rcv_skb(sk, skb_get(skb));
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		sock_put(sk);
 		return;
 	}

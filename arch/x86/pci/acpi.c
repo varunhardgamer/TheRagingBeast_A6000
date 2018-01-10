@@ -84,6 +84,7 @@ static const struct dmi_system_id pci_crs_quirks[] __initconst = {
 			DMI_MATCH(DMI_BIOS_VENDOR, "Phoenix Technologies, LTD"),
 		},
 	},
+<<<<<<< HEAD
 	/* https://bugs.launchpad.net/ubuntu/+source/alsa-driver/+bug/931368 */
 	/* https://bugs.launchpad.net/ubuntu/+source/alsa-driver/+bug/1033299 */
 	{
@@ -95,6 +96,8 @@ static const struct dmi_system_id pci_crs_quirks[] __initconst = {
 			DMI_MATCH(DMI_BIOS_VENDOR, "Phoenix Technologies, LTD"),
 		},
 	},
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	/* Now for the blacklist.. */
 
@@ -118,6 +121,7 @@ static const struct dmi_system_id pci_crs_quirks[] __initconst = {
 			DMI_MATCH(DMI_BIOS_VERSION, "6JET85WW (1.43 )"),
 		},
 	},
+<<<<<<< HEAD
 	/* https://bugzilla.kernel.org/show_bug.cgi?id=42606 */
 	{
 		.callback = set_nouse_crs,
@@ -128,6 +132,8 @@ static const struct dmi_system_id pci_crs_quirks[] __initconst = {
 			DMI_MATCH(DMI_BIOS_VERSION, "2.0a"),
 		},
 	},
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	/* https://bugzilla.kernel.org/show_bug.cgi?id=15362 */
 	{

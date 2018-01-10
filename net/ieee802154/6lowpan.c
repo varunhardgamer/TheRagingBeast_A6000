@@ -459,7 +459,11 @@ static int lowpan_header_create(struct sk_buff *skb,
 			hc06_ptr += 3;
 		} else {
 			/* compress nothing */
+<<<<<<< HEAD
 			memcpy(hc06_ptr, hdr, 4);
+=======
+			memcpy(hc06_ptr, &hdr, 4);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			/* replace the top byte with new ECN | DSCP format */
 			*hc06_ptr = tmp;
 			hc06_ptr += 4;

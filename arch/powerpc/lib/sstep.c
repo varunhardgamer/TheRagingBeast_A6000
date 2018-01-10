@@ -863,6 +863,7 @@ int __kprobes emulate_step(struct pt_regs *regs, unsigned int instr)
 			goto instr_done;
 #endif
 		case 19:	/* mfcr */
+<<<<<<< HEAD
 			if ((instr >> 20) & 1) {
 				imm = 0xf0000000UL;
 				for (sh = 0; sh < 8; ++sh) {
@@ -876,6 +877,8 @@ int __kprobes emulate_step(struct pt_regs *regs, unsigned int instr)
 				goto instr_done;
 			}
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			regs->gpr[rd] = regs->ccr;
 			regs->gpr[rd] &= 0xffffffffUL;
 			goto instr_done;

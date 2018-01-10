@@ -797,6 +797,10 @@ static void ip_vs_conn_expire(unsigned long data)
 			ip_vs_control_del(cp);
 
 		if (cp->flags & IP_VS_CONN_F_NFCT) {
+<<<<<<< HEAD
+=======
+			ip_vs_conn_drop_conntrack(cp);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			/* Do not access conntracks during subsys cleanup
 			 * because nf_conntrack_find_get can not be used after
 			 * conntrack cleanup for the net.

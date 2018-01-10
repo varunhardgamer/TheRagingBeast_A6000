@@ -389,6 +389,24 @@ static const struct nla_policy nl80211_policy[NL80211_ATTR_MAX+1] = {
 	[NL80211_ATTR_MAC_HINT] = { .len = ETH_ALEN },
 	[NL80211_ATTR_WIPHY_FREQ_HINT] = { .type = NLA_U32 },
 	[NL80211_ATTR_TDLS_PEER_CAPABILITY] = { .type = NLA_U32 },
+<<<<<<< HEAD
+=======
+	[NL80211_ATTR_AUTHORIZATION_STATUS] = { .type = NLA_U8 },
+	[NL80211_ATTR_KEY_REPLAY_CTR] = { .type = NLA_BINARY,
+				   .len = NL80211_KEY_REPLAY_CTR_LEN },
+	[NL80211_ATTR_PSK] = { .type = NLA_BINARY,
+				   .len = NL80211_KEY_LEN_PSK },
+	[NL80211_ATTR_OFFLOAD_KEY_MGMT] = { .type = NLA_FLAG },
+	[NL80211_ATTR_KEY_MGMT_OFFLOAD_SUPPORT] = { .type = NLA_U32 },
+	[NL80211_ATTR_KEY_DERIVE_OFFLOAD_SUPPORT] = { .type = NLA_U32 },
+	[NL80211_ATTR_PMK] = { .type = NLA_BINARY,
+				   .len = NL80211_KEY_LEN_PMK },
+	[NL80211_ATTR_PMK_LEN] = { .type = NLA_U32 },
+	[NL80211_ATTR_PTK_KCK] = { .type = NLA_BINARY,
+				   .len = NL80211_KEY_LEN_PTK_KCK },
+	[NL80211_ATTR_PTK_KEK] = { .type = NLA_BINARY,
+				   .len = NL80211_KEY_LEN_PTK_KEK },
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 
 /* policy for the key attributes */
@@ -613,12 +631,15 @@ static int nl80211_msg_put_channel(struct sk_buff *msg,
 		if ((chan->flags & IEEE80211_CHAN_NO_160MHZ) &&
 		    nla_put_flag(msg, NL80211_FREQUENCY_ATTR_NO_160MHZ))
 			goto nla_put_failure;
+<<<<<<< HEAD
 		if ((chan->flags & IEEE80211_CHAN_INDOOR_ONLY) &&
 		    nla_put_flag(msg, NL80211_FREQUENCY_ATTR_INDOOR_ONLY))
 			goto nla_put_failure;
 		if ((chan->flags & IEEE80211_CHAN_GO_CONCURRENT) &&
 		    nla_put_flag(msg, NL80211_FREQUENCY_ATTR_GO_CONCURRENT))
 			goto nla_put_failure;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 
 	if (nla_put_u32(msg, NL80211_FREQUENCY_ATTR_MAX_TX_POWER,
@@ -1247,6 +1268,15 @@ static int nl80211_send_wiphy(struct cfg80211_registered_device *dev,
 		if ((dev->wiphy.flags & WIPHY_FLAG_TDLS_EXTERNAL_SETUP) &&
 		    nla_put_flag(msg, NL80211_ATTR_TDLS_EXTERNAL_SETUP))
 			goto nla_put_failure;
+<<<<<<< HEAD
+=======
+		if ((dev->wiphy.flags & WIPHY_FLAG_HAS_KEY_MGMT_OFFLOAD) &&
+		    (nla_put_u32(msg, NL80211_ATTR_KEY_MGMT_OFFLOAD_SUPPORT,
+				 dev->wiphy.key_mgmt_offload_support) ||
+		     nla_put_u32(msg, NL80211_ATTR_KEY_DERIVE_OFFLOAD_SUPPORT,
+				 dev->wiphy.key_derive_offload_support)))
+			goto nla_put_failure;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 		(*split_start)++;
 		if (split)
@@ -2701,9 +2731,12 @@ static int nl80211_get_key(struct sk_buff *skb, struct genl_info *info)
 	if (!rdev->ops->get_key)
 		return -EOPNOTSUPP;
 
+<<<<<<< HEAD
 	if (!pairwise && mac_addr && !(rdev->wiphy.flags & WIPHY_FLAG_IBSS_RSN))
 		return -ENOENT;
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	msg = nlmsg_new(NLMSG_DEFAULT_SIZE, GFP_KERNEL);
 	if (!msg)
 		return -ENOMEM;
@@ -2723,6 +2756,13 @@ static int nl80211_get_key(struct sk_buff *skb, struct genl_info *info)
 	    nla_put(msg, NL80211_ATTR_MAC, ETH_ALEN, mac_addr))
 		goto nla_put_failure;
 
+<<<<<<< HEAD
+=======
+	if (pairwise && mac_addr &&
+	    !(rdev->wiphy.flags & WIPHY_FLAG_IBSS_RSN))
+		return -ENOENT;
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	err = rdev_get_key(rdev, dev, key_idx, pairwise, mac_addr, &cookie,
 			   get_key_callback);
 
@@ -2893,7 +2933,11 @@ static int nl80211_del_key(struct sk_buff *skb, struct genl_info *info)
 	wdev_lock(dev->ieee80211_ptr);
 	err = nl80211_key_allowed(dev->ieee80211_ptr);
 
+<<<<<<< HEAD
 	if (key.type == NL80211_KEYTYPE_GROUP && mac_addr &&
+=======
+	if (key.type == NL80211_KEYTYPE_PAIRWISE && mac_addr &&
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	    !(rdev->wiphy.flags & WIPHY_FLAG_IBSS_RSN))
 		err = -ENOENT;
 
@@ -4154,6 +4198,7 @@ static int nl80211_new_station(struct sk_buff *skb, struct genl_info *info)
 	if (parse_station_flags(info, dev->ieee80211_ptr->iftype, &params))
 		return -EINVAL;
 
+<<<<<<< HEAD
 	/* HT/VHT requires QoS, but if we don't have that just ignore HT/VHT
 	 * as userspace might just pass through the capabilities from the IEs
 	 * directly, rather than enforcing this restriction and returning an
@@ -4164,6 +4209,8 @@ static int nl80211_new_station(struct sk_buff *skb, struct genl_info *info)
 		params.vht_capa = NULL;
 	}
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/* When you run into this, adjust the code below for the new flag */
 	BUILD_BUG_ON(NL80211_STA_FLAG_MAX != 7);
 
@@ -5191,10 +5238,13 @@ static int validate_scan_freqs(struct nlattr *freqs)
 	struct nlattr *attr1, *attr2;
 	int n_channels = 0, tmp1, tmp2;
 
+<<<<<<< HEAD
 	nla_for_each_nested(attr1, freqs, tmp1)
 		if (nla_len(attr1) != sizeof(u32))
 			return 0;
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	nla_for_each_nested(attr1, freqs, tmp1) {
 		n_channels++;
 		/*
@@ -6857,9 +6907,12 @@ void __cfg80211_send_event_skb(struct sk_buff *skb, gfp_t gfp)
 	void *hdr = ((void **)skb->cb)[1];
 	struct nlattr *data = ((void **)skb->cb)[2];
 
+<<<<<<< HEAD
 	/* clear CB data for netlink core to own from now on */
 	memset(skb->cb, 0, sizeof(skb->cb));
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	nla_nest_end(skb, data);
 	genlmsg_end(skb, hdr);
 
@@ -6872,6 +6925,10 @@ void __cfg80211_send_event_skb(struct sk_buff *skb, gfp_t gfp)
 }
 EXPORT_SYMBOL(__cfg80211_send_event_skb);
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static int nl80211_connect(struct sk_buff *skb, struct genl_info *info)
 {
 	struct cfg80211_registered_device *rdev = info->user_ptr[0];
@@ -7001,6 +7058,15 @@ static int nl80211_connect(struct sk_buff *skb, struct genl_info *info)
 		       sizeof(connect.vht_capa));
 	}
 
+<<<<<<< HEAD
+=======
+	if (nla_get_flag(info->attrs[NL80211_ATTR_OFFLOAD_KEY_MGMT]))
+		connect.flags |= ASSOC_REQ_OFFLOAD_KEY_MGMT;
+
+	if (info->attrs[NL80211_ATTR_PSK])
+		connect.psk = nla_data(info->attrs[NL80211_ATTR_PSK]);
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	err = cfg80211_connect(rdev, dev, &connect, connkeys);
 	if (err)
 		kfree(connkeys);
@@ -8278,9 +8344,12 @@ static int nl80211_set_rekey_data(struct sk_buff *skb, struct genl_info *info)
 	if (err)
 		return err;
 
+<<<<<<< HEAD
 	if (!tb[NL80211_REKEY_DATA_REPLAY_CTR] || !tb[NL80211_REKEY_DATA_KEK] ||
 	    !tb[NL80211_REKEY_DATA_KCK])
 		return -EINVAL;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (nla_len(tb[NL80211_REKEY_DATA_REPLAY_CTR]) != NL80211_REPLAY_CTR_LEN)
 		return -ERANGE;
 	if (nla_len(tb[NL80211_REKEY_DATA_KEK]) != NL80211_KEK_LEN)
@@ -8730,6 +8799,31 @@ static int nl80211_set_qos_map(struct sk_buff *skb,
 	return ret;
 }
 
+<<<<<<< HEAD
+=======
+static int nl80211_key_mgmt_set_pmk(struct sk_buff *skb, struct genl_info *info)
+{
+	struct cfg80211_registered_device *rdev = info->user_ptr[0];
+	struct net_device *dev = info->user_ptr[1];
+	u8 *pmk;
+	size_t pmk_len;
+
+	if (info->attrs[NL80211_ATTR_PMK])
+		pmk = nla_data(info->attrs[NL80211_ATTR_PMK]);
+	else
+		return -EINVAL;
+	if (info->attrs[NL80211_ATTR_PMK_LEN])
+		pmk_len = nla_get_u32(info->attrs[NL80211_ATTR_PMK_LEN]);
+	else
+		return -EINVAL;
+
+	if (!rdev->ops->key_mgmt_set_pmk)
+		return -EOPNOTSUPP;
+
+	return rdev_key_mgmt_set_pmk(rdev, dev, pmk, pmk_len);
+}
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #define NL80211_FLAG_NEED_WIPHY		0x01
 #define NL80211_FLAG_NEED_NETDEV	0x02
 #define NL80211_FLAG_NEED_RTNL		0x04
@@ -9451,6 +9545,17 @@ static struct genl_ops nl80211_ops[] = {
 		.internal_flags = NL80211_FLAG_NEED_NETDEV_UP |
 				  NL80211_FLAG_NEED_RTNL,
 	},
+<<<<<<< HEAD
+=======
+	{
+		.cmd = NL80211_CMD_KEY_MGMT_SET_PMK,
+		.doit = nl80211_key_mgmt_set_pmk,
+		.policy = nl80211_policy,
+		.flags = GENL_ADMIN_PERM,
+		.internal_flags = NL80211_FLAG_NEED_NETDEV_UP |
+				  NL80211_FLAG_NEED_RTNL,
+	},
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 
 static struct genl_multicast_group nl80211_mlme_mcgrp = {
@@ -11130,7 +11235,11 @@ static int nl80211_netlink_notify(struct notifier_block * nb,
 	struct wireless_dev *wdev;
 	struct cfg80211_beacon_registration *reg, *tmp;
 
+<<<<<<< HEAD
 	if (state != NETLINK_URELEASE || notify->protocol != NETLINK_GENERIC)
+=======
+	if (state != NETLINK_URELEASE)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		return NOTIFY_DONE;
 
 	rcu_read_lock();
@@ -11258,6 +11367,130 @@ void cfg80211_ap_stopped(struct net_device *netdev, gfp_t gfp)
 }
 EXPORT_SYMBOL(cfg80211_ap_stopped);
 
+<<<<<<< HEAD
+=======
+void __cfg80211_authorization_event(struct net_device *dev,
+			    enum nl80211_authorization_status auth_status,
+			    const u8 *key_replay_ctr, const u8 *ptk_kck,
+			    const u8 *ptk_kek)
+{
+	struct wireless_dev *wdev = dev->ieee80211_ptr;
+	struct cfg80211_registered_device *rdev = wiphy_to_dev(wdev->wiphy);
+	struct sk_buff *msg;
+	void *hdr;
+	int err;
+
+	msg = nlmsg_new(NLMSG_DEFAULT_SIZE, GFP_KERNEL);
+	if (!msg)
+		return;
+
+	hdr = nl80211hdr_put(msg, 0, 0, 0, NL80211_CMD_AUTHORIZATION_EVENT);
+	if (!hdr) {
+		nlmsg_free(msg);
+		return;
+	}
+
+	if (nla_put_u32(msg, NL80211_ATTR_WIPHY, rdev->wiphy_idx) ||
+	    nla_put_u32(msg, NL80211_ATTR_IFINDEX, dev->ifindex) ||
+	    nla_put_u8(msg, NL80211_ATTR_AUTHORIZATION_STATUS, auth_status) ||
+	    nla_put(msg, NL80211_ATTR_KEY_REPLAY_CTR,
+			  NL80211_KEY_REPLAY_CTR_LEN, key_replay_ctr) ||
+	    nla_put(msg, NL80211_ATTR_PTK_KCK, NL80211_KEY_LEN_PTK_KCK,
+			  ptk_kck) ||
+	    nla_put(msg, NL80211_ATTR_PTK_KEK, NL80211_KEY_LEN_PTK_KEK,
+			  ptk_kek))
+		goto nla_put_failure;
+
+	err = genlmsg_end(msg, hdr);
+	if (err < 0) {
+		nlmsg_free(msg);
+		return;
+	}
+
+	genlmsg_multicast_netns(wiphy_net(&rdev->wiphy), msg, 0,
+				nl80211_mlme_mcgrp.id, GFP_KERNEL);
+	return;
+
+nla_put_failure:
+	genlmsg_cancel(msg, hdr);
+	nlmsg_free(msg);
+}
+
+void cfg80211_authorization_event(struct net_device *dev,
+				  enum nl80211_authorization_status auth_status,
+				  const u8 *key_replay_ctr,
+				  gfp_t gfp)
+{
+	struct wireless_dev *wdev = dev->ieee80211_ptr;
+	struct cfg80211_registered_device *rdev = wiphy_to_dev(wdev->wiphy);
+	struct cfg80211_event *ev;
+	unsigned long flags;
+
+	/* Valid only in SME_CONNECTED state */
+	if (wdev->sme_state != CFG80211_SME_CONNECTED)
+		return;
+
+	ev = kzalloc(sizeof(*ev), gfp);
+	if (!ev)
+		return;
+
+	trace_cfg80211_authorization_event(wdev->wiphy, dev, auth_status);
+
+	ev->type = EVENT_AUTHORIZATION;
+	ev->au.auth_status = auth_status;
+	memcpy(ev->au.key_replay_ctr, key_replay_ctr,
+		NL80211_KEY_REPLAY_CTR_LEN);
+
+	spin_lock_irqsave(&wdev->event_lock, flags);
+	list_add_tail(&ev->list, &wdev->event_list);
+	spin_unlock_irqrestore(&wdev->event_lock, flags);
+	queue_work(cfg80211_wq, &rdev->event_work);
+}
+EXPORT_SYMBOL(cfg80211_authorization_event);
+
+void cfg80211_key_mgmt_auth(struct net_device *dev,
+			    struct cfg80211_auth_params *auth_params,
+			    gfp_t gfp)
+{
+	struct wireless_dev *wdev = dev->ieee80211_ptr;
+	struct cfg80211_registered_device *rdev = wiphy_to_dev(wdev->wiphy);
+	struct cfg80211_event *ev;
+	unsigned long flags;
+
+	/* Valid only in SME_CONNECTED state */
+	if (wdev->sme_state != CFG80211_SME_CONNECTED)
+		return;
+
+	ev = kzalloc(sizeof(*ev), gfp);
+	if (!ev)
+		return;
+
+	trace_cfg80211_authorization_event(wdev->wiphy, dev,
+					   auth_params->status);
+
+	ev->type = EVENT_AUTHORIZATION;
+	ev->au.auth_status = auth_params->status;
+	if (auth_params->key_replay_ctr) {
+		memcpy(ev->au.key_replay_ctr, auth_params->key_replay_ctr,
+		       NL80211_KEY_REPLAY_CTR_LEN);
+	}
+	if (auth_params->ptk_kck) {
+		memcpy(ev->au.ptk_kck, auth_params->ptk_kck,
+		       NL80211_KEY_LEN_PTK_KCK);
+	}
+	if (auth_params->ptk_kek) {
+		memcpy(ev->au.ptk_kek, auth_params->ptk_kek,
+		       NL80211_KEY_LEN_PTK_KEK);
+	}
+
+	spin_lock_irqsave(&wdev->event_lock, flags);
+	list_add_tail(&ev->list, &wdev->event_list);
+	spin_unlock_irqrestore(&wdev->event_lock, flags);
+	queue_work(cfg80211_wq, &rdev->event_work);
+}
+EXPORT_SYMBOL(cfg80211_key_mgmt_auth);
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /* initialisation/exit functions */
 
 int nl80211_init(void)

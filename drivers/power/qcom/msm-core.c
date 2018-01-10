@@ -253,7 +253,11 @@ static __ref int do_sampling(void *data)
 	static int prev_temp[NR_CPUS];
 
 	while (!kthread_should_stop()) {
+<<<<<<< HEAD
 		wait_for_completion_interruptible(&sampling_completion);
+=======
+		wait_for_completion(&sampling_completion);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		cancel_delayed_work(&sampling_work);
 
 		mutex_lock(&kthread_update_mutex);
@@ -311,10 +315,21 @@ static int update_userspace_power(struct sched_params __user *argp)
 	int cpu;
 	struct cpu_activity_info *node;
 	struct cpu_static_info *sp, *clear_sp;
+<<<<<<< HEAD
 	int mpidr = (argp->cluster << 8);
 	int cpumask = argp->cpumask;
 
 	pr_debug("cpumask %d, cluster: %d\n", argp->cpumask, argp->cluster);
+=======
+	int cpumask, cluster, mpidr;
+
+	get_user(cpumask, &argp->cpumask);
+	get_user(cluster, &argp->cluster);
+	mpidr = cluster << 8;
+
+	pr_debug("%s: cpumask %d, cluster: %d\n", __func__, cpumask,
+					cluster);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	for (i = 0; i < MAX_CORES_PER_CLUSTER; i++, cpumask >>= 1) {
 		if (!(cpumask & 0x01))
 			continue;
@@ -358,11 +373,20 @@ static int update_userspace_power(struct sched_params __user *argp)
 	/* Copy the same power values for all the cpus in the cpumask
 	 * argp->cpumask within the cluster (argp->cluster)
 	 */
+<<<<<<< HEAD
 	cpumask = argp->cpumask;
 	for (i = 0; i < MAX_CORES_PER_CLUSTER; i++, cpumask >>= 1) {
 		if (!(cpumask & 0x01))
 			continue;
 		mpidr = (argp->cluster << CLUSTER_OFFSET_FOR_MPIDR);
+=======
+	spin_lock(&update_lock);
+	get_user(cpumask, &argp->cpumask);
+	for (i = 0; i < MAX_CORES_PER_CLUSTER; i++, cpumask >>= 1) {
+		if (!(cpumask & 0x01))
+			continue;
+		mpidr = (cluster << CLUSTER_OFFSET_FOR_MPIDR);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		mpidr |= i;
 		for_each_possible_cpu(cpu) {
 			if (!(cpu_logical_map(cpu) == mpidr))

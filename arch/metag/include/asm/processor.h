@@ -149,8 +149,13 @@ extern void exit_thread(void);
 
 unsigned long get_wchan(struct task_struct *p);
 
+<<<<<<< HEAD
 #define	KSTK_EIP(tsk)	(task_pt_regs(tsk)->ctx.CurrPC)
 #define	KSTK_ESP(tsk)	(task_pt_regs(tsk)->ctx.AX[0].U0)
+=======
+#define	KSTK_EIP(tsk)	((tsk)->thread.kernel_context->CurrPC)
+#define	KSTK_ESP(tsk)	((tsk)->thread.kernel_context->AX[0].U0)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #define user_stack_pointer(regs)        ((regs)->ctx.AX[0].U0)
 

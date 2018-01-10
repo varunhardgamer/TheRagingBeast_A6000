@@ -396,6 +396,7 @@ static void hidp_idle_timeout(unsigned long arg)
 {
 	struct hidp_session *session = (struct hidp_session *) arg;
 
+<<<<<<< HEAD
 	/* The HIDP user-space API only contains calls to add and remove
 	 * devices. There is no way to forward events of any kind. Therefore,
 	 * we have to forcefully disconnect a device on idle-timeouts. This is
@@ -410,6 +411,8 @@ static void hidp_idle_timeout(unsigned long arg)
 	wake_up_interruptible(sk_sleep(session->intr_sock->sk));
 	wake_up_interruptible(sk_sleep(session->ctrl_sock->sk));
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	hidp_session_terminate(session);
 }
 

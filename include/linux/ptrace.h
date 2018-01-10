@@ -56,6 +56,7 @@ extern void exit_ptrace(struct task_struct *tracer);
 #define PTRACE_MODE_READ	0x01
 #define PTRACE_MODE_ATTACH	0x02
 #define PTRACE_MODE_NOAUDIT	0x04
+<<<<<<< HEAD
 #define PTRACE_MODE_FSCREDS 0x08
 #define PTRACE_MODE_REALCREDS 0x10
 
@@ -79,6 +80,9 @@ extern void exit_ptrace(struct task_struct *tracer);
  * of the caller) or through an explicit syscall such as
  * process_vm_writev or ptrace (and should use the real credentials).
  */
+=======
+/* Returns true on success, false on denial. */
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 extern bool ptrace_may_access(struct task_struct *task, unsigned int mode);
 
 static inline int ptrace_reparented(struct task_struct *child)

@@ -49,6 +49,7 @@ ucs2_strncmp(const ucs2_char_t *a, const ucs2_char_t *b, size_t len)
         }
 }
 EXPORT_SYMBOL(ucs2_strncmp);
+<<<<<<< HEAD
 
 unsigned long
 ucs2_utf8size(const ucs2_char_t *src)
@@ -111,3 +112,5 @@ ucs2_as_utf8(u8 *dest, const ucs2_char_t *src, unsigned long maxlength)
 	return j;
 }
 EXPORT_SYMBOL(ucs2_as_utf8);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c

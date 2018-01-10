@@ -141,7 +141,11 @@ static void usage(void)
 
 #ifdef CONFIG_EFI_STUB
 
+<<<<<<< HEAD
 static void update_pecoff_section_header_fields(char *section_name, u32 vma, u32 size, u32 datasz, u32 offset)
+=======
+static void update_pecoff_section_header(char *section_name, u32 offset, u32 size)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	unsigned int pe_header;
 	unsigned short num_sections;
@@ -162,10 +166,17 @@ static void update_pecoff_section_header_fields(char *section_name, u32 vma, u32
 			put_unaligned_le32(size, section + 0x8);
 
 			/* section header vma field */
+<<<<<<< HEAD
 			put_unaligned_le32(vma, section + 0xc);
 
 			/* section header 'size of initialised data' field */
 			put_unaligned_le32(datasz, section + 0x10);
+=======
+			put_unaligned_le32(offset, section + 0xc);
+
+			/* section header 'size of initialised data' field */
+			put_unaligned_le32(size, section + 0x10);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 			/* section header 'file offset' field */
 			put_unaligned_le32(offset, section + 0x14);
@@ -177,11 +188,14 @@ static void update_pecoff_section_header_fields(char *section_name, u32 vma, u32
 	}
 }
 
+<<<<<<< HEAD
 static void update_pecoff_section_header(char *section_name, u32 offset, u32 size)
 {
 	update_pecoff_section_header_fields(section_name, offset, size, size, offset);
 }
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static void update_pecoff_setup_and_reloc(unsigned int size)
 {
 	u32 setup_offset = 0x200;
@@ -206,6 +220,12 @@ static void update_pecoff_text(unsigned int text_start, unsigned int file_sz)
 
 	pe_header = get_unaligned_le32(&buf[0x3c]);
 
+<<<<<<< HEAD
+=======
+	/* Size of image */
+	put_unaligned_le32(file_sz, &buf[pe_header + 0x50]);
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/*
 	 * Size of code: Subtract the size of the first sector (512 bytes)
 	 * which includes the header.
@@ -220,6 +240,7 @@ static void update_pecoff_text(unsigned int text_start, unsigned int file_sz)
 	update_pecoff_section_header(".text", text_start, text_sz);
 }
 
+<<<<<<< HEAD
 static void update_pecoff_bss(unsigned int file_sz, unsigned int init_sz)
 {
 	unsigned int pe_header;
@@ -236,6 +257,8 @@ static void update_pecoff_bss(unsigned int file_sz, unsigned int init_sz)
 	update_pecoff_section_header_fields(".bss", file_sz, bss_sz, 0, 0);
 }
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #endif /* CONFIG_EFI_STUB */
 
 
@@ -286,9 +309,12 @@ int main(int argc, char ** argv)
 	int fd;
 	void *kernel;
 	u32 crc = 0xffffffffUL;
+<<<<<<< HEAD
 #ifdef CONFIG_EFI_STUB
 	unsigned int init_sz;
 #endif
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	/* Defaults for old kernel */
 #ifdef CONFIG_X86_32
@@ -359,9 +385,13 @@ int main(int argc, char ** argv)
 	put_unaligned_le32(sys_size, &buf[0x1f4]);
 
 #ifdef CONFIG_EFI_STUB
+<<<<<<< HEAD
 	update_pecoff_text(setup_sectors * 512, i + (sys_size * 16));
 	init_sz = get_unaligned_le32(&buf[0x260]);
 	update_pecoff_bss(i + (sys_size * 16), init_sz);
+=======
+	update_pecoff_text(setup_sectors * 512, sz + i + ((sys_size * 16) - sz));
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #ifdef CONFIG_X86_64 /* Yes, this is really how we defined it :( */
 	efi_stub_entry -= 0x200;

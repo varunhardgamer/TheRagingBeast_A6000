@@ -503,11 +503,19 @@ static void __init realtime_counter_init(void)
 	rate = clk_get_rate(sys_clk);
 	/* Numerator/denumerator values refer TRM Realtime Counter section */
 	switch (rate) {
+<<<<<<< HEAD
 	case 12000000:
 		num = 64;
 		den = 125;
 		break;
 	case 13000000:
+=======
+	case 1200000:
+		num = 64;
+		den = 125;
+		break;
+	case 1300000:
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		num = 768;
 		den = 1625;
 		break;
@@ -515,11 +523,19 @@ static void __init realtime_counter_init(void)
 		num = 8;
 		den = 25;
 		break;
+<<<<<<< HEAD
 	case 26000000:
 		num = 384;
 		den = 1625;
 		break;
 	case 27000000:
+=======
+	case 2600000:
+		num = 384;
+		den = 1625;
+		break;
+	case 2700000:
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		num = 256;
 		den = 1125;
 		break;

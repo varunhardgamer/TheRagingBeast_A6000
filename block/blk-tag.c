@@ -27,6 +27,7 @@ struct request *blk_queue_find_tag(struct request_queue *q, int tag)
 EXPORT_SYMBOL(blk_queue_find_tag);
 
 /**
+<<<<<<< HEAD
  * blk_free_tags - release a given set of tag maintenance info
  * @bqt:	the tag map to free
  *
@@ -36,6 +37,20 @@ EXPORT_SYMBOL(blk_queue_find_tag);
 void blk_free_tags(struct blk_queue_tag *bqt)
 {
 	if (atomic_dec_and_test(&bqt->refcnt)) {
+=======
+ * __blk_free_tags - release a given set of tag maintenance info
+ * @bqt:	the tag map to free
+ *
+ * Tries to free the specified @bqt.  Returns true if it was
+ * actually freed and false if there are still references using it
+ */
+static int __blk_free_tags(struct blk_queue_tag *bqt)
+{
+	int retval;
+
+	retval = atomic_dec_and_test(&bqt->refcnt);
+	if (retval) {
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		BUG_ON(find_first_bit(bqt->tag_map, bqt->max_depth) <
 							bqt->max_depth);
 
@@ -47,8 +62,14 @@ void blk_free_tags(struct blk_queue_tag *bqt)
 
 		kfree(bqt);
 	}
+<<<<<<< HEAD
 }
 EXPORT_SYMBOL(blk_free_tags);
+=======
+
+	return retval;
+}
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 /**
  * __blk_queue_free_tags - release tag maintenance info
@@ -65,13 +86,35 @@ void __blk_queue_free_tags(struct request_queue *q)
 	if (!bqt)
 		return;
 
+<<<<<<< HEAD
 	blk_free_tags(bqt);
+=======
+	__blk_free_tags(bqt);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	q->queue_tags = NULL;
 	queue_flag_clear_unlocked(QUEUE_FLAG_QUEUED, q);
 }
 
 /**
+<<<<<<< HEAD
+=======
+ * blk_free_tags - release a given set of tag maintenance info
+ * @bqt:	the tag map to free
+ *
+ * For externally managed @bqt frees the map.  Callers of this
+ * function must guarantee to have released all the queues that
+ * might have been using this tag map.
+ */
+void blk_free_tags(struct blk_queue_tag *bqt)
+{
+	if (unlikely(!__blk_free_tags(bqt)))
+		BUG();
+}
+EXPORT_SYMBOL(blk_free_tags);
+
+/**
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  * blk_queue_free_tags - release tag maintenance info
  * @q:  the request queue for the device
  *
@@ -329,6 +372,7 @@ int blk_queue_start_tag(struct request_queue *q, struct request *rq)
 	 */
 	max_depth = bqt->max_depth;
 	if (!rq_is_sync(rq) && max_depth > 1) {
+<<<<<<< HEAD
 		switch (max_depth) {
 		case 2:
 			max_depth = 1;
@@ -339,6 +383,11 @@ int blk_queue_start_tag(struct request_queue *q, struct request *rq)
 		default:
 			max_depth -= 2;
 		}
+=======
+		max_depth -= 2;
+		if (!max_depth)
+			max_depth = 1;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		if (q->in_flight[BLK_RW_ASYNC] > max_depth)
 			return 1;
 	}

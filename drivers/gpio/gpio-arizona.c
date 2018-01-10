@@ -1,7 +1,10 @@
 /*
  * gpiolib support for Wolfson Arizona class devices
  *
+<<<<<<< HEAD
  * Copyright 2014 CirrusLogic, Inc.
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  * Copyright 2012 Wolfson Microelectronics PLC.
  *
  * Author: Mark Brown <broonie@opensource.wolfsonmicro.com>
@@ -19,7 +22,10 @@
 #include <linux/gpio.h>
 #include <linux/platform_device.h>
 #include <linux/seq_file.h>
+<<<<<<< HEAD
 #include <linux/pm_runtime.h>
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #include <linux/mfd/arizona/core.h>
 #include <linux/mfd/arizona/pdata.h>
@@ -86,6 +92,7 @@ static void arizona_gpio_set(struct gpio_chip *chip, unsigned offset, int value)
 			   ARIZONA_GPN_LVL, value);
 }
 
+<<<<<<< HEAD
 static int clearwater_gpio_direction_in(struct gpio_chip *chip, unsigned offset)
 {
 	struct arizona_gpio *arizona_gpio = to_arizona_gpio(chip);
@@ -219,6 +226,8 @@ static int clearwater_gpio_to_irq(struct gpio_chip *chip, unsigned offset)
 	return arizona_map_irq(arizona, irq);
 }
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static struct gpio_chip template_chip = {
 	.label			= "arizona",
 	.owner			= THIS_MODULE,
@@ -244,6 +253,7 @@ static int arizona_gpio_probe(struct platform_device *pdev)
 	arizona_gpio->arizona = arizona;
 	arizona_gpio->gpio_chip = template_chip;
 	arizona_gpio->gpio_chip.dev = &pdev->dev;
+<<<<<<< HEAD
 #ifdef CONFIG_OF_GPIO
 	arizona_gpio->gpio_chip.of_node = arizona->dev->of_node;
 #endif
@@ -306,6 +316,14 @@ static int arizona_gpio_probe(struct platform_device *pdev)
 
 		arizona_gpio->gpio_chip.ngpio = CS47L15_NUM_GPIOS;
 		break;
+=======
+
+	switch (arizona->type) {
+	case WM5102:
+	case WM5110:
+		arizona_gpio->gpio_chip.ngpio = 5;
+		break;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	default:
 		dev_err(&pdev->dev, "Unknown chip variant %d\n",
 			arizona->type);

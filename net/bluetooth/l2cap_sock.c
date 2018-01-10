@@ -725,7 +725,11 @@ static int l2cap_sock_setsockopt(struct socket *sock, int level, int optname,
 			break;
 		}
 
+<<<<<<< HEAD
 		if (get_user(opt, (u16 __user *) optval)) {
+=======
+		if (get_user(opt, (u32 __user *) optval)) {
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			err = -EFAULT;
 			break;
 		}
@@ -887,8 +891,12 @@ static int l2cap_sock_shutdown(struct socket *sock, int how)
 		l2cap_chan_close(chan, 0);
 		lock_sock(sk);
 
+<<<<<<< HEAD
 		if (sock_flag(sk, SOCK_LINGER) && sk->sk_lingertime &&
 		    !(current->flags & PF_EXITING))
+=======
+		if (sock_flag(sk, SOCK_LINGER) && sk->sk_lingertime)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			err = bt_sock_wait_state(sk, BT_CLOSED,
 						 sk->sk_lingertime);
 	}

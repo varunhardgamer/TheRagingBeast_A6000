@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2011-2016, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2011-2016, 2017 The Linux Foundation. All rights reserved.
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -390,8 +394,12 @@ static void process_ssid_range_report(uint8_t *buf, uint32_t len,
 	ptr += header_len;
 	/* Don't account for pkt_id and length */
 	read_len += header_len - (2 * sizeof(uint32_t));
+<<<<<<< HEAD
 
 	mutex_lock(&msg_mask.lock);
+=======
+	mutex_lock(&driver->msg_mask_lock);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	driver->max_ssid_count[smd_info->peripheral] = header->count;
 	for (i = 0; i < header->count && read_len < len; i++) {
 		ssid_range = (struct diag_ssid_range_t *)ptr;
@@ -433,7 +441,11 @@ static void process_ssid_range_report(uint8_t *buf, uint32_t len,
 		}
 		driver->msg_mask_tbl_count += 1;
 	}
+<<<<<<< HEAD
 	mutex_unlock(&msg_mask.lock);
+=======
+	mutex_unlock(&driver->msg_mask_lock);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static void diag_build_time_mask_update(uint8_t *buf,
@@ -458,12 +470,20 @@ static void diag_build_time_mask_update(uint8_t *buf,
 		       __func__, range->ssid_first, range->ssid_last);
 		return;
 	}
+<<<<<<< HEAD
 
 	build_mask = (struct diag_msg_mask_t *)(driver->build_time_mask->ptr);
 	num_items = range->ssid_last - range->ssid_first + 1;
 
 	mutex_lock(&driver->build_time_mask->lock);
 	for (i = 0; i < driver->msg_mask_tbl_count; i++, build_mask++) {
+=======
+	mutex_lock(&driver->msg_mask_lock);
+	build_mask = (struct diag_msg_mask_t *)(driver->build_time_mask->ptr);
+	num_items = range->ssid_last - range->ssid_first + 1;
+
+	for (i = 0; i < driver->bt_msg_mask_tbl_count; i++, build_mask++) {
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		if (build_mask->ssid_first != range->ssid_first)
 			continue;
 		found = 1;
@@ -480,7 +500,11 @@ static void diag_build_time_mask_update(uint8_t *buf,
 
 	if (found)
 		goto end;
+<<<<<<< HEAD
 	new_size = (driver->msg_mask_tbl_count + 1) *
+=======
+	new_size = (driver->bt_msg_mask_tbl_count + 1) *
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		   sizeof(struct diag_msg_mask_t);
 	temp = krealloc(driver->build_time_mask->ptr, new_size, GFP_KERNEL);
 	if (!temp) {
@@ -495,9 +519,16 @@ static void diag_build_time_mask_update(uint8_t *buf,
 		       __func__, err);
 		goto end;
 	}
+<<<<<<< HEAD
 	driver->msg_mask_tbl_count += 1;
 end:
 	mutex_unlock(&driver->build_time_mask->lock);
+=======
+	driver->bt_msg_mask_tbl_count += 1;
+end:
+	mutex_unlock(&driver->msg_mask_lock);
+	return;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static void process_build_mask_report(uint8_t *buf, uint32_t len,

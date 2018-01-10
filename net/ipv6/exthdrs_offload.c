@@ -36,6 +36,10 @@ out:
 	return ret;
 
 out_rt:
+<<<<<<< HEAD
 	inet6_del_offload(&rthdr_offload, IPPROTO_ROUTING);
+=======
+	inet_del_offload(&rthdr_offload, IPPROTO_ROUTING);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	goto out;
 }

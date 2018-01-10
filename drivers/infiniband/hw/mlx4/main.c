@@ -312,11 +312,17 @@ static int eth_link_query_port(struct ib_device *ibdev, u8 port,
 	if (err)
 		goto out;
 
+<<<<<<< HEAD
 	props->active_width	=  (((u8 *)mailbox->buf)[5] == 0x40) ||
 				   (((u8 *)mailbox->buf)[5] == 0x20 /*56Gb*/) ?
 					   IB_WIDTH_4X : IB_WIDTH_1X;
 	props->active_speed	=  (((u8 *)mailbox->buf)[5] == 0x20 /*56Gb*/) ?
 					   IB_SPEED_FDR : IB_SPEED_QDR;
+=======
+	props->active_width	=  (((u8 *)mailbox->buf)[5] == 0x40) ?
+						IB_WIDTH_4X : IB_WIDTH_1X;
+	props->active_speed	= IB_SPEED_QDR;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	props->port_cap_flags	= IB_PORT_CM_SUP;
 	props->gid_tbl_len	= mdev->dev->caps.gid_table_len[port];
 	props->max_msg_sz	= mdev->dev->caps.max_msg_sz;

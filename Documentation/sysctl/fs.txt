@@ -32,8 +32,11 @@ Currently, these files are in /proc/sys/fs:
 - nr_open
 - overflowuid
 - overflowgid
+<<<<<<< HEAD
 - pipe-user-pages-hard
 - pipe-user-pages-soft
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 - protected_hardlinks
 - protected_symlinks
 - suid_dumpable
@@ -161,6 +164,7 @@ The default is 65534.
 
 ==============================================================
 
+<<<<<<< HEAD
 pipe-user-pages-hard:
 
 Maximum total number of pages a non-privileged user may allocate for pipes.
@@ -182,6 +186,8 @@ applied.
 
 ==============================================================
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 protected_hardlinks:
 
 A long-standing class of security issues is the hardlink-based

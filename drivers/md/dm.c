@@ -976,6 +976,7 @@ int dm_set_target_max_io_len(struct dm_target *ti, sector_t len)
 }
 EXPORT_SYMBOL_GPL(dm_set_target_max_io_len);
 
+<<<<<<< HEAD
 /*
  * Flush current->bio_list when the target map method blocks.
  * This fixes deadlocks in snapshot and possibly in other targets.
@@ -1026,12 +1027,17 @@ static void dm_offload_end(struct dm_offload *o)
 	blk_finish_plug(&o->plug);
 }
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static void __map_bio(struct dm_target_io *tio)
 {
 	int r;
 	sector_t sector;
 	struct mapped_device *md;
+<<<<<<< HEAD
 	struct dm_offload o;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	struct bio *clone = &tio->clone;
 	struct dm_target *ti = tio->ti;
 
@@ -1045,11 +1051,15 @@ static void __map_bio(struct dm_target_io *tio)
 	 */
 	atomic_inc(&tio->io->io_count);
 	sector = clone->bi_sector;
+<<<<<<< HEAD
 
 	dm_offload_start(&o);
 	r = ti->type->map(ti, clone);
 	dm_offload_end(&o);
 
+=======
+	r = ti->type->map(ti, clone);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (r == DM_MAPIO_REMAPPED) {
 		/* the bio has been remapped so dispatch it */
 
@@ -2325,7 +2335,11 @@ int dm_setup_md_queue(struct mapped_device *md)
 	return 0;
 }
 
+<<<<<<< HEAD
 struct mapped_device *dm_get_md(dev_t dev)
+=======
+static struct mapped_device *dm_find_md(dev_t dev)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	struct mapped_device *md;
 	unsigned minor = MINOR(dev);
@@ -2336,6 +2350,7 @@ struct mapped_device *dm_get_md(dev_t dev)
 	spin_lock(&_minor_lock);
 
 	md = idr_find(&_minor_idr, minor);
+<<<<<<< HEAD
 	if (md) {
 		if ((md == MINOR_ALLOCED ||
 		     (MINOR(disk_devt(dm_disk(md))) != minor) ||
@@ -2345,6 +2360,14 @@ struct mapped_device *dm_get_md(dev_t dev)
 			goto out;
 		}
 		dm_get(md);
+=======
+	if (md && (md == MINOR_ALLOCED ||
+		   (MINOR(disk_devt(dm_disk(md))) != minor) ||
+		   dm_deleting_md(md) ||
+		   test_bit(DMF_FREEING, &md->flags))) {
+		md = NULL;
+		goto out;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 
 out:
@@ -2352,6 +2375,19 @@ out:
 
 	return md;
 }
+<<<<<<< HEAD
+=======
+
+struct mapped_device *dm_get_md(dev_t dev)
+{
+	struct mapped_device *md = dm_find_md(dev);
+
+	if (md)
+		dm_get(md);
+
+	return md;
+}
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 EXPORT_SYMBOL_GPL(dm_get_md);
 
 void *dm_get_mdptr(struct mapped_device *md)
@@ -2378,7 +2414,10 @@ EXPORT_SYMBOL_GPL(dm_device_name);
 
 static void __dm_destroy(struct mapped_device *md, bool wait)
 {
+<<<<<<< HEAD
 	struct request_queue *q = md->queue;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	struct dm_table *map;
 
 	might_sleep();
@@ -2389,6 +2428,7 @@ static void __dm_destroy(struct mapped_device *md, bool wait)
 	set_bit(DMF_FREEING, &md->flags);
 	spin_unlock(&_minor_lock);
 
+<<<<<<< HEAD
 	spin_lock_irq(q->queue_lock);
 	queue_flag_set(QUEUE_FLAG_DYING, q);
 	spin_unlock_irq(q->queue_lock);
@@ -2398,11 +2438,16 @@ static void __dm_destroy(struct mapped_device *md, bool wait)
 	 * do not race with internal suspend.
 	 */
 	mutex_lock(&md->suspend_lock);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (!dm_suspended_md(md)) {
 		dm_table_presuspend_targets(map);
 		dm_table_postsuspend_targets(map);
 	}
+<<<<<<< HEAD
 	mutex_unlock(&md->suspend_lock);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	/*
 	 * Rare, but there may be I/O requests still going to complete,

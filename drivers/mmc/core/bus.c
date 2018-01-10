@@ -444,10 +444,13 @@ int mmc_add_card(struct mmc_card *card)
 			       mmc_hostname(card->host), __func__, ret);
 		/* Default timeout is 10 seconds */
 		card->idle_timeout = RUNTIME_SUSPEND_DELAY_MS;
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_WT86518
 		if (card->type == MMC_TYPE_SD)
 			card->idle_timeout = 10000000;
 #endif
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 
 	mmc_card_set_present(card);

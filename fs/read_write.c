@@ -411,7 +411,11 @@ ssize_t do_sync_write(struct file *filp, const char __user *buf, size_t len, lof
 	kiocb.ki_left = len;
 	kiocb.ki_nbytes = len;
 
+<<<<<<< HEAD
 	ret = filp->f_op->aio_write(&kiocb, &iov, 1, *ppos);
+=======
+	ret = filp->f_op->aio_write(&kiocb, &iov, 1, kiocb.ki_pos);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (-EIOCBQUEUED == ret)
 		ret = wait_on_sync_kiocb(&kiocb);
 	*ppos = kiocb.ki_pos;

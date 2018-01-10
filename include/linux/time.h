@@ -173,6 +173,7 @@ extern void getboottime(struct timespec *ts);
 extern void monotonic_to_bootbased(struct timespec *ts);
 extern void get_monotonic_boottime(struct timespec *ts);
 
+<<<<<<< HEAD
 static inline bool timeval_valid(const struct timeval *tv)
 {
 	/* Dates before 1970 are bogus */
@@ -186,6 +187,8 @@ static inline bool timeval_valid(const struct timeval *tv)
 	return true;
 }
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 extern struct timespec timespec_trunc(struct timespec t, unsigned gran);
 extern int timekeeping_valid_for_hres(void);
 extern u64 timekeeping_max_deferment(void);

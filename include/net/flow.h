@@ -10,7 +10,10 @@
 #include <linux/socket.h>
 #include <linux/in6.h>
 #include <linux/atomic.h>
+<<<<<<< HEAD
 #include <linux/uidgid.h>
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 /*
  * ifindex generation is per-net namespace, and loopback is
@@ -32,7 +35,11 @@ struct flowi_common {
 #define FLOWI_FLAG_CAN_SLEEP		0x02
 #define FLOWI_FLAG_KNOWN_NH		0x04
 	__u32	flowic_secid;
+<<<<<<< HEAD
 	kuid_t  flowic_uid;
+=======
+	uid_t	flowic_uid;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 
 union flowi_uli {
@@ -90,7 +97,11 @@ static inline void flowi4_init_output(struct flowi4 *fl4, int oif,
 				      __u8 proto, __u8 flags,
 				      __be32 daddr, __be32 saddr,
 				      __be16 dport, __be16 sport,
+<<<<<<< HEAD
 				      kuid_t uid)
+=======
+				      uid_t uid)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	fl4->flowi4_oif = oif;
 	fl4->flowi4_iif = LOOPBACK_IFINDEX;

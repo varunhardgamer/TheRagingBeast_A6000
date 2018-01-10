@@ -9,8 +9,15 @@
  */
 #if (defined(__KERNEL__) && defined(CONFIG_64BIT)) || defined (__LP64__)
 #define __BITS_PER_LONG 64
+<<<<<<< HEAD
 #else
 #define __BITS_PER_LONG 32
+=======
+#define SHIFT_PER_LONG 6
+#else
+#define __BITS_PER_LONG 32
+#define SHIFT_PER_LONG 5
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #endif
 
 #include <asm-generic/bitsperlong.h>

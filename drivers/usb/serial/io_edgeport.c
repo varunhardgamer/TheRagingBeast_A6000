@@ -2795,11 +2795,14 @@ static int edge_startup(struct usb_serial *serial)
 					EDGE_COMPATIBILITY_MASK1,
 					EDGE_COMPATIBILITY_MASK2 };
 
+<<<<<<< HEAD
 	if (serial->num_bulk_in < 1 || serial->num_interrupt_in < 1) {
 		dev_err(&serial->interface->dev, "missing endpoints\n");
 		return -ENODEV;
 	}
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	dev = serial->dev;
 
 	/* create our private serial structure */
@@ -2993,9 +2996,22 @@ static void edge_disconnect(struct usb_serial *serial)
 {
 	struct edgeport_serial *edge_serial = usb_get_serial_data(serial);
 
+<<<<<<< HEAD
 	if (edge_serial->is_epic) {
 		usb_kill_urb(edge_serial->interrupt_read_urb);
 		usb_kill_urb(edge_serial->read_urb);
+=======
+	/* stop reads and writes on all ports */
+	/* free up our endpoint stuff */
+	if (edge_serial->is_epic) {
+		usb_kill_urb(edge_serial->interrupt_read_urb);
+		usb_free_urb(edge_serial->interrupt_read_urb);
+		kfree(edge_serial->interrupt_in_buffer);
+
+		usb_kill_urb(edge_serial->read_urb);
+		usb_free_urb(edge_serial->read_urb);
+		kfree(edge_serial->bulk_in_buffer);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 }
 
@@ -3008,6 +3024,7 @@ static void edge_release(struct usb_serial *serial)
 {
 	struct edgeport_serial *edge_serial = usb_get_serial_data(serial);
 
+<<<<<<< HEAD
 	if (edge_serial->is_epic) {
 		usb_kill_urb(edge_serial->interrupt_read_urb);
 		usb_free_urb(edge_serial->interrupt_read_urb);
@@ -3018,6 +3035,8 @@ static void edge_release(struct usb_serial *serial)
 		kfree(edge_serial->bulk_in_buffer);
 	}
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	kfree(edge_serial);
 }
 

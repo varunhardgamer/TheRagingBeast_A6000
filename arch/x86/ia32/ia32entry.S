@@ -151,6 +151,7 @@ ENTRY(ia32_sysenter_target)
 1:	movl	(%rbp),%ebp
 	_ASM_EXTABLE(1b,ia32_badarg)
 	ASM_CLAC
+<<<<<<< HEAD
 
 	/*
 	 * Sysenter doesn't filter flags, so we need to clear NT
@@ -161,6 +162,8 @@ ENTRY(ia32_sysenter_target)
 	jnz sysenter_fix_flags
 sysenter_flags_fixed:
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	orl     $TS_COMPAT,TI_status+THREAD_INFO(%rsp,RIP-ARGOFFSET)
 	testl   $_TIF_WORK_SYSCALL_ENTRY,TI_flags+THREAD_INFO(%rsp,RIP-ARGOFFSET)
 	CFI_REMEMBER_STATE
@@ -194,8 +197,11 @@ sysexit_from_sys_call:
 	TRACE_IRQS_ON
 	ENABLE_INTERRUPTS_SYSEXIT32
 
+<<<<<<< HEAD
 	CFI_RESTORE_STATE
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #ifdef CONFIG_AUDITSYSCALL
 	.macro auditsys_entry_common
 	movl %esi,%r9d			/* 6th arg: 4th syscall arg */
@@ -238,6 +244,10 @@ sysexit_from_sys_call:
 	.endm
 
 sysenter_auditsys:
+<<<<<<< HEAD
+=======
+	CFI_RESTORE_STATE
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	auditsys_entry_common
 	movl %ebp,%r9d			/* reload 6th syscall arg */
 	jmp sysenter_dispatch
@@ -246,11 +256,14 @@ sysexit_audit:
 	auditsys_exit sysexit_from_sys_call
 #endif
 
+<<<<<<< HEAD
 sysenter_fix_flags:
 	pushq_cfi $(X86_EFLAGS_IF|X86_EFLAGS_FIXED)
 	popfq_cfi
 	jmp sysenter_flags_fixed
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 sysenter_tracesys:
 #ifdef CONFIG_AUDITSYSCALL
 	testl	$(_TIF_WORK_SYSCALL_ENTRY & ~_TIF_SYSCALL_AUDIT),TI_flags+THREAD_INFO(%rsp,RIP-ARGOFFSET)
@@ -422,7 +435,10 @@ ENTRY(ia32_syscall)
 	/*CFI_REL_OFFSET	cs,CS-RIP*/
 	CFI_REL_OFFSET	rip,RIP-RIP
 	PARAVIRT_ADJUST_EXCEPTION_FRAME
+<<<<<<< HEAD
 	ASM_CLAC			/* Do this early to minimize exposure */
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	SWAPGS
 	/*
 	 * No need to follow this irqs on/off section: the syscall

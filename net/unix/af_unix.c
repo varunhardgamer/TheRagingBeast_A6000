@@ -426,7 +426,11 @@ static int unix_dgram_peer_wake_me(struct sock *sk, struct sock *other)
 	return 0;
 }
 
+<<<<<<< HEAD
 static inline int unix_writable(struct sock *sk)
+=======
+static int unix_writable(const struct sock *sk)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	return (atomic_read(&sk->sk_wmem_alloc) << 2) <= sk->sk_sndbuf;
 }
@@ -978,7 +982,10 @@ static int unix_bind(struct socket *sock, struct sockaddr *uaddr, int addr_len)
 	unsigned int hash;
 	struct unix_address *addr;
 	struct hlist_head *list;
+<<<<<<< HEAD
 	struct path path = { NULL, NULL };
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	err = -EINVAL;
 	if (sunaddr->sun_family != AF_UNIX)
@@ -994,6 +1001,7 @@ static int unix_bind(struct socket *sock, struct sockaddr *uaddr, int addr_len)
 		goto out;
 	addr_len = err;
 
+<<<<<<< HEAD
 	if (sun_path[0]) {
 		umode_t mode = S_IFSOCK |
 		       (SOCK_INODE(sock)->i_mode & ~current_umask());
@@ -1008,6 +1016,11 @@ static int unix_bind(struct socket *sock, struct sockaddr *uaddr, int addr_len)
 	err = mutex_lock_interruptible(&u->readlock);
 	if (err)
 		goto out_put;
+=======
+	err = mutex_lock_interruptible(&u->readlock);
+	if (err)
+		goto out;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	err = -EINVAL;
 	if (u->addr)
@@ -1024,6 +1037,19 @@ static int unix_bind(struct socket *sock, struct sockaddr *uaddr, int addr_len)
 	atomic_set(&addr->refcnt, 1);
 
 	if (sun_path[0]) {
+<<<<<<< HEAD
+=======
+		struct path path = {0};
+		umode_t mode = S_IFSOCK |
+		       (SOCK_INODE(sock)->i_mode & ~current_umask());
+		err = unix_mknod(sun_path, mode, &path);
+		if (err) {
+			if (err == -EEXIST)
+				err = -EADDRINUSE;
+			unix_release_addr(addr);
+			goto out_up;
+		}
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		addr->hash = UNIX_HASH_SIZE;
 		hash = path.dentry->d_inode->i_ino & (UNIX_HASH_SIZE-1);
 		spin_lock(&unix_table_lock);
@@ -1050,9 +1076,12 @@ out_unlock:
 	spin_unlock(&unix_table_lock);
 out_up:
 	mutex_unlock(&u->readlock);
+<<<<<<< HEAD
 out_put:
 	if (err)
 		path_put(&path);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 out:
 	return err;
 }
@@ -1472,7 +1501,11 @@ static void unix_detach_fds(struct scm_cookie *scm, struct sk_buff *skb)
 	UNIXCB(skb).fp = NULL;
 
 	for (i = scm->fp->count-1; i >= 0; i--)
+<<<<<<< HEAD
 		unix_notinflight(scm->fp->user, scm->fp->fp[i]);
+=======
+		unix_notinflight(scm->fp->fp[i]);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static void unix_destruct_scm(struct sk_buff *skb)
@@ -1489,6 +1522,7 @@ static void unix_destruct_scm(struct sk_buff *skb)
 	sock_wfree(skb);
 }
 
+<<<<<<< HEAD
 /*
  * The "user->unix_inflight" variable is protected by the garbage
  * collection lock, and we just read it locklessly here. If you go
@@ -1504,6 +1538,8 @@ static inline bool too_many_unix_fds(struct task_struct *p)
 	return false;
 }
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #define MAX_RECURSION_LEVEL 4
 
 static int unix_attach_fds(struct scm_cookie *scm, struct sk_buff *skb)
@@ -1512,9 +1548,12 @@ static int unix_attach_fds(struct scm_cookie *scm, struct sk_buff *skb)
 	unsigned char max_level = 0;
 	int unix_sock_count = 0;
 
+<<<<<<< HEAD
 	if (too_many_unix_fds(current))
 		return -ETOOMANYREFS;
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	for (i = scm->fp->count - 1; i >= 0; i--) {
 		struct sock *sk = unix_get_socket(scm->fp->fp[i]);
 
@@ -1536,8 +1575,15 @@ static int unix_attach_fds(struct scm_cookie *scm, struct sk_buff *skb)
 	if (!UNIXCB(skb).fp)
 		return -ENOMEM;
 
+<<<<<<< HEAD
 	for (i = scm->fp->count - 1; i >= 0; i--)
 		unix_inflight(scm->fp->user, scm->fp->fp[i]);
+=======
+	if (unix_sock_count) {
+		for (i = scm->fp->count - 1; i >= 0; i--)
+			unix_inflight(scm->fp->fp[i]);
+	}
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return max_level;
 }
 
@@ -2068,10 +2114,13 @@ static long unix_stream_data_wait(struct sock *sk, long timeo,
 		unix_state_unlock(sk);
 		timeo = freezable_schedule_timeout(timeo);
 		unix_state_lock(sk);
+<<<<<<< HEAD
 
 		if (sock_flag(sk, SOCK_DEAD))
 			break;
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		clear_bit(SOCK_ASYNC_WAITDATA, &sk->sk_socket->flags);
 	}
 
@@ -2117,17 +2166,31 @@ static int unix_stream_recvmsg(struct kiocb *iocb, struct socket *sock,
 		memset(&tmp_scm, 0, sizeof(tmp_scm));
 	}
 
+<<<<<<< HEAD
 	mutex_lock(&u->readlock);
+=======
+	err = mutex_lock_interruptible(&u->readlock);
+	if (unlikely(err)) {
+		/* recvmsg() in non blocking mode is supposed to return -EAGAIN
+		 * sk_rcvtimeo is not honored by mutex_lock_interruptible()
+		 */
+		err = noblock ? -EAGAIN : -ERESTARTSYS;
+		goto out;
+	}
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	do {
 		int chunk;
 		struct sk_buff *skb, *last;
 
 		unix_state_lock(sk);
+<<<<<<< HEAD
 		if (sock_flag(sk, SOCK_DEAD)) {
 			err = -ECONNRESET;
 			goto unlock;
 		}
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		last = skb = skb_peek(&sk->sk_receive_queue);
 again:
 		if (skb == NULL) {
@@ -2153,12 +2216,20 @@ again:
 
 			timeo = unix_stream_data_wait(sk, timeo, last);
 
+<<<<<<< HEAD
 			if (signal_pending(current)) {
+=======
+			if (signal_pending(current)
+			    ||  mutex_lock_interruptible(&u->readlock)) {
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 				err = sock_intr_errno(timeo);
 				goto out;
 			}
 
+<<<<<<< HEAD
 			mutex_lock(&u->readlock);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			continue;
  unlock:
 			unix_state_unlock(sk);
@@ -2226,6 +2297,7 @@ again:
 			if (UNIXCB(skb).fp)
 				siocb->scm->fp = scm_fp_dup(UNIXCB(skb).fp);
 
+<<<<<<< HEAD
 			if (skip) {
 				sk_peek_offset_fwd(sk, chunk);
 				skip -= chunk;
@@ -2240,6 +2312,10 @@ again:
 			if (skb)
 				goto again;
 			unix_state_unlock(sk);
+=======
+			sk_peek_offset_fwd(sk, chunk);
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			break;
 		}
 	} while (size);

@@ -10,7 +10,10 @@
  * GNU General Public License for more details.
  */
 
+<<<<<<< HEAD
 #include <linux/device.h>
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #include <linux/module.h>
 #include <linux/init.h>
 #include <linux/kernel.h>
@@ -26,10 +29,18 @@
 #define QPNP_VIB_VTG_CTL(base)		(base + 0x41)
 #define QPNP_VIB_EN_CTL(base)		(base + 0x46)
 
+<<<<<<< HEAD
 #define QPNP_VIB_DEFAULT_TIMEOUT	15000
 #define QPNP_VIB_DEFAULT_VTG_LVL	3100
 #define QPNP_VIB_DEFAULT_VTG_MAX	3100
 #define QPNP_VIB_DEFAULT_VTG_MIN	1200
+=======
+#define QPNP_VIB_MAX_LEVEL		31
+#define QPNP_VIB_MIN_LEVEL		12
+
+#define QPNP_VIB_DEFAULT_TIMEOUT	15000
+#define QPNP_VIB_DEFAULT_VTG_LVL	3100
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #define QPNP_VIB_EN			BIT(7)
 #define QPNP_VIB_VTG_SET_MASK		0x1F
@@ -53,6 +64,10 @@ struct qpnp_vib {
 	struct spmi_device *spmi;
 	struct hrtimer vib_timer;
 	struct timed_output_dev timed_dev;
+<<<<<<< HEAD
+=======
+	struct work_struct work;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	struct qpnp_pwm_info pwm_info;
 	enum   qpnp_vib_mode mode;
 
@@ -61,12 +76,18 @@ struct qpnp_vib {
 	u8  active_low;
 	u16 base;
 	int state;
+<<<<<<< HEAD
 	int vtg_min;
 	int vtg_max;
 	int vtg_level;
 	int vtg_default;
 	int timeout;
 	spinlock_t lock;
+=======
+	int vtg_level;
+	int timeout;
+	struct mutex lock;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 
 static int qpnp_vib_read_u8(struct qpnp_vib *vib, u8 *data, u16 reg)
@@ -95,6 +116,7 @@ static int qpnp_vib_write_u8(struct qpnp_vib *vib, u8 *data, u16 reg)
 	return rc;
 }
 
+<<<<<<< HEAD
 static ssize_t qpnp_vib_level_show(struct device *dev,
 					struct device_attribute *attr,
 					char *buf)
@@ -186,6 +208,8 @@ static DEVICE_ATTR(vtg_min, S_IRUGO, qpnp_vib_min_show, NULL);
 static DEVICE_ATTR(vtg_max, S_IRUGO, qpnp_vib_max_show, NULL);
 static DEVICE_ATTR(vtg_default, S_IRUGO, qpnp_vib_default_show, NULL);
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static int qpnp_vibrator_config(struct qpnp_vib *vib)
 {
 	u8 reg = 0;
@@ -272,6 +296,7 @@ static void qpnp_vib_enable(struct timed_output_dev *dev, int value)
 {
 	struct qpnp_vib *vib = container_of(dev, struct qpnp_vib,
 					 timed_dev);
+<<<<<<< HEAD
 	unsigned long flags;
 
 retry:
@@ -281,6 +306,11 @@ retry:
 		cpu_relax();
 		goto retry;
 	}
+=======
+
+	mutex_lock(&vib->lock);
+	hrtimer_cancel(&vib->vib_timer);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (value == 0)
 		vib->state = 0;
@@ -292,9 +322,21 @@ retry:
 			      ktime_set(value / 1000, (value % 1000) * 1000000),
 			      HRTIMER_MODE_REL);
 	}
+<<<<<<< HEAD
 	qpnp_vib_set(vib, vib->state);
 
 	spin_unlock_irqrestore(&vib->lock, flags);
+=======
+	mutex_unlock(&vib->lock);
+	schedule_work(&vib->work);
+}
+
+static void qpnp_vib_update(struct work_struct *work)
+{
+	struct qpnp_vib *vib = container_of(work, struct qpnp_vib,
+					 work);
+	qpnp_vib_set(vib, vib->state);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static int qpnp_vib_get_time(struct timed_output_dev *dev)
@@ -313,6 +355,7 @@ static enum hrtimer_restart qpnp_vib_timer_func(struct hrtimer *timer)
 {
 	struct qpnp_vib *vib = container_of(timer, struct qpnp_vib,
 							 vib_timer);
+<<<<<<< HEAD
 	unsigned long flags;
 
 	spin_lock_irqsave(&vib->lock, flags);
@@ -321,6 +364,11 @@ static enum hrtimer_restart qpnp_vib_timer_func(struct hrtimer *timer)
 	qpnp_vib_set(vib, vib->state);
 
 	spin_unlock_irqrestore(&vib->lock, flags);
+=======
+
+	vib->state = 0;
+	schedule_work(&vib->work);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	return HRTIMER_NORESTART;
 }
@@ -331,6 +379,10 @@ static int qpnp_vibrator_suspend(struct device *dev)
 	struct qpnp_vib *vib = dev_get_drvdata(dev);
 
 	hrtimer_cancel(&vib->vib_timer);
+<<<<<<< HEAD
+=======
+	cancel_work_sync(&vib->work);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/* turn-off vibrator */
 	qpnp_vib_set(vib, 0);
 
@@ -367,6 +419,7 @@ static int qpnp_vib_parse_dt(struct qpnp_vib *vib)
 		return rc;
 	}
 
+<<<<<<< HEAD
 	vib->vtg_max = QPNP_VIB_DEFAULT_VTG_MAX;
 	rc = of_property_read_u32(spmi->dev.of_node,
 			"qcom,vib-vtg-max-mV", &temp_val);
@@ -396,6 +449,13 @@ static int qpnp_vib_parse_dt(struct qpnp_vib *vib)
 		vib->vtg_level = vib->vtg_min;
 	else if (vib->vtg_level > vib->vtg_max)
 		vib->vtg_level = vib->vtg_max;
+=======
+	vib->vtg_level /= 100;
+	if (vib->vtg_level < QPNP_VIB_MIN_LEVEL)
+		vib->vtg_level = QPNP_VIB_MIN_LEVEL;
+	else if (vib->vtg_level > QPNP_VIB_MAX_LEVEL)
+		vib->vtg_level = QPNP_VIB_MAX_LEVEL;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	vib->mode = QPNP_VIB_MANUAL;
 	rc = of_property_read_string(spmi->dev.of_node, "qcom,mode", &mode);
@@ -477,7 +537,12 @@ static int qpnp_vibrator_probe(struct spmi_device *spmi)
 		return rc;
 	}
 
+<<<<<<< HEAD
 	spin_lock_init(&vib->lock);
+=======
+	mutex_init(&vib->lock);
+	INIT_WORK(&vib->work, qpnp_vib_update);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	hrtimer_init(&vib->vib_timer, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
 	vib->vib_timer.function = qpnp_vib_timer_func;
@@ -492,6 +557,7 @@ static int qpnp_vibrator_probe(struct spmi_device *spmi)
 	if (rc < 0)
 		return rc;
 
+<<<<<<< HEAD
 	rc = device_create_file(vib->timed_dev.dev, &dev_attr_vtg_level);
 	if (rc < 0)
 		goto error_create_level;
@@ -515,6 +581,8 @@ error_create_min:
 	device_remove_file(vib->timed_dev.dev, &dev_attr_vtg_level);
 error_create_level:
 	timed_output_dev_unregister(&vib->timed_dev);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return rc;
 }
 
@@ -522,12 +590,19 @@ static int qpnp_vibrator_remove(struct spmi_device *spmi)
 {
 	struct qpnp_vib *vib = dev_get_drvdata(&spmi->dev);
 
+<<<<<<< HEAD
 	hrtimer_cancel(&vib->vib_timer);
 	device_remove_file(vib->timed_dev.dev, &dev_attr_vtg_level);
 	device_remove_file(vib->timed_dev.dev, &dev_attr_vtg_min);
 	device_remove_file(vib->timed_dev.dev, &dev_attr_vtg_max);
 	device_remove_file(vib->timed_dev.dev, &dev_attr_vtg_default);
 	timed_output_dev_unregister(&vib->timed_dev);
+=======
+	cancel_work_sync(&vib->work);
+	hrtimer_cancel(&vib->vib_timer);
+	timed_output_dev_unregister(&vib->timed_dev);
+	mutex_destroy(&vib->lock);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	return 0;
 }

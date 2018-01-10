@@ -683,7 +683,10 @@ static struct svc_xprt_class svc_udp_class = {
 	.xcl_owner = THIS_MODULE,
 	.xcl_ops = &svc_udp_ops,
 	.xcl_max_payload = RPCSVC_MAXPAYLOAD_UDP,
+<<<<<<< HEAD
 	.xcl_ident = XPRT_TRANSPORT_UDP,
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 
 static void svc_udp_init(struct svc_sock *svsk, struct svc_serv *serv)
@@ -1276,7 +1279,10 @@ static struct svc_xprt_class svc_tcp_class = {
 	.xcl_owner = THIS_MODULE,
 	.xcl_ops = &svc_tcp_ops,
 	.xcl_max_payload = RPCSVC_MAXPAYLOAD_TCP,
+<<<<<<< HEAD
 	.xcl_ident = XPRT_TRANSPORT_TCP,
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 
 void svc_init_xprt_sock(void)

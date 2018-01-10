@@ -1533,6 +1533,7 @@ static const char *uvc_print_chain(struct uvc_video_chain *chain)
 	return buffer;
 }
 
+<<<<<<< HEAD
 static struct uvc_video_chain *uvc_alloc_chain(struct uvc_device *dev)
 {
 	struct uvc_video_chain *chain;
@@ -1641,6 +1642,8 @@ error:
 	return -EINVAL;
 }
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /*
  * Scan the device for video chains and register video devices.
  *
@@ -1663,10 +1666,22 @@ static int uvc_scan_device(struct uvc_device *dev)
 		if (term->chain.next || term->chain.prev)
 			continue;
 
+<<<<<<< HEAD
 		chain = uvc_alloc_chain(dev);
 		if (chain == NULL)
 			return -ENOMEM;
 
+=======
+		chain = kzalloc(sizeof(*chain), GFP_KERNEL);
+		if (chain == NULL)
+			return -ENOMEM;
+
+		INIT_LIST_HEAD(&chain->entities);
+		mutex_init(&chain->ctrl_mutex);
+		chain->dev = dev;
+		v4l2_prio_init(&chain->prio);
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		term->flags |= UVC_ENTITY_FLAG_DEFAULT;
 
 		if (uvc_scan_chain(chain, term) < 0) {
@@ -1680,9 +1695,12 @@ static int uvc_scan_device(struct uvc_device *dev)
 		list_add_tail(&chain->list, &dev->chains);
 	}
 
+<<<<<<< HEAD
 	if (list_empty(&dev->chains))
 		uvc_scan_fallback(dev);
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (list_empty(&dev->chains)) {
 		uvc_printk(KERN_INFO, "No valid video chain found.\n");
 		return -1;
@@ -1709,12 +1727,21 @@ static void uvc_delete(struct uvc_device *dev)
 {
 	struct list_head *p, *n;
 
+<<<<<<< HEAD
 	uvc_status_cleanup(dev);
 	uvc_ctrl_cleanup_device(dev);
 
 	usb_put_intf(dev->intf);
 	usb_put_dev(dev->udev);
 
+=======
+	usb_put_intf(dev->intf);
+	usb_put_dev(dev->udev);
+
+	uvc_status_cleanup(dev);
+	uvc_ctrl_cleanup_device(dev);
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (dev->vdev.dev)
 		v4l2_device_unregister(&dev->vdev);
 #ifdef CONFIG_MEDIA_CONTROLLER

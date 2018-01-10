@@ -554,6 +554,7 @@ config MSM_CORE_CTL_HELPER
 	  system load and state. It also supports limiting min and
 	  max online CPUs from userspace.
 
+<<<<<<< HEAD
 config MSM_CORE_CTL
         select MSM_CORE_CTL_HELPER
         tristate "Core control driver to dynamically hotplug CPUs"
@@ -562,6 +563,8 @@ config MSM_CORE_CTL
           current system load and state. It also supports limiting min and
           max online CPUs from userspace.
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 config MSM_PERFORMANCE
 	tristate "Core control driver to support userspace hotplug requests"
 	help

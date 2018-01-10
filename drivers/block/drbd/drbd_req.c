@@ -1309,7 +1309,10 @@ int drbd_merge_bvec(struct request_queue *q, struct bvec_merge_data *bvm, struct
 		struct request_queue * const b =
 			mdev->ldev->backing_bdev->bd_disk->queue;
 		if (b->merge_bvec_fn) {
+<<<<<<< HEAD
 			bvm->bi_bdev = mdev->ldev->backing_bdev;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			backing_limit = b->merge_bvec_fn(b, bvm, bvec);
 			limit = min(limit, backing_limit);
 		}

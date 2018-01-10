@@ -30,6 +30,7 @@
 #include <asm/boot.h>
 #include <asm/asm-offsets.h>
 
+<<<<<<< HEAD
 /*
  * The 32-bit x86 assembler in binutils 2.26 will generate R_386_GOT32X
  * relocation to get the symbol address in PIC.  When the compressed x86
@@ -58,6 +59,8 @@
 	.hidden _got
 	.hidden _egot
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	__HEAD
 ENTRY(startup_32)
 #ifdef CONFIG_EFI_STUB
@@ -82,7 +85,11 @@ ENTRY(efi_pe_entry)
 	call	reloc
 reloc:
 	popl	%ecx
+<<<<<<< HEAD
 	subl	$reloc, %ecx
+=======
+	subl	reloc, %ecx
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	movl	%ecx, BP_code32_start(%eax)
 
 	sub	$0x4, %esp

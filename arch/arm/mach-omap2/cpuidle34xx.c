@@ -34,7 +34,10 @@
 #include "pm.h"
 #include "control.h"
 #include "common.h"
+<<<<<<< HEAD
 #include "soc.h"
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 /* Mach specific information to be recorded in the C-state driver_data */
 struct omap3_idle_statedata {
@@ -323,6 +326,7 @@ static struct cpuidle_driver omap3_idle_driver = {
 	.safe_state_index = 0,
 };
 
+<<<<<<< HEAD
 /*
  * Numbers based on measurements made in October 2009 for PM optimized kernel
  * with CPU freq enabled on device Nokia N900. Assumes OPP2 (main idle OPP,
@@ -386,6 +390,8 @@ static struct cpuidle_driver omap3430_idle_driver = {
 	.safe_state_index = 0,
 };
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /* Public functions */
 
 /**
@@ -404,8 +410,12 @@ int __init omap3_idle_init(void)
 	if (!mpu_pd || !core_pd || !per_pd || !cam_pd)
 		return -ENODEV;
 
+<<<<<<< HEAD
 	if (cpu_is_omap3430())
 		return cpuidle_register(&omap3430_idle_driver, NULL);
 	else
 		return cpuidle_register(&omap3_idle_driver, NULL);
+=======
+	return cpuidle_register(&omap3_idle_driver, NULL);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }

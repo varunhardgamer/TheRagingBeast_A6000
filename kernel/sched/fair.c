@@ -1534,9 +1534,12 @@ int sched_set_boost(int enable)
 
 	return ret;
 }
+<<<<<<< HEAD
 #ifdef CONFIG_THUNDERPLUG_CONTROL
 EXPORT_SYMBOL_GPL(sched_set_boost);
 #endif
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 int sched_boost_handler(struct ctl_table *table, int write,
 		void __user *buffer, size_t *lenp,
@@ -3135,6 +3138,7 @@ static void check_spread(struct cfs_rq *cfs_rq, struct sched_entity *se)
 #endif
 }
 
+<<<<<<< HEAD
 static unsigned int Lgentle_fair_sleepers = 0;
 static unsigned int Larch_power = 1;
 
@@ -3148,6 +3152,8 @@ void relay_ap(unsigned int ap)
 	Larch_power = ap;
 }
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static void
 place_entity(struct cfs_rq *cfs_rq, struct sched_entity *se, int initial)
 {
@@ -3170,7 +3176,11 @@ place_entity(struct cfs_rq *cfs_rq, struct sched_entity *se, int initial)
 		 * Halve their sleep time's effect, to allow
 		 * for a gentler effect of sleepers:
 		 */
+<<<<<<< HEAD
 		if (Lgentle_fair_sleepers)
+=======
+		if (sched_feat(GENTLE_FAIR_SLEEPERS))
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			thresh >>= 1;
 
 		vruntime -= thresh;
@@ -3187,7 +3197,11 @@ enqueue_entity(struct cfs_rq *cfs_rq, struct sched_entity *se, int flags)
 {
 	/*
 	 * Update the normalized vruntime before updating min_vruntime
+<<<<<<< HEAD
 	 * through calling update_curr().
+=======
+	 * through callig update_curr().
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	 */
 	if (!(flags & ENQUEUE_WAKEUP) || (flags & ENQUEUE_WAKING))
 		se->vruntime += cfs_rq->min_vruntime;
@@ -3758,10 +3772,15 @@ static void throttle_cfs_rq(struct cfs_rq *cfs_rq)
 			dequeue = 0;
 	}
 
+<<<<<<< HEAD
 	if (!se) {
 		sched_update_nr_prod(cpu_of(rq), task_delta, false);
 		rq->nr_running -= task_delta;
 	}
+=======
+	if (!se)
+		rq->nr_running -= task_delta;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	cfs_rq->throttled = 1;
 	cfs_rq->throttled_clock = rq->clock;
@@ -3809,10 +3828,15 @@ void unthrottle_cfs_rq(struct cfs_rq *cfs_rq)
 			break;
 	}
 
+<<<<<<< HEAD
 	if (!se) {
 		sched_update_nr_prod(cpu_of(rq), task_delta, true);
 		rq->nr_running += task_delta;
 	}
+=======
+	if (!se)
+		rq->nr_running += task_delta;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	/* determine whether we need to wake up potentially idle cpu */
 	if (rq->curr == rq->idle && rq->cfs.nr_running)
@@ -4245,6 +4269,7 @@ static inline void unthrottle_offline_cfs_rqs(struct rq *rq) {}
 
 #endif /* CONFIG_CFS_BANDWIDTH */
 
+<<<<<<< HEAD
 /*
  * Return total number of tasks "eligible" to run on highest capacity cpu
  *
@@ -4269,6 +4294,8 @@ unsigned int nr_eligible_big_tasks(int cpu)
 	return nr_big;
 }
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /**************************************************
  * CFS operations on tasks:
  */
@@ -5932,7 +5959,11 @@ static void update_cpu_power(struct sched_domain *sd, int cpu)
 	struct sched_group *sdg = sd->groups;
 
 	if ((sd->flags & SD_SHARE_CPUPOWER) && weight > 1) {
+<<<<<<< HEAD
 		if (Larch_power)
+=======
+		if (sched_feat(ARCH_POWER))
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			power *= arch_scale_smt_power(sd, cpu);
 		else
 			power *= default_scale_smt_power(sd, cpu);
@@ -5942,7 +5973,11 @@ static void update_cpu_power(struct sched_domain *sd, int cpu)
 
 	sdg->sgp->power_orig = power;
 
+<<<<<<< HEAD
 	if (Larch_power)
+=======
+	if (sched_feat(ARCH_POWER))
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		power *= arch_scale_freq_power(sd, cpu);
 	else
 		power *= default_scale_freq_power(sd, cpu);
@@ -6037,8 +6072,12 @@ fix_small_capacity(struct sched_domain *sd, struct sched_group *group)
  */
 static inline void update_sg_lb_stats(struct lb_env *env,
 			struct sched_group *group, int load_idx,
+<<<<<<< HEAD
 			int local_group, int *balance, struct sg_lb_stats *sgs,
 			bool *overload)
+=======
+			int local_group, int *balance, struct sg_lb_stats *sgs)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	unsigned long nr_running, max_nr_running, min_nr_running;
 	unsigned long load, max_cpu_load, min_cpu_load;
@@ -6095,10 +6134,13 @@ static inline void update_sg_lb_stats(struct lb_env *env,
 		sgs->sum_weighted_load += weighted_cpuload(i);
 		if (idle_cpu(i))
 			sgs->idle_cpus++;
+<<<<<<< HEAD
 
                 if (rq->nr_running > 1)
 			*overload = true;
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 
 	/*
@@ -6223,7 +6265,10 @@ static inline void update_sd_lb_stats(struct lb_env *env,
 	struct sched_group *sg = env->sd->groups;
 	struct sg_lb_stats sgs;
 	int load_idx, prefer_sibling = 0;
+<<<<<<< HEAD
         bool overload = false;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (child && child->flags & SD_PREFER_SIBLING)
 		prefer_sibling = 1;
@@ -6235,8 +6280,12 @@ static inline void update_sd_lb_stats(struct lb_env *env,
 
 		local_group = cpumask_test_cpu(env->dst_cpu, sched_group_cpus(sg));
 		memset(&sgs, 0, sizeof(sgs));
+<<<<<<< HEAD
 		update_sg_lb_stats(env, sg, load_idx, local_group, balance, &sgs,
 						&overload);
+=======
+		update_sg_lb_stats(env, sg, load_idx, local_group, balance, &sgs);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 		if (local_group && !(*balance))
 			return;
@@ -6284,12 +6333,15 @@ static inline void update_sd_lb_stats(struct lb_env *env,
 
 		sg = sg->next;
 	} while (sg != env->sd->groups);
+<<<<<<< HEAD
 
      if (!env->sd->parent) {
 		/* update overload indicator if we are at root domain */
 		if (env->dst_rq->rd->overload != overload)
 			env->dst_rq->rd->overload = overload;
 	}
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 /**
@@ -6975,8 +7027,12 @@ void idle_balance(int this_cpu, struct rq *this_rq)
 
 	this_rq->idle_stamp = this_rq->clock;
 
+<<<<<<< HEAD
 	if (this_rq->avg_idle < sysctl_sched_migration_cost ||
 	    !this_rq->rd->overload)
+=======
+	if (this_rq->avg_idle < sysctl_sched_migration_cost)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		return;
 
 	/* If this CPU is not the most power-efficient idle CPU in the

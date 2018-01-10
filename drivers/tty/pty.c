@@ -215,9 +215,12 @@ static int pty_signal(struct tty_struct *tty, int sig)
 	unsigned long flags;
 	struct pid *pgrp;
 
+<<<<<<< HEAD
 	if (sig != SIGINT && sig != SIGQUIT && sig != SIGTSTP)
 		return -EINVAL;
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (tty->link) {
 		spin_lock_irqsave(&tty->link->ctrl_lock, flags);
 		pgrp = get_pid(tty->link->pgrp);
@@ -623,6 +626,7 @@ static void pty_unix98_remove(struct tty_driver *driver, struct tty_struct *tty)
 /* this is called once with whichever end is closed last */
 static void pty_unix98_shutdown(struct tty_struct *tty)
 {
+<<<<<<< HEAD
 	struct inode *ptmx_inode;
 
 	if (tty->driver->subtype == PTY_TYPE_MASTER)
@@ -631,6 +635,9 @@ static void pty_unix98_shutdown(struct tty_struct *tty)
 		ptmx_inode = tty->link->driver_data;
 	devpts_kill_index(ptmx_inode, tty->index);
 	devpts_del_ref(ptmx_inode);
+=======
+	devpts_kill_index(tty->driver_data, tty->index);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static const struct tty_operations ptm_unix98_ops = {
@@ -721,6 +728,7 @@ static int ptmx_open(struct inode *inode, struct file *filp)
 	set_bit(TTY_PTY_LOCK, &tty->flags); /* LOCK THE SLAVE */
 	tty->driver_data = inode;
 
+<<<<<<< HEAD
 	/*
 	 * In the case where all references to ptmx inode are dropped and we
 	 * still have /dev/tty opened pointing to the master/slave pair (ptmx
@@ -733,6 +741,8 @@ static int ptmx_open(struct inode *inode, struct file *filp)
 	 */
 	devpts_add_ref(inode);
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	tty_add_file(tty, filp);
 
 	slave_inode = devpts_pty_new(inode,

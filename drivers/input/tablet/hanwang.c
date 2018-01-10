@@ -341,9 +341,12 @@ static int hanwang_probe(struct usb_interface *intf, const struct usb_device_id 
 	int error;
 	int i;
 
+<<<<<<< HEAD
 	if (intf->cur_altsetting->desc.bNumEndpoints < 1)
 		return -ENODEV;
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	hanwang = kzalloc(sizeof(struct hanwang), GFP_KERNEL);
 	input_dev = input_allocate_device();
 	if (!hanwang || !input_dev) {

@@ -132,11 +132,17 @@ static int mhi_buf_tbl_add(struct diag_mhi_info *mhi_info, int type,
 	}
 
 	item = kzalloc(sizeof(struct diag_mhi_buf_tbl_t), GFP_KERNEL);
+<<<<<<< HEAD
 	if (!item) {
 		pr_err_ratelimited("diag: In %s, unable to allocate new item for buf tbl, ch: %pK, type: %d, buf: %pK, len: %d\n",
 				   __func__, ch, ch->type, buf, len);
 		return -ENOMEM;
 	}
+=======
+	if (!item)
+		return -ENOMEM;
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	kmemleak_not_leak(item);
 
 	spin_lock_irqsave(&ch->lock, flags);

@@ -143,7 +143,11 @@ asmlinkage void __cpuinit secondary_start_kernel(void)
 	cpumask_set_cpu(cpu, mm_cpumask(mm));
 
 	set_my_cpu_offset(per_cpu_offset(smp_processor_id()));
+<<<<<<< HEAD
 	pr_debug("CPU%u: Booted secondary processor\n", cpu);
+=======
+	printk("CPU%u: Booted secondary processor\n", cpu);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	/*
 	 * TTBR0 is only used for the identity mapping at this stage. Make it
@@ -166,11 +170,14 @@ asmlinkage void __cpuinit secondary_start_kernel(void)
 	notify_cpu_starting(cpu);
 
 	/*
+<<<<<<< HEAD
 	 * Log the CPU info before it is marked online and might get read.
 	 */
 	cpuinfo_store_cpu();
 
 	/*
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	 * OK, now it's safe to let the boot CPU continue.  Wait for
 	 * the CPU migration code to notice that the CPU is online
 	 * before we continue.
@@ -264,7 +271,11 @@ void __cpu_die(unsigned int cpu)
 		pr_crit("CPU%u: cpu didn't die\n", cpu);
 		return;
 	}
+<<<<<<< HEAD
 	pr_debug("CPU%u: shutdown\n", cpu);
+=======
+	pr_notice("CPU%u: shutdown\n", cpu);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	/*
 	 * Now that the dying CPU is beyond the point of no return w.r.t.

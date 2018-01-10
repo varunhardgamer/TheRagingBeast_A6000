@@ -1038,6 +1038,7 @@ disable_policy - BOOLEAN
 disable_xfrm - BOOLEAN
 	Disable IPSEC encryption on this interface, whatever the policy
 
+<<<<<<< HEAD
 igmpv2_unsolicited_report_interval - INTEGER
 	The interval in milliseconds in which the next unsolicited
 	IGMPv1 or IGMPv2 report retransmit will take place.
@@ -1047,6 +1048,9 @@ igmpv3_unsolicited_report_interval - INTEGER
 	The interval in milliseconds in which the next unsolicited
 	IGMPv3 report retransmit will take place.
 	Default: 1000 (1 seconds)
+=======
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 tag - INTEGER
 	Allows you to write a number, which can be used as required.
@@ -1284,6 +1288,7 @@ router_solicitations - INTEGER
 	routers are present.
 	Default: 3
 
+<<<<<<< HEAD
 use_oif_addrs_only - BOOLEAN
 	When enabled, the candidate source addresses for destinations
 	routed via this interface are restricted to the set of addresses
@@ -1291,6 +1296,8 @@ use_oif_addrs_only - BOOLEAN
 
 	Default: false
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 use_tempaddr - INTEGER
 	Preference for Privacy Extensions (RFC3041).
 	  <= 0 : disable Privacy Extensions
@@ -1372,6 +1379,7 @@ ndisc_notify - BOOLEAN
 	1 - Generate unsolicited neighbour advertisements when device is brought
 	    up or hardware address changes.
 
+<<<<<<< HEAD
 optimistic_dad - BOOLEAN
 	Whether to perform Optimistic Duplicate Address Detection (RFC 4429).
 		0: disabled (default)
@@ -1394,6 +1402,8 @@ mldv2_unsolicited_report_interval - INTEGER
 	MLDv2 report retransmit will take place.
 	Default: 1000 (1 second)
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 icmp/*:
 ratelimit - INTEGER
 	Limit the maximal rates for sending ICMPv6 packets.

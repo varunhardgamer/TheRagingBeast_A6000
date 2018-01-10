@@ -529,6 +529,7 @@ int __kprobes setjmp_pre_handler(struct kprobe *p, struct pt_regs *regs)
 	regs->gpr[2] = (unsigned long)(((func_descr_t *)jp->entry)->toc);
 #endif
 
+<<<<<<< HEAD
 	/*
 	 * jprobes use jprobe_return() which skips the normal return
 	 * path of the function, and this messes up the accounting of the
@@ -538,6 +539,8 @@ int __kprobes setjmp_pre_handler(struct kprobe *p, struct pt_regs *regs)
 	 */
 	pause_graph_tracing();
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	return 1;
 }
 
@@ -560,8 +563,11 @@ int __kprobes longjmp_break_handler(struct kprobe *p, struct pt_regs *regs)
 	 * saved regs...
 	 */
 	memcpy(regs, &kcb->jprobe_saved_regs, sizeof(struct pt_regs));
+<<<<<<< HEAD
 	/* It's OK to start function graph tracing again */
 	unpause_graph_tracing();
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	preempt_enable_no_resched();
 	return 1;
 }

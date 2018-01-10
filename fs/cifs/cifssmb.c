@@ -1389,10 +1389,18 @@ openRetry:
  * current bigbuf.
  */
 static int
+<<<<<<< HEAD
 discard_remaining_data(struct TCP_Server_Info *server)
 {
 	unsigned int rfclen = get_rfc1002_length(server->smallbuf);
 	int remaining = rfclen + 4 - server->total_read;
+=======
+cifs_readv_discard(struct TCP_Server_Info *server, struct mid_q_entry *mid)
+{
+	unsigned int rfclen = get_rfc1002_length(server->smallbuf);
+	int remaining = rfclen + 4 - server->total_read;
+	struct cifs_readdata *rdata = mid->callback_data;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	while (remaining > 0) {
 		int length;
@@ -1406,6 +1414,7 @@ discard_remaining_data(struct TCP_Server_Info *server)
 		remaining -= length;
 	}
 
+<<<<<<< HEAD
 	return 0;
 }
 
@@ -1418,6 +1427,10 @@ cifs_readv_discard(struct TCP_Server_Info *server, struct mid_q_entry *mid)
 	length = discard_remaining_data(server);
 	dequeue_mid(mid, rdata->result);
 	return length;
+=======
+	dequeue_mid(mid, rdata->result);
+	return 0;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 int
@@ -1448,12 +1461,15 @@ cifs_readv_receive(struct TCP_Server_Info *server, struct mid_q_entry *mid)
 		return length;
 	server->total_read += length;
 
+<<<<<<< HEAD
 	if (server->ops->is_status_pending &&
 	    server->ops->is_status_pending(buf, server, 0)) {
 		discard_remaining_data(server);
 		return -1;
 	}
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/* Was the SMB read successful? */
 	rdata->result = server->ops->map_error(buf, false);
 	if (rdata->result != 0) {

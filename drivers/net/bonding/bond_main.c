@@ -876,6 +876,7 @@ static void bond_mc_swap(struct bonding *bond, struct slave *new_active,
 	}
 }
 
+<<<<<<< HEAD
 static struct slave *bond_get_old_active(struct bonding *bond,
 					 struct slave *new_active)
 {
@@ -893,6 +894,8 @@ static struct slave *bond_get_old_active(struct bonding *bond,
 	return NULL;
 }
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /*
  * bond_do_fail_over_mac
  *
@@ -936,9 +939,12 @@ static void bond_do_fail_over_mac(struct bonding *bond,
 		write_unlock_bh(&bond->curr_slave_lock);
 		read_unlock(&bond->lock);
 
+<<<<<<< HEAD
 		if (!old_active)
 			old_active = bond_get_old_active(bond, new_active);
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		if (old_active) {
 			memcpy(tmp_mac, new_active->dev->dev_addr, ETH_ALEN);
 			memcpy(saddr.sa_data, old_active->dev->dev_addr,
@@ -1565,10 +1571,16 @@ int bond_enslave(struct net_device *bond_dev, struct net_device *slave_dev)
 			   bond_dev->name, slave_dev->name);
 	}
 
+<<<<<<< HEAD
 	/* already in-use? */
 	if (netdev_is_rx_handler_busy(slave_dev)) {
 		netdev_err(bond_dev,
 			   "Error: Device is in use and cannot be enslaved\n");
+=======
+	/* already enslaved */
+	if (slave_dev->flags & IFF_SLAVE) {
+		pr_debug("Error, Device was already enslaved\n");
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		return -EBUSY;
 	}
 
@@ -2209,7 +2221,10 @@ static int  bond_release_and_destroy(struct net_device *bond_dev,
 		bond_dev->priv_flags |= IFF_DISABLE_NETPOLL;
 		pr_info("%s: destroying bond %s.\n",
 			bond_dev->name, bond_dev->name);
+<<<<<<< HEAD
 		bond_remove_proc_entry(bond);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		unregister_netdevice(bond_dev);
 	}
 	return ret;

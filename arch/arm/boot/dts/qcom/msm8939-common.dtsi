@@ -63,12 +63,15 @@
 			label = "peripheral_mem";
 		};
 
+<<<<<<< HEAD
 		mba_mem: mba_region@0 {
 			linux,reserve-contiguous-region;
 			reg = <0 0 0 0x0200000>;
 			label = "mba_mem";
 		};
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		venus_mem: venus_region@0 {
 			linux,reserve-contiguous-region;
 			linux,memory-limit = <0x90000000>;
@@ -584,7 +587,10 @@
 		interrupt-names = "slimbus_irq", "slimbus_bam_irq";
 		qcom,apps-ch-pipes = <0x600000>;
 		qcom,ea-pc = <0x140>;
+<<<<<<< HEAD
 		qcom,subsys-name = "modem";
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		status = "disabled";
 	};
 
@@ -1276,11 +1282,14 @@
 		/* GPIO output to mss */
 		qcom,gpio-force-stop = <&smp2pgpio_ssr_smp2p_1_out 0 0>;
 		linux,contiguous-region = <&modem_adsp_mem>;
+<<<<<<< HEAD
 
 		qcom,mba-mem@0 {
 			compatible = "qcom,pil-mba-mem";
 			linux,contiguous-region = <&mba_mem>;
 		};
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	};
 
 	pcm0: qcom,msm-pcm {

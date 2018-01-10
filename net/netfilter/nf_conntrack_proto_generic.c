@@ -14,6 +14,7 @@
 
 static unsigned int nf_ct_generic_timeout __read_mostly = 600*HZ;
 
+<<<<<<< HEAD
 static bool nf_generic_should_process(u8 proto)
 {
 	switch (proto) {
@@ -38,6 +39,8 @@ static bool nf_generic_should_process(u8 proto)
 	}
 }
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 static inline struct nf_generic_net *generic_pernet(struct net *net)
 {
 	return &net->ct.nf_ct_proto.generic;
@@ -91,7 +94,11 @@ static int generic_packet(struct nf_conn *ct,
 static bool generic_new(struct nf_conn *ct, const struct sk_buff *skb,
 			unsigned int dataoff, unsigned int *timeouts)
 {
+<<<<<<< HEAD
 	return nf_generic_should_process(nf_ct_protonum(ct));
+=======
+	return true;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 #if IS_ENABLED(CONFIG_NF_CT_NETLINK_TIMEOUT)

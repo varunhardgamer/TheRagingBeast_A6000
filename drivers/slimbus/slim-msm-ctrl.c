@@ -92,7 +92,11 @@ enum mgr_intr {
 
 enum frm_cfg {
 	FRM_ACTIVE	= 1,
+<<<<<<< HEAD
 	CLK_GEAR	= 10,
+=======
+	CLK_GEAR	= 7,
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	ROOT_FREQ	= 11,
 	REF_CLK_GEAR	= 15,
 	INTR_WAKE	= 19,

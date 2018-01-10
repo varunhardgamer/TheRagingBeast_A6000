@@ -600,10 +600,15 @@ static int usbhsc_resume(struct device *dev)
 	struct usbhs_priv *priv = dev_get_drvdata(dev);
 	struct platform_device *pdev = usbhs_priv_to_pdev(priv);
 
+<<<<<<< HEAD
 	if (!usbhsc_flags_has(priv, USBHSF_RUNTIME_PWCTRL)) {
 		usbhsc_power_ctrl(priv, 1);
 		usbhs_mod_autonomy_mode(priv);
 	}
+=======
+	if (!usbhsc_flags_has(priv, USBHSF_RUNTIME_PWCTRL))
+		usbhsc_power_ctrl(priv, 1);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	usbhs_platform_call(priv, phy_reset, pdev);
 

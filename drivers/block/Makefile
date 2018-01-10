@@ -41,7 +41,10 @@ obj-$(CONFIG_BLK_DEV_RBD)     += rbd.o
 obj-$(CONFIG_BLK_DEV_PCIESSD_MTIP32XX)	+= mtip32xx/
 
 obj-$(CONFIG_BLK_DEV_RSXX) += rsxx/
+<<<<<<< HEAD
 obj-$(CONFIG_ZRAM) += zram/
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 nvme-y		:= nvme-core.o nvme-scsi.o
 swim_mod-y	:= swim.o swim_asm.o

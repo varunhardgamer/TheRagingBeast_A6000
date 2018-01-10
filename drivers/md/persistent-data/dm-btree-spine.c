@@ -92,7 +92,11 @@ struct dm_block_validator btree_node_validator = {
 
 /*----------------------------------------------------------------*/
 
+<<<<<<< HEAD
 int bn_read_lock(struct dm_btree_info *info, dm_block_t b,
+=======
+static int bn_read_lock(struct dm_btree_info *info, dm_block_t b,
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		 struct dm_block **result)
 {
 	return dm_tm_read_lock(info->tm, b, &btree_node_validator, result);
@@ -249,6 +253,7 @@ int shadow_root(struct shadow_spine *s)
 {
 	return s->root;
 }
+<<<<<<< HEAD
 
 static void le64_inc(void *context, const void *value_le)
 {
@@ -286,3 +291,5 @@ void init_le64_type(struct dm_transaction_manager *tm,
 	vt->dec = le64_dec;
 	vt->equal = le64_equal;
 }
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c

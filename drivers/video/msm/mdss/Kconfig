@@ -43,6 +43,7 @@ config FB_MSM_MDSS_MDP3
 	---help---
 	The MDP3 provides support for an older version display controller
 	included in latest display sub-system, known as MDSS.
+<<<<<<< HEAD
 
 config FB_MSM_MDSS_KCAL_CTRL
 	depends on FB_MSM_MDSS
@@ -51,3 +52,5 @@ config FB_MSM_MDSS_KCAL_CTRL
 	---help---
 	  Enable sysfs for rgb/lut control for mdss-mdp display controllers
 	  in the MDSS sub-system.
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c

@@ -234,7 +234,10 @@ static void irq_affinity_notify(struct work_struct *work)
 		cpumask_copy(cpumask, desc->irq_data.affinity);
 	raw_spin_unlock_irqrestore(&desc->lock, flags);
 
+<<<<<<< HEAD
 	mutex_lock(&desc->notify_lock);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	list_for_each_entry(notify, &desc->affinity_notify, list) {
 		/**
 		 * Check and get the kref only if the kref has not been
@@ -247,7 +250,10 @@ static void irq_affinity_notify(struct work_struct *work)
 		notify->notify(notify, cpumask);
 		kref_put(&notify->kref, notify->release);
 	}
+<<<<<<< HEAD
 	mutex_unlock(&desc->notify_lock);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	free_cpumask_var(cpumask);
 }
@@ -281,11 +287,17 @@ irq_set_affinity_notifier(unsigned int irq, struct irq_affinity_notify *notify)
 	notify->irq = irq;
 	kref_init(&notify->kref);
 	INIT_LIST_HEAD(&notify->list);
+<<<<<<< HEAD
 	mutex_lock(&desc->notify_lock);
 	raw_spin_lock_irqsave(&desc->lock, flags);
 	list_add(&notify->list, &desc->affinity_notify);
 	raw_spin_unlock_irqrestore(&desc->lock, flags);
 	mutex_unlock(&desc->notify_lock);
+=======
+	raw_spin_lock_irqsave(&desc->lock, flags);
+	list_add(&notify->list, &desc->affinity_notify);
+	raw_spin_unlock_irqrestore(&desc->lock, flags);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	return 0;
 }
@@ -304,12 +316,18 @@ int irq_release_affinity_notifier(struct irq_affinity_notify *notify)
 		return -EINVAL;
 
 	desc = irq_to_desc(notify->irq);
+<<<<<<< HEAD
 	mutex_lock(&desc->notify_lock);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	raw_spin_lock_irqsave(&desc->lock, flags);
 	list_del(&notify->list);
 	raw_spin_unlock_irqrestore(&desc->lock, flags);
 	kref_put(&notify->kref, notify->release);
+<<<<<<< HEAD
 	mutex_unlock(&desc->notify_lock);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	return 0;
 }
@@ -1288,7 +1306,10 @@ static struct irqaction *__free_irq(unsigned int irq, void *dev_id)
 	if (!desc)
 		return NULL;
 
+<<<<<<< HEAD
 	chip_bus_lock(desc);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	raw_spin_lock_irqsave(&desc->lock, flags);
 
 	/*
@@ -1302,7 +1323,11 @@ static struct irqaction *__free_irq(unsigned int irq, void *dev_id)
 		if (!action) {
 			WARN(1, "Trying to free already-free IRQ %d\n", irq);
 			raw_spin_unlock_irqrestore(&desc->lock, flags);
+<<<<<<< HEAD
 			chip_bus_sync_unlock(desc);
+=======
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			return NULL;
 		}
 
@@ -1332,7 +1357,10 @@ static struct irqaction *__free_irq(unsigned int irq, void *dev_id)
 #endif
 
 	raw_spin_unlock_irqrestore(&desc->lock, flags);
+<<<<<<< HEAD
 	chip_bus_sync_unlock(desc);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	unregister_handler_proc(irq, action);
 
@@ -1410,7 +1438,13 @@ void free_irq(unsigned int irq, void *dev_id)
 		kref_put(&notify->kref, notify->release);
 #endif
 
+<<<<<<< HEAD
 	kfree(__free_irq(irq, dev_id));
+=======
+	chip_bus_lock(desc);
+	kfree(__free_irq(irq, dev_id));
+	chip_bus_sync_unlock(desc);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 EXPORT_SYMBOL(free_irq);
 

@@ -70,7 +70,10 @@ static int ses_probe(struct device *dev)
 static int ses_recv_diag(struct scsi_device *sdev, int page_code,
 			 void *buf, int bufflen)
 {
+<<<<<<< HEAD
 	int ret;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	unsigned char cmd[] = {
 		RECEIVE_DIAGNOSTIC,
 		1,		/* Set PCV bit */
@@ -79,6 +82,7 @@ static int ses_recv_diag(struct scsi_device *sdev, int page_code,
 		bufflen & 0xff,
 		0
 	};
+<<<<<<< HEAD
 	unsigned char recv_page_code;
 
 	ret =  scsi_execute_req(sdev, cmd, DMA_FROM_DEVICE, buf, bufflen,
@@ -99,6 +103,11 @@ static int ses_recv_diag(struct scsi_device *sdev, int page_code,
 		    page_code, recv_page_code);
 
 	return -EINVAL;
+=======
+
+	return scsi_execute_req(sdev, cmd, DMA_FROM_DEVICE, buf, bufflen,
+				NULL, SES_TIMEOUT, SES_RETRIES, NULL);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static int ses_send_diag(struct scsi_device *sdev, int page_code,
@@ -454,6 +463,7 @@ static void ses_enclosure_data_process(struct enclosure_device *edev,
 			if (desc_ptr)
 				desc_ptr += len;
 
+<<<<<<< HEAD
 			if (addl_desc_ptr &&
 			    /* only find additional descriptions for specific devices */
 			    (type_ptr[0] == ENCLOSURE_COMPONENT_DEVICE ||
@@ -463,6 +473,9 @@ static void ses_enclosure_data_process(struct enclosure_device *edev,
 			     type_ptr[0] == ENCLOSURE_COMPONENT_SCSI_TARGET_PORT ||
 			     type_ptr[0] == ENCLOSURE_COMPONENT_SCSI_INITIATOR_PORT ||
 			     type_ptr[0] == ENCLOSURE_COMPONENT_CONTROLLER_ELECTRONICS))
+=======
+			if (addl_desc_ptr)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 				addl_desc_ptr += addl_desc_ptr[1] + 2;
 
 		}

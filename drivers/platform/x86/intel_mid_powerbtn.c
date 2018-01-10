@@ -78,8 +78,13 @@ static int mfld_pb_probe(struct platform_device *pdev)
 
 	input_set_capability(input, EV_KEY, KEY_POWER);
 
+<<<<<<< HEAD
 	error = request_threaded_irq(irq, NULL, mfld_pb_isr, IRQF_NO_SUSPEND |
 			IRQF_ONESHOT, DRIVER_NAME, input);
+=======
+	error = request_threaded_irq(irq, NULL, mfld_pb_isr, IRQF_NO_SUSPEND,
+			DRIVER_NAME, input);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	if (error) {
 		dev_err(&pdev->dev, "Unable to request irq %d for mfld power"
 				"button\n", irq);

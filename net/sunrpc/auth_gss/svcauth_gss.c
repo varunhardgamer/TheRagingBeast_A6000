@@ -859,8 +859,13 @@ unwrap_integ_data(struct svc_rqst *rqstp, struct xdr_buf *buf, u32 seq, struct g
 		goto out;
 	if (svc_getnl(&buf->head[0]) != seq)
 		goto out;
+<<<<<<< HEAD
 	/* trim off the mic and padding at the end before returning */
 	xdr_buf_trim(buf, round_up_to_quad(mic.len) + 4);
+=======
+	/* trim off the mic at the end before returning */
+	xdr_buf_trim(buf, mic.len + 4);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	stat = 0;
 out:
 	kfree(mic.data);
@@ -1518,7 +1523,11 @@ svcauth_gss_accept(struct svc_rqst *rqstp, __be32 *authp)
 	case RPC_GSS_PROC_DESTROY:
 		if (gss_write_verf(rqstp, rsci->mechctx, gc->gc_seq))
 			goto auth_err;
+<<<<<<< HEAD
 		rsci->h.expiry_time = seconds_since_boot();
+=======
+		rsci->h.expiry_time = get_seconds();
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		set_bit(CACHE_NEGATIVE, &rsci->h.flags);
 		if (resv->iov_len + 4 > PAGE_SIZE)
 			goto drop;

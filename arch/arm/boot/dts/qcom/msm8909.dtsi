@@ -102,7 +102,11 @@
 			linux,reserve-contiguous-region;
 			linux,reserve-region;
 			linux,remove-completely;
+<<<<<<< HEAD
 			reg = <0x0 0x8d500000 0x0 0x0700000>;
+=======
+			reg = <0x0 0x8d500000 0x0 0x0500000>;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			label = "peripheral_mem";
 		};
 

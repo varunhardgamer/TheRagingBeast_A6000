@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * Copyright (c) 2012-2016, The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2012-2015, The Linux Foundation. All rights reserved.
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -206,8 +210,11 @@ struct mdss_mdp_ctl {
 
 	u16 width;
 	u16 height;
+<<<<<<< HEAD
 	u16 border_x_off;
 	u16 border_y_off;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	u32 dst_format;
 	bool is_secure;
 
@@ -471,8 +478,11 @@ struct mdss_mdp_pipe {
 	u8 chroma_sample_h;
 	u8 chroma_sample_v;
 	u8 csc_coeff_set;
+<<<<<<< HEAD
 
 	wait_queue_head_t free_waitq;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 };
 
 struct mdss_mdp_writeback_arg {
@@ -498,7 +508,10 @@ struct mdss_overlay_private {
 	struct list_head overlay_list;
 	struct list_head pipes_used;
 	struct list_head pipes_cleanup;
+<<<<<<< HEAD
 	struct list_head pipes_destroy;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	struct list_head rot_proc_list;
 	bool mixer_swap;
 
@@ -737,6 +750,7 @@ static inline bool mdss_mdp_ctl_is_power_on_lp(struct mdss_mdp_ctl *ctl)
 static inline u32 left_lm_w_from_mfd(struct msm_fb_data_type *mfd)
 {
 	struct mdss_mdp_ctl *ctl = mfd_to_ctl(mfd);
+<<<<<<< HEAD
 	struct mdss_panel_info *pinfo = mfd->panel_info;
 	int width = 0;
 
@@ -749,6 +763,9 @@ static inline u32 left_lm_w_from_mfd(struct msm_fb_data_type *mfd)
 			width);
 	}
 	return width;
+=======
+	return (ctl && ctl->mixer_left) ? ctl->mixer_left->width : 0;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static inline uint8_t pp_vig_csc_pipe_val(struct mdss_mdp_pipe *pipe)
@@ -920,8 +937,11 @@ struct mdss_mdp_pipe *mdss_mdp_pipe_search(struct mdss_data_type *mdata,
 int mdss_mdp_pipe_map(struct mdss_mdp_pipe *pipe);
 void mdss_mdp_pipe_unmap(struct mdss_mdp_pipe *pipe);
 struct mdss_mdp_pipe *mdss_mdp_pipe_alloc_dma(struct mdss_mdp_mixer *mixer);
+<<<<<<< HEAD
 int mdss_mdp_get_pipe_info(struct mdss_data_type *mdata, u32 type,
 	struct mdss_mdp_pipe **pipe_pool);
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 u32 mdss_mdp_smp_calc_num_blocks(struct mdss_mdp_pipe *pipe);
 u32 mdss_mdp_smp_get_size(struct mdss_mdp_pipe *pipe, u32 num_planes);
@@ -999,6 +1019,9 @@ int mdss_mdp_wb_set_secure(struct msm_fb_data_type *mfd, int enable);
 int mdss_mdp_wb_get_secure(struct msm_fb_data_type *mfd, uint8_t *enable);
 void mdss_mdp_ctl_restore(void);
 int  mdss_mdp_ctl_reset(struct mdss_mdp_ctl *ctl);
+<<<<<<< HEAD
 int mdss_mdp_user_pcc_config(struct mdp_pcc_cfg_data *config);
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #endif /* MDSS_MDP_H */

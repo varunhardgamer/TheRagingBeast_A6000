@@ -507,7 +507,11 @@ el0_inv:
 	mov	x0, sp
 	mov	x1, #BAD_SYNC
 	mrs	x2, esr_el1
+<<<<<<< HEAD
 	b	bad_el0_sync
+=======
+	b	bad_mode
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 ENDPROC(el0_sync)
 
 	.align	6

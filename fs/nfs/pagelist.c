@@ -60,8 +60,13 @@ EXPORT_SYMBOL_GPL(nfs_pgheader_init);
 void nfs_set_pgio_error(struct nfs_pgio_header *hdr, int error, loff_t pos)
 {
 	spin_lock(&hdr->lock);
+<<<<<<< HEAD
 	if (!test_and_set_bit(NFS_IOHDR_ERROR, &hdr->flags)
 	    || pos < hdr->io_start + hdr->good_bytes) {
+=======
+	if (pos < hdr->io_start + hdr->good_bytes) {
+		set_bit(NFS_IOHDR_ERROR, &hdr->flags);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		clear_bit(NFS_IOHDR_EOF, &hdr->flags);
 		hdr->good_bytes = pos - hdr->io_start;
 		hdr->error = error;

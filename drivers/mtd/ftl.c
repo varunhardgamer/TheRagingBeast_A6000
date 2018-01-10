@@ -1075,6 +1075,10 @@ static void ftl_add_mtd(struct mtd_blktrans_ops *tr, struct mtd_info *mtd)
 			return;
 	}
 
+<<<<<<< HEAD
+=======
+	ftl_freepart(partition);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	kfree(partition);
 }
 

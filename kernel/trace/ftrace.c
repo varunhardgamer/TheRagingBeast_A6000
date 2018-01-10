@@ -331,12 +331,20 @@ static void update_ftrace_function(void)
 		func = ftrace_ops_list_func;
 	}
 
+<<<<<<< HEAD
 	update_function_graph_func();
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/* If there's no change, then do nothing more here */
 	if (ftrace_trace_function == func)
 		return;
 
+<<<<<<< HEAD
+=======
+	update_function_graph_func();
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	/*
 	 * If we are using the list function, it doesn't care
 	 * about the function_trace_ops.

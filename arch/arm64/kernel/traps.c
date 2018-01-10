@@ -374,6 +374,7 @@ asmlinkage long do_ni_syscall(struct pt_regs *regs)
 }
 
 /*
+<<<<<<< HEAD
  * bad_mode handles the impossible case in the exception vector. This is always
  * fatal.
  */
@@ -395,12 +396,23 @@ asmlinkage void bad_mode(struct pt_regs *regs, int reason, unsigned int esr)
  */
 asmlinkage void bad_el0_sync(struct pt_regs *regs, int reason, unsigned int esr)
 {
+=======
+ * bad_mode handles the impossible case in the exception vector.
+ */
+asmlinkage void bad_mode(struct pt_regs *regs, int reason, unsigned int esr)
+{
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	siginfo_t info;
 	void __user *pc = (void __user *)instruction_pointer(regs);
 	console_verbose();
 
+<<<<<<< HEAD
 	pr_crit("Bad EL0 synchronous exception detected on CPU%d, code 0x%08x\n",
 		smp_processor_id(), esr);
+=======
+	pr_crit("Bad mode in %s handler detected, code 0x%08x\n",
+		handler[reason], esr);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	__show_regs(regs);
 
 	info.si_signo = SIGILL;
@@ -414,7 +426,11 @@ asmlinkage void bad_el0_sync(struct pt_regs *regs, int reason, unsigned int esr)
 		arm64_erp_local_dbe_handler();
 	}
 
+<<<<<<< HEAD
 	force_sig_info(info.si_signo, &info, current);
+=======
+	arm64_notify_die("Oops - bad mode", regs, &info, 0);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 void __pte_error(const char *file, int line, unsigned long val)

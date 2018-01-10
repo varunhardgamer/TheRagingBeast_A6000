@@ -386,6 +386,7 @@ YAMAHA_DEVICE(0x105d, NULL),
 	}
 },
 {
+<<<<<<< HEAD
 	USB_DEVICE(0x0499, 0x1509),
 	.driver_info = (unsigned long) & (const struct snd_usb_audio_quirk) {
 		/* .vendor_name = "Yamaha", */
@@ -416,6 +417,8 @@ YAMAHA_DEVICE(0x105d, NULL),
 	}
 },
 {
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	USB_DEVICE(0x0499, 0x150a),
 	.driver_info = (unsigned long) & (const struct snd_usb_audio_quirk) {
 		/* .vendor_name = "Yamaha", */
@@ -2773,6 +2776,7 @@ YAMAHA_DEVICE(0x7010, "UB99"),
 	}
 },
 
+<<<<<<< HEAD
 /* Steinberg devices */
 {
 	/* Steinberg MI2 */
@@ -2841,6 +2845,8 @@ YAMAHA_DEVICE(0x7010, "UB99"),
 	}
 },
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /* TerraTec devices */
 {
 	USB_DEVICE_VENDOR_SPEC(0x0ccd, 0x0012),
@@ -3041,6 +3047,7 @@ YAMAHA_DEVICE(0x7010, "UB99"),
 	.idProduct = 0x1020,
 },
 
+<<<<<<< HEAD
 /* QinHeng devices */
 {
 	USB_DEVICE(0x1a86, 0x752d),
@@ -3052,6 +3059,8 @@ YAMAHA_DEVICE(0x7010, "UB99"),
 	}
 },
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 /* KeithMcMillen Stringport */
 {
 	USB_DEVICE(0x1f38, 0x0001),

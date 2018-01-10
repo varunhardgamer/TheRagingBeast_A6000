@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2012-2014, 2016 The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2012-2014, The Linux Foundation. All rights reserved.
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -152,6 +156,7 @@ struct avcs_cmdrsp_get_license_validation_result {
 	/* Length in bytes of the result that follows this structure*/
 };
 
+<<<<<<< HEAD
 /* Set Q6 topologies */
 /*
  *	Registers custom topologies in the aDSP for
@@ -245,4 +250,9 @@ enum q6_subsys_image {
 };
 enum q6_subsys_image q6core_get_avs_version(void);
 int core_get_adsp_ver(void);
+=======
+int32_t core_set_license(uint32_t key, uint32_t module_id);
+int32_t core_get_license_status(uint32_t module_id);
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #endif /* __Q6CORE_H__ */

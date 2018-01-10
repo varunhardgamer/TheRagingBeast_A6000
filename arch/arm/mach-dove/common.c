@@ -226,7 +226,11 @@ void __init dove_init_early(void)
 	orion_time_set_base(TIMER_VIRT_BASE);
 	mvebu_mbus_init("marvell,dove-mbus",
 			BRIDGE_WINS_BASE, BRIDGE_WINS_SZ,
+<<<<<<< HEAD
 			DOVE_MC_WINS_BASE, DOVE_MC_WINS_SZ, 0);
+=======
+			DOVE_MC_WINS_BASE, DOVE_MC_WINS_SZ);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 
 static int __init dove_find_tclk(void)

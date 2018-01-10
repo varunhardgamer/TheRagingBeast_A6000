@@ -68,4 +68,7 @@ obj-$(CONFIG_QPNP_MISC) += qpnp-misc.o
 obj-$(CONFIG_QCOM_LIQUID_DOCK)	+= qcom_liquid_dock.o
 obj-y				+= qcom/
 obj-$(CONFIG_UID_CPUTIME) 	+= uid_cputime.o
+<<<<<<< HEAD
 obj-y				+= hardware_info.o
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c

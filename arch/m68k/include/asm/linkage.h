@@ -4,6 +4,7 @@
 #define __ALIGN .align 4
 #define __ALIGN_STR ".align 4"
 
+<<<<<<< HEAD
 /*
  * Make sure the compiler doesn't do anything stupid with the
  * arguments on the stack - they are owned by the *caller*, not
@@ -34,4 +35,6 @@
 	__asmlinkage_protect_n(ret, "m" (arg1), "m" (arg2), "m" (arg3), \
 			      "m" (arg4), "m" (arg5), "m" (arg6))
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #endif

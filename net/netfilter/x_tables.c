@@ -435,6 +435,7 @@ int xt_check_match(struct xt_mtchk_param *par,
 }
 EXPORT_SYMBOL_GPL(xt_check_match);
 
+<<<<<<< HEAD
 /** xt_check_entry_match - check that matches end before start of target
  *
  * @match: beginning of xt_entry_match
@@ -476,6 +477,8 @@ static int xt_check_entry_match(const char *match, const char *target,
 	return 0;
 }
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #ifdef CONFIG_COMPAT
 int xt_compat_add_offset(u_int8_t af, unsigned int offset, int delta)
 {
@@ -545,14 +548,22 @@ int xt_compat_match_offset(const struct xt_match *match)
 }
 EXPORT_SYMBOL_GPL(xt_compat_match_offset);
 
+<<<<<<< HEAD
 void xt_compat_match_from_user(struct xt_entry_match *m, void **dstptr,
 			       unsigned int *size)
+=======
+int xt_compat_match_from_user(struct xt_entry_match *m, void **dstptr,
+			      unsigned int *size)
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 {
 	const struct xt_match *match = m->u.kernel.match;
 	struct compat_xt_entry_match *cm = (struct compat_xt_entry_match *)m;
 	int pad, off = xt_compat_match_offset(match);
 	u_int16_t msize = cm->u.user.match_size;
+<<<<<<< HEAD
 	char name[sizeof(m->u.user.name)];
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	m = *dstptr;
 	memcpy(m, cm, sizeof(*cm));
@@ -566,12 +577,19 @@ void xt_compat_match_from_user(struct xt_entry_match *m, void **dstptr,
 
 	msize += off;
 	m->u.user.match_size = msize;
+<<<<<<< HEAD
 	strlcpy(name, match->name, sizeof(name));
 	module_put(match->me);
 	strncpy(m->u.user.name, name, sizeof(m->u.user.name));
 
 	*size += off;
 	*dstptr += msize;
+=======
+
+	*size += off;
+	*dstptr += msize;
+	return 0;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 }
 EXPORT_SYMBOL_GPL(xt_compat_match_from_user);
 
@@ -602,6 +620,7 @@ int xt_compat_match_to_user(const struct xt_entry_match *m,
 	return 0;
 }
 EXPORT_SYMBOL_GPL(xt_compat_match_to_user);
+<<<<<<< HEAD
 
 /* non-compat version may have padding after verdict */
 struct compat_xt_standard_target {
@@ -721,6 +740,10 @@ int xt_check_entry_offsets(const void *base,
 }
 EXPORT_SYMBOL(xt_check_entry_offsets);
 
+=======
+#endif /* CONFIG_COMPAT */
+
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 int xt_check_target(struct xt_tgchk_param *par,
 		    unsigned int size, u_int8_t proto, bool inv_proto)
 {
@@ -771,6 +794,7 @@ int xt_check_target(struct xt_tgchk_param *par,
 }
 EXPORT_SYMBOL_GPL(xt_check_target);
 
+<<<<<<< HEAD
 /**
  * xt_copy_counters_from_user - copy counters and metadata from userspace
  *
@@ -845,6 +869,8 @@ void *xt_copy_counters_from_user(const void __user *user, unsigned int len,
 }
 EXPORT_SYMBOL_GPL(xt_copy_counters_from_user);
 
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 #ifdef CONFIG_COMPAT
 int xt_compat_target_offset(const struct xt_target *target)
 {
@@ -860,7 +886,10 @@ void xt_compat_target_from_user(struct xt_entry_target *t, void **dstptr,
 	struct compat_xt_entry_target *ct = (struct compat_xt_entry_target *)t;
 	int pad, off = xt_compat_target_offset(target);
 	u_int16_t tsize = ct->u.user.target_size;
+<<<<<<< HEAD
 	char name[sizeof(t->u.user.name)];
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	t = *dstptr;
 	memcpy(t, ct, sizeof(*ct));
@@ -874,9 +903,12 @@ void xt_compat_target_from_user(struct xt_entry_target *t, void **dstptr,
 
 	tsize += off;
 	t->u.user.target_size = tsize;
+<<<<<<< HEAD
 	strlcpy(name, target->name, sizeof(name));
 	module_put(target->me);
 	strncpy(t->u.user.name, name, sizeof(t->u.user.name));
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	*size += off;
 	*dstptr += tsize;
@@ -916,10 +948,13 @@ struct xt_table_info *xt_alloc_table_info(unsigned int size)
 {
 	struct xt_table_info *newinfo;
 	int cpu;
+<<<<<<< HEAD
 	size_t sz = sizeof(*newinfo) + size;
 
 	if (sz < sizeof(*newinfo))
 		return NULL;
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	/* Pedantry: prevent them from hitting BUG() in vmalloc.c --RR */
 	if ((SMP_ALIGN(size) >> PAGE_SHIFT) + 2 > totalram_pages)

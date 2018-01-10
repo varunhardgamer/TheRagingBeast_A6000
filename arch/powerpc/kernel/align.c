@@ -25,7 +25,10 @@
 #include <asm/cputable.h>
 #include <asm/emulated_ops.h>
 #include <asm/switch_to.h>
+<<<<<<< HEAD
 #include <asm/disassemble.h>
+=======
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 struct aligninfo {
 	unsigned char len;
@@ -765,6 +768,7 @@ int fix_alignment(struct pt_regs *regs)
 	nb = aligninfo[instr].len;
 	flags = aligninfo[instr].flags;
 
+<<<<<<< HEAD
 	/*
 	 * Handle some cases which give overlaps in the DSISR values.
 	 */
@@ -784,6 +788,16 @@ int fix_alignment(struct pt_regs *regs)
 		case 276:	/* lqarx */
 			return 0;	/* not emulated ever */
 		}
+=======
+	/* ldbrx/stdbrx overlap lfs/stfs in the DSISR unfortunately */
+	if (IS_XFORM(instruction) && ((instruction >> 1) & 0x3ff) == 532) {
+		nb = 8;
+		flags = LD+SW;
+	} else if (IS_XFORM(instruction) &&
+		   ((instruction >> 1) & 0x3ff) == 660) {
+		nb = 8;
+		flags = ST+SW;
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 	}
 
 	/* Byteswap little endian loads and stores */

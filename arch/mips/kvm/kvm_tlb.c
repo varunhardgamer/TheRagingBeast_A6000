@@ -182,7 +182,11 @@ static int kvm_mips_map_page(struct kvm *kvm, gfn_t gfn)
         srcu_idx = srcu_read_lock(&kvm->srcu);
 	pfn = kvm_mips_gfn_to_pfn(kvm, gfn);
 
+<<<<<<< HEAD
 	if (is_error_noslot_pfn(pfn)) {
+=======
+	if (kvm_mips_is_error_pfn(pfn)) {
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		kvm_err("Couldn't get pfn for gfn %#" PRIx64 "!\n", gfn);
 		err = -EFAULT;
 		goto out;
@@ -312,7 +316,11 @@ int kvm_mips_handle_kseg0_tlb_fault(unsigned long badvaddr,
 	}
 
 	gfn = (KVM_GUEST_CPHYSADDR(badvaddr) >> PAGE_SHIFT);
+<<<<<<< HEAD
 	if ((gfn | 1) >= kvm->arch.guest_pmap_npages) {
+=======
+	if (gfn >= kvm->arch.guest_pmap_npages) {
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 		kvm_err("%s: Invalid gfn: %#llx, BadVaddr: %#lx\n", __func__,
 			gfn, badvaddr);
 		kvm_mips_dump_host_tlbs();
@@ -397,6 +405,7 @@ kvm_mips_handle_mapped_seg_tlb_fault(struct kvm_vcpu *vcpu,
 	unsigned long entryhi = 0, entrylo0 = 0, entrylo1 = 0;
 	struct kvm *kvm = vcpu->kvm;
 	pfn_t pfn0, pfn1;
+<<<<<<< HEAD
 	gfn_t gfn0, gfn1;
 	long tlb_lo[2];
 
@@ -429,6 +438,23 @@ kvm_mips_handle_mapped_seg_tlb_fault(struct kvm_vcpu *vcpu,
 
 	pfn0 = kvm->arch.guest_pmap[gfn0];
 	pfn1 = kvm->arch.guest_pmap[gfn1];
+=======
+
+
+	if ((tlb->tlb_hi & VPN2_MASK) == 0) {
+		pfn0 = 0;
+		pfn1 = 0;
+	} else {
+		if (kvm_mips_map_page(kvm, mips3_tlbpfn_to_paddr(tlb->tlb_lo0) >> PAGE_SHIFT) < 0)
+			return -1;
+
+		if (kvm_mips_map_page(kvm, mips3_tlbpfn_to_paddr(tlb->tlb_lo1) >> PAGE_SHIFT) < 0)
+			return -1;
+
+		pfn0 = kvm->arch.guest_pmap[mips3_tlbpfn_to_paddr(tlb->tlb_lo0) >> PAGE_SHIFT];
+		pfn1 = kvm->arch.guest_pmap[mips3_tlbpfn_to_paddr(tlb->tlb_lo1) >> PAGE_SHIFT];
+	}
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 	if (hpa0)
 		*hpa0 = pfn0 << PAGE_SHIFT;
@@ -440,9 +466,15 @@ kvm_mips_handle_mapped_seg_tlb_fault(struct kvm_vcpu *vcpu,
 	entryhi = (tlb->tlb_hi & VPN2_MASK) | (KVM_GUEST_KERNEL_MODE(vcpu) ?
 			kvm_mips_get_kernel_asid(vcpu) : kvm_mips_get_user_asid(vcpu));
 	entrylo0 = mips3_paddr_to_tlbpfn(pfn0 << PAGE_SHIFT) | (0x3 << 3) |
+<<<<<<< HEAD
 			(tlb_lo[0] & MIPS3_PG_D) | (tlb_lo[0] & MIPS3_PG_V);
 	entrylo1 = mips3_paddr_to_tlbpfn(pfn1 << PAGE_SHIFT) | (0x3 << 3) |
 			(tlb_lo[1] & MIPS3_PG_D) | (tlb_lo[1] & MIPS3_PG_V);
+=======
+			(tlb->tlb_lo0 & MIPS3_PG_D) | (tlb->tlb_lo0 & MIPS3_PG_V);
+	entrylo1 = mips3_paddr_to_tlbpfn(pfn1 << PAGE_SHIFT) | (0x3 << 3) |
+			(tlb->tlb_lo1 & MIPS3_PG_D) | (tlb->tlb_lo1 & MIPS3_PG_V);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 
 #ifdef DEBUG
 	kvm_debug("@ %#lx tlb_lo0: 0x%08lx tlb_lo1: 0x%08lx\n", vcpu->arch.pc,
@@ -926,6 +958,7 @@ uint32_t kvm_get_inst(uint32_t *opc, struct kvm_vcpu *vcpu)
 				local_irq_restore(flags);
 				return KVM_INVALID_INST;
 			}
+<<<<<<< HEAD
 			if (kvm_mips_handle_mapped_seg_tlb_fault(vcpu,
 						&vcpu->arch.guest_tlb[index],
 						NULL, NULL)) {
@@ -936,6 +969,12 @@ uint32_t kvm_get_inst(uint32_t *opc, struct kvm_vcpu *vcpu)
 				local_irq_restore(flags);
 				return KVM_INVALID_INST;
 			}
+=======
+			kvm_mips_handle_mapped_seg_tlb_fault(vcpu,
+							     &vcpu->arch.
+							     guest_tlb[index],
+							     NULL, NULL);
+>>>>>>> 146ce814822a0d5a65e6449572d9afc6e6c08b7c
 			inst = *(opc);
 		}
 		local_irq_restore(flags);
