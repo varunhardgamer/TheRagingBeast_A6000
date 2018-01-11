@@ -52,6 +52,16 @@ static bool enable_PowerManagerServiceDisplay_ws = false;
 module_param(enable_PowerManagerServiceDisplay_ws, bool, 0644);
 static bool enable_PowerManagerServiceWakelocks_ws = false;
 module_param(enable_PowerManagerServiceWakelocks_ws, bool, 0644);
+static bool enable_msm_otg_ws = false;
+module_param(enable_msm_otg_ws, bool, 0644);
+static bool enable_netmgr_wl_ws = false;
+module_param(enable_netmgr_wl_ws, bool, 0644);
+static bool enable_video1_ws = false;
+module_param(enable_video1_ws, bool, 0644);
+static bool enable_qpnp-vm-bms-9_ws = false;
+module_param(enable_qpnp-vm-bms-9_ws, bool, 0644);
+
+
 
 #include "power.h"
 
@@ -504,11 +514,19 @@ static bool wakeup_source_blocker(struct wakeup_source *ws)
                                 !strncmp(ws->name, "ps_wakelock", wslen)) ||
                         (!enable_ps_ws &&
                                 !strncmp(ws->name, "ps", wslen)) ||
+                        (!enable_msm_otg_ws &&
+                                !strncmp(ws->name, "msm_otg", wslen)) ||
+                        (!enable_netmgr_wl_ws &&
+                                !strncmp(ws->name, "netmgr_wl", wslen)) ||
+                        (!enable_video1_ws &&
+                                !strncmp(ws->name, "video1", wslen)) ||
+                        (!enable_qpnp-vm-bms-9_ws &&
+                                !strncmp(ws->name, "qpnp-vm-bms-9", wslen)) ||
                         (!enable_bam_dmux_wakelock_ws &&
                                 !strncmp(ws->name, "bam_dmux_wakelock", wslen)) ||
                         (!enable_PowerManagerServiceDisplay_ws &&
                                 !strncmp(ws->name, "PowerManagerService.Display", wslen)) ||
-		        (!enable_PowerManagerServiceWakelocks_ws &&
+                        (!enable_PowerManagerServiceWakelocks_ws &&
 			        !strncmp(ws->name, "PowerManagerService.Wakelocks", wslen)) ||
 			(!enable_timerfd_ws &&
 				!strncmp(ws->name, "[timerfd]", wslen)) ||
