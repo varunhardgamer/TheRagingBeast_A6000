@@ -58,10 +58,12 @@ static bool enable_netmgr_wl_ws = false;
 module_param(enable_netmgr_wl_ws, bool, 0644);
 static bool enable_video1_ws = false;
 module_param(enable_video1_ws, bool, 0644);
-static bool enable_qpnp-vm-bms-9_ws = false;
-module_param(enable_qpnp-vm-bms-9_ws, bool, 0644);
-
-
+static bool enable_qpnpvmbms9_ws = false;
+module_param(enable_qpnpvmbms9_ws, bool, 0644);
+static bool enable_radiointerface_ws = false;
+module_param(enable_radiointerface_ws, bool, 0644);
+static bool enable_qcom_rx_wakelock_ws = false;
+module_param(enable_qcom_rx_wakelock_ws, bool, 0644);
 
 #include "power.h"
 
@@ -520,8 +522,12 @@ static bool wakeup_source_blocker(struct wakeup_source *ws)
                                 !strncmp(ws->name, "netmgr_wl", wslen)) ||
                         (!enable_video1_ws &&
                                 !strncmp(ws->name, "video1", wslen)) ||
-                        (!enable_qpnp-vm-bms-9_ws &&
+                        (!enable_qpnpvmbms9_ws &&
                                 !strncmp(ws->name, "qpnp-vm-bms-9", wslen)) ||
+                        (!enable_radiointerface_ws &&
+                                !strncmp(ws->name, "radio-interface", wslen)) ||
+                        (!enable_qcom_rx_wakelock_ws &&
+                                !strncmp(ws->name, "qcom_rx_wakelock", wslen)) ||
                         (!enable_bam_dmux_wakelock_ws &&
                                 !strncmp(ws->name, "bam_dmux_wakelock", wslen)) ||
                         (!enable_PowerManagerServiceDisplay_ws &&
