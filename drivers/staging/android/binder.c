@@ -3256,6 +3256,7 @@ static void binder_transaction(struct binder_proc *proc,
 	list_add_tail(&t->work.entry, target_list);
 	tcomplete->type = BINDER_WORK_TRANSACTION_COMPLETE;
 	list_add_tail(&tcomplete->entry, &thread->todo);
+<<<<<<< HEAD
 	if (target_wait) {
 		if (reply || !(t->flags & TF_ONE_WAY)) {
 			preempt_disable();
@@ -3266,6 +3267,10 @@ static void binder_transaction(struct binder_proc *proc,
 		}
 	}
 >>>>>>> 8f17a27... android: binder: Use wake up hint for synchronous transactions.
+=======
+	if (target_wait)
+		wake_up_interruptible(target_wait);
+>>>>>>> parent of 8f17a27... android: binder: Use wake up hint for synchronous transactions.
 	return;
 
 err_dead_proc_or_thread:
